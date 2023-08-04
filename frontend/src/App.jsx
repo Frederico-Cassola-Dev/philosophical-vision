@@ -1,40 +1,51 @@
-import Counter from "./components/Counter";
-import logo from "./assets/logo.svg";
+import { Link } from "react-router-dom";
 
-import "./App.css";
+import "./scss/styles.scss";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React !</p>
-
-        <Counter />
-
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
+    <div className="app">
+      <header>
+        <nav>
+          <Link to="/signup" className="link">
+            Sign-Up
+          </Link>
+          <Link to="/signin" className="link">
+            Sign-in
+          </Link>
+        </nav>
       </header>
+      <main>
+        <div className="title-container">
+          <h1 className="title">This is the title</h1>
+        </div>
+        <section className="description-section">
+          <p className="description-text">This is the description</p>
+        </section>
+        <section className="random-phrases-section">
+          <p className="phrase">This is the phrase 1</p>
+          <p className="phrase">This is the phrase 2</p>
+          <p className="phrase">This is the phrase 3</p>
+          <p className="phrase">This is the phrase 4</p>
+          <p className="phrase">This is the phrase 5</p>
+        </section>
+      </main>
+      <footer>
+        <ul>
+          <li>
+            <a href="#Facebook">Facebook</a>
+          </li>
+          <li>
+            <a href="#Instagram">Instagram</a>
+          </li>
+          <li>
+            <a href="#LinkedIn">LinkedIn</a>
+          </li>
+          <li>
+            <a href="#GitHub">GitHub</a>
+          </li>
+        </ul>
+      </footer>
     </div>
   );
 }

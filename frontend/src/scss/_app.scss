@@ -1,0 +1,22 @@
+.app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    nav {
+      .link {
+        margin-right: 1.5rem;
+      }
+    }
+  }
+
+  main{
+    flex-grow: 1;
+  }
+}
