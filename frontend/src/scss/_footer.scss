@@ -1,0 +1,24 @@
+@import "../scss/variables";
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100vw;
+  height: 8vh;
+  border-top: 1px solid $color-text-hover;
+
+  .social-list {
+    display: inherit;
+    list-style: none;
+
+    .social-item-list {
+      margin-right: $space-m;
+
+      a {
+        color: $color-text-primary;
+        text-decoration: none;
+      }
+    }
+  }
+}

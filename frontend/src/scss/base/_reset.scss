@@ -1,5 +1,4 @@
 @charset "utf-8";
-@use "mixins" as *;
 
 /** @section Elements in general */
 
@@ -42,7 +41,6 @@ button {
  */
 html {
   font-size: 62.5%;
-  @include css-text-size-adjust(100%); /* [1] */
 }
 body {
   font-size: 100%;
@@ -130,7 +128,7 @@ details summary {
  * [2] Default appearance removal on mobile OSs
  * @css-for Safari iOS
  *
- * [3] Inheritance of the field colour
+ * [3] Inheritance of the field color
  * @css-for Safari, Google Chrome
  *
  * [4] Removal of the opacity as applied by default (to enhance the contrast)
