@@ -1,47 +1,27 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Logged from "./pages/Logged";
+
 import "./scss/styles.scss";
 
 function App() {
   return (
     <div className="app">
-      <Header />
-      <main className="main">
-        <div className="title-container">
-          <h1 className="title">Philosophical Vision</h1>
-        </div>
-        <section className="description-section">
-          <p className="description-text">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora
-            mollitia ut voluptas minima deleniti atque, dolorem harum animi cum
-            distinctio eos expedita esse repudiandae? Fuga amet neque autem
-            possimus doloremque.
-          </p>
-        </section>
-        <section className="random-phrases-section">
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-        </section>
-      </main>
-      <Footer />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="logged" element={<Logged />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }

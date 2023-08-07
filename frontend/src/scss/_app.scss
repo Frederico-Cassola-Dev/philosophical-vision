@@ -1,48 +1,12 @@
 @import "./variables.scss";
 
 .app {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  // flex-direction: column;
+  // height: 100vh;
   font-family: $primary-font;
   color: $color-text-primary;
   background-color: $color-background-primary;
-
-  .main {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    flex-grow: 1;
-
-    .title-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: $space-xs;
-      margin-bottom: $space-xs;
-      width: 100%;
-
-      .title {
-        font-family: $title-font;
-        font-weight: $font-weight-normal;
-        font-size: $font-size-5xl;
-      }
-    }
-
-    .description-section {
-      width: 80vw;
-      font-family: $primary-font;
-      margin-bottom: $space-xl;
-    }
-
-    .random-phrases-section{
-      font-weight: $font-weight-bolt;
-      .phrase{
-        margin-bottom: $space-m;
-      }
-    }
-  }
 }

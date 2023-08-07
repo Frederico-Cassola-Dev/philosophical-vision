@@ -7,6 +7,9 @@
   width: 100vw;
   height: 8vh;
   border-top: 1px solid $color-text-hover;
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
 
   .social-list {
     display: inherit;
