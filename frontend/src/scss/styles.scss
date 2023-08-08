@@ -1,10 +1,10 @@
 @use "./variables";
 @use "./base/reset";
 
-
-@use "./home";
-@use "./signUp";
-@use "./signIn";
-@use "./logged";
-@use "./header";
-@use "./footer";
+@use "../app";
+@use "../pages/home/home";
+@use "../pages/sign-in/signIn";
+@use "../pages/sign-up/signUp";
+@use "../pages/logged/logged";
+@use "../layouts/header-layout/components/header";
+@use "../layouts/footer-layout//components/footer";
