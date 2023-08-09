@@ -27,6 +27,7 @@
     text-decoration: none;
 
     &:hover {
+      color: $color-primary-active;
       background-color: $color-text-hover;
     }
   }

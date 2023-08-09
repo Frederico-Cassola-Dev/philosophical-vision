@@ -27,10 +27,18 @@
       .title {
         font-family: $title-font;
         font-weight: $font-weight-normal;
-        font-size: $font-size-5xl;
+        font-size: $font-size-4xl;
 
         img {
           width: 70px;
+          margin-bottom: $space-xs;
+          margin-left: $space-2xs ;
+        }
+        .sub-title{
+          font-family: $primary-font;
+          font-size: $font-size-5xl;
+          margin-left: $space-2xs;
+
         }
       }
     }
@@ -39,6 +47,11 @@
       width: 80vw;
       font-family: $primary-font;
       margin-bottom: $space-xl;
+
+      .description-text{
+        text-align: center;
+        font-size: $font-size-l;
+      }
     }
 
     .random-phrases-section {

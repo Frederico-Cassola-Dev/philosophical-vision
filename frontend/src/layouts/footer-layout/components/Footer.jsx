@@ -4,7 +4,7 @@ import LinkedInIcon from "../../../assets/svg/LinkedInIcon";
 import GitHubIcon from "../../../assets/svg/GitHubIcon";
 import EmailIcon from "../../../assets/svg/EmailIcon";
 
-function Footer() {
+export default function Footer() {
   return (
     <footer className="footer">
       <ul className="social-list">
@@ -38,5 +38,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;
