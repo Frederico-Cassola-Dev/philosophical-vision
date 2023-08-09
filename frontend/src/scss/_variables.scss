@@ -1,11 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway:wght@400;700&display=swap");
 
 /*---Font---*/
-$primary-font: "Raleway",
-  Helvetica,
-  Arial,
-  sans-serif;
-$title-font: 'Pacifico', cursive;
+$primary-font: "Raleway", Helvetica, Arial, sans-serif;
+$title-font: "Pacifico", cursive;
 
 $font-weight-normal: 400;
 $font-weight-bolt: 700;
@@ -27,7 +24,6 @@ $font-size-3xs: 0.55rem;
 // $color-default: #2d3142;
 
 $color-background-primary: #111827;
-$color-background-secondary: #111827;
 $color-text-primary: #fff;
 $color-text-hover: #94a3b8;
 $color-primary-active: #4f5d75;
@@ -40,7 +36,6 @@ $border-radius-xl: 30px;
 $border-radius-l: 20px;
 $border-radius-m: 10px;
 $border-radius-s: 5px;
-
 
 /*---Spacing---*/
 $space-3xl: 100px;

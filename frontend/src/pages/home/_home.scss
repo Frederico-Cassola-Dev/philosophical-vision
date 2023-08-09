@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  height: 85.9vh;
+  height: 83.9vh;
   font-family: $primary-font;
   color: $color-text-primary;
   background-color: $color-background-primary;
@@ -15,7 +15,6 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    flex-grow: 1;
 
     .title-container {
       display: flex;
@@ -29,6 +28,10 @@
         font-family: $title-font;
         font-weight: $font-weight-normal;
         font-size: $font-size-5xl;
+
+        img {
+          width: 70px;
+        }
       }
     }
 
@@ -38,9 +41,10 @@
       margin-bottom: $space-xl;
     }
 
-    .random-phrases-section{
+    .random-phrases-section {
       font-weight: $font-weight-bolt;
-      .phrase{
+
+      .phrase {
         margin-bottom: $space-m;
       }
     }

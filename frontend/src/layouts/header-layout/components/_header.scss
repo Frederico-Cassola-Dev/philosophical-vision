@@ -2,13 +2,19 @@
 
 .header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   width: 100vw;
-  height: 6vh;
+  height: 8vh;
   font-family: $primary-font;
   color: $color-text-primary;
   background-color: $color-background-primary;
+
+  .logo-container {
+    width: 65px;
+    height: auto;
+    margin-left: $space-xs;
+  }
 
   .link {
     font-size: $font-size-l;

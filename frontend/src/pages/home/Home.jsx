@@ -1,9 +1,15 @@
+// import singleLogo from "../../assets/logo/single_logo.png";
+
 function Home() {
   return (
     <div className="home">
       <main className="main">
         <div className="title-container">
-          <h1 className="title">Philosophical Vision</h1>
+          <h1 className="title">
+            Philosophical
+            {/* <img src={singleLogo} alt="logo" /> */}
+            Vision
+          </h1>
         </div>
         <section className="description-section">
           <p className="description-text">
