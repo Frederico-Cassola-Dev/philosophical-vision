@@ -13,9 +13,8 @@ export default function Home() {
         </div>
         <section className="description-section">
           <p className="description-text">
-            This is a site that can give you different philosophical visions
-            from all around the world to common and simple situations of your
-            life.
+            This site offers various philosophical perspectives from around the
+            world, addressing common and everyday situations in your life.
           </p>
         </section>
         <section className="random-phrases-section">
