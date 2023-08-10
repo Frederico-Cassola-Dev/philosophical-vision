@@ -1,4 +1,6 @@
-function SignIn() {
+import { Link } from "react-router-dom";
+
+export default function SignIn() {
   return (
     <div className="sign-in">
       <form action="" className="form-container">
@@ -11,11 +13,11 @@ function SignIn() {
           <input type="password" id="password" />
         </label>
         <div className="submit-button-container">
-          <button type="submit">Submit</button>
+          <Link to="/logged">
+            <button type="button">Submit</button>
+          </Link>
         </div>
       </form>
     </div>
   );
 }
-
-export default SignIn;
