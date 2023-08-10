@@ -16,6 +16,10 @@
     margin-left: $space-xs;
   }
 
+  .hidden-logo {
+    display: none;
+  }
+
   .link {
     font-size: $font-size-l;
     font-weight: $font-weight-bolt;

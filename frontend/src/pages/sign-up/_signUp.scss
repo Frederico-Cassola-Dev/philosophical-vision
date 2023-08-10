@@ -24,18 +24,29 @@
       justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
-      margin-top: $space-s;
       width: 100%;
+      margin-top: $space-m;
 
       input {
         width: 100%;
         height: $space-m;
+        margin-top: $space-2xs;
         border-radius: $border-radius-s;
+        font-weight: $font-weight-bolt;
+
+        &:focus {
+          outline: 2px solid $border-color-active;
+        }
+      }
+
+      &:focus-within {
+        color: $border-color-active;
       }
 
       .input-avatar {
         width: 50vw;
       }
+
     }
 
     .avatar-label-input-container {
