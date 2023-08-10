@@ -1,0 +1,22 @@
+@import "../../scss/variables";
+
+.about-me {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 83.9vh;
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
+
+  .title-container{
+    margin-top: $space-l;
+
+    .title{
+      font-family: $secondary-font;
+      font-size: $font-size-5xl;
+      font-weight: $font-weight-normal;
+    }
+  }
+}

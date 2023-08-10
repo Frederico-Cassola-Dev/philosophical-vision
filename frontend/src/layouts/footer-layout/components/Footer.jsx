@@ -1,12 +1,21 @@
-import FacebookIcon from "../../../assets/svg/FacebookIcon";
-import InstagramIcon from "../../../assets/svg/InstagramIcon";
-import LinkedInIcon from "../../../assets/svg/LinkedInIcon";
-import GitHubIcon from "../../../assets/svg/GitHubIcon";
-import EmailIcon from "../../../assets/svg/EmailIcon";
+import { Link } from "react-router-dom";
+
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  GitHubIcon,
+  EmailIcon,
+} from "../../../assets/svg/social-icons/SocialIcons";
 
 export default function Footer() {
   return (
     <footer className="footer">
+      <Link to="/aboutme" className="about-me-link">
+        <button type="button" className="about-me-button">
+          About me
+        </button>
+      </Link>
       <ul className="social-list">
         <li className="social-item-list">
           <a href="#Facebook">

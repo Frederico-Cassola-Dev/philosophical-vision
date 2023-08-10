@@ -13,11 +13,12 @@
 
   .form-input {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-top: $space-xl;
     width: 70%;
+    height: 100%;
 
     label {
       display: flex;
@@ -31,6 +32,7 @@
         width: 100%;
         height: $space-m;
         margin-top: $space-2xs;
+        padding-left: $space-2xs;
         border-radius: $border-radius-s;
         font-weight: $font-weight-bolt;
 
