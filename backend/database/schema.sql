@@ -23,14 +23,14 @@ create table
         philosophical_current varchar(100) not null,
         start_date INT,
         final_date INT,
+        likes INT DEFAULT 0,
+        dislikes INT DEFAULT 0,
         is_favorite TINYINT default 0
     );
 
 create table
-    like_dislikes (
+    users_phrases (
         id int primary key auto_increment not null,
-        likes int not null,
-        dislikes int not null,
         users_id int,
         phrases_id int,
         FOREIGN KEY(users_id) REFERENCES users(id),
@@ -130,6 +130,8 @@ INSERT into
         philosophical_current,
         start_date,
         final_date,
+        likes,
+        dislikes,
         is_favorite
     )
 VALUES (
@@ -139,6 +141,8 @@ VALUES (
         "Socratic",
         469,
         399,
+        10,
+        3,
         1
     ), (
         "Whereof one cannot speak, thereof one must be silent",
@@ -147,6 +151,8 @@ VALUES (
         "Modern",
         1889,
         1951,
+        3,
+        10,
         0
     ), (
         "I think therefore I am",
@@ -155,6 +161,8 @@ VALUES (
         "Rationalism",
         1596,
         1650,
+        2,
+        0,
         0
     ), (
         "The unexamined life is not worth living",
@@ -163,6 +171,8 @@ VALUES (
         "Socratic",
         469,
         399,
+        0,
+        15,
         0
     ), (
         "The unexamined life is not worth living",
@@ -171,17 +181,14 @@ VALUES (
         "Socratic",
         469,
         399,
+        7,
+        7,
         0
     );
 
 INSERT INTO
-    like_dislikes (
-        likes,
-        dislikes,
-        users_id,
-        phrases_id
-    )
-VALUES (0, 1, 1, 3), (2, 0, 2, 3), (3, 1, 3, 2), (3, 1, 4, 2), (3, 1, 4, 4), (3, 1, 4, 5), (0, 0, 1, 1);
+    users_phrases (users_id, phrases_id)
+VALUES (1, 3), (2, 3), (3, 2), (4, 2), (4, 4), (4, 5), (1, 1);
 
 INSERT INTO categories(theme)
 VALUES ("Social"), ("Dead"), ("Live"), ("Sadness"), ("Joy"), ("Work"), ("Friends"), ("Family"), ("Money");
