@@ -40,7 +40,7 @@ create table
 create table
     categories(
         id int primary key auto_increment not null,
-        theme varchar(249) not null
+        title varchar(249) not null
     );
 
 create table
@@ -190,7 +190,7 @@ INSERT INTO
     users_phrases (users_id, phrases_id)
 VALUES (1, 3), (2, 3), (3, 2), (4, 2), (4, 4), (4, 5), (1, 1);
 
-INSERT INTO categories(theme)
+INSERT INTO categories(title)
 VALUES ("Social"), ("Dead"), ("Live"), ("Sadness"), ("Joy"), ("Work"), ("Friends"), ("Family"), ("Money");
 
 INSERT INTO

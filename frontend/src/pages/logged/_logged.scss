@@ -10,6 +10,10 @@
   font-size: $font-size-l;
 
   .input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     margin-top: $space-l;
 
     input {
@@ -25,9 +29,9 @@
     }
 
     select {
-      width: 45%;
+      width: 70%;
       height: $space-m + 3px;
-      margin-left: $space-m;
+      margin-top: $space-xs;
       padding-left: $space-2xs;
       font-weight: $font-weight-bolt;
       border-radius: $border-radius-s;
