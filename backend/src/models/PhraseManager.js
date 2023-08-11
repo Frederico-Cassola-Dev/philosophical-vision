@@ -29,6 +29,12 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
+  async read4ByCategory() {
+    const [rows] = await this.database.query(`select * from ${this.table}`);
+
+    return rows;
+  }
+
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing phrase
 
