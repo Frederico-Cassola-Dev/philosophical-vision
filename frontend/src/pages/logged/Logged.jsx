@@ -3,6 +3,8 @@ import useRequest from "../../common/hooks/useRequest";
 
 export default function Logged() {
   const [filteredCategory, setFilteredCategory] = useState("");
+  const [openModalCategories, setOpenModalCategories] = useState(false);
+
   const eventsResponse = useRequest({
     method: "get",
     endpoint: "events",
@@ -13,22 +15,40 @@ export default function Logged() {
     endpoint: "categories",
   });
 
-  // const phrasesResponse = useRequest({
-  //   method: "get",
-  //   endpoint: "phrases",
-  // });
+  const handleOpenModalCategories = () => {
+    setOpenModalCategories(true);
+  };
 
   return (
     <div className="logged">
+      <div className={openModalCategories ? "modal-container" : "hidden-modal"}>
+        <div className="content-container-modal">
+          <button type="button" onClick={() => setOpenModalCategories(false)}>
+            X
+          </button>
+          <h2>Events</h2>
+          <div className="list-container">
+            <ul>
+              {eventsResponse?.map((events) => (
+                <li key={events.id}>{events.title}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
       <div className="input-container">
         <input
           type="text"
           onChange={(e) => setFilteredCategory(e.target.value)}
           value={filteredCategory}
-          placeholder="Chose your theme"
+          placeholder="Chose your event"
         />
-        <select name="" id="">
-          <option disabled>Select a life event</option>
+        <select
+          name=""
+          id=""
+          onChange={(event) => handleOpenModalCategories(event.target.value)}
+        >
+          <option>Select a category</option>
           {categoriesResponse?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
@@ -37,14 +57,15 @@ export default function Logged() {
         </select>
       </div>
       <div className="life-event-container">
-        {eventsResponse?.map((item) => (
+        {/* {eventsResponse?.map((item) => (
           <p className="life-event-phrase" key={item.id}>
             {item.title}
           </p>
-        ))}
+        ))} */}
+        <p className="life-event-phrase">life event phrase</p>
       </div>
       <div className="visions-container">
-        {categoriesResponse
+        {/* {categoriesResponse
           ?.filter(
             (category) =>
               category.title.toLowerCase().includes(filteredCategory) ||
@@ -54,8 +75,11 @@ export default function Logged() {
             <p className="vision-phrase" key={item.id}>
               {item.title}
             </p>
-          ))}
-        {/* <p className="vision-phrase">
+          ))} */}
+        <p className="vision-phrase">
+          Bla Bla Bla 1 Bla Bla Bla 1 Bla Bla Bla 1 Bla Bla Bla 1
+        </p>
+        <p className="vision-phrase">
           Bla Bla Bla 2 Bla Bla Bla 2 Bla Bla Bla 2 Bla Bla Bla 2
         </p>
         <p className="vision-phrase">
@@ -63,7 +87,7 @@ export default function Logged() {
         </p>
         <p className="vision-phrase">
           Bla Bla Bla 4 Bla Bla Bla 4 Bla Bla Bla 4 Bla Bla Bla 4
-        </p> */}
+        </p>
       </div>
     </div>
   );
