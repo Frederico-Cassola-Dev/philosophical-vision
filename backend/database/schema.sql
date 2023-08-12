@@ -1,3 +1,5 @@
+-- Active: 1688546505483@@127.0.0.1@3306@philosophical_vision
+
 create table
     users (
         id int primary key auto_increment not null,
@@ -9,23 +11,42 @@ create table
     );
 
 create table
+    categories(
+        id int primary key auto_increment not null,
+        title varchar(249) not null,
+        description VARCHAR(249)
+    );
+
+create table
     events (
         id int primary key auto_increment not null,
-        title varchar(254) not null
+        title varchar(254) not null,
+        category_id INT NOT NULL,
+        FOREIGN KEY(category_id) REFERENCES categories(id)
+    );
+
+create table
+    authors (
+        id int PRIMARY KEY auto_increment not null,
+        known_name varchar(100) not null,
+        firstname varchar(100),
+        lastname varchar(100),
+        period varchar(100) not null,
+        philo_current varchar(100) not null,
+        born_date INT,
+        dead_date INT,
+        era varchar(50) not null
     );
 
 create table
     phrases (
         id int primary key auto_increment not null,
         phrase varchar(254) not null,
-        author varchar(100) not null,
-        period varchar(100) not null,
-        philosophical_current varchar(100) not null,
-        start_date INT,
-        final_date INT,
         likes INT DEFAULT 0,
         dislikes INT DEFAULT 0,
-        is_favorite TINYINT default 0
+        is_favorite TINYINT default 0,
+        authors_id int not null,
+        Foreign Key (authors_id) REFERENCES authors(id)
     );
 
 create table
@@ -38,12 +59,6 @@ create table
     );
 
 create table
-    categories(
-        id int primary key auto_increment not null,
-        title varchar(249) not null
-    );
-
-create table
     events_phrases (
         id int primary key auto_increment not null,
         events_id int,
@@ -52,29 +67,38 @@ create table
         FOREIGN KEY(phrases_id) REFERENCES phrases(id)
     );
 
-create table
-    events_categories (
-        id int primary key auto_increment not null,
-        events_id int,
-        categories_id int,
-        FOREIGN KEY(events_id) REFERENCES events(id),
-        FOREIGN KEY(categories_id) REFERENCES categories(id)
-    );
-
-INSERT into events (title)
+INSERT INTO categories(title, description)
 VALUES (
-        "Je viens de perdre mon travail"
+        "Social",
+        "social bla bla bla"
+    ), (
+        "Dead",
+        "Dead bla bla bla"
+    ), ("Live", "Live bla bla bla"), (
+        "Sadness",
+        "Sadness bla bla bla"
+    ), ("Joy", "Joy bla bla bla"), ("Work", "Work bla bla bla"), (
+        "Friends",
+        "Friends bla bla bla"
+    ), (
+        "Family",
+        "Family bla bla bla"
+    ), ("Money", "Money bla bla bla");
+
+INSERT into events (title, category_id)
+VALUES (
+        "Je viens de perdre mon travail", 2
     ), (
         "Je viens de perdre un proche"
-    ), ("Je me sens triste"), (
+    ,3), ("Je me sens triste",1), (
         "Quelle est le sense de la vie"
-    ), (
+    ,5), (
         "Mon Collège de travail parle mal de moi"
-    ), (
+    ,4), (
         "Mes collègues parlent dans mon dos"
-    ), ("Mon ami m'a trahi"), (
+    ,4), ("Mon ami m'a trahi",1), (
         "Je ne suis pas une bonne personne"
-    ), ("Je veux disparaître"), ("Je veux mourir");
+    ,7), ("Je veux disparaître",4), ("Je veux mourir",3);
 
 INSERT into
     users (
@@ -122,81 +146,155 @@ VALUES (
         "default_avatar.png"
     );
 
-INSERT into
-    phrases (
-        phrase,
-        author,
+INSERT INTO
+    authors (
+        known_name,
+        firstname,
+        lastname,
         period,
-        philosophical_current,
-        start_date,
-        final_date,
-        likes,
-        dislikes,
-        is_favorite
+        philo_current,
+        born_date,
+        dead_date,
+        era
     )
 VALUES (
-        "The unexamined life is not worth living",
         "Socrates",
+        null,
+        null,
         "Classical",
         "Socratic",
         469,
         399,
-        10,
-        3,
-        1
+        "BCE"
     ), (
-        "Whereof one cannot speak, thereof one must be silent",
-        "Ludwig Wittgenstein",
+        "Ludwig",
+        "Ludwig",
+        "Wittgenstein",
         "20th Century",
         "Modern",
         1889,
         1951,
-        3,
-        10,
-        0
+        "CE"
     ), (
-        "I think therefore I am",
-        "René Descartes",
+        "Ludwig1",
+        "Ludwig",
+        "Wittgenstein",
+        "20th Century",
+        "Modern",
+        1889,
+        1951,
+        "CE"
+    ), (
+        "Ludwig2",
+        "Ludwig",
+        "Wittgenstein",
+        "20th Century",
+        "Modern",
+        1889,
+        1951,
+        "CE"
+    ), (
+        "Ludwig3",
+        "Ludwig",
+        "Wittgenstein",
+        "20th Century",
+        "Modern",
+        1889,
+        1951,
+        "CE"
+    ), (
+        "Ludwig4",
+        "Ludwig",
+        "Wittgenstein",
+        "20th Century",
+        "Modern",
+        1889,
+        1951,
+        "CE"
+    ), (
+        "Descartes",
+        "René",
+        "Descartes",
         "Modern",
         "Rationalism",
         1596,
         1650,
+        "CE"
+    ), (
+        "Socrates1",
+        null,
+        null,
+        "Classical",
+        "Socratic",
+        469,
+        399,
+        "BCE"
+    ), (
+        "Socrates2",
+        null,
+        null,
+        "Classical",
+        "Socratic",
+        469,
+        399,
+        "BCE"
+    ), (
+        "Socrates3",
+        null,
+        null,
+        "Classical",
+        "Socratic",
+        469,
+        399,
+        "BCE"
+    );
+
+INSERT into
+    phrases (
+        phrase,
+        likes,
+        dislikes,
+        is_favorite,
+        authors_id
+    )
+VALUES (
+        "The unexamined life is not worth living",
+        10,
+        3,
+        1,
+        1
+    ), (
+        "Whereof one cannot speak, thereof one must be silent",
+        3,
+        10,
+        0,
+        2
+    ), (
+        "I think therefore I am",
         2,
         0,
-        0
+        0,
+        3
     ), (
         "The unexamined life is not worth living",
-        "Socrates",
-        "Classical",
-        "Socratic",
-        469,
-        399,
         0,
         15,
-        0
+        0,
+        5
     ), (
         "The unexamined life is not worth living",
-        "Socrates",
-        "Classical",
-        "Socratic",
-        469,
-        399,
         7,
         7,
-        0
+        0,
+        6
     );
 
 INSERT INTO
     users_phrases (users_id, phrases_id)
 VALUES (1, 3), (2, 3), (3, 2), (4, 2), (4, 4), (4, 5), (1, 1);
 
-INSERT INTO categories(title)
-VALUES ("Social"), ("Dead"), ("Live"), ("Sadness"), ("Joy"), ("Work"), ("Friends"), ("Family"), ("Money");
+
 
 INSERT INTO
     events_phrases (events_id, phrases_id)
-VALUES (1, 2), (1, 1), (3, 3), (2, 2), (3, 4), (7, 5), (4, 2), (6, 3);
-
-INSERT INTO
-    events_categories (events_id, categories_id)
-VALUES (1, 2), (1, 2), (3, 3), (2, 2), (3, 7), (7, 3), (4, 9), (6, 8), (1, 2), (1, 2), (3, 3), (2, 2), (3, 7), (7, 3), (4, 9), (6, 8);
+VALUES (1, 2), (1, 1), (3, 3), (2, 4), (3, 4), (7, 5), (4, 2), (6, 3);
