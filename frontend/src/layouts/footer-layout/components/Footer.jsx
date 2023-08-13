@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
 import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedInIcon,
-  GitHubIcon,
-  EmailIcon,
-} from "../../../assets/svg/social-icons/SocialIcons";
+  FacebookIconLink,
+  InstagramIconLink,
+  LinkedInIconLink,
+  GitHubIconLink,
+  EmailIconLink,
+} from "../../../common/components/social-links/SocialLinks";
 
 export default function Footer() {
   return (
@@ -18,30 +18,20 @@ export default function Footer() {
       </Link>
       <ul className="social-list">
         <li className="social-item-list">
-          <a href="#Facebook">
-            <FacebookIcon />
-          </a>
+          <FacebookIconLink size="22" classStyle="social-links" />
         </li>
         <li className="social-item-list">
-          <a href="#Instagram">
-            <InstagramIcon />
-          </a>
+          <InstagramIconLink size="22" classStyle="social-links" />
         </li>
 
         <li className="social-item-list">
-          <a href="#LinkedIn">
-            <LinkedInIcon />
-          </a>
+          <LinkedInIconLink size="22" classStyle="social-links" />
         </li>
         <li className="social-item-list">
-          <a href="#GitHub">
-            <GitHubIcon />
-          </a>
+          <GitHubIconLink size="22" classStyle="social-links" />
         </li>
         <li className="social-item-list">
-          <a href="#mail">
-            <EmailIcon />
-          </a>
+          <EmailIconLink size="22" classStyle="social-links" />
         </li>
       </ul>
     </footer>

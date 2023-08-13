@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useRequest from "../../common/hooks/useRequest";
+import CloseIconModal from "../../common/components/close-modal-button/CloseIcons";
 
 export default function Logged() {
   const [filteredCategory, setFilteredCategory] = useState("");
@@ -23,9 +24,11 @@ export default function Logged() {
     <div className="logged">
       <div className={openModalCategories ? "modal-container" : "hidden-modal"}>
         <div className="content-container-modal">
-          <button type="button" onClick={() => setOpenModalCategories(false)}>
-            X
-          </button>
+          <CloseIconModal
+            setOpenModal={setOpenModalCategories}
+            size="20"
+            classStyle="close-icon-modal"
+          />
           <h2>Events</h2>
           <div className="list-container">
             <ul>
