@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useRequest from "../../common/hooks/useRequest";
-import PageLoggedModal from "../../common/components/page-logged-modal/PageLoggedModal";
+import PageLoggedModal from "../../common/components/search-select-modal/SearchSelectModal";
 
 export default function Logged() {
   const [filteredCategory, setFilteredCategory] = useState("");
