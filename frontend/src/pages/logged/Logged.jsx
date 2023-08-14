@@ -4,30 +4,30 @@ import PageLoggedModal from "../../common/components/search-select-modal/SearchS
 
 export default function Logged() {
   const [filteredCategory, setFilteredCategory] = useState("");
-
   const [openModal, setOpenModal] = useState(false);
-
-  const eventsResponse = useRequest({
-    method: "get",
-    endpoint: "events",
-  });
+  const [chosenCategoryId, setChosenCategoryId] = useState("");
+  const [chosenEventId, setChosenEventId] = useState("");
+  console.warn("🚀 - chosenEvent:", chosenEventId);
 
   const categoriesResponse = useRequest({
     method: "get",
     endpoint: "categories",
   });
 
-  const handleOpenModalCategories = () => {
+  const handleOpenModalCategories = (event) => {
+    setChosenCategoryId(event);
     setOpenModal(true);
   };
 
   return (
     <div className="logged">
-      <PageLoggedModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        data={eventsResponse}
-      />
+      {openModal && (
+        <PageLoggedModal
+          setOpenModal={setOpenModal}
+          chosenCategoryId={chosenCategoryId}
+          setChosenEventId={setChosenEventId}
+        />
+      )}
       <div className="inputs-container">
         <input
           type="text"

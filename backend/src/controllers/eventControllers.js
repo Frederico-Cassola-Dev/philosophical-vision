@@ -14,6 +14,18 @@ const browse = async (req, res, next) => {
     next(err);
   }
 };
+const browseAllByCategoryId = async (req, res, next) => {
+  try {
+    // Fetch all items from the database
+    const events = await tables.events.readAllByCategoryId(req.params.id);
+
+    // Respond with the items in JSON format
+    res.json(events);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
 
 // The R of BREAD - Read operation
 const read = async (req, res, next) => {
@@ -60,6 +72,7 @@ const add = async (req, res, next) => {
 // Ready to export the controller functions
 module.exports = {
   browse,
+  browseAllByCategoryId,
   read,
   // edit,
   add,

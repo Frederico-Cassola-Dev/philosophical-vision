@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
+import useRequest from "../../hooks/useRequest";
 
 import CloseIconModal from "./close-modal-button/CloseIcons";
 
-export default function SearchSelectModal({ openModal, setOpenModal, data }) {
-  if (!openModal) return null;
+export default function SearchSelectModal({
+  setOpenModal,
+  chosenCategoryId,
+  setChosenEventId,
+}) {
+  const eventsByCategoryResponse = useRequest({
+    method: "get",
+    endpoint: `events/categories/${chosenCategoryId}`,
+  });
 
   return (
     <div className="overlay">
@@ -16,9 +24,17 @@ export default function SearchSelectModal({ openModal, setOpenModal, data }) {
         <h2 className="modal-title">Events</h2>
         <div className="list-container">
           <ul className="list">
-            {data?.map((events) => (
+            {eventsByCategoryResponse?.map((events) => (
               <li className="list-items" key={events.id}>
-                {events.title}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpenModal(false);
+                    setChosenEventId(events.id);
+                  }}
+                >
+                  {events.title}
+                </button>
               </li>
             ))}
           </ul>
@@ -29,15 +45,16 @@ export default function SearchSelectModal({ openModal, setOpenModal, data }) {
 }
 
 SearchSelectModal.propTypes = {
-  openModal: PropTypes.bool.isRequired,
   setOpenModal: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      map: PropTypes.func,
-    })
-  ),
+  setChosenEventId: PropTypes.func.isRequired,
+  // data: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     map: PropTypes.func,
+  //   })
+  // ),
+  chosenCategoryId: PropTypes.string.isRequired,
 };
 
 SearchSelectModal.defaultProps = {
-  data: [],
+  // data: [],
 };
