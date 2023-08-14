@@ -21,9 +21,9 @@
     height: 100%;
     z-index: 9000;
     background-color: #111827e5;
-    // opacity: 0.8;
 
     .content-container-modal {
+      position: relative;
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -32,25 +32,22 @@
       height: 50vh;
       background-color: $color-primary-active;
       z-index: 10000;
-      border: 2px solid black;
       border-radius: $border-radius-m;
 
-     .close-icon-modal{
-      &:hover{
-        color: $color-text-hover;
-      }
+      .close-icon-modal {
+        position: absolute;
+        top: $space-xs;
+        right: $space-xs;
+        border-radius: $border-radius-s;
+
+        &:hover {
+          color: $color-text-hover;
+        }
       }
     }
   }
 
-  .hidden-modal {
-    display: none;
-  }
-
   .input-container {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     margin-top: $space-l;
 
     input {

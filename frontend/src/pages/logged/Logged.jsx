@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useRequest from "../../common/hooks/useRequest";
-import CloseIconModal from "../../common/components/close-modal-button/CloseIcons";
+import PageLoggedModal from "../../common/components/page-logged-modal/PageLoggedModal";
 
 export default function Logged() {
   const [filteredCategory, setFilteredCategory] = useState("");
@@ -22,23 +22,11 @@ export default function Logged() {
 
   return (
     <div className="logged">
-      <div className={openModalCategories ? "modal-container" : "hidden-modal"}>
-        <div className="content-container-modal">
-          <CloseIconModal
-            setOpenModal={setOpenModalCategories}
-            size="20"
-            classStyle="close-icon-modal"
-          />
-          <h2>Events</h2>
-          <div className="list-container">
-            <ul>
-              {eventsResponse?.map((events) => (
-                <li key={events.id}>{events.title}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
+      <PageLoggedModal
+        openModal={openModalCategories}
+        setOpenModal={setOpenModalCategories}
+        data={eventsResponse}
+      />
       <div className="input-container">
         <input
           type="text"
