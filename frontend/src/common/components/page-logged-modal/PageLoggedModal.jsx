@@ -6,7 +6,7 @@ export default function PageLoggedModal({ openModal, setOpenModal, data }) {
   if (!openModal) return null;
 
   return (
-    <div className="modal-container">
+    <div className="overlay">
       <div className="content-container-modal">
         <CloseIconModal
           setOpenModal={setOpenModal}

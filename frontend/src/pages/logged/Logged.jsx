@@ -4,7 +4,8 @@ import PageLoggedModal from "../../common/components/page-logged-modal/PageLogge
 
 export default function Logged() {
   const [filteredCategory, setFilteredCategory] = useState("");
-  const [openModalCategories, setOpenModalCategories] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const eventsResponse = useRequest({
     method: "get",
@@ -17,22 +18,30 @@ export default function Logged() {
   });
 
   const handleOpenModalCategories = () => {
-    setOpenModalCategories(true);
+    setOpenModal(true);
   };
 
   return (
     <div className="logged">
       <PageLoggedModal
-        openModal={openModalCategories}
-        setOpenModal={setOpenModalCategories}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
         data={eventsResponse}
       />
-      <div className="input-container">
+      <div className="inputs-container">
         <input
           type="text"
-          onChange={(e) => setFilteredCategory(e.target.value)}
+          className={
+            openModal
+              ? "input-search-category show-input-search-event"
+              : "input-search-category"
+          }
+          onChange={(e) => {
+            setFilteredCategory(e.target.value);
+            setOpenModal(true);
+          }}
           value={filteredCategory}
-          placeholder="Chose your event"
+          placeholder="Search your event"
         />
         <select
           name=""
