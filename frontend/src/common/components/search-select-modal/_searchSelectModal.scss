@@ -1,5 +1,5 @@
   @import "../../../scss/variables";
-  
+
   .overlay {
     position: absolute;
     display: flex;
@@ -11,14 +11,14 @@
     z-index: 9000;
     background-color: #111827e5;
 
-    .content-container-modal {
+    .modal-container {
       position: relative;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       flex-direction: column;
-      width: 50vw;
-      height: 50vh;
+      width: 70vw;
+      max-height: 50vh;
       background-color: $color-primary-active;
       z-index: 10000;
       border-radius: $border-radius-m;
@@ -33,5 +33,38 @@
           color: $color-text-hover;
         }
       }
+
+      .modal-title {
+        margin-top: $space-m;
+        font-family: $secondary-font;
+        font-size: $font-size-4xl;
+        font-weight: $font-weight-normal;
+        color: $color-background-primary;
+      }
+
+
+      .list-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: $space-xs;
+        font-family: $primary-font;
+        overflow-y:auto;
+
+        .list {
+          list-style: none;
+
+          .list-items {
+            margin-bottom: $space-2xs ;
+            font-size: $font-size-xl;
+            cursor: pointer;
+            &:hover {
+              color: $color-text-hover;
+            }
+          }
+        }
+
+      }
+
     }
   }

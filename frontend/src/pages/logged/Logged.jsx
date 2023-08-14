@@ -40,7 +40,7 @@ export default function Logged() {
             setFilteredCategory(e.target.value);
             setOpenModal(true);
           }}
-          value={filteredCategory}
+          value={openModal ? filteredCategory : ""}
           placeholder="Search your event"
         />
         <select
@@ -48,7 +48,7 @@ export default function Logged() {
           id=""
           onChange={(event) => handleOpenModalCategories(event.target.value)}
         >
-          <option>Select a category</option>
+          <option defaultChecked>Select a category</option>
           {categoriesResponse?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
