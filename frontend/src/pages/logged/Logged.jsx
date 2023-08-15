@@ -6,12 +6,16 @@ export default function Logged() {
   const [filteredCategory, setFilteredCategory] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [chosenCategoryId, setChosenCategoryId] = useState("");
-  const [chosenEventId, setChosenEventId] = useState("");
-  console.warn("🚀 - chosenEvent:", chosenEventId);
+  const [chosenEventId, setChosenEventId] = useState(1);
 
   const categoriesResponse = useRequest({
     method: "get",
     endpoint: "categories",
+  });
+
+  const phrasesResponse = useRequest({
+    method: "get",
+    endpoint: `phrases/events/${chosenEventId}`,
   });
 
   const handleOpenModalCategories = (event) => {
@@ -47,6 +51,7 @@ export default function Logged() {
           name=""
           id=""
           onChange={(event) => handleOpenModalCategories(event.target.value)}
+          value=""
         >
           <option defaultChecked>Select a category</option>
           {categoriesResponse?.map((category) => (
@@ -57,37 +62,16 @@ export default function Logged() {
         </select>
       </div>
       <div className="life-event-container">
-        {/* {eventsResponse?.map((item) => (
-          <p className="life-event-phrase" key={item.id}>
-            {item.title}
-          </p>
-        ))} */}
-        <p className="life-event-phrase">life event phrase</p>
+        <p className="life-event-phrase">
+          {phrasesResponse && phrasesResponse[0]?.event_title}
+        </p>
       </div>
       <div className="visions-container">
-        {/* {categoriesResponse
-          ?.filter(
-            (category) =>
-              category.title.toLowerCase().includes(filteredCategory) ||
-              category.title.toUpperCase().includes(filteredCategory)
-          )
-          .map((item) => (
-            <p className="vision-phrase" key={item.id}>
-              {item.title}
-            </p>
-          ))} */}
-        <p className="vision-phrase">
-          Bla Bla Bla 1 Bla Bla Bla 1 Bla Bla Bla 1 Bla Bla Bla 1
-        </p>
-        <p className="vision-phrase">
-          Bla Bla Bla 2 Bla Bla Bla 2 Bla Bla Bla 2 Bla Bla Bla 2
-        </p>
-        <p className="vision-phrase">
-          Bla Bla Bla 3 Bla Bla Bla 3 Bla Bla Bla 3 Bla Bla Bla 3
-        </p>
-        <p className="vision-phrase">
-          Bla Bla Bla 4 Bla Bla Bla 4 Bla Bla Bla 4 Bla Bla Bla 4
-        </p>
+        {phrasesResponse?.map((item) => (
+          <p className="vision-phrase" key={item.id}>
+            {item.phrase}
+          </p>
+        ))}
       </div>
     </div>
   );

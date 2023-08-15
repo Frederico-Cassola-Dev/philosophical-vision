@@ -25,6 +25,20 @@ const read = async (req, res, next) => {
   }
 };
 
+const read4ByEventId = async (req, res, next) => {
+  try {
+    const phrases = await tables.phrases.read4ByEventId(req.params.id);
+
+    if (phrases == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(phrases);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const add = async (req, res, next) => {
   const phrase = req.body;
 
@@ -40,6 +54,7 @@ const add = async (req, res, next) => {
 module.exports = {
   browse,
   read,
+  read4ByEventId,
   // edit,
   add,
   // destroy,

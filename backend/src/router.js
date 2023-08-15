@@ -18,6 +18,7 @@ router.post("/users", userControllers.add);
 
 router.get("/phrases", phraseControllers.browse);
 router.get("/phrases/:id", phraseControllers.read);
+router.get("/phrases/events/:id", phraseControllers.read4ByEventId);
 router.post("/phrases", phraseControllers.add);
 
 router.get("/events", eventControllers.browse);

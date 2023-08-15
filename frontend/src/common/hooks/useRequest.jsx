@@ -16,7 +16,7 @@ export default function useRequest(request) {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [request.endpoint]);
 
   return response;
 }
