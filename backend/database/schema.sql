@@ -276,13 +276,67 @@ VALUES (
         0,
         3
     ), (
-        "The unexamined life is not worth living",
+        "2 The unexamined life is not worth living",
         0,
         15,
         0,
         5
     ), (
-        "The unexamined life is not worth living",
+        "3 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "4 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "5 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "6 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "7 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "8 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "9 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "10 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "11 The unexamined life is not worth living",
+        7,
+        7,
+        0,
+        6
+    ), (
+        "12 The unexamined life is not worth living",
         7,
         7,
         0,
@@ -297,4 +351,4 @@ VALUES (1, 3), (2, 3), (3, 2), (4, 2), (4, 4), (4, 5), (1, 1);
 
 INSERT INTO
     events_phrases (events_id, phrases_id)
-VALUES (1, 2), (1, 1), (3, 3), (2, 4), (3, 4), (7, 5), (4, 2), (6, 3);
+VALUES (1, 2), (1, 1), (3, 3), (2, 4), (3, 4), (7, 5), (4, 2), (6, 8), (6, 9), (6, 10), (6, 11), (6, 12), (1, 4), (1, 7), (1, 8), (1, 9), (5, 9), (5, 2), (5, 3), (5, 4), (9, 2), (9, 1), (9, 5), (9, 7), (10, 6), (10, 12);

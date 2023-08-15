@@ -29,7 +29,7 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
-  async read4ByCategory() {
+  async read4ByEventId() {
     const [rows] = await this.database.query(`select * from ${this.table}`);
 
     return rows;
