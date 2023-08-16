@@ -1,5 +1,5 @@
 import singleLogoLittle from "../../assets/logo/single_logo_little.png";
-import aboutMePhoto from "../../assets/images/photo-frederico_cassola.png";
+import aboutMePhoto from "../../assets/images/photo-frederico_cassola-min.png";
 
 export default function AboutMe() {
   return (

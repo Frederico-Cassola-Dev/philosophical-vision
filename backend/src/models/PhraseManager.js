@@ -29,6 +29,14 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
+  async read5() {
+    const [rows] = await this.database.query(
+      `select * from ${this.table} order by rand() limit 5`
+    );
+
+    return rows;
+  }
+
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
       `SELECT p.id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p

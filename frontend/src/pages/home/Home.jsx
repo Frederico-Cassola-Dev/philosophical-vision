@@ -1,6 +1,13 @@
+import useAxios from "../../common/hooks/useAxios";
+
 import singleLogoLittle from "../../assets/logo/single_logo_little.png";
 
 export default function Home() {
+  const phrasesResponse = useAxios({
+    method: "get",
+    endpoint: "phrases5",
+  });
+
   return (
     <div className="home">
       <main className="main">
@@ -18,26 +25,11 @@ export default function Home() {
           </p>
         </section>
         <section className="random-phrases-section">
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
-          <p className="phrase">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            consectetur.
-          </p>
+          {phrasesResponse?.map((item, index) => (
+            <p className={`phrase phrase-${index}`} key={item.id}>
+              {item.phrase}
+            </p>
+          ))}
         </section>
       </main>
     </div>

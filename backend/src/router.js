@@ -2,11 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
-
-// Import userControllers module for handling item-related operations
 const userControllers = require("./controllers/userControllers");
 const phraseControllers = require("./controllers/phraseControllers");
 const eventControllers = require("./controllers/eventControllers");
@@ -17,6 +12,7 @@ router.get("/users/:id", userControllers.read);
 router.post("/users", userControllers.add);
 
 router.get("/phrases", phraseControllers.browse);
+router.get("/phrases5", phraseControllers.browse5);
 router.get("/phrases/:id", phraseControllers.read);
 router.get("/phrases/events/:id", phraseControllers.read4ByEventId);
 router.post("/phrases", phraseControllers.add);
@@ -31,6 +27,5 @@ router.get("/categories", categoryControllers.browse);
 router.get("/categories/:id", categoryControllers.read);
 router.post("/categories", categoryControllers.add);
 
-/* ************************************************************************* */
 
 module.exports = router;
