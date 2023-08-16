@@ -27,5 +27,4 @@ router.get("/categories", categoryControllers.browse);
 router.get("/categories/:id", categoryControllers.read);
 router.post("/categories", categoryControllers.add);
 
-
 module.exports = router;

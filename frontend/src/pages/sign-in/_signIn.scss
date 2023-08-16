@@ -8,7 +8,7 @@
   height: 83.9vh;
   font-family: $primary-font;
   font-size: $font-size-l;
-  font-weight: $font-weight-bolt;
+  font-weight: $font-weight-bold;
 
   .form-container {
     display: flex;
@@ -31,7 +31,7 @@
         height: $space-m;
         margin-top: $space-2xs;
         padding-left: $space-2xs;
-        font-weight: $font-weight-bolt;
+        font-weight: $font-weight-bold;
         border-radius: $border-radius-s;
 
         &:focus {
@@ -56,7 +56,7 @@
         padding: $space-2xs $space-xs;
         margin-top: $space-l;
         font-size: $font-size-l;
-        font-weight: $font-weight-bolt;
+        font-weight: $font-weight-bold;
 
         &:hover {
           background-color: $color-text-hover;

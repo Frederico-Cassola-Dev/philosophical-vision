@@ -9,7 +9,7 @@
   font-family: $primary-font;
   color: $color-text-primary;
   font-size: $font-size-l;
-  font-weight: $font-weight-bolt;
+  font-weight: $font-weight-bold;
 
   .form-input {
     display: flex;
@@ -34,7 +34,7 @@
         margin-top: $space-2xs;
         padding-left: $space-2xs;
         border-radius: $border-radius-s;
-        font-weight: $font-weight-bolt;
+        font-weight: $font-weight-bold;
 
         &:focus {
           outline: 2px solid $border-color-active;
@@ -90,7 +90,7 @@
         padding: $space-2xs $space-xs;
         margin-top: $space-l;
         font-size: $font-size-l;
-        font-weight: $font-weight-bolt;
+        font-weight: $font-weight-bold;
 
         &:hover {
           background-color: $color-text-hover;
