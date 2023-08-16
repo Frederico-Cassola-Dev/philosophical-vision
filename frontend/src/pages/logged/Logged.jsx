@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useRequest from "../../common/hooks/useRequest";
+import useAxios from "../../common/hooks/useAxios";
 import PageLoggedModal from "../../common/components/search-select-modal/SearchSelectModal";
 
 export default function Logged() {
@@ -8,12 +8,12 @@ export default function Logged() {
   const [chosenCategoryId, setChosenCategoryId] = useState("");
   const [chosenEventId, setChosenEventId] = useState(1);
 
-  const categoriesResponse = useRequest({
+  const categoriesResponse = useAxios({
     method: "get",
     endpoint: "categories",
   });
 
-  const phrasesResponse = useRequest({
+  const phrasesResponse = useAxios({
     method: "get",
     endpoint: `phrases/events/${chosenEventId}`,
   });

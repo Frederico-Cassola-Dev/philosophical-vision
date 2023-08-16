@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import useRequest from "../../hooks/useRequest";
+import useAxios from "../../hooks/useAxios";
 
 import CloseIconModal from "./close-modal-button/CloseIcons";
 
@@ -8,7 +8,7 @@ export default function SearchSelectModal({
   chosenCategoryId,
   setChosenEventId,
 }) {
-  const eventsByCategoryResponse = useRequest({
+  const eventsByCategoryResponse = useAxios({
     method: "get",
     endpoint: `events/categories/${chosenCategoryId}`,
   });
