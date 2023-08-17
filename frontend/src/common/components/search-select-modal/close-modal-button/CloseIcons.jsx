@@ -1,15 +1,12 @@
 import PropTypes from "prop-types";
 
-export default function CloseIconModal({
-  setOpenModal,
-  size,
-  color,
-  classStyle,
-}) {
+export default function CloseIconModal({ dispatch, size, color, classStyle }) {
   return (
     <svg
       type="button"
-      onClick={() => setOpenModal(false)}
+      onClick={() =>
+        dispatch({ type: "openModalSelect", payload: { openModal: false } })
+      }
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
@@ -29,7 +26,7 @@ export default function CloseIconModal({
 }
 
 CloseIconModal.propTypes = {
-  setOpenModal: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   size: PropTypes.string,
   color: PropTypes.string,
   classStyle: PropTypes.string,

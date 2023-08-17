@@ -3,21 +3,17 @@ import useAxios from "../../hooks/useAxios";
 
 import CloseIconModal from "./close-modal-button/CloseIcons";
 
-export default function SearchSelectModal({
-  setOpenModal,
-  chosenCategoryId,
-  setChosenEventId,
-}) {
+export default function SearchSelectModal({ dispatch, state }) {
   const eventsByCategoryResponse = useAxios({
     method: "get",
-    endpoint: `events/categories/${chosenCategoryId}`,
+    endpoint: `events/categories/${state.categoryId}`,
   });
 
   return (
     <div className="overlay">
       <div className="modal-container">
         <CloseIconModal
-          setOpenModal={setOpenModal}
+          dispatch={dispatch}
           size="22"
           classStyle="close-icon-modal"
         />
@@ -29,8 +25,15 @@ export default function SearchSelectModal({
                 <button
                   type="button"
                   onClick={() => {
-                    setOpenModal(false);
-                    setChosenEventId(events.id);
+                    dispatch({
+                      type: "openModalSelect",
+
+                      payload: {
+                        openModal: false,
+                        categoryId: state.categoryId,
+                        eventId: events.id,
+                      },
+                    });
                   }}
                 >
                   {events.title}
@@ -45,14 +48,20 @@ export default function SearchSelectModal({
 }
 
 SearchSelectModal.propTypes = {
-  setOpenModal: PropTypes.func.isRequired,
-  setChosenEventId: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  state: PropTypes.shape({
+    categoryId: PropTypes.string,
+    eventId: PropTypes.string,
+    filteredCategory: PropTypes.string,
+    openModal: PropTypes.bool,
+  }).isRequired,
+  // setChosenEventId: PropTypes.func.isRequired,
   // data: PropTypes.arrayOf(
   //   PropTypes.shape({
   //     map: PropTypes.func,
   //   })
   // ),
-  chosenCategoryId: PropTypes.string.isRequired,
+  // chosenCategoryId: PropTypes.string.isRequired,
 };
 
 SearchSelectModal.defaultProps = {

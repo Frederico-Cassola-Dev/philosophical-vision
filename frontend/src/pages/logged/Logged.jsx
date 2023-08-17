@@ -1,12 +1,40 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import useAxios from "../../common/hooks/useAxios";
 import PageLoggedModal from "../../common/components/search-select-modal/SearchSelectModal";
 
+const initialState = {
+  filteredCategory: "",
+  openModal: false,
+  categoryId: "",
+  eventId: 1,
+};
+
+function homeReducer(state, action) {
+  switch (action.type) {
+    case "openModalSelect": {
+      return {
+        ...state,
+        openModal: action.payload.openModal,
+        categoryId: action.payload.categoryId,
+        eventId: action.payload.eventId,
+      };
+    }
+    // case "openModalInput": {
+    //   return {
+    //     ...state,
+    //     openModal: action.payload,
+    //     categoryId: action.payload.categoryId,
+    //   };
+    // }
+    default:
+      return state;
+  }
+}
+
 export default function Logged() {
+  const [state, dispatch] = useReducer(homeReducer, initialState);
+  const { openModal } = state;
   const [filteredCategory, setFilteredCategory] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const [chosenCategoryId, setChosenCategoryId] = useState("");
-  const [chosenEventId, setChosenEventId] = useState(1);
 
   const categoriesResponse = useAxios({
     method: "get",
@@ -15,23 +43,12 @@ export default function Logged() {
 
   const phrasesResponse = useAxios({
     method: "get",
-    endpoint: `phrases/events/${chosenEventId}`,
+    endpoint: `phrases/events/${state.eventId}`,
   });
-
-  const handleOpenModalCategories = (event) => {
-    setChosenCategoryId(event);
-    setOpenModal(true);
-  };
 
   return (
     <div className="logged">
-      {openModal && (
-        <PageLoggedModal
-          setOpenModal={setOpenModal}
-          chosenCategoryId={chosenCategoryId}
-          setChosenEventId={setChosenEventId}
-        />
-      )}
+      {openModal && <PageLoggedModal dispatch={dispatch} state={state} />}
       <div className="inputs-container">
         <input
           type="text"
@@ -41,8 +58,8 @@ export default function Logged() {
               : "input-search-category"
           }
           onChange={(e) => {
+            dispatch({ type: "openModal", categoryId: e.target.value });
             setFilteredCategory(e.target.value);
-            setOpenModal(true);
           }}
           value={openModal ? filteredCategory : ""}
           placeholder="Search your event"
@@ -50,7 +67,12 @@ export default function Logged() {
         <select
           name=""
           id=""
-          onChange={(event) => handleOpenModalCategories(event.target.value)}
+          onChange={(e) => {
+            dispatch({
+              type: "openModalSelect",
+              payload: { openModal: true, categoryId: e.target.value },
+            });
+          }}
           value=""
         >
           <option defaultChecked>Select a category</option>
