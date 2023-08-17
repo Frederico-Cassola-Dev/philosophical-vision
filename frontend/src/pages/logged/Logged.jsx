@@ -1,11 +1,11 @@
 import { useReducer } from "react";
 import useAxios from "../../common/hooks/useAxios";
 import PageLoggedModal from "../../common/components/search-select-modal/SearchSelectModal";
-import homeReducer, {
+import loggedReducer, {
   OPEN_MODAL,
   INPUT_OPEN_MODAL,
   SELECT_OPEN_MODAL,
-} from "../../common/components/search-select-modal/utils/home.reducer";
+} from "./utils/logged.reducer";
 
 const initialState = {
   openModal: false,
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export default function Logged() {
-  const [state, dispatch] = useReducer(homeReducer, initialState);
+  const [state, dispatch] = useReducer(loggedReducer, initialState);
 
   const categoriesResponse = useAxios({
     method: "get",

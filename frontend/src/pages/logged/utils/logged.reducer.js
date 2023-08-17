@@ -3,7 +3,7 @@ export const INPUT_OPEN_MODAL = "openModalInput";
 export const OPEN_MODAL = "openModal";
 export const CLOSE_MODAL = "closeModal";
 
-export default function homeReducer(state, action) {
+export default function loggedReducer(state, action) {
   switch (action.type) {
     case INPUT_OPEN_MODAL: {
       return {
