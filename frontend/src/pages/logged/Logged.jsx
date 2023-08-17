@@ -1,40 +1,21 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import useAxios from "../../common/hooks/useAxios";
 import PageLoggedModal from "../../common/components/search-select-modal/SearchSelectModal";
+import homeReducer, {
+  OPEN_MODAL,
+  INPUT_OPEN_MODAL,
+  SELECT_OPEN_MODAL,
+} from "../../common/components/search-select-modal/utils/home.reducer";
 
 const initialState = {
-  filteredCategory: "",
   openModal: false,
+  filteredCategory: "",
   categoryId: "",
   eventId: 1,
 };
 
-function homeReducer(state, action) {
-  switch (action.type) {
-    case "openModalSelect": {
-      return {
-        ...state,
-        openModal: action.payload.openModal,
-        categoryId: action.payload.categoryId,
-        eventId: action.payload.eventId,
-      };
-    }
-    // case "openModalInput": {
-    //   return {
-    //     ...state,
-    //     openModal: action.payload,
-    //     categoryId: action.payload.categoryId,
-    //   };
-    // }
-    default:
-      return state;
-  }
-}
-
 export default function Logged() {
   const [state, dispatch] = useReducer(homeReducer, initialState);
-  const { openModal } = state;
-  const [filteredCategory, setFilteredCategory] = useState("");
 
   const categoriesResponse = useAxios({
     method: "get",
@@ -48,29 +29,33 @@ export default function Logged() {
 
   return (
     <div className="logged">
-      {openModal && <PageLoggedModal dispatch={dispatch} state={state} />}
+      {state.openModal && <PageLoggedModal dispatch={dispatch} state={state} />}
       <div className="inputs-container">
         <input
           type="text"
           className={
-            openModal
+            state.openModal
               ? "input-search-category show-input-search-event"
               : "input-search-category"
           }
           onChange={(e) => {
-            dispatch({ type: "openModal", categoryId: e.target.value });
-            setFilteredCategory(e.target.value);
+            dispatch({ type: OPEN_MODAL });
+            dispatch({
+              type: INPUT_OPEN_MODAL,
+              payload: { filteredCategory: e.target.value },
+            });
           }}
-          value={openModal ? filteredCategory : ""}
+          value={state.openModal ? state.filteredCategory : ""}
           placeholder="Search your event"
         />
         <select
           name=""
           id=""
           onChange={(e) => {
+            dispatch({ type: OPEN_MODAL });
             dispatch({
-              type: "openModalSelect",
-              payload: { openModal: true, categoryId: e.target.value },
+              type: SELECT_OPEN_MODAL,
+              payload: { categoryId: e.target.value },
             });
           }}
           value=""

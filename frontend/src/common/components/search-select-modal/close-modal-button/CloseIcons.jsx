@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
+import { CLOSE_MODAL } from "../utils/home.reducer";
 
 export default function CloseIconModal({ dispatch, size, color, classStyle }) {
   return (
     <svg
       type="button"
-      onClick={() =>
-        dispatch({ type: "openModalSelect", payload: { openModal: false } })
-      }
+      onClick={() => dispatch({ type: CLOSE_MODAL })}
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
 
 import CloseIconModal from "./close-modal-button/CloseIcons";
+import { CLOSE_MODAL, SELECT_OPEN_MODAL } from "./utils/home.reducer";
 
 export default function SearchSelectModal({ dispatch, state }) {
   const eventsByCategoryResponse = useAxios({
@@ -25,11 +26,10 @@ export default function SearchSelectModal({ dispatch, state }) {
                 <button
                   type="button"
                   onClick={() => {
+                    dispatch({ type: CLOSE_MODAL });
                     dispatch({
-                      type: "openModalSelect",
-
+                      type: SELECT_OPEN_MODAL,
                       payload: {
-                        openModal: false,
                         categoryId: state.categoryId,
                         eventId: events.id,
                       },
@@ -51,7 +51,7 @@ SearchSelectModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
   state: PropTypes.shape({
     categoryId: PropTypes.string,
-    eventId: PropTypes.string,
+    eventId: PropTypes.number,
     filteredCategory: PropTypes.string,
     openModal: PropTypes.bool,
   }).isRequired,
