@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
-
-import CloseIconModal from "./close-modal-button/CloseIcons";
 import {
   CLOSE_MODAL,
   SELECT_OPEN_MODAL,
 } from "../../../pages/logged/utils/logged.reducer";
+
+import CloseIconModal from "./close-modal-button/CloseIcons";
 
 export default function SearchSelectModal({ dispatch, state }) {
   const eventsByCategoryResponse = useAxios({

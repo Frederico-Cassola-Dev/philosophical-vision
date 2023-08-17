@@ -29,6 +29,15 @@ class EventManager extends AbstractManager {
     return rows;
   }
 
+  async readAllByTitle(title) {
+    const [rows] = await this.database.query(
+      `select * from ${this.table} where title like ?`,
+      [`%${title}%`]
+    );
+
+    return rows;
+  }
+
   async readAllByCategoryId(id) {
     const [rows] = await this.database.query(
       `SELECT e.id, e.title, e.category_id FROM ${this.table} e

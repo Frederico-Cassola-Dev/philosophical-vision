@@ -19,6 +19,7 @@ router.post("/phrases", phraseControllers.add);
 
 router.get("/events", eventControllers.browse);
 router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);
+router.get("/events/:title", eventControllers.browseAllByTitle);
 router.get("/events/:id", eventControllers.read);
 
 router.post("/events", eventControllers.add);
