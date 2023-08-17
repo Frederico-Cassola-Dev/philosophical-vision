@@ -8,7 +8,7 @@ export default function loggedReducer(state, action) {
     case INPUT_OPEN_MODAL: {
       return {
         ...state,
-        filteredCategory: action.payload.filteredCategory,
+        filteredEvent: action.payload.filteredEvent,
         categoryId: "",
       };
     }
@@ -32,7 +32,7 @@ export default function loggedReducer(state, action) {
       return {
         ...state,
         openModal: false,
-        filteredCategory: "",
+        filteredEvent: "",
         eventId: 1,
       };
     }

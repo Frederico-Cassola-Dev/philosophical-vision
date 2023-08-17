@@ -10,7 +10,6 @@ class EventManager extends AbstractManager {
       `insert into ${this.table} (title) values (?)`,
       [event.title]
     );
-
     return result.insertId;
   }
 
@@ -19,13 +18,11 @@ class EventManager extends AbstractManager {
       `select * from ${this.table} where id = ?`,
       [id]
     );
-
     return rows[0];
   }
 
   async readAll() {
     const [rows] = await this.database.query(`select * from ${this.table}`);
-
     return rows;
   }
 
@@ -34,7 +31,6 @@ class EventManager extends AbstractManager {
       `select * from ${this.table} where title like ?`,
       [`%${title}%`]
     );
-
     return rows;
   }
 
@@ -45,7 +41,6 @@ class EventManager extends AbstractManager {
     where c.id = ?`,
       [id]
     );
-
     return rows;
   }
 

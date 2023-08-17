@@ -9,7 +9,7 @@ import loggedReducer, {
 
 const initialState = {
   openModal: false,
-  filteredCategory: "",
+  filteredEvent: "",
   categoryId: "",
   eventId: 1,
 };
@@ -42,10 +42,10 @@ export default function Logged() {
             dispatch({ type: OPEN_MODAL });
             dispatch({
               type: INPUT_OPEN_MODAL,
-              payload: { filteredCategory: e.target.value },
+              payload: { filteredEvent: e.target.value },
             });
           }}
-          value={state.openModal ? state.filteredCategory : ""}
+          value={state.openModal ? state.filteredEvent : ""}
           placeholder="Search your event"
         />
         <select
