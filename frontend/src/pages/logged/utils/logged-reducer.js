@@ -3,6 +3,13 @@ export const INPUT_OPEN_MODAL = "openModalInput";
 export const OPEN_MODAL = "openModal";
 export const CLOSE_MODAL = "closeModal";
 
+export const initialState = {
+  openModal: false,
+  filteredEvent: "",
+  categoryId: "",
+  eventId: 1,
+};
+
 export default function loggedReducer(state, action) {
   switch (action.type) {
     case INPUT_OPEN_MODAL: {

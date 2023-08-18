@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { CLOSE_MODAL } from "../../../../pages/logged/utils/logged.reducer";
+import { CLOSE_MODAL } from "../../../../pages/logged/utils/logged-reducer";
 
 export default function CloseIconModal({ dispatch, size, color, classStyle }) {
   return (

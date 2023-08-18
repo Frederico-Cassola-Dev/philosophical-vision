@@ -3,7 +3,7 @@ import useAxios from "../../hooks/useAxios";
 import {
   CLOSE_MODAL,
   SELECT_OPEN_MODAL,
-} from "../../../pages/logged/utils/logged.reducer";
+} from "../../../pages/logged/utils/logged-reducer";
 
 import CloseIconModal from "./close-modal-button/CloseIcons";
 

@@ -2,17 +2,11 @@ import { useReducer } from "react";
 import useAxios from "../../common/hooks/useAxios";
 import PageLoggedModal from "../../common/components/search-select-modal/SearchSelectModal";
 import loggedReducer, {
+  initialState,
   OPEN_MODAL,
   INPUT_OPEN_MODAL,
   SELECT_OPEN_MODAL,
-} from "./utils/logged.reducer";
-
-const initialState = {
-  openModal: false,
-  filteredEvent: "",
-  categoryId: "",
-  eventId: 1,
-};
+} from "./utils/logged-reducer";
 
 export default function Logged() {
   const [state, dispatch] = useReducer(loggedReducer, initialState);
