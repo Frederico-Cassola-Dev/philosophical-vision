@@ -6,7 +6,7 @@ import Home from "./pages/home/Home";
 import AboutMe from "./pages/about-me/AboutMe";
 import SignIn from "./pages/sign-in/SignIn";
 import SignUp from "./pages/sign-up/SignUp";
-import Logged from "./pages/logged/Logged";
+import Phrases from "./pages/phrases/Phrases";
 
 import "./scss/styles.scss";
 
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="aboutme" element={<AboutMe />} />
-          <Route path="logged" element={<Logged />} />
+          <Route path="phrases" element={<Phrases />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
         </Routes>

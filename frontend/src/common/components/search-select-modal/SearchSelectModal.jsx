@@ -1,13 +1,16 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
 import {
   CLOSE_MODAL,
   SELECT_OPEN_MODAL,
-} from "../../../pages/logged/utils/logged-reducer";
+} from "../../../pages/phrases/utils/phrases-reducer";
 
 import CloseIconModal from "./close-modal-button/CloseIcons";
+import { PhrasesContext } from "../../contexts/phrasesContext";
 
-export default function SearchSelectModal({ dispatch, state }) {
+export default function SearchSelectModal() {
+  const { state, dispatch } = useContext(PhrasesContext);
   const eventsByCategoryResponse = useAxios({
     method: "get",
     endpoint: `events/categories/${state.categoryId}`,
@@ -21,11 +24,7 @@ export default function SearchSelectModal({ dispatch, state }) {
   return (
     <div className="overlay">
       <div className="modal-container">
-        <CloseIconModal
-          dispatch={dispatch}
-          size="22"
-          classStyle="close-icon-modal"
-        />
+        <CloseIconModal size="22" classStyle="close-icon-modal" />
         <h2 className="modal-title">Events</h2>
         <div className="list-container">
           <ul className="list">
@@ -77,7 +76,6 @@ export default function SearchSelectModal({ dispatch, state }) {
 }
 
 SearchSelectModal.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   state: PropTypes.shape({
     categoryId: PropTypes.string,
     eventId: PropTypes.number,

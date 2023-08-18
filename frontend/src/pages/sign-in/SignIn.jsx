@@ -13,7 +13,7 @@ export default function SignIn() {
           <input type="password" id="password" />
         </label>
         <div className="submit-button-container">
-          <Link to="/logged">
+          <Link to="/phrases">
             <button type="button">Submit</button>
           </Link>
         </div>

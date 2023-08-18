@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
-import { CLOSE_MODAL } from "../../../../pages/logged/utils/logged-reducer";
+import { useContext } from "react";
+import { CLOSE_MODAL } from "../../../../pages/phrases/utils/phrases-reducer";
+import { PhrasesContext } from "../../../contexts/phrasesContext";
 
-export default function CloseIconModal({ dispatch, size, color, classStyle }) {
+export default function CloseIconModal({ size, color, classStyle }) {
+  const { dispatch } = useContext(PhrasesContext);
   return (
     <svg
       type="button"
@@ -25,7 +28,6 @@ export default function CloseIconModal({ dispatch, size, color, classStyle }) {
 }
 
 CloseIconModal.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   size: PropTypes.string,
   color: PropTypes.string,
   classStyle: PropTypes.string,

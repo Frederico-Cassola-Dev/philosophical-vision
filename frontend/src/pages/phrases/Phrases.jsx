@@ -1,15 +1,15 @@
-import { useReducer } from "react";
+import { useContext } from "react";
 import useAxios from "../../common/hooks/useAxios";
-import PageLoggedModal from "../../common/components/search-select-modal/SearchSelectModal";
-import loggedReducer, {
-  initialState,
+import SearchSelectModal from "../../common/components/search-select-modal/SearchSelectModal";
+import {
   OPEN_MODAL,
   INPUT_OPEN_MODAL,
   SELECT_OPEN_MODAL,
-} from "./utils/logged-reducer";
+} from "./utils/phrases-reducer";
+import { PhrasesContext } from "../../common/contexts/phrasesContext";
 
-export default function Logged() {
-  const [state, dispatch] = useReducer(loggedReducer, initialState);
+export default function Phrases() {
+  const { state, dispatch } = useContext(PhrasesContext);
 
   const categoriesResponse = useAxios({
     method: "get",
@@ -23,7 +23,7 @@ export default function Logged() {
 
   return (
     <div className="logged">
-      {state.openModal && <PageLoggedModal dispatch={dispatch} state={state} />}
+      {state.openModal && <SearchSelectModal />}
       <div className="inputs-container">
         <input
           type="text"

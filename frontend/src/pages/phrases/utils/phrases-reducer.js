@@ -10,7 +10,7 @@ export const initialState = {
   eventId: 1,
 };
 
-export default function loggedReducer(state, action) {
+export default function phrasesReducer(state, action) {
   switch (action.type) {
     case INPUT_OPEN_MODAL: {
       const { filteredEvent } = action.payload;
