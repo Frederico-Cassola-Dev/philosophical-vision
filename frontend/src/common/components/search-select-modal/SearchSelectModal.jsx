@@ -11,6 +11,7 @@ import { PhrasesContext } from "../../contexts/phrasesContext";
 
 export default function SearchSelectModal() {
   const { state, dispatch } = useContext(PhrasesContext);
+
   const eventsByCategoryResponse = useAxios({
     method: "get",
     endpoint: `events/categories/${state.categoryId}`,
@@ -78,10 +79,10 @@ export default function SearchSelectModal() {
 SearchSelectModal.propTypes = {
   state: PropTypes.shape({
     categoryId: PropTypes.string,
-    eventId: PropTypes.number,
+    eventId: PropTypes.string,
     filteredEvent: PropTypes.string,
     openModal: PropTypes.bool,
-  }).isRequired,
+  }),
   // setChosenEventId: PropTypes.func.isRequired,
   // data: PropTypes.arrayOf(
   //   PropTypes.shape({
@@ -92,5 +93,5 @@ SearchSelectModal.propTypes = {
 };
 
 SearchSelectModal.defaultProps = {
-  // data: [],
+  state: { categoryId: "", eventId: "", filteredEvent: "", openModal: false },
 };

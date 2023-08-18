@@ -1,13 +1,30 @@
+import { useState } from "react";
 import defaultAvatar from "../../assets/images/default_avatar.png";
 
 export default function SignUp() {
+  // const [avatar, setAvatar] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [secondPassword, setSecondPassword] = useState("");
+
   return (
     <div className="sign-up">
-      <form action="" className="form-input">
+      <form
+        action=""
+        className="form-input"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <div className="avatar-label-input-container">
           <label htmlFor="avatar" className="label-avatar">
             Avatar
-            <input type="file" name="" id="avatar" className="input-avatar" />
+            <input
+              type="file"
+              name="avatar"
+              id="avatar"
+              className="input-avatar"
+            />
           </label>
           <div className="avatar-container">
             <img src={defaultAvatar} alt="avatar" />
@@ -17,40 +34,55 @@ export default function SignUp() {
           Nom
           <input
             type="text"
-            name=""
+            name="lastName"
             id="lastName"
             className="input-last-name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </label>
         <label htmlFor="firstName" className="label-first_name">
           Prénom
           <input
             type="text"
-            name=""
+            name="firstName"
             id="firstName"
             className="input-first-name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </label>
         <label htmlFor="email" className="label-email">
           E-mail
-          <input type="email" name="" id="email" className="input-email" />
-        </label>
-        <label htmlFor="password-1" className="label-password-1">
-          Mot de passe
           <input
-            type="password"
-            name=""
-            id="password-1"
-            className="input-password-1"
+            type="email"
+            name="email"
+            id="email"
+            className="input-email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <label htmlFor="password-2" className="label-password-2">
+        <label htmlFor="password" className="label-password-1">
           Mot de passe
           <input
             type="password"
-            name=""
-            id="password-2"
-            className="input-password-2"
+            name="password"
+            id="password"
+            className="input-password-1"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <label htmlFor="secondPassword" className="label-password-2">
+          Mot de passe
+          <input
+            type="password"
+            name="secondPassword"
+            id="secondPassword"
+            className="input-second-password"
+            value={secondPassword}
+            onChange={(e) => setSecondPassword(e.target.value)}
           />
         </label>
         <div className="submit-button-container">

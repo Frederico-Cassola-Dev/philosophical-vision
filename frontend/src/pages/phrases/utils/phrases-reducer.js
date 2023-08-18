@@ -7,7 +7,7 @@ export const initialState = {
   openModal: false,
   filteredEvent: "",
   categoryId: "",
-  eventId: 1,
+  eventId: "1",
 };
 
 export default function phrasesReducer(state, action) {

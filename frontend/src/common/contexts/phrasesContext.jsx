@@ -14,7 +14,7 @@ export function PhrasesProvider({ children }) {
       state,
       dispatch,
     }),
-    [state]
+    [state, dispatch]
   );
 
   return (
