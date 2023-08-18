@@ -1,20 +1,45 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import defaultAvatar from "../../assets/images/default_avatar.png";
+import signUpFormReducer, {
+  SIGN_UP_UPDATE_AVATAR,
+  SIGN_UP_UPDATE_FIRST_NAME,
+  SIGN_UP_UPDATE_LAST_NAME,
+  SIGN_UP_UPDATE_EMAIL_NAME,
+  SIGN_UP_UPDATE_PASSWORD_NAME,
+  SIGN_UP_UPDATE_SECOND_PASSWORD,
+  signUpInitialState,
+} from "./utils/signUp-form-reducer";
+import signUpFormValidatorReducer, {
+  // SIGN_UP_VALIDATE_AVATAR,
+  SIGN_UP_VALIDATE_FIRST_NAME,
+  SIGN_UP_VALIDATE_LAST_NAME,
+  SIGN_UP_VALIDATE_EMAIL_NAME,
+  SIGN_UP_VALIDATE_PASSWORD_NAME,
+  SIGN_UP_VALIDATE_SECOND_PASSWORD,
+  signUpInitialValidatorState,
+} from "./utils/signUp-form-validator-reducer";
 
 export default function SignUp() {
-  // const [avatar, setAvatar] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [secondPassword, setSecondPassword] = useState("");
+  // const [avatar, setAvatar] = usenewUserState("");
+
+  const [newUserState, dispatchForm] = useReducer(
+    signUpFormReducer,
+    signUpInitialState
+  );
+
+  const [newUserValidatorState, dispatchValidatorForm] = useReducer(
+    signUpFormValidatorReducer,
+    signUpInitialValidatorState
+  );
 
   return (
     <div className="sign-up">
       <form
-        action=""
         className="form-input"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.info("newUserValidatorState", newUserValidatorState);
+        }}
       >
         <div className="avatar-label-input-container">
           <label htmlFor="avatar" className="label-avatar">
@@ -24,6 +49,18 @@ export default function SignUp() {
               name="avatar"
               id="avatar"
               className="input-avatar"
+              onChange={(e) =>
+                dispatchForm({
+                  type: SIGN_UP_UPDATE_AVATAR,
+                  payload: { avatar: e.target.value },
+                })
+              }
+              // onBlur={() =>
+              //   dispatchValidatorForm({
+              //     type: SIGN_UP_VALIDATE_AVATAR,
+              //     payload: newUserState,
+              //   })
+              // }
             />
           </label>
           <div className="avatar-container">
@@ -37,8 +74,19 @@ export default function SignUp() {
             name="lastName"
             id="lastName"
             className="input-last-name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={newUserState.lastName}
+            onChange={(e) =>
+              dispatchForm({
+                type: SIGN_UP_UPDATE_LAST_NAME,
+                payload: { lastName: e.target.value },
+              })
+            }
+            onBlur={() =>
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_LAST_NAME,
+                payload: newUserState,
+              })
+            }
           />
         </label>
         <label htmlFor="firstName" className="label-first_name">
@@ -48,8 +96,19 @@ export default function SignUp() {
             name="firstName"
             id="firstName"
             className="input-first-name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={newUserState.firstName}
+            onChange={(e) =>
+              dispatchForm({
+                type: SIGN_UP_UPDATE_FIRST_NAME,
+                payload: { firstName: e.target.value },
+              })
+            }
+            onBlur={() =>
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_FIRST_NAME,
+                payload: newUserState,
+              })
+            }
           />
         </label>
         <label htmlFor="email" className="label-email">
@@ -59,8 +118,19 @@ export default function SignUp() {
             name="email"
             id="email"
             className="input-email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={newUserState.email}
+            onChange={(e) =>
+              dispatchForm({
+                type: SIGN_UP_UPDATE_EMAIL_NAME,
+                payload: { email: e.target.value },
+              })
+            }
+            onBlur={() =>
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_EMAIL_NAME,
+                payload: newUserState,
+              })
+            }
           />
         </label>
         <label htmlFor="password" className="label-password-1">
@@ -70,8 +140,19 @@ export default function SignUp() {
             name="password"
             id="password"
             className="input-password-1"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={newUserState.password}
+            onChange={(e) =>
+              dispatchForm({
+                type: SIGN_UP_UPDATE_PASSWORD_NAME,
+                payload: { password: e.target.value },
+              })
+            }
+            onBlur={() =>
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_PASSWORD_NAME,
+                payload: newUserState,
+              })
+            }
           />
         </label>
         <label htmlFor="secondPassword" className="label-password-2">
@@ -81,8 +162,19 @@ export default function SignUp() {
             name="secondPassword"
             id="secondPassword"
             className="input-second-password"
-            value={secondPassword}
-            onChange={(e) => setSecondPassword(e.target.value)}
+            value={newUserState.secondPassword}
+            onChange={(e) =>
+              dispatchForm({
+                type: SIGN_UP_UPDATE_SECOND_PASSWORD,
+                payload: { secondPassword: e.target.value },
+              })
+            }
+            onBlur={() =>
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_SECOND_PASSWORD,
+                payload: newUserState,
+              })
+            }
           />
         </label>
         <div className="submit-button-container">

@@ -29,7 +29,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // keep this one, after checking the value in `backend/.env`
+    origin: [process.env.FRONTEND_URL, "http://127.0.0.1:3000"], // keep this one, after checking the value in `backend/.env`
     optionsSuccessStatus: 200,
     credentials: true,
   })
