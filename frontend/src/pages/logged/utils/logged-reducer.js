@@ -13,18 +13,20 @@ export const initialState = {
 export default function loggedReducer(state, action) {
   switch (action.type) {
     case INPUT_OPEN_MODAL: {
+      const { filteredEvent } = action.payload;
       return {
         ...state,
-        filteredEvent: action.payload.filteredEvent,
+        filteredEvent,
         categoryId: "",
       };
     }
 
     case SELECT_OPEN_MODAL: {
+      const { categoryId, eventId } = action.payload;
       return {
         ...state,
-        categoryId: action.payload.categoryId,
-        eventId: action.payload.eventId,
+        categoryId,
+        eventId,
       };
     }
 
