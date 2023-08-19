@@ -1,5 +1,7 @@
 import { useContext } from "react";
-import useAxios from "../../common/hooks/useAxios";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import useAxios from "@/common/hooks/useAxios";
+// import useAxios from "../../common/hooks/useAxios";
 import SearchSelectModal from "../../common/components/search-select-modal/SearchSelectModal";
 import {
   OPEN_MODAL,
