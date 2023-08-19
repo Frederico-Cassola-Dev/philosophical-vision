@@ -16,7 +16,7 @@
     "sourceType": "module"
   },
   "plugins": ["react", "import"],
-  "rules": {
+   "rules": {
     "no-console": "off",
     "no-restricted-syntax": [
       "error",

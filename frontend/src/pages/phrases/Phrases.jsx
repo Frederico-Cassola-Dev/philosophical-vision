@@ -1,7 +1,5 @@
 import { useContext } from "react";
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import useAxios from "@/common/hooks/useAxios";
-// import useAxios from "../../common/hooks/useAxios";
+import useAxios from "../../common/hooks/useAxios";
 import SearchSelectModal from "../../common/components/search-select-modal/SearchSelectModal";
 import {
   OPEN_MODAL,
@@ -12,7 +10,6 @@ import { PhrasesContext } from "../../common/contexts/phrasesContext";
 
 export default function Phrases() {
   const { state, dispatch } = useContext(PhrasesContext);
-
   const categoriesResponse = useAxios({
     method: "get",
     endpoint: "categories",
@@ -20,7 +17,7 @@ export default function Phrases() {
 
   const phrasesResponse = useAxios({
     method: "get",
-    endpoint: `phrases/events/${state.eventId}`,
+    endpoint: "/phrases4/randomevents",
   });
 
   return (
@@ -71,7 +68,7 @@ export default function Phrases() {
       </div>
       <div className="visions-container">
         {phrasesResponse?.map((item) => (
-          <p className="vision-phrase" key={item.id}>
+          <p className="vision-phrase" key={item.phrase_id}>
             {item.phrase}
           </p>
         ))}

@@ -20,7 +20,7 @@ import signUpFormValidatorReducer, {
 } from "./utils/signUp-form-validator-reducer";
 
 export default function SignUp() {
-  // const [avatar, setAvatar] = usenewUserState("");
+  // const [avatar, setAvatar] = useState("");
 
   const [newUserState, dispatchForm] = useReducer(
     signUpFormReducer,
@@ -38,7 +38,6 @@ export default function SignUp() {
         className="form-input"
         onSubmit={(e) => {
           e.preventDefault();
-          console.info("newUserValidatorState", newUserValidatorState);
         }}
       >
         <div className="avatar-label-input-container">
@@ -73,7 +72,11 @@ export default function SignUp() {
             type="text"
             name="lastName"
             id="lastName"
-            className="input-last-name"
+            className={
+              newUserValidatorState.lastNameError
+                ? "error-input"
+                : "input-last-name"
+            }
             value={newUserState.lastName}
             onChange={(e) =>
               dispatchForm({
@@ -95,7 +98,11 @@ export default function SignUp() {
             type="text"
             name="firstName"
             id="firstName"
-            className="input-first-name"
+            className={
+              newUserValidatorState.firstNameError
+                ? "error-input"
+                : "input-first-name"
+            }
             value={newUserState.firstName}
             onChange={(e) =>
               dispatchForm({
@@ -117,7 +124,9 @@ export default function SignUp() {
             type="email"
             name="email"
             id="email"
-            className="input-email"
+            className={
+              newUserValidatorState.emailError ? "error-input" : "input-email"
+            }
             value={newUserState.email}
             onChange={(e) =>
               dispatchForm({
@@ -139,7 +148,11 @@ export default function SignUp() {
             type="password"
             name="password"
             id="password"
-            className="input-password-1"
+            className={
+              newUserValidatorState.passwordError
+                ? "error-input"
+                : "input-password-1"
+            }
             value={newUserState.password}
             onChange={(e) =>
               dispatchForm({
@@ -161,7 +174,11 @@ export default function SignUp() {
             type="password"
             name="secondPassword"
             id="secondPassword"
-            className="input-second-password"
+            className={
+              newUserValidatorState.secondPasswordError
+                ? "error-input"
+                : "input-second-password"
+            }
             value={newUserState.secondPassword}
             onChange={(e) =>
               dispatchForm({

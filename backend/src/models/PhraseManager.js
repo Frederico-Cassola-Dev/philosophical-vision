@@ -37,15 +37,13 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
-  async read4ByEventId(id) {
+  async read4ByRandomEvent() {
     const [rows] = await this.database.query(
-      `SELECT p.id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
-    inner join philosophical_vision.events_phrases ep on ep.phrases_id = p.id
-    inner join philosophical_vision.events e on e.id = ep.events_id
-    where e.id = ?
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
+    inner join events_phrases ep on ep.phrases_id = p.id
+    inner join events e on e.id = ep.events_id
     order by rand()
-    limit 4`,
-      [id]
+    limit 4`
     );
 
     return rows;

@@ -1,34 +1,31 @@
-// import fs from "fs";
-import { resolve } from "path";
+/* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-
-// const folders = fs.readdirSync("./src", { withFileTypes: true });
-// const fileNames = folders
-//   .filter((dirent) => dirent.isDirectory())
-//   .map((dirent) => dirent.name);
-// console.log("🚀 - fileNames:", fileNames);
-
-// const filePaths = fileNames.reduce(
-//   (acc, cur) => ({
-//     ...acc,
-//     [cur]: `/${cur === "src" ? cur : `src/${cur}`}`,
-//   }),
-//   ""
-// );
-// console.log("🚀 - filePaths:", filePaths);
-
-// console.log(`filePaths: ${JSON.stringify(filePaths, null, 2)}`);
-
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      "@": resolve(__dirname, "src"),
-    },
-  },
+  /*
+   * Trying to config vite to use alias -@-
+   * This is a possible solution
+   * The only thing that works is the file in the root jsconfig.js with the compiler options
+   * Eslint config file add this :
+   * "settings": {
+   *   "import/resolver": {
+   *     "alias": {
+   *       "map": [["@", "./src"]]
+   *     }
+   *},
+   */
+
+  // resolve: {
+  //   alias: [
+  //     {
+  //       find: "@/*",
+  //       replacement: resolve(__dirname, "src"),
+  //     },
+  //   ],
+  // },
   server: {
     port: 3000,
   },
