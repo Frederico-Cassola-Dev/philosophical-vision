@@ -18,21 +18,21 @@ export const signUpInitialValidatorState = {
 export default function signUpFormValidatorReducer(state, action) {
   let isValid = false;
   switch (action.type) {
-    //   case SIGN_UP_VALIDATE_AVATAR:
-    //     isValid = action.payload.avatar.length > 0;
-    //     return {
-    //       ...state,
-    //       ...{
-    //         avatarError: !isValid,
-    //         isFormValid:
-    //           isValid &&
-    //           !state.firstNameError &&
-    //           !state.lastNameError &&
-    //           !state.emailError &&
-    //           !state.passwordError &&
-    //           !state.secondPasswordError,
-    //       },
-    //     };
+    // case SIGN_UP_VALIDATE_AVATAR:
+    //   isValid = action.payload.avatar.length > 0;
+    //   return {
+    //     ...state,
+    //     ...{
+    //       avatarError: !isValid,
+    //       isFormValid:
+    //         isValid &&
+    //         !state.firstNameError &&
+    //         !state.lastNameError &&
+    //         !state.emailError &&
+    //         !state.passwordError &&
+    //         !state.secondPasswordError,
+    //     },
+    //   };
     case SIGN_UP_VALIDATE_FIRST_NAME:
       isValid = action.payload.firstName.length > 0;
       return {

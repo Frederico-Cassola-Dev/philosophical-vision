@@ -20,8 +20,6 @@ import signUpFormValidatorReducer, {
 } from "./utils/signUp-form-validator-reducer";
 
 export default function SignUp() {
-  // const [avatar, setAvatar] = useState("");
-
   const [newUserState, dispatchForm] = useReducer(
     signUpFormReducer,
     signUpInitialState
@@ -48,12 +46,12 @@ export default function SignUp() {
               name="avatar"
               id="avatar"
               className="input-avatar"
-              onChange={(e) =>
+              onChange={(e) => {
                 dispatchForm({
                   type: SIGN_UP_UPDATE_AVATAR,
-                  payload: { avatar: e.target.value },
-                })
-              }
+                  payload: { avatar: e.target.files[0] },
+                });
+              }}
               // onBlur={() =>
               //   dispatchValidatorForm({
               //     type: SIGN_UP_VALIDATE_AVATAR,
@@ -63,7 +61,14 @@ export default function SignUp() {
             />
           </label>
           <div className="avatar-container">
-            <img src={defaultAvatar} alt="avatar" />
+            <img
+              src={
+                newUserState.avatar
+                  ? URL.createObjectURL(newUserState.avatar)
+                  : defaultAvatar
+              }
+              alt="avatar"
+            />
           </div>
         </div>
         <label htmlFor="lastName" className="label-last-name">

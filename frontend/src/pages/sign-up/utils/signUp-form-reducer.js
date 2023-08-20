@@ -6,6 +6,7 @@ export const SIGN_UP_UPDATE_PASSWORD_NAME = "signUp/updatePassword";
 export const SIGN_UP_UPDATE_SECOND_PASSWORD = "signUp/updateSecondPassword";
 
 export const signUpInitialState = {
+  avatar: null,
   firstName: "",
   lastName: "",
   email: "",

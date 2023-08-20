@@ -77,6 +77,8 @@
           aspect-ratio: 1 / 1;
           margin-left: $space-xs;
           border-radius: $border-radius-round;
+          object-fit:fit;
+          // object-position: 50% 50%;
         }
       }
     }
