@@ -1,11 +1,16 @@
 const express = require("express");
+const multer = require("multer");
 
 const router = express.Router();
+const upload = multer({ dest: "./public/assets/avatar" });
 
+const uploadAvatar = require("./services/uploadAvatar");
 const userControllers = require("./controllers/userControllers");
 const phraseControllers = require("./controllers/phraseControllers");
 const eventControllers = require("./controllers/eventControllers");
 const categoryControllers = require("./controllers/categoryControllers");
+
+router.post("/avatar", upload.single("avatar"), uploadAvatar.postAvatar);
 
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
