@@ -11,7 +11,7 @@ import signUpFormReducer, {
   signUpInitialState,
 } from "./utils/signUp-form-reducer";
 import signUpFormValidatorReducer, {
-  // SIGN_UP_VALIDATE_AVATAR,
+  SIGN_UP_VALIDATE_AVATAR,
   SIGN_UP_VALIDATE_FIRST_NAME,
   SIGN_UP_VALIDATE_LAST_NAME,
   SIGN_UP_VALIDATE_EMAIL_NAME,
@@ -25,23 +25,34 @@ export default function SignUp() {
     signUpFormReducer,
     signUpInitialState
   );
+  // console.log("🚀 - newUserState:", newUserState.avatarName);
 
   const [newUserValidatorState, dispatchValidatorForm] = useReducer(
     signUpFormValidatorReducer,
     signUpInitialValidatorState
   );
+  // console.log(
+  //   "🚀 - newUserValidatorState is form VALID:",
+  //   newUserValidatorState.isFormValid
+  // );
 
   const handleNeuUserPost = (newUserData) => {
-    axios
-      .post(`http://localhost:5000/api/users`, {
-        firstName: newUserData.firstName,
-        lastName: newUserData.lastName,
-        email: newUserData.email,
-        password: newUserData.password,
-        avatar: newUserData.avatar.name,
-      })
-      .then((response) => console.info(response.statusText))
-      .catch((err) => console.error(err));
+    if (newUserValidatorState.isFormValid) {
+      axios
+        .post(`http://localhost:5000/api/users`, {
+          firstName: newUserData.firstName,
+          lastName: newUserData.lastName,
+          email: newUserData.email,
+          password: newUserData.password,
+          avatar: newUserData.avatarName
+            ? newUserData.avatarName
+            : "default_avatar.png",
+        })
+        .then((response) => console.info(response.statusText))
+        .catch((err) => console.error(err));
+    } else {
+      console.info("Form not validated");
+    }
   };
 
   return (
@@ -64,14 +75,17 @@ export default function SignUp() {
               onChange={(e) => {
                 dispatchForm({
                   type: SIGN_UP_UPDATE_AVATAR,
-                  payload: { avatar: e.target.files[0] },
+                  payload: {
+                    avatar: e.target.files[0],
+                    avatarName: e.target.files[0].name,
+                  },
+                });
+                dispatchValidatorForm({
+                  type: SIGN_UP_VALIDATE_AVATAR,
+                  payload: newUserState,
                 });
               }}
               // onBlur={() =>
-              //   dispatchValidatorForm({
-              //     type: SIGN_UP_VALIDATE_AVATAR,
-              //     payload: newUserState,
-              //   })
               // }
             />
           </label>
@@ -97,6 +111,7 @@ export default function SignUp() {
                 ? "error-input"
                 : "input-last-name"
             }
+            required
             value={newUserState.lastName}
             onChange={(e) =>
               dispatchForm({
@@ -123,6 +138,7 @@ export default function SignUp() {
                 ? "error-input"
                 : "input-first-name"
             }
+            required
             value={newUserState.firstName}
             onChange={(e) =>
               dispatchForm({
@@ -147,6 +163,7 @@ export default function SignUp() {
             className={
               newUserValidatorState.emailError ? "error-input" : "input-email"
             }
+            required
             value={newUserState.email}
             onChange={(e) =>
               dispatchForm({
@@ -173,6 +190,7 @@ export default function SignUp() {
                 ? "error-input"
                 : "input-password-1"
             }
+            required
             value={newUserState.password}
             onChange={(e) =>
               dispatchForm({
@@ -199,6 +217,7 @@ export default function SignUp() {
                 ? "error-input"
                 : "input-second-password"
             }
+            required
             value={newUserState.secondPassword}
             onChange={(e) =>
               dispatchForm({

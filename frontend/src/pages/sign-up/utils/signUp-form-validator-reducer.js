@@ -6,7 +6,7 @@ export const SIGN_UP_VALIDATE_PASSWORD_NAME = "signUp/validatePassword";
 export const SIGN_UP_VALIDATE_SECOND_PASSWORD = "signUp/validateSecondPassword";
 
 export const signUpInitialValidatorState = {
-  // avatarError: false,
+  avatarError: false,
   firstNameError: false,
   lastNameError: false,
   emailError: false,
@@ -18,21 +18,22 @@ export const signUpInitialValidatorState = {
 export default function signUpFormValidatorReducer(state, action) {
   let isValid = false;
   switch (action.type) {
-    // case SIGN_UP_VALIDATE_AVATAR:
-    //   isValid = action.payload.avatar.length > 0;
-    //   return {
-    //     ...state,
-    //     ...{
-    //       avatarError: !isValid,
-    //       isFormValid:
-    //         isValid &&
-    //         !state.firstNameError &&
-    //         !state.lastNameError &&
-    //         !state.emailError &&
-    //         !state.passwordError &&
-    //         !state.secondPasswordError,
-    //     },
-    //   };
+    case SIGN_UP_VALIDATE_AVATAR:
+      isValid = action.payload.avatarName.length > 0;
+
+      return {
+        ...state,
+        ...{
+          avatarError: !isValid,
+          isFormValid:
+            isValid &&
+            !state.firstNameError &&
+            !state.lastNameError &&
+            !state.emailError &&
+            !state.passwordError &&
+            !state.secondPasswordError,
+        },
+      };
     case SIGN_UP_VALIDATE_FIRST_NAME:
       isValid = action.payload.firstName.length > 0;
       return {
@@ -41,7 +42,7 @@ export default function signUpFormValidatorReducer(state, action) {
           firstNameError: !isValid,
           isFormValid:
             isValid &&
-            // !state.avatarError &&
+            !state.avatarError &&
             !state.lastNameError &&
             !state.emailError &&
             !state.passwordError &&
@@ -56,7 +57,7 @@ export default function signUpFormValidatorReducer(state, action) {
           lastNameError: !isValid,
           isFormValid:
             isValid &&
-            // !state.avatarError &&
+            !state.avatarError &&
             !state.firstNameError &&
             !state.emailError &&
             !state.passwordError &&
@@ -67,13 +68,14 @@ export default function signUpFormValidatorReducer(state, action) {
       isValid = !!(
         action.payload.email.length > 0 && action.payload.email.includes("@")
       );
+
       return {
         ...state,
         ...{
           emailError: !isValid,
           isFormValid:
             isValid &&
-            // !state.avatarError &&
+            !state.avatarError &&
             !state.firstNameError &&
             !state.lastNameError &&
             !state.passwordError &&
@@ -88,7 +90,7 @@ export default function signUpFormValidatorReducer(state, action) {
           passwordError: !isValid,
           isFormValid:
             isValid &&
-            // !state.avatarError &&
+            !state.avatarError &&
             !state.firstNameError &&
             !state.lastNameError &&
             !state.emailError &&
@@ -104,7 +106,7 @@ export default function signUpFormValidatorReducer(state, action) {
           secondPasswordError: !isValid,
           isFormValid:
             isValid &&
-            // !state.avatarError &&
+            !state.avatarError &&
             !state.firstNameError &&
             !state.lastNameError &&
             !state.emailError &&
