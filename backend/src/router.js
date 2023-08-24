@@ -19,6 +19,7 @@ router.post("/users", userControllers.add);
 router.get("/phrases", phraseControllers.browse);
 router.get("/phrases5", phraseControllers.browse5);
 router.get("/phrases/:id", phraseControllers.read);
+router.get("/phrases4/events/:id", phraseControllers.read4ByEventId);
 router.get("/phrases4/randomevents", phraseControllers.read4ByRandomEvent);
 router.post("/phrases", phraseControllers.add);
 

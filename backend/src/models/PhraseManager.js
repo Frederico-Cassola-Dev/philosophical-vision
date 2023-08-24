@@ -49,6 +49,20 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
+  async read4ByEventId(id) {
+    const [rows] = await this.database.query(
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
+    inner join events_phrases ep on ep.phrases_id = p.id
+    inner join events e on e.id = ep.events_id
+    where e.id = ?
+    order by rand()
+    limit 4`,
+      [id]
+    );
+
+    return rows;
+  }
+
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing phrase
 

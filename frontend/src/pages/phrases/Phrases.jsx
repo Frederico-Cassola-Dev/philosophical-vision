@@ -1,28 +1,45 @@
-import { useContext } from "react";
+import { useEffect, useReducer } from "react";
+import axios from "axios";
 import useAxios from "../../common/hooks/useAxios";
 import SearchSelectModal from "../../common/components/search-select-modal/SearchSelectModal";
-import {
+import phrasesReducer, {
   OPEN_MODAL,
   INPUT_OPEN_MODAL,
   SELECT_OPEN_MODAL,
+  SET_PHRASES,
+  initialState,
 } from "./utils/phrases-reducer";
-import { PhrasesContext } from "../../common/contexts/phrasesContext";
 
 export default function Phrases() {
-  const { state, dispatch } = useContext(PhrasesContext);
+  const [state, dispatch] = useReducer(phrasesReducer, initialState);
+
   const categoriesResponse = useAxios({
     method: "get",
     endpoint: "categories",
   });
 
-  const phrasesResponse = useAxios({
-    method: "get",
-    endpoint: "/phrases4/randomevents",
-  });
+  // const phrasesResponseByEventId = useAxios({
+  //   method: "get",
+  //   endpoint: "/phrases4/randomevents",
+  // });
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/phrases4/events/${state.eventId}`)
+      .then((response) =>
+        dispatch({
+          type: SET_PHRASES,
+          payload: { phrasesToShow: response.data },
+        })
+      )
+      .catch((err) => console.error(err));
+  }, [state.eventId]);
 
   return (
     <div className="logged">
-      {state.openModal && <SearchSelectModal />}
+      {state.openModal && (
+        <SearchSelectModal state={state} dispatch={dispatch} />
+      )}
       <div className="inputs-container">
         <input
           type="text"
@@ -63,15 +80,22 @@ export default function Phrases() {
       </div>
       <div className="life-event-container">
         <p className="life-event-phrase">
-          {phrasesResponse && phrasesResponse[0]?.event_title}
+          {state.phrasesToShow && state.phrasesToShow[0]?.event_title}
+          {/* phrasesResponseByEventId[0]?.event_title  */}
         </p>
       </div>
       <div className="visions-container">
-        {phrasesResponse?.map((item) => (
-          <p className="vision-phrase" key={item.phrase_id}>
-            {item.phrase}
-          </p>
-        ))}
+        {state.phrasesToShow &&
+          state.phrasesToShow?.map((item) => (
+            <p className="vision-phrase" key={item.phrase_id}>
+              {item.phrase}
+            </p>
+          ))}
+        {/* : phrasesResponse?.map((item) => (
+              <p className="vision-phrase" key={item.phrase_id}>
+                {item.phrase}
+              </p>
+            )) */}
       </div>
     </div>
   );
