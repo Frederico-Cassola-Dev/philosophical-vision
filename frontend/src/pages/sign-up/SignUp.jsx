@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import axios from "axios";
 import defaultAvatar from "../../assets/images/default_avatar.png";
 import signUpFormReducer, {
   SIGN_UP_UPDATE_AVATAR,
@@ -30,12 +31,26 @@ export default function SignUp() {
     signUpInitialValidatorState
   );
 
+  const handleNeuUserPost = (newUserData) => {
+    axios
+      .post(`http://localhost:5000/api/users`, {
+        firstName: newUserData.firstName,
+        lastName: newUserData.lastName,
+        email: newUserData.email,
+        password: newUserData.password,
+        avatar: newUserData.avatar.name,
+      })
+      .then((response) => console.info(response.statusText))
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className="sign-up">
       <form
         className="form-input"
         onSubmit={(e) => {
           e.preventDefault();
+          handleNeuUserPost(newUserState);
         }}
       >
         <div className="avatar-label-input-container">
