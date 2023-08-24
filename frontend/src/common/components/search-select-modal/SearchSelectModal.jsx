@@ -21,7 +21,12 @@ export default function SearchSelectModal({ state, dispatch }) {
   return (
     <div className="overlay">
       <div className="modal-container">
-        <CloseIconModal size="22" classStyle="close-icon-modal" />
+        <CloseIconModal
+          size="22"
+          classStyle="close-icon-modal"
+          state={state}
+          dispatch={dispatch}
+        />
         <h2 className="modal-title">Events</h2>
         <div className="list-container">
           <ul className="list">

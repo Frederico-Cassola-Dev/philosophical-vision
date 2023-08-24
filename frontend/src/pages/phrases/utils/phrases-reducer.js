@@ -2,12 +2,14 @@ export const SELECT_OPEN_MODAL = "openModalSelect";
 export const INPUT_OPEN_MODAL = "openModalInput";
 export const OPEN_MODAL = "openModal";
 export const CLOSE_MODAL = "closeModal";
+export const SET_PHRASES = "setPhrases";
 
 export const initialState = {
   openModal: false,
   filteredEvent: "",
   categoryId: "",
   eventId: "1",
+  phrasesToShow: null,
 };
 
 export default function phrasesReducer(state, action) {
@@ -23,6 +25,7 @@ export default function phrasesReducer(state, action) {
 
     case SELECT_OPEN_MODAL: {
       const { categoryId, eventId } = action.payload;
+
       return {
         ...state,
         categoryId,
@@ -43,6 +46,14 @@ export default function phrasesReducer(state, action) {
         openModal: false,
         filteredEvent: "",
         eventId: 1,
+      };
+    }
+
+    case SET_PHRASES: {
+      const { phrasesToShow } = action.payload;
+      return {
+        ...state,
+        phrasesToShow,
       };
     }
 

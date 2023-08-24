@@ -49,6 +49,20 @@ const read4ByRandomEvent = async (req, res, next) => {
   }
 };
 
+const read4ByEventId = async (req, res, next) => {
+  try {
+    const phrases = await tables.phrases.read4ByEventId(req.params.id);
+
+    if (phrases == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(phrases);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const add = async (req, res, next) => {
   const phrase = req.body;
 
@@ -66,6 +80,7 @@ module.exports = {
   browse5,
   read,
   read4ByRandomEvent,
+  read4ByEventId,
   // edit,
   add,
   // destroy,
