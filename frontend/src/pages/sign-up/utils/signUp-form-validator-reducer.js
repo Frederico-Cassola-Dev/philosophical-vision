@@ -20,7 +20,6 @@ export default function signUpFormValidatorReducer(state, action) {
   switch (action.type) {
     case SIGN_UP_VALIDATE_AVATAR:
       isValid = action.payload.avatarName.length > 0;
-
       return {
         ...state,
         ...{

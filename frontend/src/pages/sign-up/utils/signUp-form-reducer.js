@@ -19,8 +19,6 @@ export default function signUpFormReducer(state, action) {
   switch (action.type) {
     case SIGN_UP_UPDATE_AVATAR: {
       const { avatar, avatarName } = action.payload;
-      console.log("🚀 - avatarName:", avatarName);
-
       return {
         ...state,
         avatar,

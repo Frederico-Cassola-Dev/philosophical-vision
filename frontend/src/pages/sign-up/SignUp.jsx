@@ -25,16 +25,11 @@ export default function SignUp() {
     signUpFormReducer,
     signUpInitialState
   );
-  // console.log("🚀 - newUserState:", newUserState.avatarName);
 
   const [newUserValidatorState, dispatchValidatorForm] = useReducer(
     signUpFormValidatorReducer,
     signUpInitialValidatorState
   );
-  // console.log(
-  //   "🚀 - newUserValidatorState is form VALID:",
-  //   newUserValidatorState.isFormValid
-  // );
 
   const handleNeuUserPost = (newUserData) => {
     if (newUserValidatorState.isFormValid) {
@@ -80,13 +75,13 @@ export default function SignUp() {
                     avatarName: e.target.files[0].name,
                   },
                 });
+              }}
+              onBlur={() =>
                 dispatchValidatorForm({
                   type: SIGN_UP_VALIDATE_AVATAR,
                   payload: newUserState,
-                });
-              }}
-              // onBlur={() =>
-              // }
+                })
+              }
             />
           </label>
           <div className="avatar-container">
