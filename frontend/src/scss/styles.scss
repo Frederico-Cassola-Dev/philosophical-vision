@@ -2,7 +2,7 @@
 @use "./base/reset";
 
 @use "../app";
-@use "../pages/Home/home";
+@use "../pages/Home/home.module";
 @use "../pages/SignIn/signIn";
 @use "../pages/SignUp/signUp";
 @use "../pages/Phrases/phrases";

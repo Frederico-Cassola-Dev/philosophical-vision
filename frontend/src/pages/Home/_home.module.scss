@@ -16,7 +16,7 @@
     align-items: center;
     flex-direction: column;
 
-    .title-container {
+    .titleContainer {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -35,7 +35,7 @@
           margin-left: $space-2xs ;
         }
 
-        .sub-title {
+        .subTitle {
           font-family: $primary-font;
           font-size: $font-size-5xl;
           margin-left: $space-2xs;
@@ -44,18 +44,18 @@
       }
     }
 
-    .description-section {
+    .descriptionSection {
       width: 80vw;
       font-family: $primary-font;
       margin-bottom: $space-xl;
 
-      .description-text {
+      .descriptionText {
         text-align: center;
         font-size: $font-size-l;
       }
     }
 
-    .random-phrases-section {
+    .random-phrasesSection {
       width: 95vw;
       margin-top: $space-m;
       font-weight: $font-weight-bold;
@@ -66,27 +66,28 @@
         text-align: center;
         padding: 0 $space-xs;
         max-width: 80%;
-      }
+      
 
-      .phrase-0 {
+      .phrase0 {
         animation: phrases-animation 2s linear infinite alternate;
       }
 
-      .phrase-1 {
+      .phrase1 {
         animation: phrases-animation 2s linear infinite alternate-reverse;
       }
 
-      .phrase-2 {
+      .phrase2 {
         animation: phrases-animation 2s linear infinite alternate;
       }
 
-      .phrase-3 {
+      .phrase3 {
         animation: phrases-animation 2s linear infinite alternate-reverse;
       }
 
-      .phrase-4 {
+      .phrase4 {
         animation: phrases-animation 2s linear infinite alternate;
       }
+    }
 
       @keyframes phrases-animation {
         0% {

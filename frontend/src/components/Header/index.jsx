@@ -11,7 +11,9 @@ function Header() {
         <Link
           to="/"
           className={
-            pathname === "/" ? `${style.hiddenLogo}` : `${style.logoContainer}`
+            pathname === "/"
+              ? `${(style.logoContainer, style.hiddenLogo)}`
+              : `${style.logoContainer}`
           }
         >
           <img src={singleLogo} alt="logo" />
