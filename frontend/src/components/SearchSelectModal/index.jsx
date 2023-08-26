@@ -6,6 +6,8 @@ import {
 } from "../../pages/Phrases/utils/phrases-reducer";
 import CloseIconModal from "./CloseIconModal";
 
+import style from "./_searchSelectModal.module.scss";
+
 export default function SearchSelectModal({ state, dispatch }) {
   const eventsByCategoryResponse = useAxios({
     method: "get",
@@ -18,20 +20,20 @@ export default function SearchSelectModal({ state, dispatch }) {
   });
 
   return (
-    <div className="overlay">
-      <div className="modal-container">
+    <div className={style.overlay}>
+      <div className={style.modalContainer}>
         <CloseIconModal
           size="22"
-          classStyle="close-icon-modal"
+          classStyle={style.closeIconModal}
           state={state}
           dispatch={dispatch}
         />
-        <h2 className="modal-title">Events</h2>
-        <div className="list-container">
-          <ul className="list">
+        <h2 className={style.modalTitle}>Events</h2>
+        <div className={style.listContainer}>
+          <ul className={style.list}>
             {state.categoryId !== "" &&
               eventsByCategoryResponse?.map((events) => (
-                <li className="list-items" key={events.id}>
+                <li className={style.listItems} key={events.id}>
                   <button
                     type="button"
                     onClick={() => {
@@ -51,7 +53,7 @@ export default function SearchSelectModal({ state, dispatch }) {
               ))}
             {state.filteredEvent !== "" &&
               eventsByTitleResponse?.map((events) => (
-                <li className="list-items" key={events.id}>
+                <li className={style.listItems} key={events.id}>
                   <button
                     type="button"
                     onClick={() => {

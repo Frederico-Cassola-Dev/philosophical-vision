@@ -1,0 +1,107 @@
+@import "../../scss/variables";
+
+.sign-up {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 83.9vh;
+  font-family: $primary-font;
+  color: $color-text-primary;
+  font-size: $font-size-l;
+  font-weight: $font-weight-bold;
+
+  .form-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: $space-xl;
+    width: 70%;
+    height: 100%;
+
+    label {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 100%;
+      margin-top: $space-m;
+
+      .error-input {
+        outline: 2px solid red;
+      }
+
+      input {
+        width: 100%;
+        height: $space-m;
+        margin-top: $space-2xs;
+        padding-left: $space-2xs;
+        border-radius: $border-radius-s;
+        font-weight: $font-weight-bold;
+
+        &:focus {
+          outline: 2px solid $border-color-active;
+        }
+      }
+
+      &:focus-within {
+        color: $border-color-active;
+      }
+
+      .input-avatar {
+        width: 50vw;
+      }
+
+    }
+
+    .avatar-label-input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+
+      .label-avatar {
+        margin: 0;
+      }
+
+      .avatar-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        img {
+          width: 60px;
+          aspect-ratio: 1 / 1;
+          margin-left: $space-xs;
+          border-radius: $border-radius-round;
+          object-fit:fit;
+          // object-position: 50% 50%;
+        }
+      }
+    }
+
+    .submit-button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      button {
+        color: $color-text-primary;
+        border: 1px solid $color-primary-active;
+        border-radius: $border-radius-l;
+        padding: $space-2xs $space-xs;
+        margin-top: $space-l;
+        font-size: $font-size-l;
+        font-weight: $font-weight-bold;
+
+        &:hover {
+          background-color: $color-text-hover;
+        }
+      }
+    }
+  }
+}

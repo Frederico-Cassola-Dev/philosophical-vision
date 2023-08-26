@@ -1,25 +1,27 @@
 import { Link, useLocation } from "react-router-dom";
 import singleLogo from "../../assets/logo/single_logo_little.png";
 
+import style from "./_header.module.scss";
+
 function Header() {
   const { pathname } = useLocation();
   return (
-    <header className="header">
-      <div className="logo-container">
+    <header className={style.header}>
+      <div className={style.logoContainer}>
         <Link
           to="/"
           className={
-            pathname === "/" ? "logo-container hidden-logo" : "logo-container"
+            pathname === "/" ? `${style.hiddenLogo}` : `${style.logoContainer}`
           }
         >
           <img src={singleLogo} alt="logo" />
         </Link>
       </div>
       <nav>
-        <Link to="/signup" className="link">
+        <Link to="/signup" className={style.link}>
           Sign-Up
         </Link>
-        <Link to="/signin" className="link">
+        <Link to="/signin" className={style.link}>
           Sign-in
         </Link>
       </nav>

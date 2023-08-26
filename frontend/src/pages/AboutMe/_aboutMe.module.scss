@@ -1,6 +1,6 @@
 @import "../../scss/variables";
 
-.about-me {
+.aboutMe {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -10,7 +10,7 @@
   color: $color-text-primary;
   background-color: $color-background-primary;
 
-  .title-container {
+  .titleContainer {
     margin-top: $space-l;
 
     .title {
@@ -20,21 +20,21 @@
     }
   }
 
-  .img-and-description-container {
+  .imgAndDescriptionContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     margin-top: $space-xl;
 
-    .about-me-description {
+    .aboutMeDescription {
       width: 40%;
 
-      .description-text {
+      .descriptionText {
         font-size: $font-size-l;
       }
     }
 
-    .img-container {
+    .imgContainer {
       display: flex;
       justify-content: center;
       align-items: flex-start;

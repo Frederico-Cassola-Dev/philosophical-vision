@@ -8,30 +8,32 @@ import {
   EmailIconLink,
 } from "../SocialLinks";
 
+import style from "./_footer.module.scss";
+
 export default function Footer() {
   return (
-    <footer className="footer">
-      <Link to="/aboutme" className="about-me-link">
-        <button type="button" className="about-me-button">
+    <footer className={style.footer}>
+      <Link to="/aboutme" className={style.aboutMeLink}>
+        <button type="button" className={style.aboutMeButton}>
           About me
         </button>
       </Link>
-      <ul className="social-list">
-        <li className="social-item-list">
-          <FacebookIconLink size="22" classStyle="social-links" />
+      <ul className={style.socialList}>
+        <li className={style.socialItemList}>
+          <FacebookIconLink size="22" classStyle={style.socialLinks} />
         </li>
-        <li className="social-item-list">
-          <InstagramIconLink size="22" classStyle="social-links" />
+        <li className={style.socialItemList}>
+          <InstagramIconLink size="22" classStyle={style.socialLinks} />
         </li>
 
-        <li className="social-item-list">
-          <LinkedInIconLink size="22" classStyle="social-links" />
+        <li className={style.socialItemList}>
+          <LinkedInIconLink size="22" classStyle={style.socialLinks} />
         </li>
-        <li className="social-item-list">
-          <GitHubIconLink size="22" classStyle="social-links" />
+        <li className={style.socialItemList}>
+          <GitHubIconLink size="22" classStyle={style.socialLinks} />
         </li>
-        <li className="social-item-list">
-          <EmailIconLink size="22" classStyle="social-links" />
+        <li className={style.socialItemList}>
+          <EmailIconLink size="22" classStyle={style.socialLinks} />
         </li>
       </ul>
     </footer>

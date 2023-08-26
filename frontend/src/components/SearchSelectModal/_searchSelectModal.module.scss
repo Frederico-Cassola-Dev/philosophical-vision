@@ -11,7 +11,7 @@
     z-index: 9000;
     background-color: #111827e5;
 
-    .modal-container {
+    .modalContainer {
       position: relative;
       display: flex;
       justify-content: flex-start;
@@ -23,7 +23,7 @@
       z-index: 10000;
       border-radius: $border-radius-m;
 
-      .close-icon-modal {
+      .closeIconModal {
         position: absolute;
         top: $space-xs;
         right: $space-xs;
@@ -34,7 +34,7 @@
         }
       }
 
-      .modal-title {
+      .modalTitle {
         margin-top: $space-m;
         font-family: $secondary-font;
         font-size: $font-size-6xl;
@@ -42,7 +42,7 @@
         color: $color-text-primary;
       }
 
-      .list-container {
+      .listContainer {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,7 +52,7 @@
 
         .list {
 
-          .list-items {
+          .listItems {
 
             button {
               width: 95%;

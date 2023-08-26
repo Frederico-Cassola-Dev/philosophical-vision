@@ -1,0 +1,102 @@
+@import "../../scss/variables";
+
+.home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 83.9vh;
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
+
+  .main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    .title-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: $space-xs;
+      margin-bottom: $space-xs;
+      width: 100%;
+
+      .title {
+        font-family: $secondary-font;
+        font-weight: $font-weight-normal;
+        font-size: $font-size-4xl;
+
+        img {
+          width: 70px;
+          margin-bottom: $space-xs;
+          margin-left: $space-2xs ;
+        }
+
+        .sub-title {
+          font-family: $primary-font;
+          font-size: $font-size-5xl;
+          margin-left: $space-2xs;
+
+        }
+      }
+    }
+
+    .description-section {
+      width: 80vw;
+      font-family: $primary-font;
+      margin-bottom: $space-xl;
+
+      .description-text {
+        text-align: center;
+        font-size: $font-size-l;
+      }
+    }
+
+    .random-phrases-section {
+      width: 95vw;
+      margin-top: $space-m;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-xl;
+
+      .phrase {
+        margin-bottom: $space-l;
+        text-align: center;
+        padding: 0 $space-xs;
+        max-width: 80%;
+      }
+
+      .phrase-0 {
+        animation: phrases-animation 2s linear infinite alternate;
+      }
+
+      .phrase-1 {
+        animation: phrases-animation 2s linear infinite alternate-reverse;
+      }
+
+      .phrase-2 {
+        animation: phrases-animation 2s linear infinite alternate;
+      }
+
+      .phrase-3 {
+        animation: phrases-animation 2s linear infinite alternate-reverse;
+      }
+
+      .phrase-4 {
+        animation: phrases-animation 2s linear infinite alternate;
+      }
+
+      @keyframes phrases-animation {
+        0% {
+          transform: translateX(0%);
+        }
+
+        100% {
+          transform: translateX(14%);
+        }
+      }
+    }
+  }
+}

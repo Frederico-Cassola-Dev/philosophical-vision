@@ -6,7 +6,7 @@
 @use "../pages/SignIn/signIn";
 @use "../pages/SignUp/signUp";
 @use "../pages/Phrases/phrases";
-@use "../pages/AboutMe/aboutMe";
-@use "../components/Header/header";
-@use "../components/Footer/footer";
-@use "../components/SearchSelectModal/searchSelectModal";
+@use "../pages/AboutMe/aboutMe.module";
+@use "../components/Header/header.module";
+@use "../components/Footer/footer.module";
+@use "../components/SearchSelectModal/searchSelectModal.module";

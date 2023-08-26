@@ -11,28 +11,29 @@
   color: $color-text-primary;
   background-color: $color-background-primary;
 
-  .about-me-link {
+  .aboutMeLink {
     margin-left: $space-xl;
-    
-    .about-me-button {
+
+    .aboutMeButton {
       font-family: $secondary-font;
       font-size: $font-size-2xl;
       color: $color-text-primary;
       border: none;
-      &:hover{
+
+      &:hover {
         color: $color-text-hover;
       }
     }
   }
 
-  .social-list {
+  .socialList {
     display: inherit;
     list-style: none;
 
-    .social-item-list {
+    .socialItemList {
       margin-right: $space-m;
 
-      .social-links {
+      .socialLinks {
         color: $color-text-primary;
         text-decoration: none;
 
