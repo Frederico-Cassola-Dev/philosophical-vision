@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { PhrasesProvider } from "./common/contexts/phrasesContext";
+import { PhrasesProvider } from "./contexts/phrasesContext";
 
 import App from "./App";
 

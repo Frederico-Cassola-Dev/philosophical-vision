@@ -3,9 +3,8 @@ import useAxios from "../../hooks/useAxios";
 import {
   CLOSE_MODAL,
   SELECT_OPEN_MODAL,
-} from "../../../pages/phrases/utils/phrases-reducer";
-
-import CloseIconModal from "./close-modal-button/CloseIcons";
+} from "../../pages/Phrases/utils/phrases-reducer";
+import CloseIconModal from "./CloseIconModal";
 
 export default function SearchSelectModal({ state, dispatch }) {
   const eventsByCategoryResponse = useAxios({

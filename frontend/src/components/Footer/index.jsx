@@ -6,7 +6,7 @@ import {
   LinkedInIconLink,
   GitHubIconLink,
   EmailIconLink,
-} from "../../../common/components/social-links/SocialLinks";
+} from "../SocialLinks";
 
 export default function Footer() {
   return (

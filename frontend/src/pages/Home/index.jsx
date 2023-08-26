@@ -1,4 +1,4 @@
-import useAxios from "../../common/hooks/useAxios";
+import useAxios from "../../hooks/useAxios";
 
 import singleLogoLittle from "../../assets/logo/single_logo_little.png";
 

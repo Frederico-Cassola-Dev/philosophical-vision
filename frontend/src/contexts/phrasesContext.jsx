@@ -2,7 +2,7 @@ import { createContext, useMemo, useReducer } from "react";
 import { PropTypes } from "prop-types";
 import phrasesReducer, {
   initialState,
-} from "../../pages/phrases/utils/phrases-reducer";
+} from "../pages/Phrases/utils/phrases-reducer";
 
 export const PhrasesContext = createContext();
 

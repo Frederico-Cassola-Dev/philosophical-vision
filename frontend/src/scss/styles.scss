@@ -2,11 +2,11 @@
 @use "./base/reset";
 
 @use "../app";
-@use "../pages/home/home";
-@use "../pages/sign-in/signIn";
-@use "../pages/sign-up/signUp";
-@use "../pages/phrases/phrases";
-@use "../pages/about-me/aboutMe";
-@use "../layouts/header-layout/components/header";
-@use "../layouts/footer-layout/components/footer";
-@use "../common/components//search-select-modal/searchSelectModal";
+@use "../pages/Home/home";
+@use "../pages/SignIn/signIn";
+@use "../pages/SignUp/signUp";
+@use "../pages/Phrases/phrases";
+@use "../pages/AboutMe/aboutMe";
+@use "../components/Header/header";
+@use "../components/Footer/footer";
+@use "../components/SearchSelectModal/searchSelectModal";

@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import axios from "axios";
-import useAxios from "../../common/hooks/useAxios";
-import SearchSelectModal from "../../common/components/search-select-modal/SearchSelectModal";
+import useAxios from "../../hooks/useAxios";
+import SearchSelectModal from "../../components/SearchSelectModal";
 import phrasesReducer, {
   OPEN_MODAL,
   INPUT_OPEN_MODAL,
@@ -17,11 +17,6 @@ export default function Phrases() {
     method: "get",
     endpoint: "categories",
   });
-
-  // const phrasesResponseByEventId = useAxios({
-  //   method: "get",
-  //   endpoint: "/phrases4/randomevents",
-  // });
 
   useEffect(() => {
     axios

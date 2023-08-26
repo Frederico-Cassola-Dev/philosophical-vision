@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import singleLogo from "../../../assets/logo/single_logo_little.png";
+import singleLogo from "../../assets/logo/single_logo_little.png";
 
 function Header() {
   const { pathname } = useLocation();

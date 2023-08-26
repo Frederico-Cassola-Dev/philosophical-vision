@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { CLOSE_MODAL } from "../../../../pages/phrases/utils/phrases-reducer";
+import { CLOSE_MODAL } from "../../pages/Phrases/utils/phrases-reducer";
 
 export default function CloseIconModal({ size, color, classStyle, dispatch }) {
   return (
