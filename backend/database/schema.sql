@@ -43,7 +43,6 @@ create table
         id int primary key auto_increment not null,
         phrase varchar(254) not null,
         likes INT DEFAULT 0,
-        dislikes INT DEFAULT 0,
         is_favorite TINYINT default 0,
         authors_id int not null,
         Foreign Key (authors_id) REFERENCES authors(id)
@@ -253,91 +252,76 @@ INSERT into
     phrases (
         phrase,
         likes,
-        dislikes,
         is_favorite,
         authors_id
     )
 VALUES (
         "The unexamined life is not worth living",
         10,
-        3,
         1,
         1
     ), (
         "Whereof one cannot speak, thereof one must be silent",
         3,
-        10,
         0,
         2
     ), (
         "I think therefore I am",
         2,
         0,
-        0,
         3
     ), (
         "2 The unexamined life is not worth living",
         0,
-        15,
         0,
         5
     ), (
         "3 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "4 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "5 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "6 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "7 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "8 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "9 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "10 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "11 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "12 The unexamined life is not worth living",
-        7,
         7,
         0,
         6

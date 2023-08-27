@@ -75,13 +75,24 @@ const add = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  const phrase = req.body;
+
+  try {
+    await tables.phrases.update(phrase);
+    res.status(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   browse5,
   read,
   read4ByRandomEvent,
   read4ByEventId,
-  // edit,
+  edit,
   add,
   // destroy,
 };

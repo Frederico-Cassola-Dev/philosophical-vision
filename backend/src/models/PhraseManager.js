@@ -39,7 +39,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByRandomEvent() {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
     inner join events_phrases ep on ep.phrases_id = p.id
     inner join events e on e.id = ep.events_id
     order by rand()
@@ -51,7 +51,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
     inner join events_phrases ep on ep.phrases_id = p.id
     inner join events e on e.id = ep.events_id
     where e.id = ?
@@ -63,6 +63,20 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
+  async update(phrase) {
+    const [rows] = await this.database.query(
+      `update ${this.table} set phrase = ?, set likes = ?, set is_favorite= ?, set authors = ? 
+      where id = ?`,
+      [
+        phrase.phrase,
+        phrase.likes,
+        phrase.is_favorite,
+        phrase.authors,
+        phrase.id,
+      ]
+    );
+    return rows.insertId;
+  }
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing phrase
 
