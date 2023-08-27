@@ -25,7 +25,7 @@
       }
     }
 
-    .showInputSearchEvent{
+    .showInputSearchEvent {
       position: relative;
       z-index: 11000;
     }
@@ -53,6 +53,10 @@
   }
 
   .visionsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     margin-top: $space-s;
 
     .visionPhrase {
@@ -60,6 +64,32 @@
       margin-top: $space-m;
       font-size: $font-size-3xl;
       text-align: center;
+      width: 90vw;
+    }
+
+    .reactionsButtonContainer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-right: $space-m;
+      gap: $space-s;
+
+      .totalLikes{
+        margin-bottom: $space-2xs;
+        font-weight: $font-weight-bold;
+        color: $color-primary-active;
+      }
+
+      .likeButton {
+        color: red;
+        border: none;
+      }
+
+      .favoriteButton {
+        color: orange;
+        border: none;
+      }
+
     }
   }
 }

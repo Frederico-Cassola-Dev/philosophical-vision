@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import SearchSelectModal from "../../components/SearchSelectModal";
@@ -11,9 +11,15 @@ import phrasesReducer, {
 } from "./utils/phrases-reducer";
 
 import style from "./_phrases.module.scss";
+import { IconHeart, IconStar } from "../../components/SvgIcons";
 
 export default function Phrases() {
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
+  const [like, setLike] = useState({ isLiked: false, idPhrase: "" });
+  const [favorite, setFavorite] = useState({
+    isFavorite: false,
+    idPhrase: "",
+  });
 
   const categoriesResponse = useAxios({
     method: "get",
@@ -56,8 +62,6 @@ export default function Phrases() {
           placeholder="Search your event"
         />
         <select
-          name=""
-          id=""
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
             dispatch({
@@ -65,7 +69,6 @@ export default function Phrases() {
               payload: { categoryId: e.target.value },
             });
           }}
-          value=""
         >
           <option defaultChecked>Select a category</option>
           {categoriesResponse?.map((category) => (
@@ -78,21 +81,42 @@ export default function Phrases() {
       <div className={style.lifeEventContainer}>
         <p className={style.lifeEventPhrase}>
           {state.phrasesToShow && state.phrasesToShow[0]?.event_title}
-          {/* phrasesResponseByEventId[0]?.event_title  */}
         </p>
       </div>
       <div className={style.visionsContainer}>
         {state.phrasesToShow &&
           state.phrasesToShow?.map((item) => (
-            <p className={style.visionPhrase} key={item.phrase_id}>
-              {item.phrase}
-            </p>
+            <div key={item.phrase_id}>
+              <p className={style.visionPhrase}>{item.phrase}</p>
+              <div className={style.reactionsButtonContainer}>
+                <span className={style.totalLikes}>likes: 30</span>
+                <button
+                  type="button"
+                  className={style.likeButton}
+                  onClick={() =>
+                    setLike({
+                      isFavorite: !like.isLiked,
+                      idPhrase: item.phrase_id,
+                    })
+                  }
+                >
+                  <IconHeart />
+                </button>
+                <button
+                  type="button"
+                  className={style.favoriteButton}
+                  onClick={() =>
+                    setFavorite({
+                      isFavorite: !favorite.isFavorite,
+                      idPhrase: item.phrase_id,
+                    })
+                  }
+                >
+                  <IconStar />
+                </button>
+              </div>
+            </div>
           ))}
-        {/* : phrasesResponse?.map((item) => (
-              <p className="vision-phrase" key={item.phrase_id}>
-                {item.phrase}
-              </p>
-            )) */}
       </div>
     </div>
   );
