@@ -55,49 +55,70 @@
       }
     }
 
-    .random-phrasesSection {
-      width: 95vw;
+    .randomPhrasesSection {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 90vw;
       margin-top: $space-m;
       font-weight: $font-weight-bold;
       font-size: $font-size-xl;
 
-      .phrase {
-        margin-bottom: $space-l;
-        text-align: center;
-        padding: 0 $space-xs;
-        max-width: 80%;
-      
+      text-align: center;
+      padding: 0 $space-xs;
+    }
 
-      .phrase0 {
-        animation: phrases-animation 2s linear infinite alternate;
+    @keyframes phrases-animation {
+      0% {
+        transform: translateX(-14%);
       }
 
-      .phrase1 {
-        animation: phrases-animation 2s linear infinite alternate-reverse;
-      }
-
-      .phrase2 {
-        animation: phrases-animation 2s linear infinite alternate;
-      }
-
-      .phrase3 {
-        animation: phrases-animation 2s linear infinite alternate-reverse;
-      }
-
-      .phrase4 {
-        animation: phrases-animation 2s linear infinite alternate;
+      100% {
+        transform: translateX(12%);
       }
     }
 
-      @keyframes phrases-animation {
-        0% {
-          transform: translateX(0%);
-        }
 
-        100% {
-          transform: translateX(14%);
-        }
-      }
+    
+
+    .phrase0 {
+      max-width: 85%;
+      margin-bottom: $space-l;
+
+      animation: phrases-animation 2s linear infinite alternate;
     }
+
+    .phrase1 {
+      max-width: 85%;
+      margin-bottom: $space-l;
+
+      animation: phrases-animation 2s linear infinite alternate-reverse;
+    }
+
+    .phrase2 {
+      margin-bottom: $space-l;
+      max-width: 85%;
+
+      animation: phrases-animation 2s linear infinite alternate;
+    }
+
+    .phrase3 {
+      margin-bottom: $space-l;
+      max-width: 85%;
+
+      animation: phrases-animation 2s linear infinite alternate-reverse;
+    }
+
+    .phrase4 {
+      margin-bottom: $space-l;
+      max-width: 85%;
+
+      animation: phrases-animation 2s linear infinite alternate;
+    }
+
+
   }
+
+  // }
 }
