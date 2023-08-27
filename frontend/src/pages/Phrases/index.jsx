@@ -10,6 +10,8 @@ import phrasesReducer, {
   initialState,
 } from "./utils/phrases-reducer";
 
+import style from "./_phrases.module.scss";
+
 export default function Phrases() {
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
 
@@ -31,17 +33,17 @@ export default function Phrases() {
   }, [state.eventId]);
 
   return (
-    <div className="logged">
+    <div className={style.logged}>
       {state.openModal && (
         <SearchSelectModal state={state} dispatch={dispatch} />
       )}
-      <div className="inputs-container">
+      <div className={style.inputsContainer}>
         <input
           type="text"
           className={
             state.openModal
-              ? "input-search-category show-input-search-event"
-              : "input-search-category"
+              ? `${style.inputSearchCategory} ${style.showInputSearchEvent}`
+              : style.inputSearchCategory
           }
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
@@ -73,16 +75,16 @@ export default function Phrases() {
           ))}
         </select>
       </div>
-      <div className="life-event-container">
-        <p className="life-event-phrase">
+      <div className={style.lifeEventContainer}>
+        <p className={style.lifeEventPhrase}>
           {state.phrasesToShow && state.phrasesToShow[0]?.event_title}
           {/* phrasesResponseByEventId[0]?.event_title  */}
         </p>
       </div>
-      <div className="visions-container">
+      <div className={style.visionsContainer}>
         {state.phrasesToShow &&
           state.phrasesToShow?.map((item) => (
-            <p className="vision-phrase" key={item.phrase_id}>
+            <p className={style.visionPhrase} key={item.phrase_id}>
               {item.phrase}
             </p>
           ))}

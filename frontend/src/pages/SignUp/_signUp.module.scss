@@ -1,49 +1,88 @@
 @import "../../scss/variables";
 
-.sign-in {
+.signUp {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   height: 83.9vh;
   font-family: $primary-font;
+  color: $color-text-primary;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
 
-  .form-container {
+  .formInput {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-bottom: $space-3xl;
-    width: 65%;
+    margin-top: $space-xl;
+    width: 70%;
+    height: 100%;
 
     label {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
       width: 100%;
       margin-top: $space-m;
+
+      .errorInput {
+        outline: 2px solid red;
+      }
 
       input {
         width: 100%;
         height: $space-m;
         margin-top: $space-2xs;
         padding-left: $space-2xs;
-        font-weight: $font-weight-bold;
         border-radius: $border-radius-s;
+        font-weight: $font-weight-bold;
 
         &:focus {
           outline: 2px solid $border-color-active;
         }
       }
+
       &:focus-within {
         color: $border-color-active;
-    }
-  }
+      }
 
-    .submit-button-container {
+      .inputAvatar {
+        width: 50vw;
+      }
+
+    }
+
+    .avatarLabelInputContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+
+      .labelAvatar {
+        margin: 0;
+      }
+
+      .avatarContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        img {
+          width: 60px;
+          aspect-ratio: 1 / 1;
+          margin-left: $space-xs;
+          border-radius: $border-radius-round;
+          object-fit:fit;
+        }
+      }
+    }
+
+    .submitButtonContainer {
       display: flex;
       justify-content: center;
       align-items: center;

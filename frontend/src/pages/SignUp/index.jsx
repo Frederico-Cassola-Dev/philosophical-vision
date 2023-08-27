@@ -20,6 +20,8 @@ import signUpFormValidatorReducer, {
   signUpInitialValidatorState,
 } from "./utils/signUp-form-validator-reducer";
 
+import style from "./_signUp.module.scss";
+
 export default function SignUp() {
   const [newUserState, dispatchForm] = useReducer(
     signUpFormReducer,
@@ -51,22 +53,22 @@ export default function SignUp() {
   };
 
   return (
-    <div className="sign-up">
+    <div className={style.signUp}>
       <form
-        className="form-input"
+        className={style.formInput}
         onSubmit={(e) => {
           e.preventDefault();
           handleNeuUserPost(newUserState);
         }}
       >
-        <div className="avatar-label-input-container">
+        <div className={style.avatarLabelInputContainer}>
           <label htmlFor="avatar" className="label-avatar">
             Avatar
             <input
               type="file"
               name="avatar"
               id="avatar"
-              className="input-avatar"
+              className={style.inputAvatar}
               onChange={(e) => {
                 dispatchForm({
                   type: SIGN_UP_UPDATE_AVATAR,
@@ -84,7 +86,7 @@ export default function SignUp() {
               }
             />
           </label>
-          <div className="avatar-container">
+          <div className={style.avatarContainer}>
             <img
               src={
                 newUserState.avatar
@@ -95,7 +97,7 @@ export default function SignUp() {
             />
           </div>
         </div>
-        <label htmlFor="lastName" className="label-last-name">
+        <label htmlFor="lastName" className={style.labelLastName}>
           Nom
           <input
             type="text"
@@ -103,8 +105,8 @@ export default function SignUp() {
             id="lastName"
             className={
               newUserValidatorState.lastNameError
-                ? "error-input"
-                : "input-last-name"
+                ? style.errorInput
+                : style.inputLastName
             }
             required
             value={newUserState.lastName}
@@ -122,7 +124,7 @@ export default function SignUp() {
             }
           />
         </label>
-        <label htmlFor="firstName" className="label-first_name">
+        <label htmlFor="firstName" className={style.labelFirstName}>
           Prénom
           <input
             type="text"
@@ -130,8 +132,8 @@ export default function SignUp() {
             id="firstName"
             className={
               newUserValidatorState.firstNameError
-                ? "error-input"
-                : "input-first-name"
+                ? style.errorInput
+                : style.inputFirstName
             }
             required
             value={newUserState.firstName}
@@ -149,14 +151,16 @@ export default function SignUp() {
             }
           />
         </label>
-        <label htmlFor="email" className="label-email">
+        <label htmlFor="email" className={style.labelEmail}>
           E-mail
           <input
             type="email"
             name="email"
             id="email"
             className={
-              newUserValidatorState.emailError ? "error-input" : "input-email"
+              newUserValidatorState.emailError
+                ? style.errorInput
+                : style.inputEmail
             }
             required
             value={newUserState.email}
@@ -174,7 +178,7 @@ export default function SignUp() {
             }
           />
         </label>
-        <label htmlFor="password" className="label-password-1">
+        <label htmlFor="password" className={style.labelPassword1}>
           Mot de passe
           <input
             type="password"
@@ -182,8 +186,8 @@ export default function SignUp() {
             id="password"
             className={
               newUserValidatorState.passwordError
-                ? "error-input"
-                : "input-password-1"
+                ? style.errorInput
+                : style.inputPassword1
             }
             required
             value={newUserState.password}
@@ -201,7 +205,7 @@ export default function SignUp() {
             }
           />
         </label>
-        <label htmlFor="secondPassword" className="label-password-2">
+        <label htmlFor="secondPassword" className={style.labelPassword2}>
           Mot de passe
           <input
             type="password"
@@ -209,8 +213,8 @@ export default function SignUp() {
             id="secondPassword"
             className={
               newUserValidatorState.secondPasswordError
-                ? "error-input"
-                : "input-second-password"
+                ? style.errorInput
+                : style.inputSecondPassword
             }
             required
             value={newUserState.secondPassword}
@@ -228,7 +232,7 @@ export default function SignUp() {
             }
           />
         </label>
-        <div className="submit-button-container">
+        <div className={style.submitButtonContainer}>
           <button type="submit">Submit</button>
         </div>
       </form>
