@@ -19,10 +19,10 @@ export default function Phrases() {
     isLiked: false,
     phraseId: "",
   });
+
   const [favorite, setFavorite] = useState({
     isFavorite: false,
     phraseId: "",
-    oldLikedPhraseId: "",
   });
 
   const categoriesResponse = useAxios({
@@ -32,7 +32,11 @@ export default function Phrases() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/phrases4/events/${state.eventId}`)
+      .get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/phrases4/events/${
+          state.eventId
+        }`
+      )
       .then((response) =>
         dispatch({
           type: SET_PHRASES,
@@ -47,19 +51,39 @@ export default function Phrases() {
       const likedPhrase = state.phrasesToShow.find(
         (item) => item.phrase_id === like.phraseId
       );
-      // console.log("🚀 - likedPhrase:", likedPhrase);
-
-      axios
-        .put(`http://localhost:5000/api/phrases/${like.phraseId}`, {
-          phrase: likedPhrase.phrase,
-          likes: !like.isLiked ? likedPhrase.likes + 1 : likedPhrase.likes - 1,
-          is_favorite: likedPhrase.is_favorite,
-          authors_id: likedPhrase.authors_id,
-        })
-        .then(() => console.info("Phrase updated"))
-        .catch((err) => console.error(err));
+      if (like.isLiked) {
+        axios
+          .put(
+            `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${like.phraseId}`,
+            {
+              phrase: likedPhrase.phrase,
+              likes: likedPhrase.likes + 1,
+              is_favorite: likedPhrase.is_favorite,
+              authors_id: likedPhrase.authors_id,
+            }
+          )
+          .then(() => {
+            console.info("Phrase updated + 1");
+          })
+          .catch((err) => console.error(err));
+      } else {
+        axios
+          .put(
+            `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${like.phraseId}`,
+            {
+              phrase: likedPhrase.phrase,
+              likes: likedPhrase.likes - 1,
+              is_favorite: likedPhrase.is_favorite,
+              authors_id: likedPhrase.authors_id,
+            }
+          )
+          .then(() => {
+            console.info("Phrase updated +- 1");
+          })
+          .catch((err) => console.error(err));
+      }
     }
-  }, [like.isLiked]);
+  }, [like]);
 
   return (
     <div className={style.logged}>
@@ -118,7 +142,7 @@ export default function Phrases() {
                   className={style.likeButton}
                   onClick={() =>
                     setLike({
-                      isFavorite: !like.isLiked,
+                      isLiked: !like.isLiked,
                       phraseId: item.phrase_id,
                     })
                   }

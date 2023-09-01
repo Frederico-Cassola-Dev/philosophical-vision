@@ -36,7 +36,7 @@ export default function SignUp() {
   const handleNeuUserPost = (newUserData) => {
     if (newUserValidatorState.isFormValid) {
       axios
-        .post(`http://localhost:5000/api/users`, {
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
           firstName: newUserData.firstName,
           lastName: newUserData.lastName,
           email: newUserData.email,
