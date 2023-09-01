@@ -22,6 +22,7 @@ router.get("/phrases/:id", phraseControllers.read);
 router.get("/phrases4/events/:id", phraseControllers.read4ByEventId);
 router.get("/phrases4/randomevents", phraseControllers.read4ByRandomEvent);
 router.post("/phrases", phraseControllers.add);
+router.put("/phrases/:id", phraseControllers.edit);
 
 router.get("/events", eventControllers.browse);
 router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);

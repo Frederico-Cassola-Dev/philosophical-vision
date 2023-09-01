@@ -64,18 +64,20 @@ class PhraseManager extends AbstractManager {
   }
 
   async update(phrase) {
+    // console.log("🚀 - phrase:", phraseToChange.phraseId);
+
     const [rows] = await this.database.query(
-      `update ${this.table} set phrase = ?, set likes = ?, set is_favorite= ?, set authors = ? 
-      where id = ?`,
+      `update ${this.table} 
+      set phrase = ?, likes = ?, is_favorite = ?, authors_id = ? where id = ?`,
       [
         phrase.phrase,
         phrase.likes,
         phrase.is_favorite,
-        phrase.authors,
-        phrase.id,
+        phrase.authors_id,
+        phrase.phraseId,
       ]
     );
-    return rows.insertId;
+    return rows;
   }
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing phrase

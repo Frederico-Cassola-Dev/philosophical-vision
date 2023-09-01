@@ -60,7 +60,6 @@
     margin-top: $space-s;
 
     .visionPhrase {
-
       margin-top: $space-m;
       font-size: $font-size-3xl;
       text-align: center;
@@ -74,7 +73,7 @@
       margin-right: $space-m;
       gap: $space-s;
 
-      .totalLikes{
+      .totalLikes {
         margin-bottom: $space-2xs;
         font-weight: $font-weight-bold;
         color: $color-primary-active;
@@ -89,7 +88,6 @@
         color: orange;
         border: none;
       }
-
     }
   }
 }

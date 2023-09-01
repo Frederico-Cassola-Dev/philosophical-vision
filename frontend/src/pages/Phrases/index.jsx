@@ -38,18 +38,18 @@ export default function Phrases() {
       .catch((err) => console.error(err));
   }, [state.eventId]);
 
-  useEffect(() => {
-    // const filteredLikedPhrase = state.phrasesToShow.filter(
-    //   (item) => item.id === like.phraseId
-    // );
-    // console.log("🚀 - filteredLikedPhrase:", state.phrasesToShow);
-    // axios
-    //   .post(`http://localhost:5000/api/phrases/${like.phraseId}`, {
-    //     phrase: filteredLikedPhrase,
-    //   })
-    //   .then(() => console.info("Phrase updated"))
-    //   .catch((err) => console.error(err));
-  }, [state.eventId]);
+  // useEffect(() => {
+  // const filteredLikedPhrase = state.phrasesToShow.filter(
+  //   (item) => item.id === like.phraseId
+  // );
+  // console.log("🚀 - filteredLikedPhrase:", state.phrasesToShow);
+  // axios
+  //   .post(`http://localhost:5000/api/phrases/${like.phraseId}`, {
+  //     phrase: filteredLikedPhrase,
+  //   })
+  //   .then(() => console.info("Phrase updated"))
+  //   .catch((err) => console.error(err));
+  // }, [state.eventId]);
 
   return (
     <div className={style.logged}>
