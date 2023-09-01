@@ -15,10 +15,14 @@ import { IconHeart, IconStar } from "../../components/SvgIcons";
 
 export default function Phrases() {
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
-  const [like, setLike] = useState({ isLiked: false, phraseId: "" });
+  const [like, setLike] = useState({
+    isLiked: false,
+    phraseId: "",
+  });
   const [favorite, setFavorite] = useState({
     isFavorite: false,
     phraseId: "",
+    oldLikedPhraseId: "",
   });
 
   const categoriesResponse = useAxios({
@@ -38,18 +42,24 @@ export default function Phrases() {
       .catch((err) => console.error(err));
   }, [state.eventId]);
 
-  // useEffect(() => {
-  // const filteredLikedPhrase = state.phrasesToShow.filter(
-  //   (item) => item.id === like.phraseId
-  // );
-  // console.log("🚀 - filteredLikedPhrase:", state.phrasesToShow);
-  // axios
-  //   .post(`http://localhost:5000/api/phrases/${like.phraseId}`, {
-  //     phrase: filteredLikedPhrase,
-  //   })
-  //   .then(() => console.info("Phrase updated"))
-  //   .catch((err) => console.error(err));
-  // }, [state.eventId]);
+  useEffect(() => {
+    if (state.phrasesToShow) {
+      const likedPhrase = state.phrasesToShow.find(
+        (item) => item.phrase_id === like.phraseId
+      );
+      // console.log("🚀 - likedPhrase:", likedPhrase);
+
+      axios
+        .put(`http://localhost:5000/api/phrases/${like.phraseId}`, {
+          phrase: likedPhrase.phrase,
+          likes: !like.isLiked ? likedPhrase.likes + 1 : likedPhrase.likes - 1,
+          is_favorite: likedPhrase.is_favorite,
+          authors_id: likedPhrase.authors_id,
+        })
+        .then(() => console.info("Phrase updated"))
+        .catch((err) => console.error(err));
+    }
+  }, [like.isLiked]);
 
   return (
     <div className={style.logged}>
@@ -102,7 +112,7 @@ export default function Phrases() {
             <div key={item.phrase_id}>
               <p className={style.visionPhrase}>{item.phrase}</p>
               <div className={style.reactionsButtonContainer}>
-                <span className={style.totalLikes}>likes: 30</span>
+                <span className={style.totalLikes}>{item.likes}</span>
                 <button
                   type="button"
                   className={style.likeButton}

@@ -51,7 +51,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, p.authors_id, ep.events_id, e.title event_title FROM ${this.table} p
     inner join events_phrases ep on ep.phrases_id = p.id
     inner join events e on e.id = ep.events_id
     where e.id = ?
@@ -64,8 +64,6 @@ class PhraseManager extends AbstractManager {
   }
 
   async update(phrase) {
-    // console.log("🚀 - phrase:", phraseToChange.phraseId);
-
     const [rows] = await this.database.query(
       `update ${this.table} 
       set phrase = ?, likes = ?, is_favorite = ?, authors_id = ? where id = ?`,
@@ -79,19 +77,6 @@ class PhraseManager extends AbstractManager {
     );
     return rows;
   }
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing phrase
-
-  // async update(phrase) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an phrase by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
 }
 
 module.exports = PhraseManager;
