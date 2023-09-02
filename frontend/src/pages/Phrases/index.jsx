@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import SearchSelectModal from "../../components/SearchSelectModal";
@@ -14,6 +14,9 @@ import style from "./_phrases.module.scss";
 import { IconHeart, IconStar } from "../../components/SvgIcons";
 
 export default function Phrases() {
+  const refFavorite = useRef();
+  // console.log("🚀 - refFavorite:", refFavorite);
+
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
   const [like, setLike] = useState({
     isLiked: false,
@@ -21,7 +24,7 @@ export default function Phrases() {
   });
 
   const [favorite, setFavorite] = useState({
-    isFavorite: null,
+    isFavorite: false,
     phraseId: "",
   });
   // console.log("🚀 - favorite:", favorite);
@@ -53,15 +56,14 @@ export default function Phrases() {
         (item) => item.phrase_id === like.phraseId
       );
 
-      // if (like.isLiked) {
       axios
         .put(
           `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${like.phraseId}`,
           {
-            phrase: likedPhrase.phrase,
+            phrase: likedPhrase?.phrase,
             likes: like.isLiked ? likedPhrase.likes + 1 : likedPhrase.likes - 1,
-            is_favorite: likedPhrase.is_favorite,
-            authors_id: likedPhrase.authors_id,
+            is_favorite: likedPhrase?.is_favorite,
+            authors_id: likedPhrase?.authors_id,
           }
         )
         .then(() => {
@@ -72,22 +74,6 @@ export default function Phrases() {
           }
         })
         .catch((err) => console.error(err));
-      // } else {
-      //   axios
-      //     .put(
-      //       `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${like.phraseId}`,
-      //       {
-      //         phrase: likedPhrase.phrase,
-      //         likes: likedPhrase.likes - 1,
-      //         is_favorite: likedPhrase.is_favorite,
-      //         authors_id: likedPhrase.authors_id,
-      //       }
-      //     )
-      //     .then(() => {
-      //       console.info("Phrase updated +- 1");
-      //     })
-      //     .catch((err) => console.error(err));
-      // }
     }
   }, [like]);
 
@@ -102,17 +88,27 @@ export default function Phrases() {
             favorite.phraseId
           }`,
           {
-            phrase: favoritePhrase.phrase,
-            is_favorite: favorite.isFavorite,
-            likes: favoritePhrase.likes,
-            authors_id: favoritePhrase.authors_id,
+            phrase: favoritePhrase?.phrase,
+            is_favorite: favorite?.isFavorite,
+            likes: favoritePhrase?.likes,
+            authors_id: favoritePhrase?.authors_id,
           }
         )
         .then(() => {
           if (favorite.isFavorite) {
             console.info("Phrase Favorite updated + 1");
+            refFavorite.current = favorite.isFavorite;
+            // console.log(
+            //   "refFavorite Second State in useEfefect",
+            //   refFavorite.current
+            // );
           } else {
             console.info("Phrase Favorite updated - 1");
+            refFavorite.current = favorite.isFavorite;
+            // console.log(
+            //   "refFavorite Second State in useEfefect",
+            //   refFavorite.current
+            // );
           }
         })
         .catch((err) => console.error(err));
@@ -190,14 +186,16 @@ export default function Phrases() {
                 <button
                   type="button"
                   className={style.favoriteButton}
-                  onClick={() =>
+                  onClick={() => {
+                    // console.log("Clicked");
+                    refFavorite.current = !!item.is_favorite;
                     setFavorite({
-                      isFavorite: !item.is_favorite,
+                      isFavorite: !refFavorite.current,
                       phraseId: item.phrase_id,
-                    })
-                  }
+                    });
+                  }}
                 >
-                  <IconStar alreadyFavorite={item.is_favorite} />
+                  <IconStar alreadyFavorite={!!item.is_favorite} />
                 </button>
               </div>
             </div>
