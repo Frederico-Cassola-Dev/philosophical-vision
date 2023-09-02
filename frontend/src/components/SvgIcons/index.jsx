@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 export function IconHeart() {
   const [fill, setFill] = useState(false);
@@ -20,8 +21,8 @@ export function IconHeart() {
   );
 }
 
-export function IconStar() {
-  const [fill, setFill] = useState(false);
+export function IconStar({ alreadyFavorite }) {
+  const [fill, setFill] = useState(alreadyFavorite);
 
   return (
     <svg
@@ -39,3 +40,7 @@ export function IconStar() {
     </svg>
   );
 }
+
+IconStar.propTypes = {
+  alreadyFavorite: PropTypes.number.isRequired,
+};
