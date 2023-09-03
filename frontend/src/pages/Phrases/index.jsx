@@ -50,6 +50,7 @@ export default function Phrases() {
       .catch((err) => console.error(err));
   }, [state.eventId]);
 
+  // TODO - like not functional
   useEffect(() => {
     if (state.phrasesToShow) {
       const likedPhrase = state.phrasesToShow.find(
@@ -77,6 +78,7 @@ export default function Phrases() {
     }
   }, [like]);
 
+  // TODO - favorite not functional
   useEffect(() => {
     if (state.phrasesToShow) {
       const favoritePhrase = state.phrasesToShow.find(
@@ -116,7 +118,7 @@ export default function Phrases() {
   }, [favorite]);
 
   return (
-    <div className={style.logged}>
+    <div className={style.phrases}>
       {state.openModal && (
         <SearchSelectModal state={state} dispatch={dispatch} />
       )}
