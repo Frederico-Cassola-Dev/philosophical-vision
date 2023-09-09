@@ -42,7 +42,7 @@ create table
     phrases (
         id int primary key auto_increment not null,
         phrase varchar(254) not null,
-        likes INT DEFAULT 0,
+        likes INT NOT NULL DEFAULT 0,
         is_favorite TINYINT default 0,
         authors_id int not null,
         Foreign Key (authors_id) REFERENCES authors(id)
