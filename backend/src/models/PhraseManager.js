@@ -7,8 +7,8 @@ class PhraseManager extends AbstractManager {
 
   async create(phrase) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (title) values (?)`,
-      [phrase.title]
+      `insert into ${this.table} (phrase, authors_id) values (?,?)`,
+      [phrase.phrase, phrase.authorId]
     );
 
     return result.insertId;
