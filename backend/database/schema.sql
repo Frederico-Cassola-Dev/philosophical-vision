@@ -25,25 +25,30 @@ create table
         FOREIGN KEY(category_id) REFERENCES categories(id)
     );
 
+create table periods (
+     id int PRIMARY KEY auto_increment not null,
+     title varchar(100) not null
+    );
+
 create table
     authors (
         id int PRIMARY KEY auto_increment not null,
         known_name varchar(100) not null,
         firstname varchar(100),
         lastname varchar(100),
-        period varchar(100) not null,
+        period_id int not null,
         philo_current varchar(100) not null,
-        born_date INT,
-        dead_date INT,
-        era varchar(50) not null
+        born_date varchar(100),
+        dead_date varchar(100),
+        era varchar(50) not null,
+        FOREIGN KEY(period_id) REFERENCES periods(id)
     );
 
 create table
     phrases (
         id int primary key auto_increment not null,
         phrase varchar(254) not null,
-        likes INT DEFAULT 0,
-        dislikes INT DEFAULT 0,
+        likes INT NOT NULL DEFAULT 0,
         is_favorite TINYINT default 0,
         authors_id int not null,
         Foreign Key (authors_id) REFERENCES authors(id)
@@ -146,12 +151,17 @@ VALUES (
         "default_avatar.png"
     );
 
+INSERT INTO 
+periods (
+      title
+    ) Values ( "Ancient"), ("Medieval"), ("Modern");
+
 INSERT INTO
     authors (
         known_name,
         firstname,
         lastname,
-        period,
+        period_id,
         philo_current,
         born_date,
         dead_date,
@@ -161,91 +171,91 @@ VALUES (
         "Socrates",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     ), (
         "Ludwig",
         "Ludwig",
         "Wittgenstein",
-        "20th Century",
+        3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig1",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig2",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig3",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig4",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Descartes",
         "René",
         "Descartes",
-        "Modern",
+        2,
         "Rationalism",
-        1596,
-        1650,
+       "14/04/923",
+        "14/04/923",
         "CE"
     ), (
         "Socrates1",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     ), (
         "Socrates2",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     ), (
         "Socrates3",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     );
 
@@ -253,91 +263,76 @@ INSERT into
     phrases (
         phrase,
         likes,
-        dislikes,
         is_favorite,
         authors_id
     )
 VALUES (
         "The unexamined life is not worth living",
         10,
-        3,
         1,
         1
     ), (
         "Whereof one cannot speak, thereof one must be silent",
         3,
-        10,
         0,
         2
     ), (
         "I think therefore I am",
         2,
         0,
-        0,
         3
     ), (
         "2 The unexamined life is not worth living",
         0,
-        15,
         0,
         5
     ), (
         "3 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "4 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "5 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "6 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "7 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "8 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "9 The unexamined life is not worth living",
-        7,
         7,
         0,
         6
     ), (
         "10 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "11 The unexamined life is not worth living",
         7,
-        7,
         0,
         6
     ), (
         "12 The unexamined life is not worth living",
-        7,
         7,
         0,
         6

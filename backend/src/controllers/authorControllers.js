@@ -2,9 +2,9 @@ const tables = require("../tables");
 
 const browse = async (req, res, next) => {
   try {
-    const users = await tables.users.readAll();
+    const authors = await tables.authors.readAll();
 
-    res.json(users);
+    res.json(authors);
   } catch (err) {
     next(err);
   }
@@ -12,12 +12,12 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const user = await tables.users.read(req.params.id);
+    const author = await tables.authors.read(req.params.id);
 
-    if (user == null) {
+    if (author == null) {
       res.sendStatus(404);
     } else {
-      res.json(user);
+      res.json(author);
     }
   } catch (err) {
     next(err);
@@ -25,10 +25,10 @@ const read = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const user = req.body;
+  const author = req.body;
 
   try {
-    const insertId = await tables.users.create(user);
+    const insertId = await tables.authors.create(author);
 
     res.status(201).json({ insertId });
   } catch (err) {

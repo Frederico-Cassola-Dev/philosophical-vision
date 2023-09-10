@@ -7,8 +7,8 @@ class PhraseManager extends AbstractManager {
 
   async create(phrase) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (title) values (?)`,
-      [phrase.title]
+      `insert into ${this.table} (phrase, authors_id) values (?,?)`,
+      [phrase.phrase, phrase.authorId]
     );
 
     return result.insertId;
@@ -39,7 +39,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByRandomEvent() {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
     inner join events_phrases ep on ep.phrases_id = p.id
     inner join events e on e.id = ep.events_id
     order by rand()
@@ -51,7 +51,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.dislikes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, p.authors_id, ep.events_id, e.title event_title FROM ${this.table} p
     inner join events_phrases ep on ep.phrases_id = p.id
     inner join events e on e.id = ep.events_id
     where e.id = ?
@@ -63,19 +63,20 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing phrase
-
-  // async update(phrase) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an phrase by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
+  async update(phrase) {
+    const [rows] = await this.database.query(
+      `update ${this.table} 
+      set phrase = ?, likes = ?, is_favorite = ?, authors_id = ? where id = ?`,
+      [
+        phrase.phrase,
+        phrase.likes,
+        phrase.is_favorite,
+        phrase.authors_id,
+        phrase.phraseId,
+      ]
+    );
+    return rows;
+  }
 }
 
 module.exports = PhraseManager;

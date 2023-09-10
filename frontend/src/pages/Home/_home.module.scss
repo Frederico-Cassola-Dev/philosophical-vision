@@ -1,0 +1,116 @@
+@import "../../scss/variables";
+
+.home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 83.9vh;
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
+
+  .main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    .titleContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: $space-xs;
+      margin-bottom: $space-xs;
+      width: 100%;
+
+      .title {
+        font-family: $secondary-font;
+        font-weight: $font-weight-normal;
+        font-size: $font-size-4xl;
+
+        img {
+          width: 70px;
+          margin-bottom: $space-xs;
+          margin-left: $space-2xs;
+        }
+
+        .subTitle {
+          font-family: $primary-font;
+          font-size: $font-size-5xl;
+          margin-left: $space-2xs;
+        }
+      }
+    }
+
+    .descriptionSection {
+      width: 80vw;
+      font-family: $primary-font;
+      margin-bottom: $space-xl;
+
+      .descriptionText {
+        text-align: center;
+        font-size: $font-size-l;
+      }
+    }
+
+    .randomPhrasesSection {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 90vw;
+      margin-top: $space-m;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-xl;
+
+      text-align: center;
+      padding: 0 $space-xs;
+    }
+
+    @keyframes phrases-animation {
+      0% {
+        transform: translateX(-14%);
+      }
+
+      100% {
+        transform: translateX(12%);
+      }
+    }
+
+    .phrase0 {
+      max-width: 85%;
+      margin-bottom: $space-l;
+
+      animation: phrases-animation 2s linear infinite alternate;
+    }
+
+    .phrase1 {
+      max-width: 85%;
+      margin-bottom: $space-l;
+
+      animation: phrases-animation 2s linear infinite alternate-reverse;
+    }
+
+    .phrase2 {
+      margin-bottom: $space-l;
+      max-width: 85%;
+
+      animation: phrases-animation 2s linear infinite alternate;
+    }
+
+    .phrase3 {
+      margin-bottom: $space-l;
+      max-width: 85%;
+
+      animation: phrases-animation 2s linear infinite alternate-reverse;
+    }
+
+    .phrase4 {
+      margin-bottom: $space-l;
+      max-width: 85%;
+
+      animation: phrases-animation 2s linear infinite alternate;
+    }
+  }
+}

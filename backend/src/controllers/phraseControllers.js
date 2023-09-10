@@ -75,13 +75,28 @@ const add = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  const phrase = { ...req.body, phraseId: parseInt(req.params.id, 10) };
+
+  try {
+    const updatedId = await tables.phrases.update(phrase);
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      res.json(updatedId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   browse5,
   read,
   read4ByRandomEvent,
   read4ByEventId,
-  // edit,
+  edit,
   add,
   // destroy,
 };

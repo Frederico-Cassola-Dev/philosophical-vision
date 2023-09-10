@@ -1,0 +1,46 @@
+@import "../../scss/variables";
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 8vh;
+  border-top: 1px solid $color-text-hover;
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
+
+  .aboutMeLink {
+    margin-left: $space-xl;
+
+    .aboutMeButton {
+      font-family: $secondary-font;
+      font-size: $font-size-2xl;
+      color: $color-text-primary;
+      border: none;
+
+      &:hover {
+        color: $color-text-hover;
+      }
+    }
+  }
+
+  .socialList {
+    display: inherit;
+    list-style: none;
+
+    .socialItemList {
+      margin-right: $space-m;
+
+      .socialLinks {
+        color: $color-text-primary;
+        text-decoration: none;
+
+        &:hover {
+          color: $color-primary-active;
+        }
+      }
+    }
+  }
+}

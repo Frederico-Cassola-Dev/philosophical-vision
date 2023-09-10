@@ -7,12 +7,18 @@ const UserManager = require("./models/UserManager");
 const PhraseManager = require("./models/PhraseManager");
 const EventManager = require("./models/EventManager");
 const CategoryManager = require("./models/CategoryManager");
+const AuthorManager = require("./models/AuthorManager");
+const EventPhraseManager = require("./models/EventPhraseManager");
+const PeriodManager = require("./models/PeriodManager");
 
 const managers = [
   UserManager,
   PhraseManager,
   EventManager,
+  EventPhraseManager,
+  PeriodManager,
   CategoryManager,
+  AuthorManager,
   // Add other managers here
 ];
 
