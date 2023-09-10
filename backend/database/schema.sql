@@ -25,17 +25,23 @@ create table
         FOREIGN KEY(category_id) REFERENCES categories(id)
     );
 
+create table periods (
+     id int PRIMARY KEY auto_increment not null,
+     title varchar(100) not null
+    );
+
 create table
     authors (
         id int PRIMARY KEY auto_increment not null,
         known_name varchar(100) not null,
         firstname varchar(100),
         lastname varchar(100),
-        period varchar(100) not null,
+        period_id int not null,
         philo_current varchar(100) not null,
         born_date INT,
         dead_date INT,
-        era varchar(50) not null
+        era varchar(50) not null,
+        FOREIGN KEY(period_id) REFERENCES periods(id)
     );
 
 create table
@@ -145,12 +151,17 @@ VALUES (
         "default_avatar.png"
     );
 
+INSERT INTO 
+periods (
+      title
+    ) Values ( "Ancient"), ("Medieval"), ("Modern");
+
 INSERT INTO
     authors (
         known_name,
         firstname,
         lastname,
-        period,
+        period_id,
         philo_current,
         born_date,
         dead_date,
@@ -160,7 +171,7 @@ VALUES (
         "Socrates",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
         469,
         399,
@@ -169,7 +180,7 @@ VALUES (
         "Ludwig",
         "Ludwig",
         "Wittgenstein",
-        "20th Century",
+        3,
         "Modern",
         1889,
         1951,
@@ -177,8 +188,8 @@ VALUES (
     ), (
         "Ludwig1",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
         1889,
         1951,
@@ -186,8 +197,8 @@ VALUES (
     ), (
         "Ludwig2",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
         1889,
         1951,
@@ -195,8 +206,8 @@ VALUES (
     ), (
         "Ludwig3",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
         1889,
         1951,
@@ -204,8 +215,8 @@ VALUES (
     ), (
         "Ludwig4",
         "Ludwig",
-        "Wittgenstein",
-        "20th Century",
+        "Ludwig",
+        3,
         "Modern",
         1889,
         1951,
@@ -214,7 +225,7 @@ VALUES (
         "Descartes",
         "René",
         "Descartes",
-        "Modern",
+        2,
         "Rationalism",
         1596,
         1650,
@@ -223,7 +234,7 @@ VALUES (
         "Socrates1",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
         469,
         399,
@@ -232,7 +243,7 @@ VALUES (
         "Socrates2",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
         469,
         399,
@@ -241,7 +252,7 @@ VALUES (
         "Socrates3",
         null,
         null,
-        "Classical",
+        1,
         "Socratic",
         469,
         399,

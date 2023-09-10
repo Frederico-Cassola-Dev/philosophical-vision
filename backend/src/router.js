@@ -9,8 +9,9 @@ const userControllers = require("./controllers/userControllers");
 const phraseControllers = require("./controllers/phraseControllers");
 const eventControllers = require("./controllers/eventControllers");
 const categoryControllers = require("./controllers/categoryControllers");
-const authorControllers = require("./controllers/AuthorControllers");
+const authorControllers = require("./controllers/authorControllers");
 const eventPhraseControllers = require("./controllers/eventPhraseControllers");
+const periodControllers = require("./controllers/periodControllers");
 
 router.post("/avatar", upload.single("avatar"), uploadAvatar.postAvatar);
 
@@ -41,5 +42,9 @@ router.post("/categories", categoryControllers.add);
 router.get("/authors", authorControllers.browse);
 router.get("/authors/:id", authorControllers.read);
 router.post("/authors", authorControllers.add);
+
+router.get("/periods", periodControllers.browse);
+router.get("/periods/:id", periodControllers.read);
+router.post("/periods", periodControllers.add);
 
 module.exports = router;

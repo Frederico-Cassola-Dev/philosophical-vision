@@ -1,6 +1,12 @@
+import useAxios from "../../../hooks/useAxios";
 import style from "./_newAuthor.module.scss";
 
 export default function NewAuthor() {
+  const periodsResponse = useAxios({
+    method: "get",
+    endpoint: "periods",
+  });
+
   return (
     <div className={style.newAuthor}>
       <h1 className={style.title}>Add new author</h1>
@@ -28,19 +34,23 @@ export default function NewAuthor() {
         <label htmlFor="philoCurrent" className={style.inputLabel}>
           Philosophical current
           <select name="era" id="" className={style.select}>
-            <option defaultChecked>Select the era</option>
-            <option value="BCE">Before Common Era</option>
-            <option value="CE">Common Era</option>
+            <option defaultChecked>Select the period</option>
+            {periodsResponse &&
+              periodsResponse.map((period) => (
+                <option key={period.id} value={period.title}>
+                  {period.title}
+                </option>
+              ))}
           </select>
         </label>
         <div className={style.datesContainer}>
           <label htmlFor="bornDate" className={style.inputLabelBorn}>
             Born date
-            <input type="number" name="bornDate" className={style.inputDates} />
+            <input type="date" name="bornDate" className={style.inputDates} />
           </label>
           <label htmlFor="deadDate" className={style.inputLabelDead}>
             Dead Date
-            <input type="number" name="deadDate" className={style.inputDates} />
+            <input type="date" name="deadDate" className={style.inputDates} />
           </label>
           <label htmlFor="era" className={style.inputLabelEra}>
             <span className={style.labelNameEra}>Era</span>
