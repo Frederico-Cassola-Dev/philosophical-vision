@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 
@@ -71,10 +72,12 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <button type="button" className={style.addAuthorBtn}>
-            <IconAdd />
-            <span className={style.addAuthorBtnDescription}>Add author</span>
-          </button>
+          <Link to="/admin/newauthor">
+            <button type="button" className={style.addAuthorBtn}>
+              <IconAdd />
+              <span className={style.addAuthorBtnDescription}>Add author</span>
+            </button>
+          </Link>
         </div>
         <div className={style.selectEventsContainer}>
           <select

@@ -8,6 +8,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Phrases from "./pages/Phrases";
 import Admin from "./pages/Admin";
+import NewAuthor from "./pages/Admin/NewAuthor/NewAuthor";
 
 import "./scss/styles.scss";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="phrases" element={<Phrases />} />
           <Route path="admin" element={<Admin />} />
+          <Route path="admin/newauthor" element={<NewAuthor />} />
         </Routes>
         <Footer />
       </Router>
