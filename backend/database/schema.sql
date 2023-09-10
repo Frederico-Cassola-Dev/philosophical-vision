@@ -38,8 +38,8 @@ create table
         lastname varchar(100),
         period_id int not null,
         philo_current varchar(100) not null,
-        born_date INT,
-        dead_date INT,
+        born_date varchar(100),
+        dead_date varchar(100),
         era varchar(50) not null,
         FOREIGN KEY(period_id) REFERENCES periods(id)
     );
@@ -173,8 +173,8 @@ VALUES (
         null,
         1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     ), (
         "Ludwig",
@@ -182,8 +182,8 @@ VALUES (
         "Wittgenstein",
         3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig1",
@@ -191,8 +191,8 @@ VALUES (
         "Ludwig",
         3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig2",
@@ -200,8 +200,8 @@ VALUES (
         "Ludwig",
         3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig3",
@@ -209,8 +209,8 @@ VALUES (
         "Ludwig",
         3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Ludwig4",
@@ -218,8 +218,8 @@ VALUES (
         "Ludwig",
         3,
         "Modern",
-        1889,
-        1951,
+        "14/04/923",
+        "20/07/04",
         "CE"
     ), (
         "Descartes",
@@ -227,8 +227,8 @@ VALUES (
         "Descartes",
         2,
         "Rationalism",
-        1596,
-        1650,
+       "14/04/923",
+        "14/04/923",
         "CE"
     ), (
         "Socrates1",
@@ -236,8 +236,8 @@ VALUES (
         null,
         1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     ), (
         "Socrates2",
@@ -245,8 +245,8 @@ VALUES (
         null,
         1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     ), (
         "Socrates3",
@@ -254,8 +254,8 @@ VALUES (
         null,
         1,
         "Socratic",
-        469,
-        399,
+        "11/11/1234",
+        "12/01/2132",
         "BCE"
     );
 
