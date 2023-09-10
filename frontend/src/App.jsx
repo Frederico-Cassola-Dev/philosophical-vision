@@ -8,7 +8,8 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Phrases from "./pages/Phrases";
 import Admin from "./pages/Admin";
-import NewAuthor from "./pages/Admin/NewAuthor/NewAuthor";
+import NewAuthor from "./pages/Admin/NewAuthor";
+import NewEvent from "./pages/Admin/NewEvent";
 
 import "./scss/styles.scss";
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="phrases" element={<Phrases />} />
           <Route path="admin" element={<Admin />} />
           <Route path="admin/newauthor" element={<NewAuthor />} />
+          <Route path="admin/newevent" element={<NewEvent />} />
         </Routes>
         <Footer />
       </Router>

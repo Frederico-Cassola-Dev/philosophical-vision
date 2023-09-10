@@ -4,7 +4,7 @@ import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 
 import { IconAdd } from "../../components/SvgIcons";
-import style from "./_admin.module.scss";
+import style from "./admin.module.scss";
 
 export default function Admin() {
   const [newPhrase, setNewPhrase] = useState("");
@@ -21,20 +21,22 @@ export default function Admin() {
   });
 
   const handleNewPhrasePost = () => {
-    axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/phrases`, {
-        phrase: newPhrase,
-        authorId: newAuthor,
-      })
-      .then((response) => {
-        axios
-          .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
-            eventId: newEvent,
-            phraseId: parseInt(response.data.insertId, 10),
-          })
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
+    if (newPhrase && newAuthor && newEvent) {
+      axios
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/phrases`, {
+          phrase: newPhrase,
+          authorId: newAuthor,
+        })
+        .then((response) => {
+          axios
+            .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
+              eventId: newEvent,
+              phraseId: parseInt(response.data.insertId, 10),
+            })
+            .catch((err) => console.error(err));
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
@@ -72,7 +74,7 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <Link to="/admin/newauthor">
+          <Link to="/admin/newauthor" className={style.link}>
             <button type="button" className={style.addAuthorBtn}>
               <IconAdd />
               <span className={style.addAuthorBtnDescription}>Add author</span>
@@ -94,10 +96,12 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <button type="button" className={style.addEventBtn}>
-            <IconAdd />
-            <span className={style.addEventBtnDescription}>Add event</span>
-          </button>
+          <Link to="/admin/newEvent" className={style.link}>
+            <button type="button" className={style.addEventBtn}>
+              <IconAdd />
+              <span className={style.addEventBtnDescription}>Add event</span>
+            </button>
+          </Link>
         </div>
         <div className={style.submitBtnContainer}>
           <button type="submit" className={style.submitBtn}>

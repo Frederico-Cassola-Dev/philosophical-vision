@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import useAxios from "../../../hooks/useAxios";
-import style from "./_newAuthor.module.scss";
+import style from "./newAuthor.module.scss";
 
 export default function NewAuthor() {
   const [knownName, setKnownName] = useState("");
@@ -19,19 +19,30 @@ export default function NewAuthor() {
   });
 
   const handleNewAuthorPost = () => {
-    axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/authors`, {
-        knownName,
-        firstName,
-        lastName,
-        periodId,
-        philoCurrent,
-        bornDate,
-        deadDate,
-        era,
-      })
-      .then((response) => console.info(response))
-      .catch((err) => console.error(err));
+    if (
+      knownName &&
+      firstName &&
+      lastName &&
+      periodId &&
+      philoCurrent &&
+      bornDate &&
+      deadDate &&
+      era
+    ) {
+      axios
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/authors`, {
+          knownName,
+          firstName,
+          lastName,
+          periodId,
+          philoCurrent,
+          bornDate,
+          deadDate,
+          era,
+        })
+        .then((response) => console.info(response))
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
@@ -50,6 +61,7 @@ export default function NewAuthor() {
             type="text"
             name="knownName"
             className={style.input}
+            value={knownName}
             onChange={(e) => setKnownName(e.target.value)}
           />
         </label>
@@ -59,6 +71,7 @@ export default function NewAuthor() {
             type="text"
             name="firstName"
             className={style.input}
+            value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </label>
@@ -108,6 +121,7 @@ export default function NewAuthor() {
               type="date"
               name="bornDate"
               className={style.inputDates}
+              value={bornDate}
               onChange={(e) => setBornDate(e.target.value)}
             />
           </label>
@@ -116,6 +130,7 @@ export default function NewAuthor() {
             <input
               type="date"
               name="deadDate"
+              value={deadDate}
               className={style.inputDates}
               onChange={(e) => setDeadDate(e.target.value)}
             />
