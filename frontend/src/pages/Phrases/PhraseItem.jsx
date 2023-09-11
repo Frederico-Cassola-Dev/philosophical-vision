@@ -53,6 +53,8 @@ export default function PhraseItem({ phraseToShow }) {
             console.info("Phrase liked - 1");
           }
         })
+        .then((response) => console.info(response))
+
         .catch((err) => console.error(err));
     }
   }, [like.isLiked]);
@@ -68,10 +70,11 @@ export default function PhraseItem({ phraseToShow }) {
           {
             phrase: phraseToShow.phrase,
             is_favorite: !!favorite.isFavorite,
-            likes: like.numberLikes,
+            likes: phraseToShow.likes,
             authors_id: phraseToShow.authors_id,
           }
         )
+        .then((response) => console.info(response))
         .catch((err) => console.error(err));
     }
   }, [favorite.isFavorite]);
