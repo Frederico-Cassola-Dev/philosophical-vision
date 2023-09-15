@@ -48,6 +48,33 @@ export default function Admin() {
       }}
     >
       <h1 className={style.adminTitle}>Administration</h1>
+      <div className={style.tablesDBButtons}>
+        <Link to="/admin/tablesdb/phrases">
+          <button className={style.buttons} type="button">
+            Phrases
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/events">
+          <button className={style.buttons} type="button">
+            Events
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/authors">
+          <button className={style.buttons} type="button">
+            Authors
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/categories">
+          <button className={style.buttons} type="button">
+            Categories
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/users">
+          <button className={style.buttons} type="button">
+            Users
+          </button>
+        </Link>
+      </div>
       <form className={style.form}>
         <label htmlFor="phrase" className={style.label}>
           New Phrase

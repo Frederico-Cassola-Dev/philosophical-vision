@@ -10,6 +10,7 @@ import Phrases from "./pages/Phrases";
 import Admin from "./pages/Admin";
 import NewAuthor from "./pages/Admin/NewAuthor";
 import NewEvent from "./pages/Admin/NewEvent";
+import TablesDB from "./pages/TablesDB";
 
 import "./scss/styles.scss";
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="admin" element={<Admin />} />
           <Route path="admin/newauthor" element={<NewAuthor />} />
           <Route path="admin/newevent" element={<NewEvent />} />
+          <Route path="admin/tablesdb/:table" element={<TablesDB />} />
         </Routes>
         <Footer />
       </Router>

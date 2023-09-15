@@ -1,0 +1,12 @@
+@import " ../../../../scss/variables";
+
+.tablesDB {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 83.9vh;
+  font-family: $primary-font;
+  font-size: $font-size-l;
+  font-weight: $font-weight-bold;
+}
