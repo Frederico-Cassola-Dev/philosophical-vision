@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import style from "./_phrases.module.scss";
 import { IconHeart, IconStar } from "../../components/SvgIcons";
 
+// TODO - like - NOT ASSOCIATE WITH USER
+// TODO - favorite - NOT ASSOCIATE WITH USER
+// TODO - add feature - show the authors under the phrase -DONE
 export default function PhraseItem({ phraseToShow }) {
   const [like, setLike] = useState({
     isLiked: false,
@@ -14,7 +17,6 @@ export default function PhraseItem({ phraseToShow }) {
     phraseId: "",
   });
 
-  // TODO - like need testing
   useEffect(() => {
     if (like.phraseId && like.isLiked) {
       axios
@@ -59,7 +61,6 @@ export default function PhraseItem({ phraseToShow }) {
     }
   }, [like.isLiked]);
 
-  // TODO - favorite need testing
   useEffect(() => {
     if (favorite.phraseId) {
       axios
@@ -81,7 +82,8 @@ export default function PhraseItem({ phraseToShow }) {
   return (
     <div key={phraseToShow.phrase_id}>
       <p className={style.visionPhrase}>{phraseToShow.phrase}</p>
-      <div className={style.reactionsButtonContainer}>
+      <div className={style.reactionsAndAutorContainer}>
+        <span className={style.author}>Author: {phraseToShow.author}</span>
         <span className={style.totalLikes}>
           {like.isLiked && like.phraseId === phraseToShow.phrase_id
             ? phraseToShow.likes + 1
@@ -123,5 +125,6 @@ PhraseItem.propTypes = {
     likes: PropTypes.number.isRequired,
     is_favorite: PropTypes.number.isRequired,
     authors_id: PropTypes.number.isRequired,
+    author: PropTypes.string.isRequired,
   }).isRequired,
 };

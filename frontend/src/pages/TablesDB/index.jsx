@@ -16,7 +16,7 @@ export default function TablesDB() {
     method: "get",
     endpoint: `${table}`,
   });
-  // console.info("🚀 - tableResponse:", tableResponse);
+  // console.log("🚀 - tableResponse:", tableResponse);
 
   // useEffect(() => {
   //   if (tableResponse) {
@@ -144,7 +144,7 @@ export default function TablesDB() {
             tableResponse.map((item) => (
               <tr key={item.id}>
                 <td>{item.phrase}</td>
-                <td>{item.authors_id}</td>
+                <td>{item.author}</td>
                 <td>{item.likes}</td>
               </tr>
             ))}

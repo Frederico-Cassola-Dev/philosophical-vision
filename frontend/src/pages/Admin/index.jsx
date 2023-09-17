@@ -6,6 +6,8 @@ import useAxios from "../../hooks/useAxios";
 import { IconAdd } from "../../components/SvgIcons";
 import style from "./admin.module.scss";
 
+// TODO - addFeature - after save btn show saved and then return state before
+
 export default function Admin() {
   const [newPhrase, setNewPhrase] = useState("");
   const [newAuthor, setNewAuthor] = useState(null);

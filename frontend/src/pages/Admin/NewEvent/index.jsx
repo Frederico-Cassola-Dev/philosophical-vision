@@ -4,6 +4,8 @@ import useAxios from "../../../hooks/useAxios";
 
 import style from "./newEvent.module.scss";
 
+// TODO - Add feature newCategory
+
 export default function NewEvent() {
   const [newEvent, setNewEvent] = useState("");
   const [newCategoryId, setNewCategory] = useState(null);
