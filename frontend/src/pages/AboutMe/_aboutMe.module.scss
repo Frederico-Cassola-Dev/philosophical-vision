@@ -1,0 +1,49 @@
+@import "../../scss/variables";
+
+.aboutMe {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 83.9vh;
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
+
+  .titleContainer {
+    margin-top: $space-l;
+
+    .title {
+      font-family: $secondary-font;
+      font-size: $font-size-5xl;
+      font-weight: $font-weight-normal;
+    }
+  }
+
+  .imgAndDescriptionContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: $space-xl;
+
+    .aboutMeDescription {
+      width: 40%;
+
+      .descriptionText {
+        font-size: $font-size-l;
+      }
+    }
+
+    .imgContainer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100px;
+      height: 100%;
+
+      img {
+        border-radius: $border-radius-round;
+      }
+    }
+  }
+}

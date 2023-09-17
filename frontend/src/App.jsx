@@ -1,40 +1,37 @@
-import Counter from "./components/Counter";
-import logo from "./assets/logo.svg";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import "./App.css";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import AboutMe from "./pages/AboutMe";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Phrases from "./pages/Phrases";
+import Admin from "./pages/Admin";
+import NewAuthor from "./pages/Admin/NewAuthor";
+import NewEvent from "./pages/Admin/NewEvent";
+import TablesDB from "./pages/TablesDB";
+
+import "./scss/styles.scss";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React !</p>
-
-        <Counter />
-
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="app">
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="aboutme" element={<AboutMe />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="phrases" element={<Phrases />} />
+          <Route path="admin" element={<Admin />} />
+          <Route path="admin/newauthor" element={<NewAuthor />} />
+          <Route path="admin/newevent" element={<NewEvent />} />
+          <Route path="admin/tablesdb/:table" element={<TablesDB />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }

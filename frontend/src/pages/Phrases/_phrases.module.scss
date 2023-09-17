@@ -1,0 +1,97 @@
+@import "../../scss/variables";
+
+.phrases {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 83.9vh;
+  font-family: $primary-font;
+  font-size: $font-size-l;
+
+  .inputsContainer {
+    margin-top: $space-l;
+
+    .inputSearchCategory {
+      width: 45%;
+      height: $space-m;
+      padding-left: $space-2xs;
+      font-weight: $font-weight-bold;
+      border-radius: $border-radius-s;
+
+      &:focus {
+        outline: 2px solid $border-color-active;
+      }
+    }
+
+    .showInputSearchEvent {
+      position: relative;
+      z-index: 11000;
+    }
+
+    select {
+      width: 45%;
+      height: $space-m + 3px;
+      margin-left: $space-m;
+      padding-left: $space-2xs;
+      font-weight: $font-weight-bold;
+      border-radius: $border-radius-s;
+
+      &:focus {
+        outline: 2px solid $border-color-active;
+      }
+    }
+  }
+
+  .lifeEventContainer {
+    width: 90%;
+    margin-top: $space-xl;
+    font-family: $secondary-font;
+    font-size: $font-size-4xl;
+    text-align: center;
+  }
+
+  .visionsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: $space-s;
+
+    .visionPhrase {
+      margin-top: $space-m;
+      font-size: $font-size-3xl;
+      text-align: center;
+      width: 90vw;
+    }
+
+    .reactionsAndAutorContainer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-right: $space-m;
+      gap: $space-s;
+
+      .author{
+        margin-right: $space-2xl;
+      }
+      
+      .totalLikes {
+        margin-bottom: $space-2xs;
+        font-weight: $font-weight-bold;
+        color: $color-primary-active;
+      }
+
+      .likeButton {
+        color: red;
+        border: none;
+      }
+
+      .favoriteButton {
+        color: orange;
+        border: none;
+      }
+    }
+  }
+}
