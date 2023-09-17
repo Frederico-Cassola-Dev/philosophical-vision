@@ -4,7 +4,9 @@ import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 
 import { IconAdd } from "../../components/SvgIcons";
-import style from "./_admin.module.scss";
+import style from "./admin.module.scss";
+
+// TODO - addFeature - after save btn show saved and then return state before
 
 export default function Admin() {
   const [newPhrase, setNewPhrase] = useState("");
@@ -21,20 +23,22 @@ export default function Admin() {
   });
 
   const handleNewPhrasePost = () => {
-    axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/phrases`, {
-        phrase: newPhrase,
-        authorId: newAuthor,
-      })
-      .then((response) => {
-        axios
-          .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
-            eventId: newEvent,
-            phraseId: parseInt(response.data.insertId, 10),
-          })
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
+    if (newPhrase && newAuthor && newEvent) {
+      axios
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/phrases`, {
+          phrase: newPhrase,
+          authorId: newAuthor,
+        })
+        .then((response) => {
+          axios
+            .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
+              eventId: newEvent,
+              phraseId: parseInt(response.data.insertId, 10),
+            })
+            .catch((err) => console.error(err));
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
@@ -46,6 +50,33 @@ export default function Admin() {
       }}
     >
       <h1 className={style.adminTitle}>Administration</h1>
+      <div className={style.tablesDBButtons}>
+        <Link to="/admin/tablesdb/phrases">
+          <button className={style.buttons} type="button">
+            Phrases
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/events">
+          <button className={style.buttons} type="button">
+            Events
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/authors">
+          <button className={style.buttons} type="button">
+            Authors
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/categories">
+          <button className={style.buttons} type="button">
+            Categories
+          </button>
+        </Link>
+        <Link to="/admin/tablesdb/users">
+          <button className={style.buttons} type="button">
+            Users
+          </button>
+        </Link>
+      </div>
       <form className={style.form}>
         <label htmlFor="phrase" className={style.label}>
           New Phrase
@@ -72,7 +103,7 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <Link to="/admin/newauthor">
+          <Link to="/admin/newauthor" className={style.link}>
             <button type="button" className={style.addAuthorBtn}>
               <IconAdd />
               <span className={style.addAuthorBtnDescription}>Add author</span>
@@ -94,10 +125,12 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <button type="button" className={style.addEventBtn}>
-            <IconAdd />
-            <span className={style.addEventBtnDescription}>Add event</span>
-          </button>
+          <Link to="/admin/newEvent" className={style.link}>
+            <button type="button" className={style.addEventBtn}>
+              <IconAdd />
+              <span className={style.addEventBtnDescription}>Add event</span>
+            </button>
+          </Link>
         </div>
         <div className={style.submitBtnContainer}>
           <button type="submit" className={style.submitBtn}>

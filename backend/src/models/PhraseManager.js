@@ -16,7 +16,17 @@ class PhraseManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select
+      known_name,
+      firstname,
+      lastname,
+      period_id,
+      period_title,
+      philo_current,
+      born_date,
+      dead_date,
+      era
+      from ${this.table} where id = ?`,
       [id]
     );
 
@@ -24,7 +34,16 @@ class PhraseManager extends AbstractManager {
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`select 
+    ${this.table}.id,
+    phrase,
+    likes,
+    is_favorite,
+    authors_id,
+    a.known_name as author
+    from ${this.table} 
+    inner join authors as a on a.id = ${this.table}.authors_id
+    `);
 
     return rows;
   }
@@ -51,9 +70,10 @@ class PhraseManager extends AbstractManager {
 
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, p.authors_id, ep.events_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, p.authors_id, ep.events_id, e.title event_title, a.known_name as author FROM ${this.table} p
     inner join events_phrases ep on ep.phrases_id = p.id
     inner join events e on e.id = ep.events_id
+    inner join authors as a on a.id = p.authors_id
     where e.id = ?
     order by rand()
     limit 4`,

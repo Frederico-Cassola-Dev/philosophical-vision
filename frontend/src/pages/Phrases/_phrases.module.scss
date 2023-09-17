@@ -66,13 +66,17 @@
       width: 90vw;
     }
 
-    .reactionsButtonContainer {
+    .reactionsAndAutorContainer {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       margin-right: $space-m;
       gap: $space-s;
 
+      .author{
+        margin-right: $space-2xl;
+      }
+      
       .totalLikes {
         margin-bottom: $space-2xs;
         font-weight: $font-weight-bold;
