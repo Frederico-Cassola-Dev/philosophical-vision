@@ -5,7 +5,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 83.9vh;
+  height: calc(100vh - 16.1vh);
   font-family: $primary-font;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
@@ -38,7 +38,6 @@
         background-color: $color-text-hover;
       }
     }
-
   }
 
   .form {
