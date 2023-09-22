@@ -15,10 +15,14 @@ export default function SignIn() {
     event.preventDefault();
     axios.defaults.withCredentials = true;
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
-        email,
-        password,
-      })
+      .post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((response) => {
         console.info(response.data);
         setUser(response.data.user);

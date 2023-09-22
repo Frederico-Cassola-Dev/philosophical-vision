@@ -53,6 +53,7 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
+  // console.log(req.cookies);
   if (req.cookies) {
     jwt.verify(
       req.cookies.user_token,
