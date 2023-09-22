@@ -10,7 +10,7 @@ import Phrases from "./pages/Phrases";
 import Admin from "./pages/Admin";
 import NewAuthor from "./pages/Admin/NewAuthor";
 import NewEvent from "./pages/Admin/NewEvent";
-import TablesDB from "./pages/TablesDB";
+import TablesDB from "./pages/Admin/TablesDB";
 
 import "./scss/styles.scss";
 

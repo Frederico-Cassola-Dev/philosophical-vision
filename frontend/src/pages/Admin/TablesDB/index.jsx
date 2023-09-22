@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 
 import style from "./tablesDB.module.scss";
 

@@ -22,4 +22,20 @@ const hashPassword = (req, res, next) => {
     });
 };
 
-module.exports = { hashPassword };
+const verifyPassword = (req, res) => {
+  argon2
+    .verify(req.user.password, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        res.status(200).json({ isLogged: true });
+      } else {
+        res.status(401).json({
+          isLogged: false,
+          message: "Email or password not correct",
+        });
+      }
+    })
+    .catch((err) => console.error(err));
+};
+
+module.exports = { hashPassword, verifyPassword };
