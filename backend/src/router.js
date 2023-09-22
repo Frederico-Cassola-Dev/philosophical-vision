@@ -13,11 +13,15 @@ const authorControllers = require("./controllers/authorControllers");
 const eventPhraseControllers = require("./controllers/eventPhraseControllers");
 const periodControllers = require("./controllers/periodControllers");
 
+const { hashPassword } = require("./services/checkAuth");
+// console.log("🚀 - hashPassword:", hashPassword)
+
 router.post("/avatar", upload.single("avatar"), uploadAvatar.postAvatar);
 
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
-router.post("/users", userControllers.add);
+router.post("/users", hashPassword, userControllers.add);
+// router.post("/users",  userControllers.add);
 
 router.get("/phrases", phraseControllers.browse);
 router.get("/phrases5", phraseControllers.browse5);
