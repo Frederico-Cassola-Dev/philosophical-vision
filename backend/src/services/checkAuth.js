@@ -32,6 +32,7 @@ const verifyPassword = (req, res) => {
         const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
           expiresIn: "1h",
         });
+        delete req.user.password;
         res
           .status(200)
           .cookie("user_token", token, {
@@ -45,10 +46,14 @@ const verifyPassword = (req, res) => {
         });
       }
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 };
 
 const verifyToken = (req, res, next) => {
+  // console.log(req.cookies);
   if (req.cookies) {
     jwt.verify(
       req.cookies.user_token,
