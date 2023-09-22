@@ -5,7 +5,6 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  // height: 83.9vh;
   height: calc(100vh - 16.1vh);
   padding: $space-s;
   font-family: $primary-font;
@@ -18,7 +17,6 @@
     align-items: center;
     width: 100%;
     padding: $space-s;
-
 
     .linkReturnBtn {
       color: $color-text-primary;
@@ -35,40 +33,59 @@
     }
   }
 
-  .table{
-    // height: 100%;
-    // width: 100%;
-    overflow: scroll;
-
-    th{
-      padding: $space-2xs;
-    }
-
-    td{
-      padding: $space-2xs;
-      text-align: center;
-      font-size: $font-size-s;
-      font-weight: $font-weight-normal;
-    }
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
   }
 
-  .columnBtnContainer{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 
-    .columnBtn{
-      color: $color-text-primary;
-      border: 1px solid $color-primary-active;
-      border-radius: $border-radius-l;
-      padding: $space-2xs $space-xs;
-      font-size: $font-size-s;
-      font-weight: $font-weight-bold;
-      text-decoration: none;
+  ::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background-color: $color-primary-active;
+    visibility: hidden;
+  }
 
-      &:hover {
-        background-color: $color-text-hover;
+  .tableBody {
+    width: 95%;
+    overflow: scroll;
+
+    &:hover::-webkit-scrollbar-thumb {
+      visibility: visible;
+    }
+
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+
+      th {
+        position: sticky;
+        top: 0;
+        left: 0;
+        padding: $space-2xs;
+        border-collapse: collapse;
+        background-color: $color-background-primary;
+      }
+
+      td {
+        border-collapse: collapse;
+        padding: $space-2xs;
+        text-align: center;
+        font-size: $font-size-s;
+        font-weight: $font-weight-normal;
+      }
+
+      th:nth-child(1) {
+        z-index: 1;
+      }
+      
+      td:nth-child(1) {
+        background-color: $color-background-primary;
+        position: sticky;
+        top: 0;
+        left: 0;
       }
     }
   }
