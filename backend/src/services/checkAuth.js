@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
 
 const hashingOptions = {
   type: argon2.argon2id,
@@ -27,10 +28,19 @@ const verifyPassword = (req, res) => {
     .verify(req.user.password, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
-        res.status(200).json({ isLogged: true });
+        const payload = { sub: req.user.id };
+        const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
+          expiresIn: "1h",
+        });
+        res
+          .status(200)
+          .cookie("user_token", token, {
+            httpOnly: false,
+            expires: new Date(Date.now() + 1000 * 60 * 60),
+          })
+          .send({ token, user: req.user });
       } else {
-        res.status(401).json({
-          isLogged: false,
+        res.status(401).send({
           message: "Email or password not correct",
         });
       }
@@ -38,4 +48,23 @@ const verifyPassword = (req, res) => {
     .catch((err) => console.error(err));
 };
 
-module.exports = { hashPassword, verifyPassword };
+const verifyToken = (req, res, next) => {
+  if (req.cookies) {
+    jwt.verify(
+      req.cookies.user_token,
+      process.env.TOKEN_SECRET,
+      (err, decode) => {
+        if (err) {
+          res.status(401).send("Not connected");
+        } else {
+          req.user_token = decode;
+          next();
+        }
+      }
+    );
+  } else {
+    res.status(401).send("EMail or password not correct");
+  }
+};
+
+module.exports = { hashPassword, verifyPassword, verifyToken };

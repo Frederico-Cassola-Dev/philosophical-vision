@@ -21,8 +21,9 @@ export default function SignIn() {
         console.info(response.data);
         if (response.data.isLogged) {
           navigate("/phrases");
+          console.info(response.data);
         } else {
-          console.info(response.data.message);
+          console.info(response.data);
         }
       })
       .catch((err) => console.error(err));
