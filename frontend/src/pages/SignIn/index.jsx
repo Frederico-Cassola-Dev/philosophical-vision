@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import userContext from "../../contexts/userContext";
 
 import style from "./signIn.module.scss";
 
@@ -8,23 +9,25 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useContext(userContext);
+  // console.log("🚀 - user:", user);
 
   const login = (e) => {
     e.preventDefault();
 
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
-        email,
-        password,
-      })
+      .post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      )
       .then((response) => {
         console.info(response.data);
-        if (response.data.isLogged) {
-          navigate("/phrases");
-          console.info(response.data);
-        } else {
-          console.info(response.data);
-        }
+        setUser(response.data.user);
+        navigate("/phrases");
       })
       .catch((err) => console.error(err));
   };
