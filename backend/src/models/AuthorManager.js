@@ -33,7 +33,7 @@ class UserManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select known_name, firstname, lastname, p.title period_title, philo_current, born_date, dead_date, era from ${this.table} a
+      `select a.id, known_name, firstname, lastname, p.title period_title, philo_current, born_date, dead_date, era from ${this.table} a
       inner join periods p on p.id = a.period_id
       `
     );

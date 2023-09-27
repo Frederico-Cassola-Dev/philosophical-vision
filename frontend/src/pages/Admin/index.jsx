@@ -17,6 +17,7 @@ export default function Admin() {
     method: "get",
     endpoint: "authors",
   });
+
   const eventsResponse = useAxios({
     method: "get",
     endpoint: "events",

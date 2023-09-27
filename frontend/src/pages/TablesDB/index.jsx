@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 
 import style from "./tablesDB.module.scss";
+import AdminModifyModal from "../../components/AdminModifyModal";
 
 export default function TablesDB() {
   const { table } = useParams();
@@ -11,8 +13,11 @@ export default function TablesDB() {
     endpoint: `${table}`,
   });
 
+  const [modifyModal, setModifyModal] = useState(false);
+
   return (
     <div className={style.tablesDB}>
+      {modifyModal && <AdminModifyModal />}
       <div className={style.linkContainer}>
         <Link to="/admin" className={style.linkReturnBtn}>
           Return
@@ -39,7 +44,7 @@ export default function TablesDB() {
                 <th>Known Name</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Period Id</th>
+                <th>Period</th>
                 <th>Philo current</th>
                 <th>Born</th>
                 <th>Dead</th>
@@ -64,7 +69,7 @@ export default function TablesDB() {
             {table === "phrases" &&
               tableResponse &&
               tableResponse.map((item) => (
-                <tr key={item.id}>
+                <tr key={item.id} onClick={() => setModifyModal(true)}>
                   <td>{item.phrase}</td>
                   <td>{item.author}</td>
                   <td>{item.likes}</td>
