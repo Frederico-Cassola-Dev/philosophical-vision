@@ -82,7 +82,7 @@ export default function TablesDB() {
               tableResponse &&
               tableResponse.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.known_name} hello</td>
+                  <td>{item.known_name}</td>
                   <td>{item.firstname}</td>
                   <td>{item.lastname}</td>
                   <td>{item.period_id}</td>
