@@ -85,10 +85,11 @@ export default function TablesDB() {
                   <td>{item.known_name}</td>
                   <td>{item.firstname}</td>
                   <td>{item.lastname}</td>
-                  <td>{item.period_id}</td>
+                  <td>{item.period_title}</td>
                   <td>{item.philo_current}</td>
                   <td>{item.born_date}</td>
                   <td>{item.dead_date}</td>
+                  <td>{item.era}</td>
                 </tr>
               ))}
             {table === "categories" &&
