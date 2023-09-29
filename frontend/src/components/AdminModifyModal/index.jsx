@@ -32,8 +32,8 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
   const [modifiedEvent, setModifiedEvent] = useState("");
   const [modifiedLikes, setModifiedLikes] = useState("");
 
-  const handleSubmitModifyPhrase = (e) => {
-    e.preventDefault();
+  const handleSubmitModifyPhrase = () => {
+    // e.preventDefault();
     axios
       .put(
         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
@@ -41,7 +41,8 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
           phrase: modifiedPhrase || selectedPhraseResponse.phrase,
           author_id: modifiedAuthor || selectedPhraseResponse.author_id,
           event_id: modifiedEvent || selectedPhraseResponse.event_id,
-          likes: modifiedLikes || selectedPhraseResponse.likes,
+          likes:
+            modifiedLikes !== "" ? modifiedLikes : selectedPhraseResponse.likes,
         }
       )
       .then((response) => console.info(response.status))
@@ -112,13 +113,22 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
           </select>
         </label>
         <label htmlFor="likes" className={style.labelLikes}>
-          Reset Likes:{" "}
-          {selectedPhraseResponse ? selectedPhraseResponse.likes : ""}
+          Total likes :{" "}
+          {modifiedLikes !== 0 && selectedPhraseResponse
+            ? selectedPhraseResponse.likes
+            : modifiedLikes}{" "}
+          - Reset
           <input
             type="checkbox"
             name="likes"
             id="likes"
-            onChange={(e) => setModifiedLikes(e.target.value)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setModifiedLikes(0);
+              } else {
+                setModifiedLikes(selectedPhraseResponse.likes);
+              }
+            }}
           />
         </label>
         <div className={style.buttonsContainer}>
@@ -128,8 +138,7 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
           <button type="submit">Modify</button>
           <button
             type="button"
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               setModifyModal(false);
             }}
           >
