@@ -7,7 +7,7 @@ class PhraseManager extends AbstractManager {
 
   async create(phrase) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (phrase, authors_id) values (?,?)`,
+      `insert into ${this.table} (phrase, author_id) values (?,?)`,
       [phrase.phrase, phrase.authorId]
     );
 
@@ -17,19 +17,19 @@ class PhraseManager extends AbstractManager {
   async read(id) {
     const [rows] = await this.database.query(
       `select
-      p.id,
-      phrase,
-      likes,
-      is_favorite,
-      authors_id,
-      a.known_name as author,
-      ep.events_id, 
-      e.title event_title
-      from ${this.table} p
-      inner join authors as a on a.id = p.authors_id 
-      inner join events_phrases ep on ep.phrases_id = p.id
-    inner join events e on e.id = ep.events_id
-      where p.id = ?`,
+        p.id,
+        phrase,
+        likes,
+        is_favorite,
+        author_id,
+        a.known_name as author,
+        ep.event_id, 
+        e.title event_title
+        from ${this.table} p
+        inner join authors as a on a.id = p.author_id 
+        inner join events_phrases ep on ep.phrase_id = p.id
+        inner join events e on e.id = ep.event_id
+        where p.id = ?`,
       [id]
     );
 
@@ -37,16 +37,16 @@ class PhraseManager extends AbstractManager {
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select 
-    ${this.table}.id,
-    phrase,
-    likes,
-    is_favorite,
-    authors_id,
-    a.known_name as author
-    from ${this.table} 
-    inner join authors as a on a.id = ${this.table}.authors_id
-    `);
+    const [rows] = await this.database.query(
+      `select ${this.table}.id,
+        phrase,
+        likes,
+        is_favorite,
+        author_id,
+        a.known_name as author
+        from ${this.table} 
+        inner join authors as a on a.id = ${this.table}.author_id`
+    );
 
     return rows;
   }
@@ -61,11 +61,11 @@ class PhraseManager extends AbstractManager {
 
   async read4ByRandomEvent() {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, ep.events_id, e.title event_title FROM ${this.table} p
-    inner join events_phrases ep on ep.phrases_id = p.id
-    inner join events e on e.id = ep.events_id
-    order by rand()
-    limit 4`
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, ep.event_id, e.title event_title FROM ${this.table} p
+      inner join events_phrases ep on ep.phrase_id = p.id
+      inner join events e on e.id = ep.event_id
+      order by rand()
+      limit 4`
     );
 
     return rows;
@@ -73,13 +73,13 @@ class PhraseManager extends AbstractManager {
 
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, p.authors_id, ep.events_id, e.title event_title, a.known_name as author FROM ${this.table} p
-    inner join events_phrases ep on ep.phrases_id = p.id
-    inner join events e on e.id = ep.events_id
-    inner join authors as a on a.id = p.authors_id
-    where e.id = ?
-    order by rand()
-    limit 4`,
+      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, p.author_id, ep.event_id, e.title event_title, a.known_name as author FROM ${this.table} p
+      inner join events_phrases ep on ep.phrase_id = p.id
+      inner join events e on e.id = ep.event_id
+      inner join authors as a on a.id = p.author_id
+      where e.id = ?
+      order by rand()
+      limit 4`,
       [id]
     );
 
@@ -89,18 +89,29 @@ class PhraseManager extends AbstractManager {
   async update(phrase) {
     const [rows] = await this.database.query(
       `update ${this.table} p 
-      inner join events_phrases ep on ep.phrases_id = p.id
-      inner join events e on e.id = ep.events_id
-      set phrase = ?, likes = ?, is_favorite = ?, authors_id = ?, ep.events_id = ?
-       where p.id = ?`,
+      inner join events_phrases ep on ep.phrase_id = p.id
+      inner join events e on e.id = ep.event_id
+      set phrase = ?, likes = ?, is_favorite = ?, author_id = ?, ep.event_id = ?
+      where p.id = ?`,
       [
         phrase.phrase,
         phrase.likes,
         phrase.is_favorite,
-        phrase.authors_id,
-        phrase.events_id,
+        phrase.author_id,
+        phrase.event_id,
         phrase.phraseId,
       ]
+    );
+    return rows;
+  }
+
+  async delete(id) {
+    //* there are a ON DELETE CASCADE in the tables events_phrases and users_phrases for the foreign keys
+    const [rows] = await this.database.query(
+      `delete ${this.table}
+      from ${this.table}
+      where ${this.table}.id = ? `,
+      [id]
     );
     return rows;
   }

@@ -39,10 +39,20 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
         {
           phrase: modifiedPhrase || selectedPhraseResponse.phrase,
-          authors_id: modifiedAuthor || selectedPhraseResponse.authors_id,
-          events_id: modifiedEvent || selectedPhraseResponse.event_id,
+          author_id: modifiedAuthor || selectedPhraseResponse.author_id,
+          event_id: modifiedEvent || selectedPhraseResponse.event_id,
           likes: modifiedLikes || selectedPhraseResponse.likes,
         }
+      )
+      .then((response) => console.info(response.status))
+      .catch((err) => console.error(err));
+  };
+
+  const handleSubmitDeletePhrase = (e) => {
+    e.preventDefault();
+    axios
+      .delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`
       )
       .then((response) => console.info(response.status))
       .catch((err) => console.error(err));
@@ -112,7 +122,9 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
           />
         </label>
         <div className={style.buttonsContainer}>
-          <button type="button">Delete</button>
+          <button type="button" onClick={handleSubmitDeletePhrase}>
+            Delete
+          </button>
           <button type="submit">Modify</button>
           <button
             type="button"
