@@ -88,13 +88,17 @@ class PhraseManager extends AbstractManager {
 
   async update(phrase) {
     const [rows] = await this.database.query(
-      `update ${this.table} 
-      set phrase = ?, likes = ?, is_favorite = ?, authors_id = ? where id = ?`,
+      `update ${this.table} p 
+      inner join events_phrases ep on ep.phrases_id = p.id
+      inner join events e on e.id = ep.events_id
+      set phrase = ?, likes = ?, is_favorite = ?, authors_id = ?, ep.events_id = ?
+       where p.id = ?`,
       [
         phrase.phrase,
         phrase.likes,
         phrase.is_favorite,
         phrase.authors_id,
+        phrase.events_id,
         phrase.phraseId,
       ]
     );

@@ -40,7 +40,7 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
         {
           phrase: modifiedPhrase || selectedPhraseResponse.phrase,
           authors_id: modifiedAuthor || selectedPhraseResponse.authors_id,
-          event: modifiedEvent || selectedPhraseResponse.event_id,
+          events_id: modifiedEvent || selectedPhraseResponse.event_id,
           likes: modifiedLikes || selectedPhraseResponse.likes,
         }
       )
@@ -52,11 +52,11 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
     <div className={style.modal}>
       <h2>Phrase to modify</h2>
       <form className={style.phraseForm} onSubmit={handleSubmitModifyPhrase}>
-        <label htmlFor="title">
+        <label htmlFor="phrase">
           <textarea
             type="text"
-            id="title"
-            name="title"
+            id="phrase"
+            name="phrase"
             placeholder={
               selectedPhraseResponse ? selectedPhraseResponse.phrase : ""
             }
