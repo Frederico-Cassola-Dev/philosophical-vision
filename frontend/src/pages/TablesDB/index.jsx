@@ -18,7 +18,12 @@ export default function TablesDB() {
 
   return (
     <div className={style.tablesDB}>
-      {modifyModal && <AdminModifyModal selectedPhraseId={selectedPhraseId} />}
+      {modifyModal && (
+        <AdminModifyModal
+          selectedPhraseId={selectedPhraseId}
+          setModifyModal={setModifyModal}
+        />
+      )}
       <div className={style.linkContainer}>
         <Link to="/admin" className={style.linkReturnBtn}>
           Return

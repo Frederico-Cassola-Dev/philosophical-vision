@@ -17,15 +17,19 @@ class PhraseManager extends AbstractManager {
   async read(id) {
     const [rows] = await this.database.query(
       `select
-      ${this.table}.id,
+      p.id,
       phrase,
       likes,
       is_favorite,
       authors_id,
-      a.known_name as author
-      from ${this.table} 
-      inner join authors as a on a.id = ${this.table}.authors_id 
-      where ${this.table}.id = ?`,
+      a.known_name as author,
+      ep.events_id, 
+      e.title event_title
+      from ${this.table} p
+      inner join authors as a on a.id = p.authors_id 
+      inner join events_phrases ep on ep.phrases_id = p.id
+    inner join events e on e.id = ep.events_id
+      where p.id = ?`,
       [id]
     );
 
