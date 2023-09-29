@@ -7,6 +7,7 @@ import AdminModifyModal from "../../components/AdminModifyModal";
 
 export default function TablesDB() {
   const { table } = useParams();
+  const [selectedPhraseId, setSelectedPhraseId] = useState("");
 
   const tableResponse = useAxios({
     method: "get",
@@ -17,7 +18,7 @@ export default function TablesDB() {
 
   return (
     <div className={style.tablesDB}>
-      {modifyModal && <AdminModifyModal />}
+      {modifyModal && <AdminModifyModal selectedPhraseId={selectedPhraseId} />}
       <div className={style.linkContainer}>
         <Link to="/admin" className={style.linkReturnBtn}>
           Return
@@ -69,7 +70,13 @@ export default function TablesDB() {
             {table === "phrases" &&
               tableResponse &&
               tableResponse.map((item) => (
-                <tr key={item.id} onClick={() => setModifyModal(true)}>
+                <tr
+                  key={item.id}
+                  onClick={() => {
+                    setModifyModal(true);
+                    setSelectedPhraseId(item.id);
+                  }}
+                >
                   <td>{item.phrase}</td>
                   <td>{item.author}</td>
                   <td>{item.likes}</td>
