@@ -23,7 +23,10 @@ const getSelectedPhraseAuthorAndEvent = (selectedPhraseId) => {
 
   return { selectedPhraseResponse, authorsResponse, eventsResponse };
 };
-export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
+export default function AdminModifyModal({
+  selectedPhraseId,
+  setModifyPhrase,
+}) {
   const { selectedPhraseResponse, authorsResponse, eventsResponse } =
     getSelectedPhraseAuthorAndEvent(selectedPhraseId);
 
@@ -139,7 +142,7 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
           <button
             type="button"
             onClick={() => {
-              setModifyModal(false);
+              setModifyPhrase(false);
             }}
           >
             Cancel
@@ -151,5 +154,5 @@ export default function AdminModifyModal({ selectedPhraseId, setModifyModal }) {
 }
 AdminModifyModal.propTypes = {
   selectedPhraseId: propTypes.number.isRequired,
-  setModifyModal: propTypes.func.isRequired,
+  setModifyPhrase: propTypes.func.isRequired,
 };

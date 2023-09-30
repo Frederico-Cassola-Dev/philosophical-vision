@@ -14,14 +14,14 @@ export default function TablesDB() {
     endpoint: `${table}`,
   });
 
-  const [modifyModal, setModifyModal] = useState(false);
+  const [modifyPhrase, setModifyPhrase] = useState(false);
 
   return (
     <div className={style.tablesDB}>
-      {modifyModal && (
+      {modifyPhrase && (
         <AdminModifyModal
           selectedPhraseId={selectedPhraseId}
-          setModifyModal={setModifyModal}
+          setModifyPhrase={setModifyPhrase}
         />
       )}
       <div className={style.linkContainer}>
@@ -37,6 +37,7 @@ export default function TablesDB() {
                 <th>Title</th>
                 <th>Author</th>
                 <th>Likes</th>
+                <th>Events</th>
               </tr>
             )}
             {table === "events" && (
@@ -78,13 +79,14 @@ export default function TablesDB() {
                 <tr
                   key={item.id}
                   onClick={() => {
-                    setModifyModal(true);
+                    setModifyPhrase(true);
                     setSelectedPhraseId(item.id);
                   }}
                 >
                   <td>{item.phrase}</td>
                   <td>{item.author}</td>
                   <td>{item.likes}</td>
+                  <td>{item.event_title}</td>
                 </tr>
               ))}
             {table === "events" &&

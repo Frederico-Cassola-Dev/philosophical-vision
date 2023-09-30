@@ -26,7 +26,7 @@ class PhraseManager extends AbstractManager {
         ep.event_id, 
         e.title event_title
         from ${this.table} p
-        inner join authors as a on a.id = p.author_id 
+        inner join authors a on a.id = p.author_id 
         inner join events_phrases ep on ep.phrase_id = p.id
         inner join events e on e.id = ep.event_id
         where p.id = ?`,
@@ -38,14 +38,19 @@ class PhraseManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select ${this.table}.id,
+      `select 
+        p.id,
         phrase,
         likes,
         is_favorite,
         author_id,
-        a.known_name as author
-        from ${this.table} 
-        inner join authors as a on a.id = ${this.table}.author_id`
+        a.known_name as author,
+        group_concat( e.title SEPARATOR ', ') event_title
+        from ${this.table} p
+        inner join authors a on a.id = p.author_id
+        left join events_phrases ep on p.id = ep.phrase_id
+        left join events e on e.id = ep.event_id
+        group by p.id`
     );
 
     return rows;
