@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 
 import style from "./tablesDB.module.scss";
-import AdminModifyModal from "../../components/AdminModifyModal";
+import ModifyPhrase from "../../../components/ModifyPhrase";
 
 export default function TablesDB() {
   const { table } = useParams();
@@ -19,7 +19,7 @@ export default function TablesDB() {
   return (
     <div className={style.tablesDB}>
       {modifyPhrase && (
-        <AdminModifyModal
+        <ModifyPhrase
           selectedPhraseId={selectedPhraseId}
           setModifyPhrase={setModifyPhrase}
         />

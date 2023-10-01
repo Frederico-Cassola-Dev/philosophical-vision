@@ -2,8 +2,9 @@ import { useState } from "react";
 import propTypes from "prop-types";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import { DeleteIcon } from "../SvgIcons";
 
-import style from "./adminModifyModal.module.scss";
+import style from "./modifyPhrase.module.scss";
 
 const getSelectedPhraseAuthorAndEvent = (selectedPhraseId) => {
   const selectedPhraseResponse = useAxios({
@@ -23,10 +24,8 @@ const getSelectedPhraseAuthorAndEvent = (selectedPhraseId) => {
 
   return { selectedPhraseResponse, authorsResponse, eventsResponse };
 };
-export default function AdminModifyModal({
-  selectedPhraseId,
-  setModifyPhrase,
-}) {
+
+export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
   const { selectedPhraseResponse, authorsResponse, eventsResponse } =
     getSelectedPhraseAuthorAndEvent(selectedPhraseId);
 
@@ -35,6 +34,7 @@ export default function AdminModifyModal({
   const [modifiedEvent, setModifiedEvent] = useState("");
   const [modifiedLikes, setModifiedLikes] = useState("");
 
+  // TODO - Event update not working correctly. One phrase have more then one event.
   const handleSubmitModifyPhrase = () => {
     // e.preventDefault();
     axios
@@ -78,6 +78,7 @@ export default function AdminModifyModal({
           />
         </label>
         <label htmlFor="listAuthors">
+          Author
           <select
             name="listAuthors"
             id="listAuthors"
@@ -97,24 +98,36 @@ export default function AdminModifyModal({
               ))}
           </select>
         </label>
-        <label htmlFor="listEvents">
-          <select
-            name="listEvents"
-            id="listEvents"
-            className={`${style.select} ${style.listEvents}`}
-            onChange={(e) => setModifiedEvent(e.target.value)}
-          >
-            <option defaultChecked>
-              {selectedPhraseResponse && selectedPhraseResponse.event_title}
-            </option>
-            {eventsResponse &&
-              eventsResponse.map((events) => (
-                <option key={events.id} value={events.id}>
-                  {events.title}
-                </option>
-              ))}
-          </select>
-        </label>
+
+        <div className={style.eventsContainer}>
+          <h3 className={style.title}>Events</h3>
+          <div className={style.events}>
+            <div className={style.singleEventContainer}>
+              <p>event 1 - odjhifowsjhfowijf</p>
+              <button type="button" className={style.deleteButtons}>
+                <DeleteIcon />
+              </button>
+            </div>
+          </div>
+          <label htmlFor="listEvents" className={style.labelSelectEvents}>
+            <select
+              name="listEvents"
+              id="listEvents"
+              className={`${style.select} ${style.listEvents}`}
+              onChange={(e) => setModifiedEvent(e.target.value)}
+            >
+              <option defaultChecked>
+                {selectedPhraseResponse && selectedPhraseResponse.event_title}
+              </option>
+              {eventsResponse &&
+                eventsResponse.map((events) => (
+                  <option key={events.id} value={events.id}>
+                    {events.title}
+                  </option>
+                ))}
+            </select>
+          </label>
+        </div>
         <label htmlFor="likes" className={style.labelLikes}>
           Total likes :{" "}
           {modifiedLikes !== 0 && selectedPhraseResponse
@@ -152,7 +165,7 @@ export default function AdminModifyModal({
     </div>
   );
 }
-AdminModifyModal.propTypes = {
+ModifyPhrase.propTypes = {
   selectedPhraseId: propTypes.number.isRequired,
   setModifyPhrase: propTypes.func.isRequired,
 };

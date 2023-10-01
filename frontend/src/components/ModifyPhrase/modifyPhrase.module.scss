@@ -41,12 +41,48 @@
           outline: 2px solid $border-color-active;
         }
       }
-      
+
       .select.listEvents {
         width: 100%;
       }
     }
-    
+
+    .eventsContainer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      padding: $space-2xs;
+
+      .title{
+        font-size: $font-size-l;
+        padding-bottom: $space-xs;
+      }
+
+      .events {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        gap: $space-2xs;
+
+        .singleEventContainer {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: $space-s;
+
+          .deleteButtons{
+            color: white;
+            border: none;
+            width: $space-s;
+          }
+        }
+      }
+      .labelSelectEvents {
+        padding: $space-2xs 0 0 0;
+      }
+    }
 
     .labelLikes {
       display: flex;
