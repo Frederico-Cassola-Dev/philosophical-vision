@@ -9,7 +9,7 @@ import style from "./modifyPhrase.module.scss";
 const getSelectedPhraseAuthorAndEvent = (selectedPhraseId) => {
   const selectedPhraseResponse = useAxios({
     method: "get",
-    endpoint: `phrases/${selectedPhraseId}`,
+    endpoint: `eventphrase/${selectedPhraseId}`,
   });
 
   const authorsResponse = useAxios({
@@ -102,12 +102,14 @@ export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
         <div className={style.eventsContainer}>
           <h3 className={style.title}>Events</h3>
           <div className={style.events}>
-            <div className={style.singleEventContainer}>
-              <p>event 1 - odjhifowsjhfowijf</p>
-              <button type="button" className={style.deleteButtons}>
-                <DeleteIcon />
-              </button>
-            </div>
+            {selectedPhraseResponse?.events_titles.map((item) => (
+              <div key={item} className={style.singleEventContainer}>
+                <p>{item}</p>
+                <button type="button" className={style.deleteButtons}>
+                  <DeleteIcon />
+                </button>
+              </div>
+            ))}
           </div>
           <label htmlFor="listEvents" className={style.labelSelectEvents}>
             <select
@@ -116,9 +118,7 @@ export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
               className={`${style.select} ${style.listEvents}`}
               onChange={(e) => setModifiedEvent(e.target.value)}
             >
-              <option defaultChecked>
-                {selectedPhraseResponse && selectedPhraseResponse.event_title}
-              </option>
+              <option defaultChecked>Add a new event</option>
               {eventsResponse &&
                 eventsResponse.map((events) => (
                   <option key={events.id} value={events.id}>

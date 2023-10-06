@@ -9,6 +9,20 @@ const browse = async (req, res, next) => {
   }
 };
 
+const browseByPhraseId = async (req, res, next) => {
+  try {
+    const events = await tables.events_phrases.readAllByPhraseId(req.params.id);
+
+    if (events == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(events);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const read = async (req, res, next) => {
   try {
     const event = await tables.events_phrases.read(req.params.id);
@@ -37,5 +51,6 @@ const add = async (req, res, next) => {
 module.exports = {
   browse,
   read,
+  browseByPhraseId,
   add,
 };
