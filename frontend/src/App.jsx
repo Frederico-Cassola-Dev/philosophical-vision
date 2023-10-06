@@ -26,9 +26,9 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="phrases" element={<Phrases />} />
           <Route path="admin" element={<Admin />} />
-          <Route path="admin/newauthor" element={<NewAuthor />} />
-          <Route path="admin/newevent" element={<NewEvent />} />
-          <Route path="admin/tablesdb/:table" element={<TablesDB />} />
+          <Route path="admin/newAuthor" element={<NewAuthor />} />
+          <Route path="admin/newEvent" element={<NewEvent />} />
+          <Route path="admin/tablesDb/:table" element={<TablesDB />} />
         </Routes>
         <Footer />
       </Router>
