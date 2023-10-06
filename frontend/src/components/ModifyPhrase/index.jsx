@@ -28,6 +28,7 @@ const getSelectedPhraseAuthorAndEvent = (selectedPhraseId) => {
 export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
   const { selectedPhraseResponse, authorsResponse, eventsResponse } =
     getSelectedPhraseAuthorAndEvent(selectedPhraseId);
+  // console.log("🚀 - eventsResponse:", eventsResponse);
 
   const [modifiedPhrase, setModifiedPhrase] = useState("");
   const [modifiedAuthor, setModifiedAuthor] = useState("");
@@ -35,8 +36,8 @@ export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
   const [modifiedLikes, setModifiedLikes] = useState("");
 
   // TODO - Event update not working correctly. One phrase have more then one event.
-  const handleSubmitModifyPhrase = () => {
-    // e.preventDefault();
+  const handleSubmitModifyPhrase = (e) => {
+    e.preventDefault();
     axios
       .put(
         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
@@ -57,6 +58,23 @@ export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
     axios
       .delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`
+      )
+      .then((response) => console.info(response.status))
+      .catch((err) => console.error(err));
+  };
+
+  const handleDeleteEvent = (eventToDelete) => {
+    // console.log("🚀 - itemToDelete:", itemToDelete);
+    const chosenEvent = eventsResponse.find(
+      (item) => item.title === eventToDelete
+    );
+    // console.log("🚀 - eventToDelete:", eventToDelete);
+
+    axios
+      .delete(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/eventphrase/${selectedPhraseId}/${chosenEvent.id}`
       )
       .then((response) => console.info(response.status))
       .catch((err) => console.error(err));
@@ -105,7 +123,11 @@ export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
             {selectedPhraseResponse?.events_titles.map((item) => (
               <div key={item} className={style.singleEventContainer}>
                 <p>{item}</p>
-                <button type="button" className={style.deleteButtons}>
+                <button
+                  type="button"
+                  className={style.deleteButtons}
+                  onClick={() => handleDeleteEvent(item)}
+                >
                   <DeleteIcon />
                 </button>
               </div>
@@ -158,7 +180,7 @@ export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
               setModifyPhrase(false);
             }}
           >
-            Cancel
+            Close
           </button>
         </div>
       </form>

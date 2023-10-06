@@ -48,9 +48,25 @@ const add = async (req, res, next) => {
   }
 };
 
+const destroy = async (req, res, next) => {
+  const eventId = parseInt(req.params.eventId, 10);
+  const phraseId = parseInt(req.params.phraseId, 10);
+  try {
+    const eventPhrase = await tables.events_phrases.delete(eventId, phraseId);
+    if (eventPhrase == null) {
+      res.status(204);
+    } else {
+      res.json(eventPhrase);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
   browseByPhraseId,
   add,
+  destroy,
 };

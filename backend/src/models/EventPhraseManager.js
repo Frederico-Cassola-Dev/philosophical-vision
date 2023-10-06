@@ -47,6 +47,18 @@ class EventManager extends AbstractManager {
     );
     return rows[0];
   }
+
+  async delete(eventId, phraseId) {
+    const [rows] = await this.database.query(
+      `
+      DELETE ${this.table}
+      FROM ${this.table}
+      WHERE ${this.table}.event_id = ? AND ${this.table}.phrase_id = ?
+      `,
+      [eventId, phraseId]
+    );
+    return rows;
+  }
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing event
 

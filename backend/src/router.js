@@ -37,6 +37,10 @@ router.post("/events", eventControllers.add);
 router.get("/eventphrase", eventPhraseControllers.browse);
 router.get("/eventphrase/:id", eventPhraseControllers.browseByPhraseId);
 router.post("/eventphrase", eventPhraseControllers.add);
+router.delete(
+  "/eventphrase/:phraseId/:eventId",
+  eventPhraseControllers.destroy
+);
 
 router.get("/categories", categoryControllers.browse);
 router.get("/categories/:id", categoryControllers.read);

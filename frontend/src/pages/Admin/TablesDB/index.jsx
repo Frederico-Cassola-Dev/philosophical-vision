@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 
@@ -9,12 +9,14 @@ export default function TablesDB() {
   const { table } = useParams();
   const [selectedPhraseId, setSelectedPhraseId] = useState("");
 
+  const [modifyPhrase, setModifyPhrase] = useState(false);
+
   const tableResponse = useAxios({
     method: "get",
     endpoint: `${table}`,
   });
 
-  const [modifyPhrase, setModifyPhrase] = useState(false);
+  useEffect(() => {}, [modifyPhrase]);
 
   return (
     <div className={style.tablesDB}>
