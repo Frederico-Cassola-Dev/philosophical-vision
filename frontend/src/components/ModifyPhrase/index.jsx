@@ -37,6 +37,13 @@ const getSelectedPhraseAuthorAndEvent = (
   return { selectedPhraseResponse, authorsResponse, eventsResponse };
 };
 
+const eventsNotAlreadySelectedInSelectedPhrase = (events, phrase) => {
+  const finalResult = events?.filter(
+    (item) => !phrase.events_titles?.includes(item.title)
+  );
+
+  return finalResult;
+};
 export default function ModifyPhrase({
   selectedPhraseId,
   setModifyPhrase,
@@ -121,14 +128,6 @@ export default function ModifyPhrase({
     setModifiedEvent("");
   };
 
-  const eventsNotAlreadySelectedInSelectedPhrase = () => {
-    const finalResult = eventsResponse?.filter(
-      (item) => !selectedPhraseResponse.events_titles.includes(item.title)
-    );
-
-    return finalResult;
-  };
-
   return (
     <div className={style.modal}>
       <h2>Phrase to modify</h2>
@@ -169,7 +168,7 @@ export default function ModifyPhrase({
         <div className={style.eventsContainer}>
           <h3 className={style.title}>Events</h3>
           <div className={style.events}>
-            {selectedPhraseResponse?.events_titles.map((item) => {
+            {selectedPhraseResponse?.events_titles?.map((item) => {
               if (item) {
                 return (
                   <div key={item} className={style.singleEventContainer}>
@@ -197,7 +196,10 @@ export default function ModifyPhrase({
             >
               <option defaultChecked>Add a new event</option>
               {eventsResponse &&
-                eventsNotAlreadySelectedInSelectedPhrase().map((events) => (
+                eventsNotAlreadySelectedInSelectedPhrase(
+                  eventsResponse,
+                  selectedPhraseResponse
+                ).map((events) => (
                   <option key={events.id} value={events.id}>
                     {events.title}
                   </option>

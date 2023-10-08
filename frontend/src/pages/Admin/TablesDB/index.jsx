@@ -30,12 +30,14 @@ export default function TablesDB() {
           setUpdateTable={setUpdateTable}
         />
       )}
-      <div className={style.linkContainer}>
-        <Link to="/admin" className={style.linkReturnBtn}>
-          Return
-        </Link>
-      </div>
-      <section className={style.tableBody}>
+      {!modifyPhrase && (
+        <div className={style.linkContainer}>
+          <Link to="/admin" className={style.linkReturnBtn}>
+            Return
+          </Link>
+        </div>
+      )}
+      <section className={style.sectionTable}>
         <table className={style.table}>
           <thead>
             {table === "phrases" && (
@@ -137,11 +139,13 @@ export default function TablesDB() {
           </tbody>
         </table>
       </section>
-      <div className={style.linkContainer}>
-        <Link to="/admin" className={style.linkReturnBtn}>
-          Return
-        </Link>
-      </div>
+      {!modifyPhrase && (
+        <div className={style.linkContainer}>
+          <Link to="/admin" className={style.linkReturnBtn}>
+            Return
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
