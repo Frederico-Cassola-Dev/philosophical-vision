@@ -8,7 +8,7 @@ class EventManager extends AbstractManager {
   async create(eventPhrase) {
     const [result] = await this.database.query(
       `insert into ${this.table} (event_id, phrase_id) values (?,?)`,
-      [eventPhrase.eventId, eventPhrase.phraseId]
+      [eventPhrase.modifiedEvent, eventPhrase.selectedPhraseId]
     );
     return result.insertId;
   }

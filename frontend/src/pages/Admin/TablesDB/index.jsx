@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 
@@ -7,16 +7,18 @@ import ModifyPhrase from "../../../components/ModifyPhrase";
 
 export default function TablesDB() {
   const { table } = useParams();
+
   const [selectedPhraseId, setSelectedPhraseId] = useState("");
-
   const [modifyPhrase, setModifyPhrase] = useState(false);
+  const [updateTable, setUpdateTable] = useState(false);
 
-  const tableResponse = useAxios({
-    method: "get",
-    endpoint: `${table}`,
-  });
-
-  useEffect(() => {}, [modifyPhrase]);
+  const tableResponse = useAxios(
+    {
+      method: "get",
+      endpoint: `${table}`,
+    },
+    [modifyPhrase, selectedPhraseId, updateTable]
+  );
 
   return (
     <div className={style.tablesDB}>
@@ -24,6 +26,8 @@ export default function TablesDB() {
         <ModifyPhrase
           selectedPhraseId={selectedPhraseId}
           setModifyPhrase={setModifyPhrase}
+          updateTable={updateTable}
+          setUpdateTable={setUpdateTable}
         />
       )}
       <div className={style.linkContainer}>
