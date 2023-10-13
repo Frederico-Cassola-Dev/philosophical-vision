@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import style from "./_phrases.module.scss";
+import style from "./phrases.module.scss";
 import { IconHeart, IconStar } from "../../components/SvgIcons";
 
 // TODO - like - NOT ASSOCIATE WITH USER

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import style from "./_signIn.module.scss";
+import style from "./signIn.module.scss";
 
 export default function SignIn() {
   return (

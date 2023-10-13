@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import propTypes from "prop-types";
-import axios from "axios";
+// import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import { DeleteIcon, IconAdd } from "../SvgIcons";
 
@@ -37,9 +37,12 @@ const getSelectedPhraseAuthorAndEvent = (
   return { selectedPhraseResponse, authorsResponse, eventsResponse };
 };
 
-const eventsNotAlreadySelectedInSelectedPhrase = (events, phrase) => {
+const eventsNotAlreadySelectedInSelectedPhrase = (
+  events,
+  alreadySelectedEvents
+) => {
   const finalResult = events?.filter(
-    (item) => !phrase.events_titles?.includes(item.title)
+    (item) => !alreadySelectedEvents?.includes(item.id)
   );
 
   return finalResult;
@@ -47,91 +50,139 @@ const eventsNotAlreadySelectedInSelectedPhrase = (events, phrase) => {
 export default function ModifyPhrase({
   selectedPhraseId,
   setModifyPhrase,
-  setUpdateTable,
+  // setUpdateTable,
   updateTable,
 }) {
-  const [modifiedPhrase, setModifiedPhrase] = useState("");
-  const [modifiedAuthor, setModifiedAuthor] = useState("");
-  const [modifiedEvent, setModifiedEvent] = useState("");
-  const [modifiedLikes, setModifiedLikes] = useState("");
-
   const { selectedPhraseResponse, authorsResponse, eventsResponse } =
     getSelectedPhraseAuthorAndEvent(selectedPhraseId, [
       selectedPhraseId,
       updateTable,
-      modifiedEvent,
+      // modifiedPhrase,
+      // modifiedAuthor,
+      // modifiedEvent,
     ]);
 
+  const [modifiedPhrase, setModifiedPhrase] = useState("");
+  const [modifiedAuthor, setModifiedAuthor] = useState("");
+  const [modifiedEvent, setModifiedEvent] = useState("");
+  const [modifiedLikes, setModifiedLikes] = useState("");
+  const [eventsListIdToModify, setEventsListIdToModify] = useState([]);
+
+  useEffect(() => {
+    setEventsListIdToModify(selectedPhraseResponse?.events_id);
+  }, [selectedPhraseId, selectedPhraseResponse]);
+  // console.log("🚀 - eventsListIdToModify:", eventsListIdToModify);
+  // console.log("🚀 - eventsListTitlesToModify:", eventsListTitleToModify);
+
+  // TODO - Bug when scrolling table in the top of the tableBody - CSS.
   // TODO - Author modify not working.
   // TODO - Show only the events on listEvents that aren't already bind to the selectedPhrase.
 
-  const handleSubmitModifyPhrase = (e) => {
+  // const handleSubmitModifyPhrase = () => {
+  //   // e.preventDefault();
+  //   axios
+  //     .put(
+  //       `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
+  //       {
+  //         // phrase: modifiedPhrase,
+  //         phrase: modifiedPhrase || selectedPhraseResponse.phrase,
+  //         author_id: modifiedAuthor || selectedPhraseResponse.author_id,
+  //         // event_id: modifiedEvent || selectedPhraseResponse.event_id,
+  //         // likes:
+  //         //   modifiedLikes !== "" ? modifiedLikes : selectedPhraseResponse.likes,
+  //       }
+  //     )
+  //     .then((response) => console.info(response.status))
+  //     .then(() => setUpdateTable(true))
+  //     .catch((err) => console.error(err));
+  //   setUpdateTable(false);
+  // };
+
+  const handleSubmitForm = (e) => {
     e.preventDefault();
-    axios
-      .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
-        {
-          phrase: modifiedPhrase || selectedPhraseResponse.phrase,
-          author_id: modifiedAuthor || selectedPhraseResponse.author_id,
-          event_id: modifiedEvent || selectedPhraseResponse.event_id,
-          likes:
-            modifiedLikes !== "" ? modifiedLikes : selectedPhraseResponse.likes,
-        }
-      )
-      .then((response) => console.info(response.status))
-      .then(() => setUpdateTable(true))
-      .catch((err) => console.error(err));
-    setUpdateTable(false);
+
+    const newModifiedPhrase = {
+      phrase: modifiedPhrase || selectedPhraseResponse.phrase,
+      author: modifiedAuthor || selectedPhraseResponse.author,
+      events: eventsListIdToModify || selectedPhraseResponse.events_titles,
+      likes: modifiedLikes || selectedPhraseResponse.likes,
+    };
+    console.info("🚀 - newModifiedPhrase:", newModifiedPhrase);
   };
 
-  const handleSubmitDeletePhrase = (e) => {
-    e.preventDefault();
-    axios
-      .delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`
-      )
-      .then((response) => console.info(response.status))
-      .then(() => setUpdateTable(true))
-      .catch((err) => console.error(err));
-    setUpdateTable(false);
-  };
+  // const handleModifyAuthor = () => {
+  //   axios
+  //     .put(
+  //       `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
+  //       {
+  //         // phrase: modifiedPhrase || selectedPhraseResponse.phrase,
+  //         author_id: modifiedAuthor || selectedPhraseResponse.author_id,
+  //       }
+  //     )
+  //     .then((response) => console.info(response.status))
+  //     .then(() => setUpdateTable(true))
+  //     .catch((err) => console.error(err));
+  // };
 
-  const handleDeleteEvent = (eventToDelete) => {
-    const chosenEvent = eventsResponse.find(
-      (item) => item.title === eventToDelete
-    );
+  // const handleSubmitDeletePhrase = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .delete(
+  //       `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`
+  //     )
+  //     .then((response) => console.info(response.status))
+  //     .then(() => setUpdateTable(true))
+  //     .catch((err) => console.error(err));
+  //   setUpdateTable(false);
+  // };
 
-    axios
-      .delete(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/api/eventphrase/${selectedPhraseId}/${chosenEvent.id}`
-      )
-      .then((response) => console.info(response.status))
-      .then(() => setUpdateTable(true))
+  // const handleDeleteEvent = (eventToDelete) => {
+  //   const chosenEvent = eventsResponse.find(
+  //     (item) => item.title === eventToDelete
+  //   );
 
-      .catch((err) => console.error(err));
-    setUpdateTable(false);
-  };
+  //   axios
+  //     .delete(
+  //       `${
+  //         import.meta.env.VITE_BACKEND_URL
+  //       }/api/eventphrase/${selectedPhraseId}/${chosenEvent.id}`
+  //     )
+  //     .then((response) => console.info(response.status))
+  //     .then(() => setUpdateTable(true))
 
-  const handleAddEventFromList = (e) => {
-    e.preventDefault();
-    axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
-        modifiedEvent,
-        selectedPhraseId,
-      })
-      .then((response) => console.info(response))
-      .then(() => setUpdateTable(true))
-      .catch((err) => console.error(err));
-    setUpdateTable(false);
-    setModifiedEvent("");
+  //     .catch((err) => console.error(err));
+  //   setUpdateTable(false);
+  // };
+
+  // const handleAddEventFromList = () => {
+  //   // e.preventDefault();
+  //   axios
+  //     .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
+  //       modifiedEvent,
+  //       selectedPhraseId,
+  //     })
+  //     .then((response) => console.info(response))
+  //     .then(() => setUpdateTable(true))
+  //     .catch((err) => console.error(err));
+  //   setUpdateTable(false);
+  //   setModifiedEvent("");
+  // };
+
+  const TesthandleAddEventFromList = () => {
+    const modifiedEventAsNumber = parseInt(modifiedEvent, 10);
+
+    if (!eventsListIdToModify.includes(modifiedEventAsNumber)) {
+      setEventsListIdToModify((previousState) => [
+        ...previousState,
+        modifiedEventAsNumber,
+      ]);
+    }
   };
 
   return (
     <div className={style.modal}>
       <h2>Phrase to modify</h2>
-      <form className={style.phraseForm} onSubmit={handleSubmitModifyPhrase}>
+      <form className={style.phraseForm} onSubmit={handleSubmitForm}>
         <label htmlFor="phrase">
           <textarea
             type="text"
@@ -141,6 +192,7 @@ export default function ModifyPhrase({
               selectedPhraseResponse ? selectedPhraseResponse.phrase : ""
             }
             onChange={(e) => setModifiedPhrase(e.target.value)}
+            // onBlur={handleSubmitModifyPhrase}
           />
         </label>
         <label htmlFor="listAuthors">
@@ -150,6 +202,7 @@ export default function ModifyPhrase({
             id="listAuthors"
             className={style.select}
             onChange={(e) => setModifiedAuthor(e.target.value)}
+            // onBlur={handleModifyAuthor}
           >
             {authorsResponse && (
               <option defaultChecked>
@@ -164,19 +217,21 @@ export default function ModifyPhrase({
               ))}
           </select>
         </label>
-
         <div className={style.eventsContainer}>
           <h3 className={style.title}>Events</h3>
           <div className={style.events}>
-            {selectedPhraseResponse?.events_titles?.map((item) => {
+            {eventsListIdToModify?.map((item) => {
               if (item) {
+                const eventToShow = eventsResponse?.find(
+                  (itemToShow) => itemToShow.id === item
+                );
                 return (
                   <div key={item} className={style.singleEventContainer}>
-                    <p>{item}</p>
+                    <p>{eventToShow?.title}</p>
                     <button
                       type="button"
                       className={style.deleteButtons}
-                      onClick={() => handleDeleteEvent(item)}
+                      // onClick={() => handleDeleteEvent(item)}
                     >
                       <DeleteIcon />
                     </button>
@@ -198,7 +253,7 @@ export default function ModifyPhrase({
               {eventsResponse &&
                 eventsNotAlreadySelectedInSelectedPhrase(
                   eventsResponse,
-                  selectedPhraseResponse
+                  eventsListIdToModify
                 ).map((events) => (
                   <option key={events.id} value={events.id}>
                     {events.title}
@@ -208,7 +263,7 @@ export default function ModifyPhrase({
             <button
               type="button"
               className={style.addEventBtn}
-              onClick={handleAddEventFromList}
+              onClick={TesthandleAddEventFromList}
             >
               <IconAdd />
             </button>
@@ -234,7 +289,10 @@ export default function ModifyPhrase({
           />
         </label>
         <div className={style.buttonsContainer}>
-          <button type="button" onClick={handleSubmitDeletePhrase}>
+          <button
+            type="button"
+            // onClick={handleSubmitDeletePhrase}
+          >
             Delete
           </button>
           <button type="submit">Modify</button>
@@ -251,9 +309,10 @@ export default function ModifyPhrase({
     </div>
   );
 }
+
 ModifyPhrase.propTypes = {
   selectedPhraseId: propTypes.number.isRequired,
   setModifyPhrase: propTypes.func.isRequired,
   updateTable: propTypes.bool.isRequired,
-  setUpdateTable: propTypes.func.isRequired,
+  // setUpdateTable: propTypes.func.isRequired,
 };

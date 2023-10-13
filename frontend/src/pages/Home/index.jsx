@@ -2,7 +2,7 @@ import useAxios from "../../hooks/useAxios";
 
 import singleLogoLittle from "../../assets/logo/single_logo_little.png";
 
-import style from "./_home.module.scss";
+import style from "./home.module.scss";
 
 export default function Home() {
   const phrasesResponse = useAxios({
