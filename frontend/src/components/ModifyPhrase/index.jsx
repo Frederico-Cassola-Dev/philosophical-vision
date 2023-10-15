@@ -57,9 +57,6 @@ export default function ModifyPhrase({
     getSelectedPhraseAuthorAndEvent(selectedPhraseId, [
       selectedPhraseId,
       updateTable,
-      // modifiedPhrase,
-      // modifiedAuthor,
-      // modifiedEvent,
     ]);
 
   const [modifiedPhrase, setModifiedPhrase] = useState("");
@@ -67,6 +64,7 @@ export default function ModifyPhrase({
   const [modifiedEvent, setModifiedEvent] = useState("");
   const [modifiedLikes, setModifiedLikes] = useState("");
   const [eventsListIdToModify, setEventsListIdToModify] = useState([]);
+  // console.log("🚀 - eventsListIdToModify:", eventsListIdToModify);
 
   useEffect(() => {
     setEventsListIdToModify(selectedPhraseResponse?.events_id);
@@ -75,7 +73,8 @@ export default function ModifyPhrase({
   // console.log("🚀 - eventsListTitlesToModify:", eventsListTitleToModify);
 
   // TODO - Bug when scrolling table in the top of the tableBody - CSS.
-  // TODO - Delete event.
+  // TODO - Delete event on formData obj - DONE.
+  // TODO - PUT events array from formData obj.
 
   // const handleSubmitModifyPhrase = () => {
   //   // e.preventDefault();
@@ -104,11 +103,10 @@ export default function ModifyPhrase({
       phrase: modifiedPhrase || selectedPhraseResponse.phrase,
       author: modifiedAuthor || selectedPhraseResponse.author_id,
       events: eventsListIdToModify || selectedPhraseResponse.events_titles,
-      // likes: modifiedLikes,
       likes: modifiedLikes ? 0 : selectedPhraseResponse.likes,
     };
 
-    console.info("🚀 - newModifiedPhrase-likes:", newModifiedPhrase.likes);
+    console.info("🚀 - newModifiedPhrase-events:", newModifiedPhrase);
   };
 
   // const handleModifyAuthor = () => {
@@ -170,13 +168,23 @@ export default function ModifyPhrase({
   // };
 
   const handleAddEventFromListToFormData = () => {
-    const modifiedEventAsNumber = parseInt(modifiedEvent, 10);
-
-    if (!eventsListIdToModify.includes(modifiedEventAsNumber)) {
+    if (
+      Number(modifiedEvent) &&
+      !eventsListIdToModify.includes(modifiedEvent)
+    ) {
+      const modifiedEventAsNumber = parseInt(modifiedEvent, 10);
       setEventsListIdToModify((previousState) => [
         ...previousState,
         modifiedEventAsNumber,
       ]);
+    }
+  };
+
+  const handleDeleteEventFromListToFormData = (eventToDelete) => {
+    if (eventsListIdToModify.includes(eventToDelete)) {
+      setEventsListIdToModify((previousState) =>
+        previousState.filter((item) => item !== eventToDelete)
+      );
     }
   };
 
@@ -232,7 +240,7 @@ export default function ModifyPhrase({
                     <button
                       type="button"
                       className={style.deleteButtons}
-                      // onClick={() => handleDeleteEvent(item)}
+                      onClick={() => handleDeleteEventFromListToFormData(item)}
                     >
                       <DeleteIcon />
                     </button>
