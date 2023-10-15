@@ -62,7 +62,9 @@ export default function ModifyPhrase({
   const [modifiedPhrase, setModifiedPhrase] = useState("");
   const [modifiedAuthor, setModifiedAuthor] = useState("");
   const [modifiedEvent, setModifiedEvent] = useState("");
-  const [modifiedLikes, setModifiedLikes] = useState("");
+  const [modifiedLikes, setModifiedLikes] = useState(false);
+  // console.log("🚀 - modifiedLikes:", modifiedLikes);
+
   const [eventsListIdToModify, setEventsListIdToModify] = useState([]);
   // console.log("🚀 - eventsListIdToModify:", eventsListIdToModify);
 
@@ -279,8 +281,7 @@ export default function ModifyPhrase({
           </label>
         </div>
         <label htmlFor="likes" className={style.labelLikes}>
-          Total likes :{" "}
-          {!modifiedLikes ? selectedPhraseResponse?.likes : modifiedLikes} -
+          Total likes : {modifiedLikes ? 0 : selectedPhraseResponse?.likes} -
           Reset
           <input
             type="checkbox"
@@ -289,9 +290,9 @@ export default function ModifyPhrase({
             value={modifiedLikes}
             onChange={(e) => {
               if (e.target.checked) {
-                setModifiedLikes("0");
+                setModifiedLikes(true);
               } else {
-                setModifiedLikes(selectedPhraseResponse.likes);
+                setModifiedLikes(false);
               }
             }}
           />
