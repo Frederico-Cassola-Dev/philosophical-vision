@@ -75,8 +75,7 @@ export default function ModifyPhrase({
   // console.log("🚀 - eventsListTitlesToModify:", eventsListTitleToModify);
 
   // TODO - Bug when scrolling table in the top of the tableBody - CSS.
-  // TODO - Author modify not working.
-  // TODO - Show only the events on listEvents that aren't already bind to the selectedPhrase.
+  // TODO - Delete event.
 
   // const handleSubmitModifyPhrase = () => {
   //   // e.preventDefault();
@@ -103,11 +102,13 @@ export default function ModifyPhrase({
 
     const newModifiedPhrase = {
       phrase: modifiedPhrase || selectedPhraseResponse.phrase,
-      author: modifiedAuthor || selectedPhraseResponse.author,
+      author: modifiedAuthor || selectedPhraseResponse.author_id,
       events: eventsListIdToModify || selectedPhraseResponse.events_titles,
-      likes: modifiedLikes || selectedPhraseResponse.likes,
+      // likes: modifiedLikes,
+      likes: modifiedLikes ? 0 : selectedPhraseResponse.likes,
     };
-    console.info("🚀 - newModifiedPhrase:", newModifiedPhrase);
+
+    console.info("🚀 - newModifiedPhrase-likes:", newModifiedPhrase.likes);
   };
 
   // const handleModifyAuthor = () => {
@@ -168,7 +169,7 @@ export default function ModifyPhrase({
   //   setModifiedEvent("");
   // };
 
-  const TesthandleAddEventFromList = () => {
+  const handleAddEventFromListToFormData = () => {
     const modifiedEventAsNumber = parseInt(modifiedEvent, 10);
 
     if (!eventsListIdToModify.includes(modifiedEventAsNumber)) {
@@ -263,7 +264,7 @@ export default function ModifyPhrase({
             <button
               type="button"
               className={style.addEventBtn}
-              onClick={TesthandleAddEventFromList}
+              onClick={handleAddEventFromListToFormData}
             >
               <IconAdd />
             </button>
@@ -271,17 +272,16 @@ export default function ModifyPhrase({
         </div>
         <label htmlFor="likes" className={style.labelLikes}>
           Total likes :{" "}
-          {modifiedLikes !== 0 && selectedPhraseResponse
-            ? selectedPhraseResponse.likes
-            : modifiedLikes}{" "}
-          - Reset
+          {!modifiedLikes ? selectedPhraseResponse?.likes : modifiedLikes} -
+          Reset
           <input
             type="checkbox"
             name="likes"
             id="likes"
+            value={modifiedLikes}
             onChange={(e) => {
               if (e.target.checked) {
-                setModifiedLikes(0);
+                setModifiedLikes("0");
               } else {
                 setModifiedLikes(selectedPhraseResponse.likes);
               }
