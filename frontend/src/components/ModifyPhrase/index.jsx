@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import propTypes from "prop-types";
-// import axios from "axios";
+import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import { DeleteIcon, IconAdd } from "../SvgIcons";
 
@@ -63,16 +63,11 @@ export default function ModifyPhrase({
   const [modifiedAuthor, setModifiedAuthor] = useState("");
   const [modifiedEvent, setModifiedEvent] = useState("");
   const [modifiedLikes, setModifiedLikes] = useState(false);
-  // console.log("🚀 - modifiedLikes:", modifiedLikes);
-
   const [eventsListIdToModify, setEventsListIdToModify] = useState([]);
-  // console.log("🚀 - eventsListIdToModify:", eventsListIdToModify);
 
   useEffect(() => {
     setEventsListIdToModify(selectedPhraseResponse?.events_id);
   }, [selectedPhraseId, selectedPhraseResponse]);
-  // console.log("🚀 - eventsListIdToModify:", eventsListIdToModify);
-  // console.log("🚀 - eventsListTitlesToModify:", eventsListTitleToModify);
 
   // TODO - Bug when scrolling table in the top of the tableBody - CSS.
   // TODO - Delete event on formData obj - DONE.
@@ -103,12 +98,20 @@ export default function ModifyPhrase({
 
     const newModifiedPhrase = {
       phrase: modifiedPhrase || selectedPhraseResponse.phrase,
-      author: modifiedAuthor || selectedPhraseResponse.author_id,
+      author_id: modifiedAuthor || selectedPhraseResponse.author_id,
       events: eventsListIdToModify || selectedPhraseResponse.events_titles,
       likes: modifiedLikes ? 0 : selectedPhraseResponse.likes,
     };
 
     console.info("🚀 - newModifiedPhrase-events:", newModifiedPhrase);
+
+    axios
+      .put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
+        newModifiedPhrase
+      )
+      .then((response) => console.info(response))
+      .catch((err) => console.error(err));
   };
 
   // const handleModifyAuthor = () => {

@@ -91,25 +91,100 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
-  // inner join events_phrases ep on ep.phrase_id = p.id
-  // inner join events e on e.id = ep.event_id
-  // , likes = ?, is_favorite = ?, author_id = ?, ep.event_id = ?
-  // set phrase = ?,
-  // author_id = ?
   async update(phrase) {
-    const [rows] = await this.database.query(
-      `update ${this.table} p 
-        set author_id = ?
-        where p.id = ?`,
-      [
-        // phrase.phrase,
-        // phrase.likes,
-        // phrase.is_favorite,
-        phrase.author_id,
-        // phrase.event_id,
+    const [idsFromEventsPhrasesTableThatMAtchPhraseIdToChange] =
+      await this.database.query(
+        `
+      SELECT * from events_phrases
+      WHERE phrase_id = ?;
+      `,
+        [phrase.phraseId]
+      );
+
+    const eventsIdsInDB =
+      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.map(
+        (item) => item.event_id
+      );
+
+    // No changes on events
+
+    if (
+      phrase.events.length ===
+      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.length
+    ) {
+      let updateQuery = "";
+
+      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.forEach(
+        (item, index) => {
+          updateQuery += `WHEN id = ${item.id} THEN ${phrase.events[index]} `;
+        }
+      );
+
+      const queryToUpdate = `
+        UPDATE events_phrases
+        SET event_id = 
+          CASE ${updateQuery}
+            END
+        WHERE phrase_id = ?;
+  `;
+
+      const [rows] = await this.database.query(queryToUpdate, [
         phrase.phraseId,
-      ]
+        ...phrase.events,
+      ]);
+
+      return rows;
+    }
+
+    // Add events
+
+    if (
+      phrase.events.length >
+      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.length
+    ) {
+      const newEventsToAdd = phrase.events.filter(
+        (value) => !eventsIdsInDB.includes(value)
+      );
+
+      let insertQuery = ``;
+
+      if (newEventsToAdd.length > 1) {
+        newEventsToAdd.forEach((value) => {
+          insertQuery += `(${value}, ${phrase.phraseId}), `;
+        });
+
+        insertQuery = insertQuery.slice(0, -2);
+      } else {
+        insertQuery += `(${newEventsToAdd[0]}, ${phrase.phraseId})`;
+      }
+
+      const [result] = await this.database.query(
+        `insert into events_phrases (event_id, phrase_id) values ${insertQuery}`
+      );
+      return result.insertId;
+    }
+
+    // Delete events
+
+    const eventsToDelete = eventsIdsInDB.filter(
+      (value) => !phrase.events.includes(value)
     );
+
+    let deleteQuery = ``;
+
+    eventsToDelete.forEach((value) => {
+      deleteQuery += `(${value}, ${phrase.phraseId}), `;
+    });
+
+    deleteQuery = deleteQuery.slice(0, -2);
+
+    const [rows] = await this.database.query(
+      `DELETE events_phrases
+        FROM events_phrases
+        WHERE (event_id, phrase_id) IN (${deleteQuery})
+  `
+    );
+
     return rows;
   }
 
