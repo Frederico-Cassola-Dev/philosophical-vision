@@ -100,11 +100,18 @@ class PhraseManager extends AbstractManager {
       `,
         [phrase.phraseId]
       );
+    console.log(
+      "🚀 - idsFromEventsPhrasesTableThatMAtchPhraseIdToChange:",
+      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange
+    );
+
+    console.log("phrase obj", phrase);
 
     const eventsIdsInDB =
       idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.map(
         (item) => item.event_id
       );
+    console.log("🚀 - eventsIdsInDB:", eventsIdsInDB);
 
     // ------ No changes on events ------
 
@@ -116,21 +123,26 @@ class PhraseManager extends AbstractManager {
 
       idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.forEach(
         (item, index) => {
-          updateQuery += `WHEN id = ${item.id} THEN ${phrase.events[index]} `;
+          updateQuery += `WHEN ep.id = ${item.id} THEN ${phrase.events[index]} `;
         }
       );
 
       const queryToUpdate = `
-        UPDATE events_phrases
-        SET event_id = 
-          CASE ${updateQuery}
-            END
-        WHERE phrase_id = ?;
+        UPDATE events_phrases ep
+        INNER JOIN ${this.table} p ON p.id = ep.phrase_id
+        SET 
+          event_id = 
+            CASE ${updateQuery}
+              END, 
+          p.phrase = ?, 
+          p.author_id = ?
+        WHERE ep.phrase_id = ?;
   `;
 
       const [rows] = await this.database.query(queryToUpdate, [
+        phrase.phrase,
+        phrase.author_id,
         phrase.phraseId,
-        ...phrase.events,
       ]);
 
       return rows;
@@ -158,10 +170,21 @@ class PhraseManager extends AbstractManager {
         insertQuery += `(${newEventsToAdd[0]}, ${phrase.phraseId})`;
       }
 
-      const [result] = await this.database.query(
-        `insert into events_phrases (event_id, phrase_id) values ${insertQuery}`
+      const [insertResult] = await this.database.query(
+        `insert into events_phrases (event_id, phrase_id) 
+        values ${insertQuery}`
       );
-      return result.insertId;
+
+      const [updateRows] = await this.database.query(
+        `UPDATE  ${this.table}
+          SET
+            phrase = ?, author_id = ?
+          WHERE id = ?
+    `,
+        [phrase.phrase, phrase.author_id, phrase.phraseId]
+      );
+
+      return [insertResult.insertId, updateRows];
     }
 
     // ------ Delete events ------
@@ -185,7 +208,16 @@ class PhraseManager extends AbstractManager {
   `
     );
 
-    return rows;
+    const [updateRows] = await this.database.query(
+      `UPDATE  ${this.table}
+        SET
+          phrase = ?, author_id = ?
+        WHERE id = ?
+  `,
+      [phrase.phrase, phrase.author_id, phrase.phraseId]
+    );
+
+    return [rows, updateRows];
   }
 
   async delete(id) {
