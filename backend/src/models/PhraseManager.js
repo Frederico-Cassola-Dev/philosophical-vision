@@ -100,18 +100,18 @@ class PhraseManager extends AbstractManager {
       `,
         [phrase.phraseId]
       );
-    console.log(
-      "🚀 - idsFromEventsPhrasesTableThatMAtchPhraseIdToChange:",
-      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange
-    );
+    // console.log(
+    //   "🚀 - idsFromEventsPhrasesTableThatMAtchPhraseIdToChange:",
+    //   idsFromEventsPhrasesTableThatMAtchPhraseIdToChange
+    // );
 
-    console.log("phrase obj", phrase);
+    // console.log("phrase obj", phrase);
 
     const eventsIdsInDB =
       idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.map(
         (item) => item.event_id
       );
-    console.log("🚀 - eventsIdsInDB:", eventsIdsInDB);
+    // console.log("🚀 - eventsIdsInDB:", eventsIdsInDB);
 
     // ------ No changes on events ------
 
@@ -135,13 +135,15 @@ class PhraseManager extends AbstractManager {
             CASE ${updateQuery}
               END, 
           p.phrase = ?, 
-          p.author_id = ?
+          p.author_id = ?,
+          p.likes = ?
         WHERE ep.phrase_id = ?;
   `;
 
       const [rows] = await this.database.query(queryToUpdate, [
         phrase.phrase,
         phrase.author_id,
+        phrase.likes,
         phrase.phraseId,
       ]);
 
@@ -178,10 +180,12 @@ class PhraseManager extends AbstractManager {
       const [updateRows] = await this.database.query(
         `UPDATE  ${this.table}
           SET
-            phrase = ?, author_id = ?
+            phrase = ?, 
+            author_id = ?,
+            likes = ?
           WHERE id = ?
     `,
-        [phrase.phrase, phrase.author_id, phrase.phraseId]
+        [phrase.phrase, phrase.author_id, phrase.likes, phrase.phraseId]
       );
 
       return [insertResult.insertId, updateRows];
@@ -211,10 +215,12 @@ class PhraseManager extends AbstractManager {
     const [updateRows] = await this.database.query(
       `UPDATE  ${this.table}
         SET
-          phrase = ?, author_id = ?
+          phrase = ?, 
+          author_id = ?, 
+          likes = ?
         WHERE id = ?
   `,
-      [phrase.phrase, phrase.author_id, phrase.phraseId]
+      [phrase.phrase, phrase.author_id, phrase.likes, phrase.phraseId]
     );
 
     return [rows, updateRows];
