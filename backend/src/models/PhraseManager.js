@@ -106,7 +106,7 @@ class PhraseManager extends AbstractManager {
         (item) => item.event_id
       );
 
-    // No changes on events
+    // ------ No changes on events ------
 
     if (
       phrase.events.length ===
@@ -136,7 +136,7 @@ class PhraseManager extends AbstractManager {
       return rows;
     }
 
-    // Add events
+    // ------ Add events ------
 
     if (
       phrase.events.length >
@@ -164,7 +164,7 @@ class PhraseManager extends AbstractManager {
       return result.insertId;
     }
 
-    // Delete events
+    // ------ Delete events ------
 
     const eventsToDelete = eventsIdsInDB.filter(
       (value) => !phrase.events.includes(value)

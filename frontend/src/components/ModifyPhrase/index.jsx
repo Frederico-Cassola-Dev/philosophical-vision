@@ -50,7 +50,6 @@ const eventsNotAlreadySelectedInSelectedPhrase = (
 export default function ModifyPhrase({
   selectedPhraseId,
   setModifyPhrase,
-  // setUpdateTable,
   updateTable,
 }) {
   const { selectedPhraseResponse, authorsResponse, eventsResponse } =
@@ -71,27 +70,10 @@ export default function ModifyPhrase({
 
   // TODO - Bug when scrolling table in the top of the tableBody - CSS.
   // TODO - Delete event on formData obj - DONE.
-  // TODO - PUT events array from formData obj.
-
-  // const handleSubmitModifyPhrase = () => {
-  //   // e.preventDefault();
-  //   axios
-  //     .put(
-  //       `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
-  //       {
-  //         // phrase: modifiedPhrase,
-  //         phrase: modifiedPhrase || selectedPhraseResponse.phrase,
-  //         author_id: modifiedAuthor || selectedPhraseResponse.author_id,
-  //         // event_id: modifiedEvent || selectedPhraseResponse.event_id,
-  //         // likes:
-  //         //   modifiedLikes !== "" ? modifiedLikes : selectedPhraseResponse.likes,
-  //       }
-  //     )
-  //     .then((response) => console.info(response.status))
-  //     .then(() => setUpdateTable(true))
-  //     .catch((err) => console.error(err));
-  //   setUpdateTable(false);
-  // };
+  // TODO - PUT events array from formData obj - DONE.
+  // TODO - PUT phrase from formData obj.
+  // TODO - PUT author from formData obj.
+  // TODO - PUT likes from formData obj.
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -110,7 +92,6 @@ export default function ModifyPhrase({
         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
         newModifiedPhrase
       )
-      .then((response) => console.info(response))
       .catch((err) => console.error(err));
   };
 
@@ -128,49 +109,14 @@ export default function ModifyPhrase({
   //     .catch((err) => console.error(err));
   // };
 
-  // const handleSubmitDeletePhrase = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .delete(
-  //       `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`
-  //     )
-  //     .then((response) => console.info(response.status))
-  //     .then(() => setUpdateTable(true))
-  //     .catch((err) => console.error(err));
-  //   setUpdateTable(false);
-  // };
-
-  // const handleDeleteEvent = (eventToDelete) => {
-  //   const chosenEvent = eventsResponse.find(
-  //     (item) => item.title === eventToDelete
-  //   );
-
-  //   axios
-  //     .delete(
-  //       `${
-  //         import.meta.env.VITE_BACKEND_URL
-  //       }/api/eventphrase/${selectedPhraseId}/${chosenEvent.id}`
-  //     )
-  //     .then((response) => console.info(response.status))
-  //     .then(() => setUpdateTable(true))
-
-  //     .catch((err) => console.error(err));
-  //   setUpdateTable(false);
-  // };
-
-  // const handleAddEventFromList = () => {
-  //   // e.preventDefault();
-  //   axios
-  //     .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
-  //       modifiedEvent,
-  //       selectedPhraseId,
-  //     })
-  //     .then((response) => console.info(response))
-  //     .then(() => setUpdateTable(true))
-  //     .catch((err) => console.error(err));
-  //   setUpdateTable(false);
-  //   setModifiedEvent("");
-  // };
+  const handleSubmitDeletePhrase = (e) => {
+    e.preventDefault();
+    axios
+      .delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`
+      )
+      .catch((err) => console.error(err));
+  };
 
   const handleAddEventFromListToFormData = () => {
     if (
@@ -301,10 +247,7 @@ export default function ModifyPhrase({
           />
         </label>
         <div className={style.buttonsContainer}>
-          <button
-            type="button"
-            // onClick={handleSubmitDeletePhrase}
-          >
+          <button type="button" onClick={handleSubmitDeletePhrase}>
             Delete
           </button>
           <button type="submit">Modify</button>
