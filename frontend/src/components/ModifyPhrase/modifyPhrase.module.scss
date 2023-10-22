@@ -1,0 +1,136 @@
+@import "../../scss/variables";
+
+.modal {
+  width: 90vw;
+
+  h2 {
+    text-align: center;
+    font-size: $font-size-xl;
+  }
+
+  .phraseForm {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      padding: $space-2xs;
+      width: 100%;
+
+      textarea {
+        width: calc(100% - 10px);
+        padding: $space-2xs;
+        font-weight: $font-weight-bold;
+        border-radius: $border-radius-s;
+      }
+
+      .select {
+        width: 50%;
+        height: $space-m + 3px;
+        padding-left: $space-2xs;
+        font-weight: $font-weight-bold;
+        border-radius: $border-radius-s;
+
+        &:focus {
+          outline: 2px solid $border-color-active;
+        }
+      }
+
+      .select.listEvents {
+        width: 100%;
+      }
+    }
+
+    .eventsContainer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      padding: $space-2xs;
+
+      .title {
+        font-size: $font-size-l;
+        padding-bottom: $space-xs;
+      }
+
+      .events {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: $space-2xs;
+        padding-left: $space-xs;
+
+        .singleEventContainer {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: $space-s;
+
+          .deleteButtons {
+            color: white;
+            border: none;
+            width: $space-s;
+          }
+        }
+      }
+
+      .labelSelectEvents {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        gap: $space-2xs;
+        padding: $space-2xs 0 0 0;
+
+        .addEventBtn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: 0.5rem;
+          color: $color-text-primary;
+          border: none;
+  
+          &:active {
+            color: $color-text-hover;
+          }
+        }
+      }
+    }
+
+    .labelLikes {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: row;
+      gap: $space-s;
+    }
+
+    .buttonsContainer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      gap: $space-s;
+
+      button {
+        color: $color-text-primary;
+        border: 1px solid $color-primary-active;
+        border-radius: $border-radius-l;
+        padding: $space-2xs $space-xs;
+        font-size: $font-size-s;
+        font-weight: $font-weight-bold;
+
+        &:hover {
+          background-color: $color-text-hover;
+        }
+      }
+    }
+  }
+}

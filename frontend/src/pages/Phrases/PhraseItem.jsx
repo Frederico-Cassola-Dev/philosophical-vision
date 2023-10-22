@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import style from "./_phrases.module.scss";
+import style from "./phrases.module.scss";
 import { IconHeart, IconStar } from "../../components/SvgIcons";
 
 // TODO - like - NOT ASSOCIATE WITH USER
@@ -26,7 +26,7 @@ export default function PhraseItem({ phraseToShow }) {
             phrase: phraseToShow.phrase,
             likes: phraseToShow.likes + 1,
             is_favorite: phraseToShow.is_favorite,
-            authors_id: phraseToShow.authors_id,
+            author_id: phraseToShow.author_id,
           }
         )
         .then(() => {
@@ -45,7 +45,7 @@ export default function PhraseItem({ phraseToShow }) {
             phrase: phraseToShow?.phrase,
             likes: phraseToShow.likes,
             is_favorite: phraseToShow?.is_favorite,
-            authors_id: phraseToShow?.authors_id,
+            author_id: phraseToShow?.author_id,
           }
         )
         .then(() => {
@@ -72,7 +72,7 @@ export default function PhraseItem({ phraseToShow }) {
             phrase: phraseToShow.phrase,
             is_favorite: !!favorite.isFavorite,
             likes: phraseToShow.likes,
-            authors_id: phraseToShow.authors_id,
+            author_id: phraseToShow.author_id,
           }
         )
         .then((response) => console.info(response))
@@ -124,7 +124,7 @@ PhraseItem.propTypes = {
     phrase: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
     is_favorite: PropTypes.number.isRequired,
-    authors_id: PropTypes.number.isRequired,
+    author_id: PropTypes.number.isRequired,
     author: PropTypes.string.isRequired,
   }).isRequired,
 };

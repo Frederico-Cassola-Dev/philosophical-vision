@@ -20,7 +20,7 @@ import signUpFormValidatorReducer, {
   signUpInitialValidatorState,
 } from "./utils/signUp-form-validator-reducer";
 
-import style from "./_signUp.module.scss";
+import style from "./signUp.module.scss";
 
 export default function SignUp() {
   const [newUserState, dispatchForm] = useReducer(

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function useAxios(request) {
+export default function useAxios(request, dependencies = []) {
   const [response, setResponse] = useState(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function useAxios(request) {
       .catch((err) => {
         console.error(err);
       });
-  }, [request.method, request.endpoint]);
+  }, dependencies);
 
   return response;
 }

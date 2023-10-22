@@ -26,6 +26,7 @@ router.get("/phrases4/events/:id", phraseControllers.read4ByEventId);
 router.get("/phrases4/randomevents", phraseControllers.read4ByRandomEvent);
 router.post("/phrases", phraseControllers.add);
 router.put("/phrases/:id", phraseControllers.edit);
+router.delete("/phrases/:id", phraseControllers.destroy);
 
 router.get("/events", eventControllers.browse);
 router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);
@@ -33,7 +34,13 @@ router.get("/events/:title", eventControllers.browseAllByTitle);
 router.get("/events/:id", eventControllers.read);
 router.post("/events", eventControllers.add);
 
+router.get("/eventphrase", eventPhraseControllers.browse);
+router.get("/eventphrase/:id", eventPhraseControllers.browseByPhraseId);
 router.post("/eventphrase", eventPhraseControllers.add);
+router.delete(
+  "/eventphrase/:phraseId/:eventId",
+  eventPhraseControllers.destroy
+);
 
 router.get("/categories", categoryControllers.browse);
 router.get("/categories/:id", categoryControllers.read);
