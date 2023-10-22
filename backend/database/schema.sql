@@ -50,26 +50,28 @@ create table
         phrase varchar(254) not null,
         likes INT NOT NULL DEFAULT 0,
         is_favorite TINYINT default 0,
-        authors_id int not null,
-        Foreign Key (authors_id) REFERENCES authors(id)
+        author_id int not null,
+        Foreign Key (author_id) REFERENCES authors(id)
     );
 
 create table
     users_phrases (
         id int primary key auto_increment not null,
-        users_id int,
-        phrases_id int,
-        FOREIGN KEY(users_id) REFERENCES users(id),
-        FOREIGN KEY(phrases_id) REFERENCES phrases(id)
+        user_id int,
+        phrase_id int,
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(phrase_id) REFERENCES phrases(id)
+        on delete cascade
     );
 
 create table
     events_phrases (
         id int primary key auto_increment not null,
-        events_id int,
-        phrases_id int,
-        FOREIGN KEY(events_id) REFERENCES events(id),
-        FOREIGN KEY(phrases_id) REFERENCES phrases(id)
+        event_id int,
+        phrase_id int,
+        FOREIGN KEY(event_id) REFERENCES events(id),
+        FOREIGN KEY(phrase_id) REFERENCES phrases(id)
+        on delete cascade
     );
 
 INSERT INTO categories(title, description)
@@ -264,7 +266,7 @@ INSERT into
         phrase,
         likes,
         is_favorite,
-        authors_id
+        author_id
     )
 VALUES (
         "The unexamined life is not worth living",
@@ -339,11 +341,37 @@ VALUES (
     );
 
 INSERT INTO
-    users_phrases (users_id, phrases_id)
+    users_phrases (user_id, phrase_id)
 VALUES (1, 3), (2, 3), (3, 2), (4, 2), (4, 4), (4, 5), (1, 1);
 
-
-
 INSERT INTO
-    events_phrases (events_id, phrases_id)
-VALUES (1, 2), (1, 1), (3, 3), (2, 4), (3, 4), (7, 5), (4, 2), (6, 8), (6, 9), (6, 10), (6, 11), (6, 12), (1, 4), (1, 7), (1, 8), (1, 9), (5, 9), (5, 2), (5, 3), (5, 4), (9, 2), (9, 1), (9, 5), (9, 7), (10, 6), (10, 12);
+    events_phrases (event_id, phrase_id)
+VALUES 
+(1, 1), 
+(9, 1), 
+(1, 2), 
+(4, 2), 
+(5, 2), 
+(9, 2), 
+(3, 3), 
+(5, 3), 
+(1, 4), 
+(2, 4), 
+(3, 4), 
+(5, 4), 
+(7, 5), 
+(9, 5), 
+(10, 6), 
+(1, 7), 
+(9, 7), 
+(1, 8), 
+(6, 8), 
+(1, 9), 
+(5, 9), 
+(6, 9), 
+(6, 10), 
+(6, 11), 
+(6, 12), 
+(10, 12),
+(8, 13), 
+(8, 14);

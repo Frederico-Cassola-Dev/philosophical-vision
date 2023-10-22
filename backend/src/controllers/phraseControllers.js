@@ -90,6 +90,20 @@ const edit = async (req, res, next) => {
   }
 };
 
+const destroy = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const phraseId = await tables.phrases.delete(id);
+    if (phraseId == null) {
+      res.status(204);
+    } else {
+      res.json(phraseId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   browse5,
@@ -98,5 +112,5 @@ module.exports = {
   read4ByEventId,
   edit,
   add,
-  // destroy,
+  destroy,
 };

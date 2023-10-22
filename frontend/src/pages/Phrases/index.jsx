@@ -10,7 +10,7 @@ import phrasesReducer, {
   initialState,
 } from "./utils/phrases-reducer";
 
-import style from "./_phrases.module.scss";
+import style from "./phrases.module.scss";
 import PhraseItem from "./PhraseItem";
 
 export default function Phrases() {

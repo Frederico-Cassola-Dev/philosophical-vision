@@ -6,7 +6,7 @@ import {
 } from "../../pages/Phrases/utils/phrases-reducer";
 import CloseIconModal from "./CloseIconModal";
 
-import style from "./_searchSelectModal.module.scss";
+import style from "./searchSelectModal.module.scss";
 
 export default function SearchSelectModal({ state, dispatch }) {
   const eventsByCategoryResponse = useAxios({

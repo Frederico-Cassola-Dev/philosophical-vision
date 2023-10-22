@@ -17,6 +17,7 @@ export default function Admin() {
     method: "get",
     endpoint: "authors",
   });
+
   const eventsResponse = useAxios({
     method: "get",
     endpoint: "events",
@@ -51,27 +52,27 @@ export default function Admin() {
     >
       <h1 className={style.adminTitle}>Administration</h1>
       <div className={style.tablesDBButtons}>
-        <Link to="/admin/tablesdb/phrases">
+        <Link to="/admin/tablesDb/phrases">
           <button className={style.buttons} type="button">
             Phrases
           </button>
         </Link>
-        <Link to="/admin/tablesdb/events">
+        <Link to="/admin/tablesDb/events">
           <button className={style.buttons} type="button">
             Events
           </button>
         </Link>
-        <Link to="/admin/tablesdb/authors">
+        <Link to="/admin/tablesDb/authors">
           <button className={style.buttons} type="button">
             Authors
           </button>
         </Link>
-        <Link to="/admin/tablesdb/categories">
+        <Link to="/admin/tablesDb/categories">
           <button className={style.buttons} type="button">
             Categories
           </button>
         </Link>
-        <Link to="/admin/tablesdb/users">
+        <Link to="/admin/tablesDb/users">
           <button className={style.buttons} type="button">
             Users
           </button>
@@ -103,7 +104,7 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <Link to="/admin/newauthor" className={style.link}>
+          <Link to="/admin/newAuthor" className={style.link}>
             <button type="button" className={style.addAuthorBtn}>
               <IconAdd />
               <span className={style.addAuthorBtnDescription}>Add author</span>

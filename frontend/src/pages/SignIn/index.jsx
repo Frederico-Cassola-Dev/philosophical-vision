@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import userContext from "../../contexts/userContext";
 
-import style from "./_signIn.module.scss";
+import style from "./signIn.module.scss";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
