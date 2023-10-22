@@ -73,7 +73,7 @@ export default function ModifyPhrase({
   // TODO - PUT events array from formData obj - DONE.
   // TODO - PUT phrase from formData obj. - DONE
   // TODO - PUT author from formData obj. - DONE
-  // TODO - PUT likes from formData obj.
+  // TODO - PUT likes from formData obj. - DONE -NEED CONFIRMATION
   // TODO - Confirm the PUT if the same number of events. - DONE
 
   const handleSubmitForm = (e) => {
