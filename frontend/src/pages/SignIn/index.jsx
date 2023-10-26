@@ -10,20 +10,15 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(userContext);
-  // console.log("🚀 - user:", user);
 
   const login = (e) => {
     e.preventDefault();
-
+    axios.defaults.withCredentials = true;
     axios
-      .post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
+        email,
+        password,
+      })
       .then((response) => {
         console.info(response.data);
         setUser(response.data.user);
