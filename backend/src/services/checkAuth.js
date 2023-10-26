@@ -67,7 +67,7 @@ const verifyToken = (req, res, next) => {
       }
     );
   } else {
-    res.status(401).send("EMail or password not correct");
+    res.status(401).send("Email or password not correct");
   }
 };
 
