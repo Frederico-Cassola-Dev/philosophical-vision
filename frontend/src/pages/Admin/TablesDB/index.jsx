@@ -1,43 +1,24 @@
-import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 
 import style from "./tablesDB.module.scss";
-import ModifyPhrase from "../../../components/ModifyPhrase";
 
 export default function TablesDB() {
   const { table } = useParams();
 
-  const [selectedPhraseId, setSelectedPhraseId] = useState("");
-  const [modifyPhrase, setModifyPhrase] = useState(false);
-  const [updateTable, setUpdateTable] = useState(false);
-
-  const tableResponse = useAxios(
-    {
-      method: "get",
-      endpoint: `${table}`,
-    },
-    [modifyPhrase, selectedPhraseId, updateTable]
-  );
+  const tableResponse = useAxios({
+    method: "get",
+    endpoint: `${table}`,
+  });
 
   return (
     <div className={style.tablesDB}>
-      {modifyPhrase && (
-        <ModifyPhrase
-          selectedPhraseId={selectedPhraseId}
-          setModifyPhrase={setModifyPhrase}
-          updateTable={updateTable}
-          setUpdateTable={setUpdateTable}
-        />
-      )}
-      {!modifyPhrase && (
-        <div className={style.linkContainer}>
-          <Link to="/admin" className={style.linkReturnBtn}>
-            Return
-          </Link>
-        </div>
-      )}
-      <section className={style.sectionTable}>
+      <div className={style.linkContainer}>
+        <Link to="/admin" className={style.linkReturnBtn}>
+          Return
+        </Link>
+      </div>
+      <section className={style.tableBody}>
         <table className={style.table}>
           <thead>
             {table === "phrases" && (
@@ -45,7 +26,6 @@ export default function TablesDB() {
                 <th>Title</th>
                 <th>Author</th>
                 <th>Likes</th>
-                <th>Events</th>
               </tr>
             )}
             {table === "events" && (
@@ -59,7 +39,7 @@ export default function TablesDB() {
                 <th>Known Name</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Period</th>
+                <th>Period Id</th>
                 <th>Philo current</th>
                 <th>Born</th>
                 <th>Dead</th>
@@ -84,17 +64,10 @@ export default function TablesDB() {
             {table === "phrases" &&
               tableResponse &&
               tableResponse.map((item) => (
-                <tr
-                  key={item.id}
-                  onClick={() => {
-                    setModifyPhrase(true);
-                    setSelectedPhraseId(item.id);
-                  }}
-                >
+                <tr key={item.id}>
                   <td>{item.phrase}</td>
                   <td>{item.author}</td>
                   <td>{item.likes}</td>
-                  <td>{item.event_title}</td>
                 </tr>
               ))}
             {table === "events" &&
@@ -109,14 +82,13 @@ export default function TablesDB() {
               tableResponse &&
               tableResponse.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.known_name}</td>
+                  <td>{item.known_name} hello</td>
                   <td>{item.firstname}</td>
                   <td>{item.lastname}</td>
-                  <td>{item.period_title}</td>
+                  <td>{item.period_id}</td>
                   <td>{item.philo_current}</td>
                   <td>{item.born_date}</td>
                   <td>{item.dead_date}</td>
-                  <td>{item.era}</td>
                 </tr>
               ))}
             {table === "categories" &&
@@ -139,13 +111,11 @@ export default function TablesDB() {
           </tbody>
         </table>
       </section>
-      {!modifyPhrase && (
-        <div className={style.linkContainer}>
-          <Link to="/admin" className={style.linkReturnBtn}>
-            Return
-          </Link>
-        </div>
-      )}
+      <div className={style.linkContainer}>
+        <Link to="/admin" className={style.linkReturnBtn}>
+          Return
+        </Link>
+      </div>
     </div>
   );
 }

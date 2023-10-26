@@ -3,7 +3,6 @@ const tables = require("../tables");
 const browse = async (req, res, next) => {
   try {
     const users = await tables.users.readAll();
-
     res.json(users);
   } catch (err) {
     next(err);
@@ -24,9 +23,24 @@ const read = async (req, res, next) => {
   }
 };
 
+const readByEmail = async (req, res, next) => {
+  const user = await tables.users.readByEmail(req.body.email);
+
+  try {
+    if (user == null) {
+      res.sendStatus(404);
+    } else {
+      req.user = user;
+
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const add = async (req, res, next) => {
   const user = req.body;
-
   try {
     const insertId = await tables.users.create(user);
 
@@ -39,5 +53,6 @@ const add = async (req, res, next) => {
 module.exports = {
   browse,
   read,
+  readByEmail,
   add,
 };
