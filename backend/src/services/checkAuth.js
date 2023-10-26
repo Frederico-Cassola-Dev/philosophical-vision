@@ -5,7 +5,7 @@ const hashingOptions = {
   type: argon2.argon2id,
   memoryCost: 2 ** 16,
   time: 5,
-  parellelism: 1,
+  parallelism: 1,
 };
 
 const hashPassword = (req, res, next) => {
@@ -36,7 +36,7 @@ const verifyPassword = (req, res) => {
         res
           .status(200)
           .cookie("user_token", token, {
-            httpOnly: false,
+            httpOnly: true,
             expires: new Date(Date.now() + 1000 * 60 * 60),
           })
           .send({ token, user: req.user });
@@ -53,7 +53,6 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
-  // console.log(req.cookies);
   if (req.cookies) {
     jwt.verify(
       req.cookies.user_token,

@@ -25,8 +25,8 @@ router.post("/avatar", upload.single("avatar"), uploadAvatar.postAvatar);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
-router.use(verifyToken);
 //* PROTECTED ROUTES
+router.use(verifyToken);
 //* Users
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
