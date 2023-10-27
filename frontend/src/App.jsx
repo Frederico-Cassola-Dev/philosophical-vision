@@ -23,9 +23,9 @@ function App() {
         <Routes>
           {/* public routes */}
           <Route path="/" element={<Home />} />
-          <Route path="aboutme" element={<AboutMe />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
+          <Route path="aboutMe" element={<AboutMe />} />
+          <Route path="signIn" element={<SignIn />} />
+          <Route path="signUp" element={<SignUp />} />
           {/* private routes  */}
           <Route element={<ProtectedLayout />}>
             <Route path="phrases" element={<Phrases />} />

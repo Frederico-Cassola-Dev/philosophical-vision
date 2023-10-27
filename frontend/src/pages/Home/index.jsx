@@ -1,14 +1,20 @@
+import { useContext } from "react";
 import useAxios from "../../hooks/useAxios";
+import userContext from "../../contexts/userContext";
 
 import singleLogoLittle from "../../assets/logo/single_logo_little.png";
-
 import style from "./home.module.scss";
+import Phrases from "../Phrases";
 
 export default function Home() {
   const phrasesResponse = useAxios({
     method: "get",
     endpoint: "phrases5",
   });
+
+  const { user } = useContext(userContext);
+
+  if (user) return <Phrases />;
 
   return (
     <div className={style.home}>
