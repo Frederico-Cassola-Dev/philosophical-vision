@@ -21,8 +21,9 @@ export default function Phrases() {
     endpoint: "categories",
   });
 
+  axios.defaults.withCredentials = true;
+
   useEffect(() => {
-    axios.defaults.withCredentials = true;
     axios
       .get(
         `${import.meta.env.VITE_BACKEND_URL}/api/phrases4/events/${
