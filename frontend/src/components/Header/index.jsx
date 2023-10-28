@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import userContext from "../../contexts/userContext";
 
@@ -8,14 +8,17 @@ import style from "./_header.module.scss";
 function Header() {
   const { pathname } = useLocation();
   const { user, setUser, setToken } = useContext(userContext);
+  const navigate = useNavigate();
   // console.log("🚀 - user:", user);
 
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.clear();
+    // console.log("token on req", document.cookie);
     document.cookie =
       "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // console.log("token on req AFTER", document.cookie);
+    navigate("/");
   };
 
   return (

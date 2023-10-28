@@ -8,6 +8,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import Phrases from "./pages/Phrases";
+import MyAccount from "./pages/MyAccount";
 import Admin from "./pages/Admin";
 import NewAuthor from "./pages/Admin/NewAuthor";
 import NewEvent from "./pages/Admin/NewEvent";
@@ -29,6 +30,7 @@ function App() {
           {/* private routes  */}
           <Route element={<ProtectedLayout />}>
             <Route path="phrases" element={<Phrases />} />
+            <Route path="myAccount" element={<MyAccount />} />
             <Route path="admin" element={<Admin />} />
             <Route path="admin/newAuthor" element={<NewAuthor />} />
             <Route path="admin/newEvent" element={<NewEvent />} />
