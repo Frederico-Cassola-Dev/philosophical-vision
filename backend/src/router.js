@@ -16,7 +16,7 @@ const periodControllers = require("./controllers/periodControllers");
 const {
   hashPassword,
   verifyPassword,
-  verifyToken,
+  // verifyToken,
 } = require("./services/checkAuth");
 
 //* OPEN ROUTES
@@ -26,7 +26,7 @@ router.post("/users", hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
 //* PROTECTED ROUTES
-router.use(verifyToken);
+// router.use(verifyToken);
 //* Users
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);

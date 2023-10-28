@@ -36,7 +36,7 @@ const verifyPassword = (req, res) => {
         res
           .status(200)
           .cookie("user_token", token, {
-            httpOnly: true,
+            httpOnly: false,
             expires: new Date(Date.now() + 1000 * 60 * 60),
           })
           .send({ token, user: req.user });
@@ -53,6 +53,7 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
+  // console.log(req.cookies);
   if (req.cookies) {
     jwt.verify(
       req.cookies.user_token,
@@ -67,7 +68,7 @@ const verifyToken = (req, res, next) => {
       }
     );
   } else {
-    res.status(401).send("EMail or password not correct");
+    res.status(401).send("Email or password not correct");
   }
 };
 

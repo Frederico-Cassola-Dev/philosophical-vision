@@ -28,7 +28,7 @@ const readByEmail = async (req, res, next) => {
 
   try {
     if (user == null) {
-      res.sendStatus(404);
+      res.status(404).send({ message: "User not found" });
     } else {
       req.user = user;
 
