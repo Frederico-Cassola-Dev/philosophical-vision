@@ -69,7 +69,7 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Select a category</option>
+          <option defaultChecked>Selecione une catégorie</option>
           {categoriesResponse?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}

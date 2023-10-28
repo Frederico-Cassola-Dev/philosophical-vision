@@ -14,10 +14,8 @@ function Header() {
   const logout = () => {
     setUser(null);
     setToken(null);
-    // console.log("token on req", document.cookie);
     document.cookie =
       "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // console.log("token on req AFTER", document.cookie);
     navigate("/");
   };
 

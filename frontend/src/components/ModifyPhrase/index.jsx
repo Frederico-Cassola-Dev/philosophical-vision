@@ -96,20 +96,6 @@ export default function ModifyPhrase({
       .catch((err) => console.error(err));
   };
 
-  // const handleModifyAuthor = () => {
-  //   axios
-  //     .put(
-  //       `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${selectedPhraseId}`,
-  //       {
-  //         // phrase: modifiedPhrase || selectedPhraseResponse.phrase,
-  //         author_id: modifiedAuthor || selectedPhraseResponse.author_id,
-  //       }
-  //     )
-  //     .then((response) => console.info(response.status))
-  //     .then(() => setUpdateTable(true))
-  //     .catch((err) => console.error(err));
-  // };
-
   const handleSubmitDeletePhrase = (e) => {
     e.preventDefault();
     axios
@@ -142,7 +128,7 @@ export default function ModifyPhrase({
 
   return (
     <div className={style.modal}>
-      <h2>Phrase to modify</h2>
+      <h2>Phrase to modifiée</h2>
       <form className={style.phraseForm} onSubmit={handleSubmitForm}>
         <label htmlFor="phrase">
           <textarea
@@ -153,17 +139,15 @@ export default function ModifyPhrase({
               selectedPhraseResponse ? selectedPhraseResponse.phrase : ""
             }
             onChange={(e) => setModifiedPhrase(e.target.value)}
-            // onBlur={handleSubmitModifyPhrase}
           />
         </label>
         <label htmlFor="listAuthors">
-          Author
+          Auteur
           <select
             name="listAuthors"
             id="listAuthors"
             className={style.select}
             onChange={(e) => setModifiedAuthor(e.target.value)}
-            // onBlur={handleModifyAuthor}
           >
             {authorsResponse && (
               <option defaultChecked>
@@ -179,7 +163,7 @@ export default function ModifyPhrase({
           </select>
         </label>
         <div className={style.eventsContainer}>
-          <h3 className={style.title}>Events</h3>
+          <h3 className={style.title}>Événements</h3>
           <div className={style.events}>
             {eventsListIdToModify?.map((item) => {
               if (item) {
@@ -210,7 +194,7 @@ export default function ModifyPhrase({
               value={modifiedEvent}
               onChange={(e) => setModifiedEvent(e.target.value)}
             >
-              <option defaultChecked>Add a new event</option>
+              <option defaultChecked>Ajouter un nouveau événement</option>
               {eventsResponse &&
                 eventsNotAlreadySelectedInSelectedPhrase(
                   eventsResponse,
@@ -231,7 +215,7 @@ export default function ModifyPhrase({
           </label>
         </div>
         <label htmlFor="likes" className={style.labelLikes}>
-          Total likes : {modifiedLikes ? 0 : selectedPhraseResponse?.likes} -
+          Totale likes : {modifiedLikes ? 0 : selectedPhraseResponse?.likes} -
           Reset
           <input
             type="checkbox"
@@ -249,16 +233,16 @@ export default function ModifyPhrase({
         </label>
         <div className={style.buttonsContainer}>
           <button type="button" onClick={handleSubmitDeletePhrase}>
-            Delete
+            Effacer
           </button>
-          <button type="submit">Modify</button>
+          <button type="submit">Modifier</button>
           <button
             type="button"
             onClick={() => {
               setModifyPhrase(false);
             }}
           >
-            Close
+            Fermé
           </button>
         </div>
       </form>
@@ -270,5 +254,4 @@ ModifyPhrase.propTypes = {
   selectedPhraseId: propTypes.number.isRequired,
   setModifyPhrase: propTypes.func.isRequired,
   updateTable: propTypes.bool.isRequired,
-  // setUpdateTable: propTypes.func.isRequired,
 };

@@ -46,7 +46,7 @@ export default function SignIn() {
           />
         </label>
         <label htmlFor="password">
-          Password
+          Mot de passe
           <input
             type="password"
             id="password"
@@ -54,7 +54,7 @@ export default function SignIn() {
           />
         </label>
         <div className={style.submitButtonContainer}>
-          <button type="submit">Submit</button>
+          <button type="submit">Se connecter</button>
         </div>
       </form>
     </div>
