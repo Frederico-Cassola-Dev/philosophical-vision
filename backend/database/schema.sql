@@ -7,7 +7,8 @@ create table
         lastname varchar(100) not null,
         email varchar(254) not null unique,
         password varchar(100) not null,
-        avatar varchar(254) not null
+        avatar varchar(254) not null,
+        isAdmin TINYINT default 0
     );
 
 create table
@@ -113,44 +114,51 @@ INSERT into
         lastname,
         email,
         password,
-        avatar
+        avatar,
+        isAdmin
     )
 VALUES (
         "John",
         "Springfield",
         "john.springfield@springfield.com",
         "12345678",
-        "default_avatar.png"
+        "default_avatar.png",
+        0
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
         "12345678",
-        "default_avatar.png"
+        "default_avatar.png",
+        0
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
         "12345678",
-        "default_avatar.png"
+        "default_avatar.png",
+        0
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
         "12345678",
-        "default_avatar.png"
+        "default_avatar.png",
+        0
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
         "12345678",
-        "default_avatar.png"
+        "default_avatar.png",
+        0
     ), (
-        "Claude",
-        "Liege",
-        "claude.liege@liege.com",
-        "12345678",
-        "default_avatar.png"
+        "admin",
+        "admin",
+        "admin@admin.com",
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+        "default_avatar.png",
+        1
     );
 
 INSERT INTO 

@@ -9,10 +9,10 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useContext(userContext);
+  const { user, setUser } = useContext(userContext);
 
-  const login = (e) => {
-    e.preventDefault();
+  const login = (event) => {
+    event.preventDefault();
     axios.defaults.withCredentials = true;
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
@@ -22,14 +22,18 @@ export default function SignIn() {
       .then((response) => {
         console.info(response.data);
         setUser(response.data.user);
-        navigate("/phrases");
+        if (user.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/phrases");
+        }
       })
       .catch((err) => console.error(err));
   };
 
   return (
     <div className={style.signIn}>
-      <form onSubmit={(e) => login(e)} className={style.formContainer}>
+      <form onSubmit={login} className={style.formContainer}>
         <label htmlFor="email">
           E-mail
           <input

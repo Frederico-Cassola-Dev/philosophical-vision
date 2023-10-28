@@ -9,12 +9,14 @@ export function UserProvider({ children }) {
   const value = useMemo(
     () => ({
       user,
+
       setUser,
       token,
       setToken,
     }),
     [user]
   );
+  // console.log("🚀 - user:", user);
 
   return <userContext.Provider value={value}>{children}</userContext.Provider>;
 }
