@@ -7,6 +7,8 @@ import style from "./_header.module.scss";
 
 function Header() {
   const { pathname } = useLocation();
+  // console.log("🚀 - pathname:", pathname)
+
   const { user, setUser, setToken } = useContext(userContext);
   const navigate = useNavigate();
   // console.log("🚀 - user:", user);
@@ -14,6 +16,7 @@ function Header() {
   const logout = () => {
     setUser(null);
     setToken(null);
+    localStorage.clear();
     document.cookie =
       "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/");
@@ -39,9 +42,16 @@ function Header() {
             <Link to="/" className={style.link} onClick={logout}>
               Déconnecter
             </Link>
-            <Link to="/myAccount" className={style.link}>
-              Mon compte
-            </Link>
+            {pathname === "/phrases" && (
+              <Link to="/myAccount" className={style.link}>
+                Mon compte
+              </Link>
+            )}
+            {pathname === "/myAccount" && (
+              <Link to="/phrases" className={style.link}>
+                Phrases
+              </Link>
+            )}
           </>
         ) : (
           <>

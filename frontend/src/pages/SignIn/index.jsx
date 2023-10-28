@@ -25,6 +25,7 @@ export default function SignIn() {
       )
       .then((response) => {
         setUser(response.data.user);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         if (response.data.user.is_admin) {
           navigate("/admin");
         } else {
