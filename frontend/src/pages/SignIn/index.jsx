@@ -9,7 +9,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, setUser } = useContext(userContext);
+  const { setUser } = useContext(userContext);
 
   const login = (event) => {
     event.preventDefault();
@@ -24,9 +24,8 @@ export default function SignIn() {
         { withCredentials: true }
       )
       .then((response) => {
-        console.info(response.data);
         setUser(response.data.user);
-        if (user.isAdmin) {
+        if (response.data.user.is_admin) {
           navigate("/admin");
         } else {
           navigate("/phrases");
