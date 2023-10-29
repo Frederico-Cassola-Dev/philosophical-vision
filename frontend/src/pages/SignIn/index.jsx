@@ -9,7 +9,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useContext(userContext);
+  const { setUser, setToken } = useContext(userContext);
 
   const login = (event) => {
     event.preventDefault();
@@ -25,7 +25,8 @@ export default function SignIn() {
       )
       .then((response) => {
         setUser(response.data.user);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setToken(response.data.token);
+        localStorage.setItem("user_info", JSON.stringify(response.data));
         if (response.data.user.is_admin) {
           navigate("/admin");
         } else {

@@ -17,8 +17,8 @@ function Header() {
     setUser(null);
     setToken(null);
     localStorage.clear();
-    document.cookie =
-      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // document.cookie =
+    //   "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/");
   };
 
