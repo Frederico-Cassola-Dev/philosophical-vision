@@ -6,17 +6,16 @@ const userContext = createContext();
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+
   const value = useMemo(
     () => ({
       user,
-
       setUser,
       token,
       setToken,
     }),
     [user]
   );
-  // console.log("🚀 - user:", user);
 
   return <userContext.Provider value={value}>{children}</userContext.Provider>;
 }

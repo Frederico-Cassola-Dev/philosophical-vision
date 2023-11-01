@@ -63,7 +63,7 @@ export default function SignUp() {
       >
         <div className={style.avatarLabelInputContainer}>
           <label htmlFor="avatar" className="label-avatar">
-            Avatar
+            Photo
             <input
               type="file"
               name="avatar"

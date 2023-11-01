@@ -8,7 +8,7 @@ create table
         email varchar(254) not null unique,
         password varchar(100) not null,
         avatar varchar(254) not null,
-        isAdmin TINYINT default 0
+        is_admin TINYINT default 0
     );
 
 create table
@@ -115,7 +115,7 @@ INSERT into
         email,
         password,
         avatar,
-        isAdmin
+        is_admin
     )
 VALUES (
         "John",
@@ -159,7 +159,15 @@ VALUES (
         "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         "default_avatar.png",
         1
+    ), (
+        "carlos",
+        "cassola",
+        "cfcassola@gmail.com",
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+        "default_avatar.png",
+        0
     );
+
 
 INSERT INTO 
 periods (

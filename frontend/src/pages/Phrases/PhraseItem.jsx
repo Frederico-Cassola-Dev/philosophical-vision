@@ -83,7 +83,7 @@ export default function PhraseItem({ phraseToShow }) {
     <div key={phraseToShow.phrase_id}>
       <p className={style.visionPhrase}>{phraseToShow.phrase}</p>
       <div className={style.reactionsAndAutorContainer}>
-        <span className={style.author}>Author: {phraseToShow.author}</span>
+        <span className={style.author}>Auteur: {phraseToShow.author}</span>
         <span className={style.totalLikes}>
           {like.isLiked && like.phraseId === phraseToShow.phrase_id
             ? phraseToShow.likes + 1

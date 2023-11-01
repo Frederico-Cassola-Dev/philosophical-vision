@@ -16,16 +16,19 @@ export default function AboutMe() {
       <div className={style.imgAndDescriptionContainer}>
         <div className={style.aboutMeDescription}>
           <p className={style.descriptionText}>
-            I'm a lover of wisdom and the etymological meaning of philosophie is
-            "The love of wisdom". <br />
-            The practice of philosophie is known as "The Art of Living" and with
-            this app I can help everyone to apply some knowledge in our
-            comportements and thoughts from different visions of philosophical
-            currents. <br />
-            I'm a full-stack web developer in JavaScript with a love for
-            philosophie. <br />
-            Assembling my two loves it was possible to share some philosophical
-            wisdom that can help everyone's life.
+            Je suis un amoureux de la sagesse et la signification étymologique
+            du mot philosophie est "L'amour de la sagesse".
+            <br />
+            La pratique de la philosophie est connue sous le nom de "L'Art de
+            Vivre" et avec cette application, je peux aider tout le monde à
+            appliquer certaines connaissances dans nos comportements et pensées
+            à partir de différentes visions philosophiques.
+            <br />
+            Je suis un développeur web full-stack en JavaScript avec un amour
+            pour la philosophie.
+            <br />
+            En assemblant mes deux amours, il a été possible de partager une
+            certaine sagesse philosophique qui peut aider la vie de chacun.
             <br />
           </p>
         </div>

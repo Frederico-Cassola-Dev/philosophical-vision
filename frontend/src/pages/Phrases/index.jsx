@@ -21,6 +21,8 @@ export default function Phrases() {
     endpoint: "categories",
   });
 
+  axios.defaults.withCredentials = true;
+
   useEffect(() => {
     axios
       .get(
@@ -69,7 +71,7 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Select a category</option>
+          <option defaultChecked>Selecione une catégorie</option>
           {categoriesResponse?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}

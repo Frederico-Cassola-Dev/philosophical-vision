@@ -9,7 +9,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, setUser } = useContext(userContext);
+  const { setUser, setToken } = useContext(userContext);
 
   const login = (event) => {
     event.preventDefault();
@@ -24,9 +24,10 @@ export default function SignIn() {
         { withCredentials: true }
       )
       .then((response) => {
-        console.info(response.data);
         setUser(response.data.user);
-        if (user.isAdmin) {
+        setToken(response.data.token);
+        localStorage.setItem("user_info", JSON.stringify(response.data));
+        if (response.data.user.is_admin) {
           navigate("/admin");
         } else {
           navigate("/phrases");
@@ -47,7 +48,7 @@ export default function SignIn() {
           />
         </label>
         <label htmlFor="password">
-          Password
+          Mot de passe
           <input
             type="password"
             id="password"
@@ -55,7 +56,7 @@ export default function SignIn() {
           />
         </label>
         <div className={style.submitButtonContainer}>
-          <button type="submit">Submit</button>
+          <button type="submit">Se connecter</button>
         </div>
       </form>
     </div>

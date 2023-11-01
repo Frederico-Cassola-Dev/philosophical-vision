@@ -16,13 +16,13 @@ export default function Home() {
           <h1 className={style.title}>
             <img src={singleLogoLittle} alt="logo" />
             Vision
-            <span className={style.subTitle}>Philosophical</span>
+            <span className={style.subTitle}>Philosophique</span>
           </h1>
         </div>
         <section className={style.descriptionSection}>
           <p className={style.descriptionText}>
-            This site offers various philosophical perspectives from around the
-            world, addressing common and everyday situations in your life.
+            Ce site propose diverses perspectives philosophiques du monde
+            entier, abordant des situations communes et quotidiennes de la vie..
           </p>
         </section>
         <section className={style.randomPhrasesSection}>

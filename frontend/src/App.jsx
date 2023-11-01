@@ -1,5 +1,7 @@
+import { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import userContext from "./contexts/userContext";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -17,6 +19,20 @@ import TablesDB from "./pages/Admin/TablesDB";
 import "./scss/styles.scss";
 
 function App() {
+  const { setUser, setToken } = useContext(userContext);
+  useEffect(() => {
+    if (!document.cookie) {
+      setUser(null);
+      setToken(null);
+      localStorage.clear();
+    } else {
+      setUser(JSON.parse(localStorage.getItem("user_info")).user);
+      const decodedJWT = atob(
+        JSON.parse(localStorage.getItem("user_info")).token.split(".")[1]
+      );
+      console.info("🚀 - decodedJWT:", decodedJWT);
+    }
+  }, []);
   return (
     <div className="app">
       <Router>
