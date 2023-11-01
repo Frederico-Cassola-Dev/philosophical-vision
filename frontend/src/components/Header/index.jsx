@@ -11,14 +11,13 @@ function Header() {
 
   const { user, setUser, setToken } = useContext(userContext);
   const navigate = useNavigate();
-  // console.log("🚀 - user:", user);
 
   const logout = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
-    // document.cookie =
-    //   "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/");
   };
 
@@ -36,21 +35,41 @@ function Header() {
           <img src={singleLogo} alt="logo" />
         </Link>
       </div>
-      <nav>
+      <nav className={style.nav}>
         {user ? (
           <>
-            <Link to="/" className={style.link} onClick={logout}>
-              Déconnecter
-            </Link>
+            {pathname === "/" && (
+              <>
+                <Link to="/" className={style.link} onClick={logout}>
+                  Déconnecter
+                </Link>
+                <Link to="/myAccount" className={style.link}>
+                  Mon compte
+                </Link>
+                <Link to="/phrases" className={style.link}>
+                  Phrases
+                </Link>
+              </>
+            )}
             {pathname === "/phrases" && (
-              <Link to="/myAccount" className={style.link}>
-                Mon compte
-              </Link>
+              <>
+                <Link to="/" className={style.link} onClick={logout}>
+                  Déconnecter
+                </Link>
+                <Link to="/myAccount" className={style.link}>
+                  Mon compte
+                </Link>
+              </>
             )}
             {pathname === "/myAccount" && (
-              <Link to="/phrases" className={style.link}>
-                Phrases
-              </Link>
+              <>
+                <Link to="/" className={style.link} onClick={logout}>
+                  Déconnecter
+                </Link>
+                <Link to="/phrases" className={style.link}>
+                  Phrases
+                </Link>
+              </>
             )}
           </>
         ) : (
