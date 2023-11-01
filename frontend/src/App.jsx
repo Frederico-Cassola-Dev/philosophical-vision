@@ -27,10 +27,6 @@ function App() {
       localStorage.clear();
     } else {
       setUser(JSON.parse(localStorage.getItem("user_info")).user);
-      const decodedJWT = atob(
-        JSON.parse(localStorage.getItem("user_info")).token.split(".")[1]
-      );
-      console.info("🚀 - decodedJWT:", decodedJWT);
     }
   }, []);
   return (
