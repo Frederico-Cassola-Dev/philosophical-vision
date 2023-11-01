@@ -1,8 +1,6 @@
 import { useReducer } from "react";
 import axios from "axios";
-import defaultAvatar from "../../assets/images/default_avatar.png";
 import signUpFormReducer, {
-  SIGN_UP_UPDATE_AVATAR,
   SIGN_UP_UPDATE_FIRST_NAME,
   SIGN_UP_UPDATE_LAST_NAME,
   SIGN_UP_UPDATE_EMAIL_NAME,
@@ -11,7 +9,6 @@ import signUpFormReducer, {
   signUpInitialState,
 } from "./utils/signUp-form-reducer";
 import signUpFormValidatorReducer, {
-  SIGN_UP_VALIDATE_AVATAR,
   SIGN_UP_VALIDATE_FIRST_NAME,
   SIGN_UP_VALIDATE_LAST_NAME,
   SIGN_UP_VALIDATE_EMAIL_NAME,
@@ -41,9 +38,6 @@ export default function SignUp() {
           lastName: newUserData.lastName,
           email: newUserData.email,
           password: newUserData.password,
-          avatar: newUserData.avatarName
-            ? newUserData.avatarName
-            : "default_avatar.png",
         })
         .then((response) => console.info(response.statusText))
         .catch((err) => console.error(err));
@@ -61,42 +55,6 @@ export default function SignUp() {
           handleNeuUserPost(newUserState);
         }}
       >
-        <div className={style.avatarLabelInputContainer}>
-          <label htmlFor="avatar" className="label-avatar">
-            Photo
-            <input
-              type="file"
-              name="avatar"
-              id="avatar"
-              className={style.inputAvatar}
-              onChange={(e) => {
-                dispatchForm({
-                  type: SIGN_UP_UPDATE_AVATAR,
-                  payload: {
-                    avatar: e.target.files[0],
-                    avatarName: e.target.files[0].name,
-                  },
-                });
-              }}
-              onBlur={() =>
-                dispatchValidatorForm({
-                  type: SIGN_UP_VALIDATE_AVATAR,
-                  payload: newUserState,
-                })
-              }
-            />
-          </label>
-          <div className={style.avatarContainer}>
-            <img
-              src={
-                newUserState.avatar
-                  ? URL.createObjectURL(newUserState.avatar)
-                  : defaultAvatar
-              }
-              alt="avatar"
-            />
-          </div>
-        </div>
         <label htmlFor="lastName" className={style.labelLastName}>
           Nom
           <input

@@ -1,10 +1,7 @@
 const express = require("express");
-const multer = require("multer");
 
 const router = express.Router();
-const upload = multer({ dest: "./public/assets/avatar" });
 
-const uploadAvatar = require("./services/uploadAvatar");
 const userControllers = require("./controllers/userControllers");
 const phraseControllers = require("./controllers/phraseControllers");
 const eventControllers = require("./controllers/eventControllers");
@@ -21,7 +18,6 @@ const {
 
 //* OPEN ROUTES
 router.post("/login", userControllers.readByEmail, verifyPassword);
-router.post("/avatar", upload.single("avatar"), uploadAvatar.postAvatar);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
