@@ -7,7 +7,6 @@ import style from "./_header.module.scss";
 
 function Header() {
   const { pathname } = useLocation();
-  // console.log("🚀 - pathname:", pathname)
 
   const { user, setUser, setToken } = useContext(userContext);
   const navigate = useNavigate();
