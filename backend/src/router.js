@@ -14,6 +14,7 @@ const {
   hashPassword,
   verifyPassword,
   verifyToken,
+  verifyToModifyPassword,
 } = require("./services/checkAuth");
 
 //* OPEN ROUTES
@@ -26,6 +27,12 @@ router.use(verifyToken);
 //* Users
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
+router.put("/users/:id", hashPassword, userControllers.edit);
+router.post(
+  "/users/:id/verifypassword",
+  userControllers.readToVerifyAuth,
+  verifyToModifyPassword
+);
 
 //* Phrases
 router.get("/phrases", phraseControllers.browse);

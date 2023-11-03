@@ -17,6 +17,22 @@ const read = async (req, res, next) => {
       res.sendStatus(404);
     } else {
       res.json(user);
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const readToVerifyAuth = async (req, res, next) => {
+  try {
+    const user = await tables.users.read(req.params.id);
+
+    if (user == null) {
+      res.sendStatus(404);
+    } else {
+      req.user = user;
+      next();
     }
   } catch (err) {
     next(err);
@@ -41,6 +57,7 @@ const readByEmail = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   const user = req.body;
+
   try {
     const insertId = await tables.users.create(user);
 
@@ -50,9 +67,26 @@ const add = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  const user = { ...req.body, userId: parseInt(req.params.id, 10) };
+
+  try {
+    const updatedId = await tables.users.update(user);
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      res.json(updatedId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
   readByEmail,
+  readToVerifyAuth,
   add,
+  edit,
 };
