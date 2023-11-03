@@ -7,6 +7,7 @@ import style from "./myAccount.module.scss";
 
 export default function MyAccount() {
   // TODO - logout after user modifications and sign in with the new info
+  // TODO - Style wrong password not ok UI/UX
   // TODO - verify old password on backend - DONE
   // TODO - make the put for the new password - DONE
   // TODO - update local storage with the user modifications - DONE
@@ -38,17 +39,19 @@ export default function MyAccount() {
 
   const handleModifyOldPassword = (passwordToVerify) => {
     axios.defaults.withCredentials = true;
-    axios
-      .post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${
-          user.id
-        }/verifypassword`,
-        { password: passwordToVerify }
-      )
-      .then((response) => {
-        setValidateOldPassword(response.data.auth);
-      })
-      .catch((err) => console.error(err));
+    if (passwordToVerify) {
+      axios
+        .post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+            user.id
+          }/verifypassword`,
+          { password: passwordToVerify }
+        )
+        .then((response) => {
+          setValidateOldPassword(response.data.auth);
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
