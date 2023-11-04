@@ -25,7 +25,6 @@ export default function MyAccount() {
     isModify: false,
     message: "",
   });
-  // console.log("🚀 - modifyMessage:", modifyMessage);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,7 +40,6 @@ export default function MyAccount() {
           password: validateOldPassword && newPassword,
         })
         .then((response) => {
-          console.info(response);
           if (response.data.changedRows.length !== 0) {
             setModifyMessage({
               isModify: true,
@@ -152,12 +150,11 @@ export default function MyAccount() {
               type="button"
               onClick={() => {
                 localStorage.clear();
-                navigate("/signIn");
-
                 setModifyMessage({
                   isModify: false,
                   message: "",
                 });
+                navigate("/signIn");
               }}
             >
               Close
