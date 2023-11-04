@@ -129,7 +129,7 @@ export default function ModifyPhrase({
     <div className={style.modal}>
       <h2>Phrase to modifiée</h2>
       <form className={style.phraseForm} onSubmit={handleSubmitForm}>
-        <label>
+        <label htmlFor="phrase">
           <textarea
             type="text"
             id="phrase"
