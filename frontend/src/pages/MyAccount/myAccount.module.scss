@@ -50,12 +50,11 @@
       }
     }
 
-    .errorMessage{
+    .errorMessage {
       height: 1rem;
       padding-top: $space-xs;
-      
     }
-    .errorMessageHidden{
+    .errorMessageHidden {
       display: hidden;
       padding-top: $space-xs;
       height: 1rem;
@@ -80,8 +79,6 @@
           background-color: $color-text-hover;
         }
       }
-
-      
     }
   }
 }

@@ -47,6 +47,7 @@ const eventsNotAlreadySelectedInSelectedPhrase = (
 
   return finalResult;
 };
+
 export default function ModifyPhrase({
   selectedPhraseId,
   setModifyPhrase,
@@ -85,8 +86,6 @@ export default function ModifyPhrase({
       events: eventsListIdToModify || selectedPhraseResponse.events_titles,
       likes: modifiedLikes ? 0 : selectedPhraseResponse.likes,
     };
-
-    console.info("🚀 - newModifiedPhrase-events:", newModifiedPhrase);
 
     axios
       .put(
