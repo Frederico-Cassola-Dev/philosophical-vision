@@ -50,6 +50,17 @@
       }
     }
 
+    .errorMessage{
+      height: 1rem;
+      padding-top: $space-xs;
+      
+    }
+    .errorMessageHidden{
+      display: hidden;
+      padding-top: $space-xs;
+      height: 1rem;
+    }
+
     .submitButtonContainer {
       display: flex;
       justify-content: center;
@@ -61,7 +72,7 @@
         border: 1px solid $color-primary-active;
         border-radius: $border-radius-l;
         padding: $space-2xs $space-xs;
-        margin-top: $space-l;
+        margin-top: $space-xs;
         font-size: $font-size-l;
         font-weight: $font-weight-bold;
 
@@ -69,6 +80,8 @@
           background-color: $color-text-hover;
         }
       }
+
+      
     }
   }
 }
