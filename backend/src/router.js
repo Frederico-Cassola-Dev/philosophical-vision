@@ -1,10 +1,7 @@
 const express = require("express");
-const multer = require("multer");
 
 const router = express.Router();
-const upload = multer({ dest: "./public/assets/avatar" });
 
-const uploadAvatar = require("./services/uploadAvatar");
 const userControllers = require("./controllers/userControllers");
 const phraseControllers = require("./controllers/phraseControllers");
 const eventControllers = require("./controllers/eventControllers");
@@ -17,11 +14,11 @@ const {
   hashPassword,
   verifyPassword,
   verifyToken,
+  verifyToModifyPassword,
 } = require("./services/checkAuth");
 
 //* OPEN ROUTES
 router.post("/login", userControllers.readByEmail, verifyPassword);
-router.post("/avatar", upload.single("avatar"), uploadAvatar.postAvatar);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
@@ -30,6 +27,12 @@ router.use(verifyToken);
 //* Users
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
+router.put("/users/:id", hashPassword, userControllers.edit);
+router.post(
+  "/users/:id/verifypassword",
+  userControllers.readToVerifyAuth,
+  verifyToModifyPassword
+);
 
 //* Phrases
 router.get("/phrases", phraseControllers.browse);

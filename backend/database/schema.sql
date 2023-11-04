@@ -2,62 +2,61 @@
 
 create table
     users (
-        id int primary key auto_increment not null,
-        firstname varchar(100) not null,
-        lastname varchar(100) not null,
-        email varchar(254) not null unique,
-        password varchar(100) not null,
-        avatar varchar(254) not null,
+        id int primary key auto_increment NOT NULL,
+        firstname varchar(100) NOT NULL,
+        lastname varchar(100) NOT NULL,
+        email varchar(254) NOT NULL unique,
+        password varchar(100) NOT NULL,
         is_admin TINYINT default 0
     );
 
 create table
     categories(
-        id int primary key auto_increment not null,
-        title varchar(249) not null,
+        id int primary key auto_increment NOT NULL,
+        title varchar(249) NOT NULL,
         description VARCHAR(249)
     );
 
 create table
     events (
-        id int primary key auto_increment not null,
-        title varchar(254) not null,
+        id int primary key auto_increment NOT NULL,
+        title varchar(254) NOT NULL,
         category_id INT NOT NULL,
         FOREIGN KEY(category_id) REFERENCES categories(id)
     );
 
 create table periods (
-     id int PRIMARY KEY auto_increment not null,
-     title varchar(100) not null
+     id int PRIMARY KEY auto_increment NOT NULL,
+     title varchar(100) NOT NULL
     );
 
 create table
     authors (
-        id int PRIMARY KEY auto_increment not null,
-        known_name varchar(100) not null,
+        id int PRIMARY KEY auto_increment NOT NULL,
+        known_name varchar(100) NOT NULL,
         firstname varchar(100),
         lastname varchar(100),
-        period_id int not null,
-        philo_current varchar(100) not null,
+        period_id int NOT NULL,
+        philo_current varchar(100) NOT NULL,
         born_date varchar(100),
         dead_date varchar(100),
-        era varchar(50) not null,
+        era varchar(50) NOT NULL,
         FOREIGN KEY(period_id) REFERENCES periods(id)
     );
 
 create table
     phrases (
-        id int primary key auto_increment not null,
-        phrase varchar(254) not null,
+        id int primary key auto_increment NOT NULL,
+        phrase varchar(254) NOT NULL,
         likes INT NOT NULL DEFAULT 0,
         is_favorite TINYINT default 0,
-        author_id int not null,
+        author_id int NOT NULL,
         Foreign Key (author_id) REFERENCES authors(id)
     );
 
 create table
     users_phrases (
-        id int primary key auto_increment not null,
+        id int primary key auto_increment NOT NULL,
         user_id int,
         phrase_id int,
         FOREIGN KEY(user_id) REFERENCES users(id),
@@ -67,7 +66,7 @@ create table
 
 create table
     events_phrases (
-        id int primary key auto_increment not null,
+        id int primary key auto_increment NOT NULL,
         event_id int,
         phrase_id int,
         FOREIGN KEY(event_id) REFERENCES events(id),
@@ -114,7 +113,6 @@ INSERT into
         lastname,
         email,
         password,
-        avatar,
         is_admin
     )
 VALUES (
@@ -122,49 +120,42 @@ VALUES (
         "Springfield",
         "john.springfield@springfield.com",
         "12345678",
-        "default_avatar.png",
         0
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
         "12345678",
-        "default_avatar.png",
         0
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
         "12345678",
-        "default_avatar.png",
         0
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
         "12345678",
-        "default_avatar.png",
         0
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
         "12345678",
-        "default_avatar.png",
         0
     ), (
         "admin",
         "admin",
         "admin@admin.com",
         "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        "default_avatar.png",
         1
     ), (
         "carlos",
         "cassola",
         "cfcassola@gmail.com",
         "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        "default_avatar.png",
         0
     );
 

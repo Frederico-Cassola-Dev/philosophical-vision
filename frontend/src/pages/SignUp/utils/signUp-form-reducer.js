@@ -1,4 +1,3 @@
-export const SIGN_UP_UPDATE_AVATAR = "signUp/updateAvatar";
 export const SIGN_UP_UPDATE_FIRST_NAME = "signUp/updateFirstName";
 export const SIGN_UP_UPDATE_LAST_NAME = "signUp/updateLastName";
 export const SIGN_UP_UPDATE_EMAIL_NAME = "signUp/updateEmail";
@@ -6,8 +5,6 @@ export const SIGN_UP_UPDATE_PASSWORD_NAME = "signUp/updatePassword";
 export const SIGN_UP_UPDATE_SECOND_PASSWORD = "signUp/updateSecondPassword";
 
 export const signUpInitialState = {
-  avatar: null,
-  avatarName: "",
   firstName: "",
   lastName: "",
   email: "",
@@ -17,14 +14,6 @@ export const signUpInitialState = {
 
 export default function signUpFormReducer(state, action) {
   switch (action.type) {
-    case SIGN_UP_UPDATE_AVATAR: {
-      const { avatar, avatarName } = action.payload;
-      return {
-        ...state,
-        avatar,
-        avatarName,
-      };
-    }
     case SIGN_UP_UPDATE_FIRST_NAME: {
       const { firstName } = action.payload;
       return {

@@ -7,14 +7,8 @@ class UserManager extends AbstractManager {
 
   async create(user) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, email, password, avatar) values (?, ?, ?, ?, ?)`,
-      [
-        user.firstName,
-        user.lastName,
-        user.email,
-        user.hashPassword,
-        user.avatar,
-      ]
+      `insert into ${this.table} (firstname, lastname, email, password) values (?, ?, ?, ?)`,
+      [user.firstName, user.lastName, user.email, user.hashPassword]
     );
 
     return result.insertId;
@@ -41,6 +35,42 @@ class UserManager extends AbstractManager {
   async readAll() {
     const [rows] = await this.database.query(`select * from ${this.table}`);
 
+    return rows;
+  }
+
+  async update(user) {
+    if (user.hashPassword) {
+      const [rows] = await this.database.query(
+        `
+    UPDATE  ${this.table}
+    SET
+      firstname = ?, 
+      lastname = ?,
+      email = ?,
+      password = ?
+    WHERE id = ?
+    `,
+        [
+          user.newLastName,
+          user.newFirstName,
+          user.newEmail,
+          user.hashPassword,
+          user.userId,
+        ]
+      );
+      return rows;
+    }
+    const [rows] = await this.database.query(
+      `
+  UPDATE  ${this.table}
+  SET
+    firstname = ?, 
+    lastname = ?,
+    email = ?
+  WHERE id = ?
+  `,
+      [user.newLastName, user.newFirstName, user.newEmail, user.userId]
+    );
     return rows;
   }
 }
