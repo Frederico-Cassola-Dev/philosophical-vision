@@ -83,18 +83,8 @@ const verifyToModifyPassword = (req, res) => {
     .verify(req.user.password, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
-        // const payload = { sub: req.user.id };
-        // const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
-        //   expiresIn: "24h",
-        // });
         delete req.user.password;
-        res
-          .status(200)
-          // .cookie("user_token", token, {
-          //   httpOnly: false,
-          //   expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-          // })
-          .send({ message: "Old password correct", auth: true });
+        res.status(200).send({ message: "Old password correct", auth: true });
       } else {
         res.status(200).send({
           message: "Password not correct",

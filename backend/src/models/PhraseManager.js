@@ -100,18 +100,11 @@ class PhraseManager extends AbstractManager {
       `,
         [phrase.phraseId]
       );
-    // console.log(
-    //   "🚀 - idsFromEventsPhrasesTableThatMAtchPhraseIdToChange:",
-    //   idsFromEventsPhrasesTableThatMAtchPhraseIdToChange
-    // );
-
-    // console.log("phrase obj", phrase);
 
     const eventsIdsInDB =
       idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.map(
         (item) => item.event_id
       );
-    // console.log("🚀 - eventsIdsInDB:", eventsIdsInDB);
 
     // ------ No changes on events ------
 
