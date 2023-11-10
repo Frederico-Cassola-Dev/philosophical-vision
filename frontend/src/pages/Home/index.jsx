@@ -4,7 +4,7 @@ import singleLogoLittle from "../../assets/logo/single_logo_little.png";
 import style from "./home.module.scss";
 
 export default function Home() {
-  const phrasesResponse = useAxios({
+  const phrasesData = useAxios({
     method: "get",
     endpoint: "phrases5",
   });
@@ -26,7 +26,7 @@ export default function Home() {
           </p>
         </section>
         <section className={style.randomPhrasesSection}>
-          {phrasesResponse?.map((item, index) => (
+          {phrasesData?.response?.map((item, index) => (
             <p className={style[`phrase${index}`]} key={item.id}>
               {item.phrase}
             </p>

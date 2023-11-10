@@ -73,12 +73,26 @@ function Header() {
           </>
         ) : (
           <>
-            <Link to="/signUp" className={style.link}>
-              Inscription
-            </Link>
-            <Link to="/signIn" className={style.link}>
-              Connection
-            </Link>
+            {pathname === "/" && (
+              <>
+                <Link to="/signUp" className={style.link}>
+                  Inscription
+                </Link>
+                <Link to="/signIn" className={style.link}>
+                  Connection
+                </Link>
+              </>
+            )}
+            {pathname === "/signUp" && (
+              <Link to="/signIn" className={style.link}>
+                Connection
+              </Link>
+            )}
+            {pathname === "/signIn" && (
+              <Link to="/signUp" className={style.link}>
+                Inscription
+              </Link>
+            )}
           </>
         )}
       </nav>

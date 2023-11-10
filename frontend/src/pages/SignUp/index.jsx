@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import signUpFormReducer, {
   SIGN_UP_UPDATE_FIRST_NAME,
@@ -20,6 +21,7 @@ import signUpFormValidatorReducer, {
 import style from "./signUp.module.scss";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [newUserState, dispatchForm] = useReducer(
     signUpFormReducer,
     signUpInitialState
@@ -39,7 +41,12 @@ export default function SignUp() {
           email: newUserData.email,
           password: newUserData.password,
         })
-        .then((response) => console.info(response.statusText))
+        .then((response) => {
+          console.info(response);
+          if (response.status === 201) {
+            navigate("/signIn");
+          }
+        })
         .catch((err) => console.error(err));
     } else {
       console.info("Form not validated");

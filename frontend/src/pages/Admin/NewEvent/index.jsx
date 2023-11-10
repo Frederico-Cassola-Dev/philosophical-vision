@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../../hooks/useAxios";
 
@@ -7,10 +8,11 @@ import style from "./newEvent.module.scss";
 // TODO - Add feature newCategory
 
 export default function NewEvent() {
+  const navigate = useNavigate();
   const [newEvent, setNewEvent] = useState("");
   const [newCategoryId, setNewCategory] = useState(null);
 
-  const categoriesResponse = useAxios({
+  const categoriesData = useAxios({
     method: "get",
     endpoint: "categories",
   });
@@ -28,7 +30,7 @@ export default function NewEvent() {
 
   return (
     <div className={style.newEvent}>
-      <h1 className={style.title}>Add new event</h1>
+      <h1 className={style.title}>Ajouter nouveau Événement</h1>
       <form
         className={style.form}
         onSubmit={(e) => {
@@ -37,7 +39,7 @@ export default function NewEvent() {
         }}
       >
         <label htmlFor="title" className={style.label}>
-          New event
+          Nouveau Événement
           <input
             type="text"
             className={style.inputTitle}
@@ -51,18 +53,24 @@ export default function NewEvent() {
             className={style.select}
             onChange={(e) => setNewCategory(e.target.value)}
           >
-            <option defaultChecked>Select a category</option>
-            {categoriesResponse &&
-              categoriesResponse.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.title}
-                </option>
-              ))}
+            <option defaultChecked>Catégorie</option>
+            {categoriesData?.response?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.title}
+              </option>
+            ))}
           </select>
         </label>
         <div className={style.submitBtnContainer}>
           <button type="submit" className={style.submitBtn}>
-            Save the new event
+            Sauvegarder
+          </button>
+          <button
+            type="button"
+            className={style.submitBtn}
+            onClick={() => navigate("/admin")}
+          >
+            Retourné
           </button>
         </div>
       </form>

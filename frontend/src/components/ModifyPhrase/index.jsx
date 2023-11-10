@@ -10,7 +10,7 @@ const getSelectedPhraseAuthorAndEvent = (
   selectedPhraseId,
   dependenciesToUpdateTable = []
 ) => {
-  const selectedPhraseResponse = useAxios(
+  const selectedPhraseData = useAxios(
     {
       method: "get",
       endpoint: `eventphrase/${selectedPhraseId}`,
@@ -18,7 +18,7 @@ const getSelectedPhraseAuthorAndEvent = (
     dependenciesToUpdateTable
   );
 
-  const authorsResponse = useAxios(
+  const authorsData = useAxios(
     {
       method: "get",
       endpoint: "authors",
@@ -26,7 +26,7 @@ const getSelectedPhraseAuthorAndEvent = (
     dependenciesToUpdateTable
   );
 
-  const eventsResponse = useAxios(
+  const eventsData = useAxios(
     {
       method: "get",
       endpoint: "events",
@@ -34,7 +34,7 @@ const getSelectedPhraseAuthorAndEvent = (
     dependenciesToUpdateTable
   );
 
-  return { selectedPhraseResponse, authorsResponse, eventsResponse };
+  return { selectedPhraseData, authorsData, eventsData };
 };
 
 const eventsNotAlreadySelectedInSelectedPhrase = (
@@ -53,7 +53,7 @@ export default function ModifyPhrase({
   setModifyPhrase,
   updateTable,
 }) {
-  const { selectedPhraseResponse, authorsResponse, eventsResponse } =
+  const { selectedPhraseData, authorsData, eventsData } =
     getSelectedPhraseAuthorAndEvent(selectedPhraseId, [
       selectedPhraseId,
       updateTable,
@@ -66,8 +66,8 @@ export default function ModifyPhrase({
   const [eventsListIdToModify, setEventsListIdToModify] = useState([]);
 
   useEffect(() => {
-    setEventsListIdToModify(selectedPhraseResponse?.events_id);
-  }, [selectedPhraseId, selectedPhraseResponse]);
+    setEventsListIdToModify(selectedPhraseData?.response?.events_id);
+  }, [selectedPhraseId, selectedPhraseData?.response]);
 
   // TODO - Bug when scrolling table in the top of the tableBody - CSS.
   // TODO - Delete event on formData obj - DONE.
@@ -81,10 +81,11 @@ export default function ModifyPhrase({
     e.preventDefault();
 
     const newModifiedPhrase = {
-      phrase: modifiedPhrase || selectedPhraseResponse.phrase,
-      author_id: modifiedAuthor || selectedPhraseResponse.author_id,
-      events: eventsListIdToModify || selectedPhraseResponse.events_titles,
-      likes: modifiedLikes ? 0 : selectedPhraseResponse.likes,
+      phrase: modifiedPhrase || selectedPhraseData?.response?.phrase,
+      author_id: modifiedAuthor || selectedPhraseData?.response?.author_id,
+      events:
+        eventsListIdToModify || selectedPhraseData?.response?.events_titles,
+      likes: modifiedLikes ? 0 : selectedPhraseData?.response?.likes,
     };
 
     axios
@@ -127,7 +128,7 @@ export default function ModifyPhrase({
 
   return (
     <div className={style.modal}>
-      <h2>Phrase to modifiée</h2>
+      <h2>Phrase pour modifiée</h2>
       <form className={style.phraseForm} onSubmit={handleSubmitForm}>
         <label htmlFor="phrase">
           <textarea
@@ -135,7 +136,9 @@ export default function ModifyPhrase({
             id="phrase"
             name="phrase"
             placeholder={
-              selectedPhraseResponse ? selectedPhraseResponse.phrase : ""
+              selectedPhraseData?.response
+                ? selectedPhraseData?.response?.phrase
+                : ""
             }
             onChange={(e) => setModifiedPhrase(e.target.value)}
           />
@@ -148,13 +151,14 @@ export default function ModifyPhrase({
             className={style.select}
             onChange={(e) => setModifiedAuthor(e.target.value)}
           >
-            {authorsResponse && (
+            {authorsData.response && (
               <option defaultChecked>
-                {selectedPhraseResponse && selectedPhraseResponse.author}
+                {selectedPhraseData?.response &&
+                  selectedPhraseData?.response?.author}
               </option>
             )}
-            {authorsResponse &&
-              authorsResponse.map((author) => (
+            {authorsData.response &&
+              authorsData.response.map((author) => (
                 <option key={author.id} value={author.id}>
                   {author.known_name}
                 </option>
@@ -166,7 +170,7 @@ export default function ModifyPhrase({
           <div className={style.events}>
             {eventsListIdToModify?.map((item) => {
               if (item) {
-                const eventToShow = eventsResponse?.find(
+                const eventToShow = eventsData?.response?.find(
                   (itemToShow) => itemToShow.id === item
                 );
                 return (
@@ -194,9 +198,9 @@ export default function ModifyPhrase({
               onChange={(e) => setModifiedEvent(e.target.value)}
             >
               <option defaultChecked>Ajouter un nouveau événement</option>
-              {eventsResponse &&
+              {eventsData?.response &&
                 eventsNotAlreadySelectedInSelectedPhrase(
-                  eventsResponse,
+                  eventsData?.response,
                   eventsListIdToModify
                 ).map((events) => (
                   <option key={events.id} value={events.id}>
@@ -214,8 +218,8 @@ export default function ModifyPhrase({
           </label>
         </div>
         <label htmlFor="likes" className={style.labelLikes}>
-          Totale likes : {modifiedLikes ? 0 : selectedPhraseResponse?.likes} -
-          Reset
+          Totale likes :{" "}
+          {modifiedLikes ? 0 : selectedPhraseData?.response?.likes} - Reset
           <input
             type="checkbox"
             name="likes"

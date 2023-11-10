@@ -1,4 +1,5 @@
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import SearchSelectModal from "../../components/SearchSelectModal";
@@ -12,11 +13,26 @@ import phrasesReducer, {
 
 import style from "./phrases.module.scss";
 import PhraseItem from "./PhraseItem";
+import userContext from "../../contexts/userContext";
 
 export default function Phrases() {
+  const { setUser, setToken } = useContext(userContext);
+  const navigate = useNavigate();
+
+  // TODO - verify if no access navigate for the page error or unauthorize access
+  // TODO - Test this function logout if it's useful for this step
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+    document.cookie =
+      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    navigate("/loggedOut");
+  };
+
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
 
-  const categoriesResponse = useAxios({
+  const categoriesData = useAxios({
     method: "get",
     endpoint: "categories",
   });
@@ -39,6 +55,10 @@ export default function Phrases() {
       .catch((err) => console.error(err));
   }, [state.eventId]);
 
+  if (categoriesData?.error?.response.status === 401) {
+    logout();
+  }
+
   return (
     <div className={style.phrases}>
       {state.openModal && (
@@ -60,7 +80,7 @@ export default function Phrases() {
             });
           }}
           value={state.openModal ? state.filteredEvent : ""}
-          placeholder="Search your event"
+          placeholder="Événement"
         />
         <select
           onChange={(e) => {
@@ -71,8 +91,8 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Selecione une catégorie</option>
-          {categoriesResponse?.map((category) => (
+          <option defaultChecked>Catégorie</option>
+          {categoriesData.response?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
             </option>

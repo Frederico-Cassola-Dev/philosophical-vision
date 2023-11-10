@@ -11,6 +11,7 @@
   font-size: $font-size-l;
 
   .inputsContainer {
+    display: flex;
     margin-top: $space-l;
 
     .inputSearchCategory {

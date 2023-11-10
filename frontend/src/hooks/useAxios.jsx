@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function useAxios(request, dependencies = []) {
   const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios({
@@ -15,8 +16,9 @@ export default function useAxios(request, dependencies = []) {
       })
       .catch((err) => {
         console.error(err);
+        setError(err);
       });
   }, dependencies);
 
-  return response;
+  return { response, error };
 }
