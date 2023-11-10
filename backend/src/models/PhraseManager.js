@@ -219,6 +219,21 @@ class PhraseManager extends AbstractManager {
     return [rows, updateRows];
   }
 
+  async updateLikesAndFavorites(phrase) {
+    const [rows] = await this.database.query(
+      `update ${this.table} 
+      set phrase = ?, likes = ?, is_favorite = ?, author_id = ? where id = ?`,
+      [
+        phrase.phrase,
+        phrase.likes,
+        phrase.is_favorite,
+        phrase.author_id,
+        phrase.phraseId,
+      ]
+    );
+    return rows;
+  }
+
   async delete(id) {
     //* There are a ON DELETE CASCADE in the tables events_phrases and users_phrases for the foreign keys
     const [rows] = await this.database.query(
