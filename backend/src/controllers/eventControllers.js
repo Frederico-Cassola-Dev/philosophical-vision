@@ -19,6 +19,7 @@ const browseAllByCategoryId = async (req, res, next) => {
 const browseAllByTitle = async (req, res, next) => {
   try {
     const events = await tables.events.readAllByTitle(req.params.title);
+
     res.json(events);
   } catch (err) {
     next(err);

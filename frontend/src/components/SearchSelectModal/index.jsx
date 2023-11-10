@@ -19,13 +19,17 @@ export default function SearchSelectModal({ state, dispatch }) {
     endpoint: `events/categories/${state.categoryId}`,
   });
 
-  const eventsByTitleData = useAxios({
-    method: "get",
-    endpoint: `events/${state.filteredEvent}`,
-  });
+  const eventsByTitleData = useAxios(
+    {
+      method: "get",
+      endpoint: `events/${state.filteredEvent}`,
+    },
+    [state.filteredEvent]
+  );
 
   // TODO - verify if no access navigate for the page error or unauthorize access
   // TODO - Test this function logout if it's useful for this step
+  // TODO - Logged out direct when the token as expired
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -35,7 +39,6 @@ export default function SearchSelectModal({ state, dispatch }) {
     navigate("/loggedOut");
   };
 
-  // TODO - Logged out direct when the token as expired
   if (
     (eventsByCategoryData?.error?.response.status ||
       eventsByTitleData?.error?.response.status) === 401
