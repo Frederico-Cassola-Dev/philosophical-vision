@@ -80,7 +80,7 @@ export default function Phrases() {
             });
           }}
           value={state.openModal ? state.filteredEvent : ""}
-          placeholder="Search your event"
+          placeholder="Événement"
         />
         <select
           onChange={(e) => {
@@ -91,7 +91,7 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Selecione une catégorie</option>
+          <option defaultChecked>Catégorie</option>
           {categoriesData.response?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
