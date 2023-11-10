@@ -104,7 +104,7 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <Link to="/admin/newAuthor" className={style.link}>
+          <Link to="/newAuthor" className={style.link}>
             <button type="button" className={style.addAuthorBtn}>
               <IconAdd />
               <span className={style.addAuthorBtnDescription}>Add author</span>
@@ -126,7 +126,7 @@ export default function Admin() {
                 </option>
               ))}
           </select>
-          <Link to="/admin/newEvent" className={style.link}>
+          <Link to="/newEvent" className={style.link}>
             <button type="button" className={style.addEventBtn}>
               <IconAdd />
               <span className={style.addEventBtnDescription}>Add event</span>

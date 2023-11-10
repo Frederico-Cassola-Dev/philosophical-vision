@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
 import {
@@ -9,15 +10,23 @@ import CloseIconModal from "./CloseIconModal";
 import style from "./searchSelectModal.module.scss";
 
 export default function SearchSelectModal({ state, dispatch }) {
-  const eventsByCategoryResponse = useAxios({
+  const navigate = useNavigate();
+  const eventsByCategoryData = useAxios({
     method: "get",
     endpoint: `events/categories/${state.categoryId}`,
   });
 
-  const eventsByTitleResponse = useAxios({
+  const eventsByTitleData = useAxios({
     method: "get",
     endpoint: `events/${state.filteredEvent}`,
   });
+
+  if (
+    (eventsByCategoryData?.error?.response.status ||
+      eventsByTitleData?.error?.response.status) === 401
+  ) {
+    return navigate("/");
+  }
 
   return (
     <div className={style.overlay}>
@@ -32,7 +41,7 @@ export default function SearchSelectModal({ state, dispatch }) {
         <div className={style.listContainer}>
           <ul className={style.list}>
             {state.categoryId !== "" &&
-              eventsByCategoryResponse?.map((events) => (
+              eventsByCategoryData?.response?.map((events) => (
                 <li className={style.listItems} key={events.id}>
                   <button
                     type="button"
@@ -52,7 +61,7 @@ export default function SearchSelectModal({ state, dispatch }) {
                 </li>
               ))}
             {state.filteredEvent !== "" &&
-              eventsByTitleResponse?.map((events) => (
+              eventsByTitleData?.response?.map((events) => (
                 <li className={style.listItems} key={events.id}>
                   <button
                     type="button"
@@ -81,7 +90,7 @@ export default function SearchSelectModal({ state, dispatch }) {
 SearchSelectModal.propTypes = {
   state: PropTypes.shape({
     categoryId: PropTypes.string,
-    eventId: PropTypes.string,
+    eventId: PropTypes.number,
     filteredEvent: PropTypes.string,
     openModal: PropTypes.bool,
   }),

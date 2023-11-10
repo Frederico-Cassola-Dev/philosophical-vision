@@ -3,18 +3,10 @@
 import { PropTypes } from "prop-types";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export default function ProtectedLayout({ isAdmin }) {
-  // console.log("🚀 - allowedRolle from user:", isAdmin);
-
-  // console.log("🚀 - user:", user);
-  const location = useLocation();
-  // console.log("🚀 - location:", location);
-
+export default function ProtectedAdminLayout({ isAdmin }) {
   // const [isTokenExpired, setIsTokenExpired] = useState(false);
+  const location = useLocation();
   const userInfo = JSON.parse(localStorage.getItem("user_info"));
-  // console.log("🚀 - userInfo:", userInfo)
-
-  // console.log("🚀 - userInfo:", userInfo);
   // console.log("🚀 - userInfo:", !!userInfo.user.is_admin);
 
   // const navigate = useNavigate();
@@ -35,27 +27,18 @@ export default function ProtectedLayout({ isAdmin }) {
   //     navigate("/");
   //   }
   // }, []);
-
   if (!userInfo) {
     // console.log("no user");
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
 
-  if (isAdmin) {
+  if (!isAdmin) {
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
-  // if (isAdmin) {
-  //   console.log("no user");
-  //   return <Navigate to="/admin" state={{ from: location }} replace />;
-  // }
-
-  // if (isTokenExpired || !!userInfo.user.is_admin) {
-  //   return <Navigate to="/" replace />;
-  // }
 
   return <Outlet />;
 }
 
-ProtectedLayout.propTypes = {
+ProtectedAdminLayout.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
 };
