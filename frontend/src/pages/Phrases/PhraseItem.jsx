@@ -21,7 +21,9 @@ export default function PhraseItem({ phraseToShow }) {
     if (like.phraseId && like.isLiked) {
       axios
         .put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${like.phraseId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likesandfavorites/${
+            like.phraseId
+          }`,
           {
             phrase: phraseToShow.phrase,
             likes: phraseToShow.likes + 1,
@@ -40,7 +42,9 @@ export default function PhraseItem({ phraseToShow }) {
     } else if (like.phraseId && !like.isLiked) {
       axios
         .put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${like.phraseId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likesandfavorites/${
+            like.phraseId
+          }`,
           {
             phrase: phraseToShow?.phrase,
             likes: phraseToShow.likes,
@@ -65,7 +69,7 @@ export default function PhraseItem({ phraseToShow }) {
     if (favorite.phraseId) {
       axios
         .put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/${
+          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likesandfavorites/${
             favorite.phraseId
           }`,
           {
