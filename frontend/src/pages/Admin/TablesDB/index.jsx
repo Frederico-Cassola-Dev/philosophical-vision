@@ -12,7 +12,7 @@ export default function TablesDB() {
   const [modifyPhrase, setModifyPhrase] = useState(false);
   const [updateTable, setUpdateTable] = useState(false);
 
-  const tableResponse = useAxios(
+  const tableData = useAxios(
     {
       method: "get",
       endpoint: `${table}`,
@@ -82,8 +82,7 @@ export default function TablesDB() {
           </thead>
           <tbody>
             {table === "phrases" &&
-              tableResponse &&
-              tableResponse.map((item) => (
+              tableData?.response?.map((item) => (
                 <tr
                   key={item.id}
                   onClick={() => {
@@ -98,16 +97,14 @@ export default function TablesDB() {
                 </tr>
               ))}
             {table === "events" &&
-              tableResponse &&
-              tableResponse.map((item) => (
+              tableData?.response?.map((item) => (
                 <tr key={item.id}>
                   <td>{item.title}</td>
                   <td>{item.category_id}</td>
                 </tr>
               ))}
             {table === "authors" &&
-              tableResponse &&
-              tableResponse.map((item) => (
+              tableData?.response?.map((item) => (
                 <tr key={item.id}>
                   <td>{item.known_name}</td>
                   <td>{item.firstname}</td>
@@ -120,16 +117,14 @@ export default function TablesDB() {
                 </tr>
               ))}
             {table === "categories" &&
-              tableResponse &&
-              tableResponse.map((item) => (
+              tableData?.response?.map((item) => (
                 <tr key={item.id}>
                   <td>{item.title}</td>
                   <td>{item.description}</td>
                 </tr>
               ))}
             {table === "users" &&
-              tableResponse &&
-              tableResponse.map((item) => (
+              tableData?.response?.map((item) => (
                 <tr key={item.id}>
                   <td>{item.firstname}</td>
                   <td>{item.lastname}</td>

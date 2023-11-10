@@ -27,7 +27,7 @@ export default function Phrases() {
     localStorage.clear();
     document.cookie =
       "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    navigate("/");
+    navigate("/loggedOut");
   };
 
   const [state, dispatch] = useReducer(phrasesReducer, initialState);

@@ -8,7 +8,6 @@ import style from "./signIn.module.scss";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const location = useLocation();
   // console.log("🚀 - location:", location);
 
   // const from = location.state?.from?.pathname || "/";

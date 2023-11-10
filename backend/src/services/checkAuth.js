@@ -42,7 +42,7 @@ const verifyPassword = (req, res) => {
           .status(200)
           .cookie("user_token", token, {
             httpOnly: false,
-            expires: new Date(Date.now() + 1000 * 60),
+            expires: new Date(Date.now() + 1000 * 60 * 60),
           })
           .send({ token, user: req.user, auth: true });
       } else {
