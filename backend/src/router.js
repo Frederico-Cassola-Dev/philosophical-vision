@@ -33,6 +33,10 @@ router.post(
   userControllers.readToVerifyAuth,
   verifyToModifyPassword
 );
+//* Users_Phrases
+router.get("/users/favoritesphrases/:id", userControllers.readFavoritePhrases);
+router.put("/users/phrases/:id", phraseControllers.editLikes);
+// router.put("/users/favorites/:id", phraseControllers.editFavorites);
 
 //* Phrases
 router.get("/phrases", phraseControllers.browse);
@@ -41,10 +45,7 @@ router.get("/phrases4/events/:id", phraseControllers.read4ByEventId);
 router.get("/phrases4/randomevents", phraseControllers.read4ByRandomEvent);
 router.post("/phrases", phraseControllers.add);
 router.put("/phrases/:id", phraseControllers.edit);
-router.put(
-  "/phrases/likesandfavorites/:id",
-  phraseControllers.editLikesAndFavorites
-);
+router.put("/phrases/likes/:id", phraseControllers.editLikes);
 router.delete("/phrases/:id", phraseControllers.destroy);
 
 //* Events
@@ -53,6 +54,8 @@ router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);
 router.get("/events/:title", eventControllers.browseAllByTitle);
 router.get("/events/:id", eventControllers.read);
 router.post("/events", eventControllers.add);
+
+//* Events_Phrases
 router.get("/eventphrase", eventPhraseControllers.browse);
 router.get("/eventphrase/:id", eventPhraseControllers.browseByPhraseId);
 router.post("/eventphrase", eventPhraseControllers.add);

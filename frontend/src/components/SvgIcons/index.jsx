@@ -23,7 +23,6 @@ export function IconHeart() {
 
 export function IconStar({ alreadyFavorite }) {
   const [fill, setFill] = useState(false);
-  // console.log("🚀 - fill:", fill);
 
   useEffect(() => {
     if (alreadyFavorite) {

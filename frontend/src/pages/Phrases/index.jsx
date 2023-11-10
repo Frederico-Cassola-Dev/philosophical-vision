@@ -10,14 +10,22 @@ import phrasesReducer, {
   SET_PHRASES,
   initialState,
 } from "./utils/phrases-reducer";
-
-import style from "./phrases.module.scss";
 import PhraseItem from "./PhraseItem";
 import userContext from "../../contexts/userContext";
 
+import style from "./phrases.module.scss";
+
 export default function Phrases() {
   const { setUser, setToken } = useContext(userContext);
+  const [state, dispatch] = useReducer(phrasesReducer, initialState);
+  // console.log("🚀 - state.phrasesToShow:", state.phrasesToShow)
+
   const navigate = useNavigate();
+
+  const categoriesData = useAxios({
+    method: "get",
+    endpoint: "categories",
+  });
 
   // TODO - verify if no access navigate for the page error or unauthorize access
   // TODO - Test this function logout if it's useful for this step
@@ -29,13 +37,6 @@ export default function Phrases() {
       "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/loggedOut");
   };
-
-  const [state, dispatch] = useReducer(phrasesReducer, initialState);
-
-  const categoriesData = useAxios({
-    method: "get",
-    endpoint: "categories",
-  });
 
   axios.defaults.withCredentials = true;
 
@@ -105,10 +106,9 @@ export default function Phrases() {
         </p>
       </div>
       <div className={style.visionsContainer}>
-        {state.phrasesToShow &&
-          state.phrasesToShow?.map((item) => (
-            <PhraseItem key={item.phrase_id} phraseToShow={item} />
-          ))}
+        {state.phrasesToShow?.map((item) => {
+          return <PhraseItem key={item.phrase_id} phraseToShow={item} />;
+        })}
       </div>
     </div>
   );

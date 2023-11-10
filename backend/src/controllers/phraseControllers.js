@@ -89,11 +89,12 @@ const edit = async (req, res, next) => {
     next(err);
   }
 };
-const editLikesAndFavorites = async (req, res, next) => {
+
+const editLikes = async (req, res, next) => {
   const phrase = { ...req.body, phraseId: parseInt(req.params.id, 10) };
 
   try {
-    const updatedId = await tables.phrases.updateLikesAndFavorites(phrase);
+    const updatedId = await tables.phrases.updateLikes(phrase);
     if (updatedId == null) {
       res.status(204);
     } else {
@@ -125,7 +126,7 @@ module.exports = {
   read4ByRandomEvent,
   read4ByEventId,
   edit,
-  editLikesAndFavorites,
+  editLikes,
   add,
   destroy,
 };
