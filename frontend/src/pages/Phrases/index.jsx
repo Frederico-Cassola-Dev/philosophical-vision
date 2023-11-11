@@ -24,14 +24,16 @@ export default function Phrases() {
   const usersFavoritePhrases = useAxios(
     {
       method: "get",
-      endpoint: `users/favoritesphrases/${user?.id}`,
+      endpoint: `usersphrases/favorites/${user?.id}`,
     },
     [state.phrasesToShow]
   );
+
   const categoriesData = useAxios({
     method: "get",
     endpoint: "categories",
   });
+
   const logout = () => {
     setUser(null);
     setToken(null);

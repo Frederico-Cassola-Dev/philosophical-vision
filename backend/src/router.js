@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const userControllers = require("./controllers/userControllers");
+const userPhraseControllers = require("./controllers/userPhraseControllers");
 const phraseControllers = require("./controllers/phraseControllers");
 const eventControllers = require("./controllers/eventControllers");
 const categoryControllers = require("./controllers/categoryControllers");
@@ -22,8 +23,11 @@ router.post("/login", userControllers.readByEmail, verifyPassword);
 router.post("/users", hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
+//*---------------------------
 //* PROTECTED ROUTES
+//*---------------------------
 router.use(verifyToken);
+
 //* Users
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
@@ -34,9 +38,12 @@ router.post(
   verifyToModifyPassword
 );
 //* Users_Phrases
-router.get("/users/favoritesphrases/:id", userControllers.readFavoritePhrases);
-router.put("/users/phrases/:id", phraseControllers.editLikes);
-// router.put("/users/favorites/:id", phraseControllers.editFavorites);
+router.get(
+  "/usersphrases/favorites/:id",
+  userPhraseControllers.readFavoritePhrases
+);
+// router.put("/usersphrases/likes/:id", userPhraseControllers.editLikes);
+// router.put("/usersphrases/favorites/:id", userPhraseControllers.editFavorites);
 
 //* Phrases
 router.get("/phrases", phraseControllers.browse);

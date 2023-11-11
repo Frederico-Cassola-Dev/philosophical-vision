@@ -23,20 +23,6 @@ const read = async (req, res, next) => {
     next(err);
   }
 };
-const readFavoritePhrases = async (req, res, next) => {
-  try {
-    const user = await tables.users.readFavoritePhrases(req.params.id);
-
-    if (user == null) {
-      res.sendStatus(404);
-    } else {
-      res.json(user);
-      next();
-    }
-  } catch (err) {
-    next(err);
-  }
-};
 
 const readToVerifyAuth = async (req, res, next) => {
   try {
@@ -101,7 +87,6 @@ module.exports = {
   read,
   readByEmail,
   readToVerifyAuth,
-  readFavoritePhrases,
   add,
   edit,
 };
