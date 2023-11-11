@@ -66,9 +66,33 @@ const edit = async (req, res, next) => {
     next(err);
   }
 };
+const replace = async (req, res, next) => {
+  const userPhrase = {
+    ...req.body,
+    userId: parseInt(req.params.userId, 10),
+    phraseId: parseInt(req.params.phraseId, 10),
+  };
+
+  try {
+    const updatedId = await tables.users_phrases.replaceFavoritePhrases(
+      userPhrase
+    );
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      res.json(updatedId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
 const editFavoritePhrases = async (req, res, next) => {
-  const userPhrase = { ...req.body, userId: parseInt(req.params.id, 10) };
+  const userPhrase = {
+    ...req.body,
+    userId: parseInt(req.params.userId, 10),
+    phraseId: parseInt(req.params.phraseId, 10),
+  };
 
   try {
     const updatedId = await tables.users_phrases.updateFavoritePhrases(
@@ -91,4 +115,5 @@ module.exports = {
   add,
   edit,
   editFavoritePhrases,
+  replace,
 };

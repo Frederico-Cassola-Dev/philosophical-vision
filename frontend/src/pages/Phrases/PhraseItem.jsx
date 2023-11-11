@@ -1,88 +1,95 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
 import style from "./phrases.module.scss";
 import { IconHeart, IconStar } from "../../components/SvgIcons";
+import userContext from "../../contexts/userContext";
 
 // TODO - like - NOT ASSOCIATE WITH USER
 // TODO - favorite - NOT ASSOCIATE WITH USER
 // TODO - CSS - bug on author when push the like button
 // TODO - add feature - show the authors under the phrase -DONE
-export default function PhraseItem({ phraseToShow, isFavorite }) {
+export default function PhraseItem({
+  phraseToShow,
+  isFavorite,
+  isLiked,
+  usersPhrasesId,
+}) {
+  const { user } = useContext(userContext);
   const [like, setLike] = useState({
-    isLiked: false,
+    isLiked,
     phraseId: "",
   });
+
   const [favorite, setFavorite] = useState({
     isFavorite,
     phraseId: "",
   });
 
-  useEffect(() => {
-    if (like.phraseId && like.isLiked) {
-      axios
-        .put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likes/${
-            like.phraseId
-          }`,
-          {
-            phrase: phraseToShow.phrase,
-            likes: phraseToShow.likes + 1,
-            // is_favorite: phraseToShow.is_favorite,
-            author_id: phraseToShow.author_id,
-          }
-        )
-        .catch((err) => console.error(err));
-      axios
-        .put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/phrases/${
-            like.phraseId
-          }`,
-          {
-            phrase: phraseToShow.phrase,
-            likes: phraseToShow.likes + 1,
-            // is_favorite: phraseToShow.is_favorite,
-            author_id: phraseToShow.author_id,
-          }
-        )
-        .catch((err) => console.error(err));
-    } else if (like.phraseId && !like.isLiked) {
-      axios
-        .put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likes/${
-            like.phraseId
-          }`,
-          {
-            phrase: phraseToShow?.phrase,
-            likes: phraseToShow?.likes,
-            // is_favorite: phraseToShow?.is_favorite,
-            author_id: phraseToShow?.author_id,
-          }
-        )
-        .then((response) => console.info(response))
-        .catch((err) => console.error(err));
-    }
-  }, [like.isLiked]);
+  // useEffect(() => {
+  //   if (like.phraseId && like.isLiked) {
+  //     axios
+  //       .put(
+  //         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likes/${
+  //           like.phraseId
+  //         }`,
+  //         {
+  //           phrase: phraseToShow.phrase,
+  //           likes: phraseToShow.likes + 1,
+  //           // is_favorite: phraseToShow.is_favorite,
+  //           author_id: phraseToShow.author_id,
+  //         }
+  //       )
+  //       .catch((err) => console.error(err));
+  //     axios
+  //       .put(
+  //         `${import.meta.env.VITE_BACKEND_URL}/api/users/phrases/${
+  //           like.phraseId
+  //         }`,
+  //         {
+  //           phrase: phraseToShow.phrase,
+  //           likes: phraseToShow.likes + 1,
+  //           // is_favorite: phraseToShow.is_favorite,
+  //           author_id: phraseToShow.author_id,
+  //         }
+  //       )
+  //       .catch((err) => console.error(err));
+  //   } else if (like.phraseId && !like.isLiked) {
+  //     axios
+  //       .put(
+  //         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likes/${
+  //           like.phraseId
+  //         }`,
+  //         {
+  //           phrase: phraseToShow?.phrase,
+  //           likes: phraseToShow?.likes,
+  //           // is_favorite: phraseToShow?.is_favorite,
+  //           author_id: phraseToShow?.author_id,
+  //         }
+  //       )
+  //       .then((response) => console.info(response))
+  //       .catch((err) => console.error(err));
+  //   }
+  // }, [like.isLiked]);
 
   useEffect(() => {
-    if (favorite.phraseId) {
+    if (favorite.phraseId || like.phraseId) {
       axios
-        .put(
-          `${import.meta.env.VITE_BACKEND_URL}/api/phrases/favorites/${
-            favorite.phraseId
-          }`,
+        .post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/usersPhrases/${
+            user?.id
+          }/favorites/${favorite.phraseId || like.phraseId}`,
           {
-            phrase: phraseToShow.phrase,
-            is_favorite: !!favorite.isFavorite,
-            likes: phraseToShow.likes,
-            author_id: phraseToShow.author_id,
+            usersPhrasesId,
+            isFavorite: !!favorite.isFavorite,
+            isLiked: !!like.isLiked,
           }
         )
         .then((response) => console.info(response))
         .catch((err) => console.error(err));
     }
-  }, [favorite.isFavorite]);
+  }, [favorite.isFavorite, like.isLiked]);
 
   return (
     <div key={phraseToShow.phrase_id}>
@@ -104,7 +111,7 @@ export default function PhraseItem({ phraseToShow, isFavorite }) {
             })
           }
         >
-          <IconHeart />
+          <IconHeart alreadyLiked={isLiked} />
         </button>
         <button
           type="button"
@@ -132,4 +139,10 @@ PhraseItem.propTypes = {
     author: PropTypes.string.isRequired,
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
+  isLiked: PropTypes.bool.isRequired,
+  usersPhrasesId: PropTypes.number,
+};
+
+PhraseItem.defaultProps = {
+  usersPhrasesId: 0,
 };

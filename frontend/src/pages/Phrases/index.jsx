@@ -24,7 +24,7 @@ export default function Phrases() {
   const usersFavoritePhrases = useAxios(
     {
       method: "get",
-      endpoint: `usersphrases/favorites/${user?.id}`,
+      endpoint: `usersPhrases/favorites/${user?.id}`,
     },
     [state.phrasesToShow]
   );
@@ -115,11 +115,14 @@ export default function Phrases() {
           const foundFavoritePhrases = usersFavoritePhrases.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );
+
           return (
             <PhraseItem
               key={item.phrase_id}
               phraseToShow={item}
               isFavorite={!!foundFavoritePhrases?.is_favorite}
+              isLiked={!!foundFavoritePhrases?.is_liked}
+              usersPhrasesId={foundFavoritePhrases?.id}
             />
           );
         })}

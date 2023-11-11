@@ -59,7 +59,7 @@ create table
         id int primary key auto_increment NOT NULL,
         user_id int,
         phrase_id int,
-        is_liked TINYINT,
+        is_liked TINYINT default 0,
         is_favorite TINYINT default 0,
         FOREIGN KEY(user_id) REFERENCES users(id),
         FOREIGN KEY(phrase_id) REFERENCES phrases(id)
@@ -361,7 +361,8 @@ VALUES
   (4, 5, 0, 1), 
   (7, 2, 1, 1), 
   (7, 3, 1, 0), 
-  (7, 4, 0, 1);
+  (7, 4, 1, 0), 
+  (7, 5, 1, 1);
 
 INSERT INTO
     events_phrases (event_id, phrase_id)

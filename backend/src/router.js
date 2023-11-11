@@ -39,11 +39,14 @@ router.post(
 );
 //* Users_Phrases
 router.get(
-  "/usersphrases/favorites/:id",
+  "/usersPhrases/favorites/:id",
   userPhraseControllers.readFavoritePhrases
 );
 // router.put("/usersphrases/likes/:id", userPhraseControllers.editLikes);
-// router.put("/usersphrases/favorites/:id", userPhraseControllers.editFavorites);
+router.post(
+  "/usersPhrases/:userId/favorites/:phraseId",
+  userPhraseControllers.replace
+);
 
 //* Phrases
 router.get("/phrases", phraseControllers.browse);
