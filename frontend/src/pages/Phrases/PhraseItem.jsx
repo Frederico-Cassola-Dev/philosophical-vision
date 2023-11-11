@@ -27,51 +27,7 @@ export default function PhraseItem({
     phraseId: "",
   });
 
-  // useEffect(() => {
-  //   if (like.phraseId && like.isLiked) {
-  //     axios
-  //       .put(
-  //         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likes/${
-  //           like.phraseId
-  //         }`,
-  //         {
-  //           phrase: phraseToShow.phrase,
-  //           likes: phraseToShow.likes + 1,
-  //           // is_favorite: phraseToShow.is_favorite,
-  //           author_id: phraseToShow.author_id,
-  //         }
-  //       )
-  //       .catch((err) => console.error(err));
-  //     axios
-  //       .put(
-  //         `${import.meta.env.VITE_BACKEND_URL}/api/users/phrases/${
-  //           like.phraseId
-  //         }`,
-  //         {
-  //           phrase: phraseToShow.phrase,
-  //           likes: phraseToShow.likes + 1,
-  //           // is_favorite: phraseToShow.is_favorite,
-  //           author_id: phraseToShow.author_id,
-  //         }
-  //       )
-  //       .catch((err) => console.error(err));
-  //   } else if (like.phraseId && !like.isLiked) {
-  //     axios
-  //       .put(
-  //         `${import.meta.env.VITE_BACKEND_URL}/api/phrases/likes/${
-  //           like.phraseId
-  //         }`,
-  //         {
-  //           phrase: phraseToShow?.phrase,
-  //           likes: phraseToShow?.likes,
-  //           // is_favorite: phraseToShow?.is_favorite,
-  //           author_id: phraseToShow?.author_id,
-  //         }
-  //       )
-  //       .then((response) => console.info(response))
-  //       .catch((err) => console.error(err));
-  //   }
-  // }, [like.isLiked]);
+  const [newUsersPhrasesId, setNewUsersPhrasesId] = useState(usersPhrasesId);
 
   useEffect(() => {
     if (favorite.phraseId || like.phraseId) {
@@ -79,14 +35,17 @@ export default function PhraseItem({
         .post(
           `${import.meta.env.VITE_BACKEND_URL}/api/usersPhrases/${
             user?.id
-          }/favorites/${favorite.phraseId || like.phraseId}`,
+          }/favoriteOrLiked/${favorite.phraseId || like.phraseId}`,
           {
-            usersPhrasesId,
+            usersPhrasesId: newUsersPhrasesId,
             isFavorite: !!favorite.isFavorite,
             isLiked: !!like.isLiked,
           }
         )
-        .then((response) => console.info(response))
+        .then((response) => {
+          console.info(response);
+          setNewUsersPhrasesId(response.data.insertId);
+        })
         .catch((err) => console.error(err));
     }
   }, [favorite.isFavorite, like.isLiked]);

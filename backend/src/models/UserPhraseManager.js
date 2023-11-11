@@ -43,22 +43,7 @@ class UserPhraseManager extends AbstractManager {
     return rows;
   }
 
-  async updateFavoritePhrases(userPhrase) {
-    // console.log("🚀 - userPhrase:", userPhrase);
-
-    const [rows] = await this.database.query(
-      `
-        UPDATE ${this.table}
-        SET
-          is_favorite = ?
-        WHERE phrase_id = ? AND user_id = ?
-      `,
-      [userPhrase.isFavorite, userPhrase.phraseId, userPhrase.userId]
-    );
-    return rows;
-  }
-
-  async replaceFavoritePhrases(userPhrase) {
+  async replaceFavoriteOrLikedPhrases(userPhrase) {
     const [rows] = await this.database.query(
       `
         REPLACE

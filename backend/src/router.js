@@ -42,10 +42,9 @@ router.get(
   "/usersPhrases/favorites/:id",
   userPhraseControllers.readFavoritePhrases
 );
-// router.put("/usersphrases/likes/:id", userPhraseControllers.editLikes);
 router.post(
-  "/usersPhrases/:userId/favorites/:phraseId",
-  userPhraseControllers.replace
+  "/usersPhrases/:userId/favoriteOrLiked/:phraseId",
+  userPhraseControllers.replaceFavoriteOrLikedPhrases
 );
 
 //* Phrases
