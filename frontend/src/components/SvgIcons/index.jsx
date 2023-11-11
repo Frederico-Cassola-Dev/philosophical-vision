@@ -28,7 +28,7 @@ export function IconStar({ alreadyFavorite }) {
     if (alreadyFavorite) {
       setFill(true);
     }
-  }, []);
+  }, [alreadyFavorite]);
 
   return (
     <svg

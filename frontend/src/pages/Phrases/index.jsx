@@ -2,6 +2,7 @@ import { useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import userContext from "../../contexts/userContext";
 import SearchSelectModal from "../../components/SearchSelectModal";
 import phrasesReducer, {
   OPEN_MODAL,
@@ -11,24 +12,26 @@ import phrasesReducer, {
   initialState,
 } from "./utils/phrases-reducer";
 import PhraseItem from "./PhraseItem";
-import userContext from "../../contexts/userContext";
 
 import style from "./phrases.module.scss";
 
+// TODO - verify if no access navigate for the page error or unauthorize access
+// TODO - Test this function logout if it's useful for this step
 export default function Phrases() {
-  const { setUser, setToken } = useContext(userContext);
+  const { user, setUser, setToken } = useContext(userContext);
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
-  // console.log("🚀 - state.phrasesToShow:", state.phrasesToShow)
-
   const navigate = useNavigate();
-
+  const usersFavoritePhrases = useAxios(
+    {
+      method: "get",
+      endpoint: `users/favoritesphrases/${user?.id}`,
+    },
+    [state.phrasesToShow]
+  );
   const categoriesData = useAxios({
     method: "get",
     endpoint: "categories",
   });
-
-  // TODO - verify if no access navigate for the page error or unauthorize access
-  // TODO - Test this function logout if it's useful for this step
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -107,7 +110,16 @@ export default function Phrases() {
       </div>
       <div className={style.visionsContainer}>
         {state.phrasesToShow?.map((item) => {
-          return <PhraseItem key={item.phrase_id} phraseToShow={item} />;
+          const foundFavoritePhrases = usersFavoritePhrases.response?.find(
+            (phrase) => item.phrase_id === phrase.phrase_id
+          );
+          return (
+            <PhraseItem
+              key={item.phrase_id}
+              phraseToShow={item}
+              isFavorite={!!foundFavoritePhrases?.is_favorite}
+            />
+          );
         })}
       </div>
     </div>
