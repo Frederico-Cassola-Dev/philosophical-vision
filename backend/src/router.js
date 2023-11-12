@@ -42,6 +42,7 @@ router.get(
   "/usersPhrases/favorites/:id",
   userPhraseControllers.readFavoritePhrases
 );
+router.get("/usersPhrases/totalLikes", userPhraseControllers.sumTotalLikes);
 router.post(
   "/usersPhrases/:userId/favoriteOrLiked/:phraseId",
   userPhraseControllers.replaceFavoriteOrLikedPhrases

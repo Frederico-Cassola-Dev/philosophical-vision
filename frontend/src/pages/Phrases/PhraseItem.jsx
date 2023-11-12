@@ -15,19 +15,22 @@ export default function PhraseItem({
   isFavorite,
   isLiked,
   usersPhrasesId,
+  totalLikes,
 }) {
+  // console.log("🚀 - totalLikes:", totalLikes);
+
   const { user } = useContext(userContext);
   const [like, setLike] = useState({
     isLiked,
     phraseId: "",
   });
-
   const [favorite, setFavorite] = useState({
     isFavorite,
     phraseId: "",
   });
-
   const [newUsersPhrasesId, setNewUsersPhrasesId] = useState(usersPhrasesId);
+  const [likesToShow, setLikesToShow] = useState(totalLikes);
+  // console.log("🚀 - likesToShow:", likesToShow);
 
   useEffect(() => {
     if (favorite.phraseId || like.phraseId) {
@@ -56,19 +59,29 @@ export default function PhraseItem({
       <div className={style.reactionsAndAutorContainer}>
         <span className={style.author}>Auteur: {phraseToShow.author}</span>
         <span className={style.totalLikes}>
-          {like.isLiked && like.phraseId === phraseToShow.phrase_id
-            ? phraseToShow.likes + 1
-            : phraseToShow.likes}
+          {/* {isLiked && like.phraseId === phraseToShow.phrase_id
+            ? totalLikes
+            : Number(totalLikes) + 1} */}
+          {/* {isLiked && like.phraseId === phraseToShow.phrase_id
+            ? Number(totalLikes) - 1
+            : Number(totalLikes) + 1 || 0} */}
+          {/* {totalLikes || 0} */}
+          {likesToShow || 0}
         </span>
         <button
           type="button"
           className={style.likeButton}
-          onClick={() =>
+          onClick={() => {
             setLike({
               isLiked: !like.isLiked,
               phraseId: phraseToShow.phrase_id,
-            })
-          }
+            });
+            if (like.isLiked) {
+              setLikesToShow(() => likesToShow - 1);
+            } else {
+              setLikesToShow(() => likesToShow + 1);
+            }
+          }}
         >
           <IconHeart alreadyLiked={isLiked} />
         </button>
@@ -93,15 +106,16 @@ PhraseItem.propTypes = {
   phraseToShow: PropTypes.shape({
     phrase_id: PropTypes.number.isRequired,
     phrase: PropTypes.string.isRequired,
-    likes: PropTypes.number.isRequired,
     author_id: PropTypes.number.isRequired,
     author: PropTypes.string.isRequired,
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   isLiked: PropTypes.bool.isRequired,
   usersPhrasesId: PropTypes.number,
+  totalLikes: PropTypes.number,
 };
 
 PhraseItem.defaultProps = {
   usersPhrasesId: 0,
+  totalLikes: 0,
 };

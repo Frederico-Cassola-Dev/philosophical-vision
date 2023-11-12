@@ -61,6 +61,19 @@ class UserPhraseManager extends AbstractManager {
     );
     return rows;
   }
+
+  async sumTotalLikes() {
+    const [rows] = await this.database.query(
+      `
+        select phrase_id,
+        sum(case is_liked when true then 1 else 0 end) as total_likes
+        from ${this.table}
+        group by phrase_id;
+      `
+    );
+
+    return rows;
+  }
 }
 
 module.exports = UserPhraseManager;

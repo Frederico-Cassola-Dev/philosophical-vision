@@ -19,7 +19,6 @@ class PhraseManager extends AbstractManager {
       `select
         p.id,
         phrase,
-        likes,
         author_id,
         a.known_name as author,
         ep.event_id, 
@@ -40,7 +39,6 @@ class PhraseManager extends AbstractManager {
       `select 
         p.id,
         phrase,
-        likes,
         author_id,
         a.known_name as author,
         group_concat( e.title SEPARATOR ', ') event_title
@@ -64,7 +62,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByRandomEvent() {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, ep.event_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, ep.event_id, e.title event_title FROM ${this.table} p
         inner join events_phrases ep on ep.phrase_id = p.id
         inner join events e on e.id = ep.event_id
         order by rand()
@@ -76,7 +74,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.author_id, ep.event_id, e.title event_title, a.known_name as author FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.author_id, ep.event_id, e.title event_title, a.known_name as author FROM ${this.table} p
         inner join events_phrases ep on ep.phrase_id = p.id
         inner join events e on e.id = ep.event_id
         inner join authors as a on a.id = p.author_id
@@ -126,15 +124,13 @@ class PhraseManager extends AbstractManager {
             CASE ${updateQuery}
               END, 
           p.phrase = ?, 
-          p.author_id = ?,
-          p.likes = ?
+          p.author_id = ?
         WHERE ep.phrase_id = ?;
   `;
 
       const [rows] = await this.database.query(queryToUpdate, [
         phrase.phrase,
         phrase.author_id,
-        phrase.likes,
         phrase.phraseId,
       ]);
 
@@ -173,10 +169,9 @@ class PhraseManager extends AbstractManager {
           SET
             phrase = ?, 
             author_id = ?,
-            likes = ?
           WHERE id = ?
     `,
-        [phrase.phrase, phrase.author_id, phrase.likes, phrase.phraseId]
+        [phrase.phrase, phrase.author_id, phrase.phraseId]
       );
 
       return [insertResult.insertId, updateRows];
@@ -207,11 +202,10 @@ class PhraseManager extends AbstractManager {
       `UPDATE  ${this.table}
         SET
           phrase = ?, 
-          author_id = ?, 
-          likes = ?
+          author_id = ?
         WHERE id = ?
   `,
-      [phrase.phrase, phrase.author_id, phrase.likes, phrase.phraseId]
+      [phrase.phrase, phrase.author_id, phrase.phraseId]
     );
 
     return [rows, updateRows];
@@ -220,8 +214,8 @@ class PhraseManager extends AbstractManager {
   async updateLikes(phrase) {
     const [rows] = await this.database.query(
       `update ${this.table} 
-      set phrase = ?, likes = ?, author_id = ? where id = ?`,
-      [phrase.phrase, phrase.likes, phrase.author_id, phrase.phraseId]
+      set phrase = ?, author_id = ? where id = ?`,
+      [phrase.phrase, phrase.author_id, phrase.phraseId]
     );
     return rows;
   }

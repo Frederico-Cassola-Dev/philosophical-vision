@@ -128,6 +128,15 @@ const editFavoritePhrases = async (req, res, next) => {
   }
 };
 
+const sumTotalLikes = async (req, res, next) => {
+  try {
+    const totalLikes = await tables.users_phrases.sumTotalLikes();
+    res.json(totalLikes);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
@@ -137,4 +146,5 @@ module.exports = {
   editFavoritePhrases,
   replaceFavoriteOrLikedPhrases,
   replaceLikedPhrases,
+  sumTotalLikes,
 };

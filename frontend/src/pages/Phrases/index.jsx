@@ -29,6 +29,14 @@ export default function Phrases() {
     [state.phrasesToShow]
   );
 
+  const totalLikes = useAxios(
+    {
+      method: "get",
+      endpoint: "usersPhrases/totalLikes",
+    },
+    [state.phrasesToShow]
+  );
+
   const categoriesData = useAxios({
     method: "get",
     endpoint: "categories",
@@ -115,6 +123,9 @@ export default function Phrases() {
           const foundFavoritePhrases = usersFavoritePhrases.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );
+          const foundTotalLikes = totalLikes.response?.find(
+            (phrase) => item.phrase_id === phrase.phrase_id
+          );
 
           return (
             <PhraseItem
@@ -123,6 +134,7 @@ export default function Phrases() {
               isFavorite={!!foundFavoritePhrases?.is_favorite}
               isLiked={!!foundFavoritePhrases?.is_liked}
               usersPhrasesId={foundFavoritePhrases?.id}
+              totalLikes={Number(foundTotalLikes?.total_likes)}
             />
           );
         })}
