@@ -1,6 +1,7 @@
 export const SIGN_UP_UPDATE_FIRST_NAME = "signUp/updateFirstName";
 export const SIGN_UP_UPDATE_LAST_NAME = "signUp/updateLastName";
 export const SIGN_UP_UPDATE_EMAIL = "signUp/updateEmail";
+export const SIGN_UP_UPDATE_EMAIL_MESSAGE = "signUp/updateEmailMessage";
 export const SIGN_UP_UPDATE_PASSWORD = "signUp/updatePassword";
 export const SIGN_UP_UPDATE_CONFIRM_PASSWORD = "signUp/updateConfirmPassword";
 export const SIGN_UP_UPDATE_PASSWORDS_MATCH = "signUp/updatePasswordsMatch";
@@ -9,6 +10,7 @@ export const signUpInitialState = {
   firstName: "",
   lastName: "",
   email: "",
+  emailMessage: "",
   password: "",
   confirmPassword: "",
   passwordsMatch: false,
@@ -35,6 +37,14 @@ export default function signUpFormReducer(state, action) {
       return {
         ...state,
         email,
+      };
+    }
+    case SIGN_UP_UPDATE_EMAIL_MESSAGE: {
+      const { emailMessage } = action.payload;
+
+      return {
+        ...state,
+        emailMessage,
       };
     }
     case SIGN_UP_UPDATE_PASSWORD: {

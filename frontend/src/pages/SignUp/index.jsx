@@ -5,6 +5,7 @@ import signUpFormReducer, {
   SIGN_UP_UPDATE_FIRST_NAME,
   SIGN_UP_UPDATE_LAST_NAME,
   SIGN_UP_UPDATE_EMAIL,
+  SIGN_UP_UPDATE_EMAIL_MESSAGE,
   SIGN_UP_UPDATE_PASSWORD,
   SIGN_UP_UPDATE_CONFIRM_PASSWORD,
   SIGN_UP_UPDATE_PASSWORDS_MATCH,
@@ -44,14 +45,18 @@ export default function SignUp() {
           password: newUserData.password,
         })
         .then((response) => {
-          console.info(response.statusText);
           if (response.status === 201) {
             navigate("/signIn");
           }
         })
-        .catch((err) => console.error(err));
-    } else {
-      console.info("Form not validated");
+        .catch((err) => {
+          if (err.response.status === 409) {
+            dispatchForm({
+              type: SIGN_UP_UPDATE_EMAIL_MESSAGE,
+              payload: { emailMessage: err.response.data.message },
+            });
+          }
+        });
     }
   };
 
@@ -145,19 +150,23 @@ export default function SignUp() {
             name="email"
             id="email"
             className={
-              newUserValidatorState.emailError
+              newUserValidatorState.emailError || newUserState.emailMessage
                 ? style.errorInput
                 : style.inputEmail
             }
             required
             autoComplete="email"
             value={newUserState.email}
-            onChange={(e) =>
+            onChange={(e) => {
               dispatchForm({
                 type: SIGN_UP_UPDATE_EMAIL,
                 payload: { email: e.target.value },
-              })
-            }
+              });
+              dispatchForm({
+                type: SIGN_UP_UPDATE_EMAIL_MESSAGE,
+                payload: { emailMessage: "" },
+              });
+            }}
             onBlur={() =>
               dispatchValidatorForm({
                 type: SIGN_UP_VALIDATE_EMAIL,
@@ -167,12 +176,14 @@ export default function SignUp() {
           />
           <span
             className={
-              newUserValidatorState.emailError
+              newUserValidatorState.emailError || newUserState.emailMessage
                 ? style.inputValidationMessage
                 : style.inputValidationHidden
             }
           >
-            Le insérez un email correct
+            {newUserState.emailMessage
+              ? newUserState.emailMessage
+              : "Le insérez un email correct"}
           </span>
         </label>
         <label htmlFor="password" className={style.labelPassword1}>
