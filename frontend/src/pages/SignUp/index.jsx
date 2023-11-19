@@ -4,17 +4,19 @@ import axios from "axios";
 import signUpFormReducer, {
   SIGN_UP_UPDATE_FIRST_NAME,
   SIGN_UP_UPDATE_LAST_NAME,
-  SIGN_UP_UPDATE_EMAIL_NAME,
-  SIGN_UP_UPDATE_PASSWORD_NAME,
-  SIGN_UP_UPDATE_SECOND_PASSWORD,
+  SIGN_UP_UPDATE_EMAIL,
+  SIGN_UP_UPDATE_PASSWORD,
+  SIGN_UP_UPDATE_CONFIRM_PASSWORD,
+  SIGN_UP_UPDATE_PASSWORDS_MATCH,
   signUpInitialState,
 } from "./utils/signUp-form-reducer";
 import signUpFormValidatorReducer, {
   SIGN_UP_VALIDATE_FIRST_NAME,
   SIGN_UP_VALIDATE_LAST_NAME,
-  SIGN_UP_VALIDATE_EMAIL_NAME,
-  SIGN_UP_VALIDATE_PASSWORD_NAME,
-  SIGN_UP_VALIDATE_SECOND_PASSWORD,
+  SIGN_UP_VALIDATE_EMAIL,
+  SIGN_UP_VALIDATE_PASSWORD,
+  SIGN_UP_VALIDATE_CONFIRM_PASSWORD,
+  SIGN_UP_VALIDATE_PASSWORD_MATCH,
   signUpInitialValidatorState,
 } from "./utils/signUp-form-validator-reducer";
 
@@ -42,7 +44,7 @@ export default function SignUp() {
           password: newUserData.password,
         })
         .then((response) => {
-          console.info(response);
+          console.info(response.statusText);
           if (response.status === 201) {
             navigate("/signIn");
           }
@@ -74,6 +76,7 @@ export default function SignUp() {
                 : style.inputLastName
             }
             required
+            autoComplete="family-name"
             value={newUserState.lastName}
             onChange={(e) =>
               dispatchForm({
@@ -88,6 +91,15 @@ export default function SignUp() {
               })
             }
           />
+          <span
+            className={
+              newUserValidatorState.lastNameError
+                ? style.inputValidationMessage
+                : style.inputValidationHidden
+            }
+          >
+            Le nom ne doit pas avoir d'espaces
+          </span>
         </label>
         <label htmlFor="firstName" className={style.labelFirstName}>
           Prénom
@@ -100,6 +112,7 @@ export default function SignUp() {
                 ? style.errorInput
                 : style.inputFirstName
             }
+            autoComplete="given-name"
             required
             value={newUserState.firstName}
             onChange={(e) =>
@@ -115,6 +128,15 @@ export default function SignUp() {
               })
             }
           />
+          <span
+            className={
+              newUserValidatorState.firstNameError
+                ? style.inputValidationMessage
+                : style.inputValidationHidden
+            }
+          >
+            Le prénom ne doit pas avoir d'espaces
+          </span>
         </label>
         <label htmlFor="email" className={style.labelEmail}>
           E-mail
@@ -128,20 +150,30 @@ export default function SignUp() {
                 : style.inputEmail
             }
             required
+            autoComplete="email"
             value={newUserState.email}
             onChange={(e) =>
               dispatchForm({
-                type: SIGN_UP_UPDATE_EMAIL_NAME,
+                type: SIGN_UP_UPDATE_EMAIL,
                 payload: { email: e.target.value },
               })
             }
             onBlur={() =>
               dispatchValidatorForm({
-                type: SIGN_UP_VALIDATE_EMAIL_NAME,
+                type: SIGN_UP_VALIDATE_EMAIL,
                 payload: newUserState,
               })
             }
           />
+          <span
+            className={
+              newUserValidatorState.emailError
+                ? style.inputValidationMessage
+                : style.inputValidationHidden
+            }
+          >
+            Le insérez un email correct
+          </span>
         </label>
         <label htmlFor="password" className={style.labelPassword1}>
           Mot de passe
@@ -152,50 +184,91 @@ export default function SignUp() {
             className={
               newUserValidatorState.passwordError
                 ? style.errorInput
-                : style.inputPassword1
+                : style.inputPassword
             }
             required
             value={newUserState.password}
-            onChange={(e) =>
+            onChange={(e) => {
               dispatchForm({
-                type: SIGN_UP_UPDATE_PASSWORD_NAME,
+                type: SIGN_UP_UPDATE_PASSWORD,
                 payload: { password: e.target.value },
-              })
-            }
-            onBlur={() =>
+              });
+              dispatchForm({
+                type: SIGN_UP_UPDATE_PASSWORDS_MATCH,
+                payload: {
+                  passwordsMatch: !!(
+                    newUserState.confirmPassword === e.target.value
+                  ),
+                },
+              });
+            }}
+            onBlur={() => {
               dispatchValidatorForm({
-                type: SIGN_UP_VALIDATE_PASSWORD_NAME,
+                type: SIGN_UP_VALIDATE_PASSWORD,
                 payload: newUserState,
-              })
-            }
+              });
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_PASSWORD_MATCH,
+                payload: newUserState,
+              });
+            }}
           />
+          <span
+            className={
+              newUserValidatorState.passwordError
+                ? style.inputValidationMessage
+                : style.inputPasswordValidationHidden
+            }
+          >
+            Le mot de passe doit contenir ou minimum 8 caracteres, une lettre
+            majuscule, une lettre minuscule, un chifre et un caractère spécial
+          </span>
         </label>
-        <label htmlFor="secondPassword" className={style.labelPassword2}>
-          Mot de passe
+        <label htmlFor="confirmPassword" className={style.labelConfirmPassword}>
+          Confirmation du mot de passe
           <input
             type="password"
-            name="secondPassword"
-            id="secondPassword"
+            name="confirmPassword"
+            id="confirmPassword"
             className={
-              newUserValidatorState.secondPasswordError
+              newUserValidatorState.confirmPasswordError
                 ? style.errorInput
-                : style.inputSecondPassword
+                : style.inputConfirmPassword
             }
             required
-            value={newUserState.secondPassword}
-            onChange={(e) =>
+            value={newUserState.confirmPassword}
+            onChange={(e) => {
               dispatchForm({
-                type: SIGN_UP_UPDATE_SECOND_PASSWORD,
-                payload: { secondPassword: e.target.value },
-              })
-            }
-            onBlur={() =>
+                type: SIGN_UP_UPDATE_CONFIRM_PASSWORD,
+                payload: { confirmPassword: e.target.value },
+              });
+              dispatchForm({
+                type: SIGN_UP_UPDATE_PASSWORDS_MATCH,
+                payload: {
+                  passwordsMatch: !!(newUserState.password === e.target.value),
+                },
+              });
+            }}
+            onBlur={() => {
               dispatchValidatorForm({
-                type: SIGN_UP_VALIDATE_SECOND_PASSWORD,
+                type: SIGN_UP_VALIDATE_CONFIRM_PASSWORD,
                 payload: newUserState,
-              })
-            }
+              });
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_PASSWORD_MATCH,
+                payload: newUserState,
+              });
+            }}
           />
+          <span
+            className={
+              newUserValidatorState.passwordsMatch
+                ? style.inputValidationMessage
+                : style.inputValidationHidden
+            }
+          >
+            Le mot de passe doit égale
+          </span>
         </label>
         <div className={style.submitButtonContainer}>
           <button type="submit">Submit</button>

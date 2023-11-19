@@ -26,7 +26,7 @@
       align-items: flex-start;
       flex-direction: column;
       width: 100%;
-      margin-top: $space-m;
+      margin-top: $space-2xs;
 
       .errorInput {
         outline: 2px solid red;
@@ -49,8 +49,17 @@
         color: $border-color-active;
       }
 
-      .inputAvatar {
-        width: 50vw;
+      .inputValidationMessage {
+        text-align: center;
+        font-weight: $font-weight-normal;
+      }
+
+      .inputValidationHidden {
+        visibility: hidden;
+      }
+      
+      .inputPasswordValidationHidden {
+        display: none;
       }
     }
 
