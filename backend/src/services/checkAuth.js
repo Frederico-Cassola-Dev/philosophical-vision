@@ -1,5 +1,34 @@
+const Joi = require("joi");
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
+
+const registrationSchema = () => {
+  return Joi.object({
+    firstName: Joi.string().min(1).required(),
+    lastName: Joi.string().min(1).required(),
+    email: Joi.string().email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "fr", "pt"] },
+    }),
+    password: Joi.string()
+      .pattern(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{9,}$/
+      )
+      .required(),
+  });
+};
+
+const checkUserData = (req, res, next) => {
+  const { error } = registrationSchema("required").validate(req.body, {
+    abortEarly: false,
+  });
+
+  if (error) {
+    res.status(400).json({ message: "Invalid user" });
+  } else {
+    next();
+  }
+};
 
 const hashingOptions = {
   type: argon2.argon2id,
@@ -59,7 +88,6 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
-  // console.log(req.cookies);
   if (req.cookies) {
     jwt.verify(
       req.cookies.user_token,
@@ -99,6 +127,7 @@ const verifyToModifyPassword = (req, res) => {
 };
 
 module.exports = {
+  checkUserData,
   hashPassword,
   verifyPassword,
   verifyToken,

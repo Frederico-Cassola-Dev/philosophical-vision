@@ -12,6 +12,7 @@ const eventPhraseControllers = require("./controllers/eventPhraseControllers");
 const periodControllers = require("./controllers/periodControllers");
 
 const {
+  checkUserData,
   hashPassword,
   verifyPassword,
   verifyToken,
@@ -20,7 +21,7 @@ const {
 
 //* OPEN ROUTES
 router.post("/login", userControllers.readByEmail, verifyPassword);
-router.post("/users", hashPassword, userControllers.add);
+router.post("/users", checkUserData, hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
 //*---------------------------
