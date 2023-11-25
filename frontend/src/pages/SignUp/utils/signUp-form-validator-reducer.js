@@ -79,7 +79,7 @@ export default function signUpFormValidatorReducer(state, action) {
     }
     case SIGN_UP_VALIDATE_PASSWORD: {
       const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{9,}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/;
 
       isValid = passwordRegex.test(action.payload.password);
       return {
