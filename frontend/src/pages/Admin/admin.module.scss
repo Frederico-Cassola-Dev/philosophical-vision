@@ -1,18 +1,16 @@
 @import " ../../../../scss/variables";
 
 .admin {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  height: calc(100vh - 16.1vh);
+  height: 78.8vh;
   font-family: $primary-font;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
+  flex-grow: 1;
 
   .adminTitle {
     margin-top: $space-l;
     font-size: $font-size-3xl;
+    text-align: center;
   }
 
   .tablesDBButtons {
@@ -99,6 +97,7 @@
           color: $color-text-hover;
         }
       }
+      
       .addAuthorBtnDescription {
         font-family: $primary-font;
         font-size: $font-size-l;
