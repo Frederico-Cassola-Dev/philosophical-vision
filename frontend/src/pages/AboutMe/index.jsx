@@ -14,26 +14,32 @@ export default function AboutMe() {
         </h1>
       </div>
       <div className={style.imgAndDescriptionContainer}>
-        <div className={style.aboutMeDescription}>
-          <p className={style.descriptionText}>
+        <div className={style.aboutMeDescriptionWithImage}>
+          <p className={style.descriptionText1}>
             Je suis un amoureux de la sagesse et la signification étymologique
             du mot philosophie est "L'amour de la sagesse".
-            <br />
+          </p>
+          <div className={style.imgContainer}>
+            <img src={aboutMePhoto} alt="" />
+          </div>
+        </div>
+        <div className={style.aboutMeDescription}>
+          <p className={style.descriptionText2}>
             La pratique de la philosophie est connue sous le nom de "L'Art de
-            Vivre" et avec cette application, je peux aider tout le monde à
-            appliquer certaines connaissances dans nos comportements et pensées
-            à partir de différentes visions philosophiques.
-            <br />
-            Je suis un développeur web full-stack en JavaScript avec un amour
-            pour la philosophie.
-            <br />
+            Vivre" et cette application a l'objectif de pouvoir aider le plus
+            grand nombre de personnes à appliquer les connaissances
+            philosophiques dans nos comportements et pensées à partir de
+            différentes visions associés aux événements quotidiennes de la vie.
+          </p>
+          <p className={style.descriptionText3}>
+            En tant que développeur web full-stack spécialisé en JavaScript,
+            React, Node JS et MySQL, je fusionne ma passion pour la
+            programmation avec mon amour pour la philosophie.
+          </p>
+          <p className={style.descriptionText4}>
             En assemblant mes deux amours, il a été possible de partager une
             certaine sagesse philosophique qui peut aider la vie de chacun.
-            <br />
           </p>
-        </div>
-        <div className={style.imgContainer}>
-          <img src={aboutMePhoto} alt="" />
         </div>
       </div>
     </div>

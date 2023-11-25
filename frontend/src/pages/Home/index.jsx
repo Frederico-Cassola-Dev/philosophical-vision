@@ -14,7 +14,7 @@ export default function Home() {
       <main className={style.main}>
         <div className={style.titleContainer}>
           <h1 className={style.title}>
-            <img src={singleLogoLittle} alt="logo" />
+            <img src={singleLogoLittle} width="84" height="48" alt="logo" />
             Vision
             <span className={style.subTitle}>Philosophique</span>
           </h1>

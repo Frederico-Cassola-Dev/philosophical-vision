@@ -5,7 +5,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 83.9vh;
+  height: calc(100vh - 9.6rem);
   font-family: $primary-font;
   color: $color-text-primary;
   background-color: $color-background-primary;
@@ -22,28 +22,47 @@
 
   .imgAndDescriptionContainer {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
-    margin-top: $space-xl;
+    flex-direction: column;
+    padding-top: $space-xl;
+    width: 90vw;
+    height: 100%;
+    gap: $space-s;
 
-    .aboutMeDescription {
-      width: 40%;
-
-      .descriptionText {
-        font-size: $font-size-l;
-      }
-    }
-
-    .imgContainer {
+    .aboutMeDescriptionWithImage {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      width: 100px;
-      height: 100%;
+      align-items: space-between;
+      font-size: $font-size-l;
+      font-weight: $font-weight-bold;
 
-      img {
-        border-radius: $border-radius-round;
+      .descriptionText1 {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 70%;
       }
+      .imgContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 30%;
+
+        img {
+          border-radius: $border-radius-round;
+        }
+      }
+    }
+    .aboutMeDescription {
+      display: flex;
+      justify-content: center;
+      align-items: space-between;
+      flex-direction: column;
+      gap: $space-s;
+      font-size: $font-size-l;
+      font-weight: $font-weight-bold;
+      width: 90vw;
     }
   }
 }
