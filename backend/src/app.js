@@ -2,13 +2,11 @@
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const compression = require("compression");
 
 const app = express();
 const cors = require("cors");
 const router = require("./router");
 
-app.use(compression());
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL, "http://127.0.0.1:3000"],
@@ -16,7 +14,6 @@ app.use(
     credentials: true,
   })
 );
-
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", router);
