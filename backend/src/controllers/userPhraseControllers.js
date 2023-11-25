@@ -137,6 +137,23 @@ const sumTotalLikes = async (req, res, next) => {
   }
 };
 
+const sumTotalLikesByPhraseId = async (req, res, next) => {
+  try {
+    const totalLikesByPhraseId =
+      await tables.users_phrases.sumTotalLikesByPhraseId(req.params.id);
+
+    if (totalLikesByPhraseId == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(...totalLikesByPhraseId);
+
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
@@ -147,4 +164,5 @@ module.exports = {
   replaceFavoriteOrLikedPhrases,
   replaceLikedPhrases,
   sumTotalLikes,
+  sumTotalLikesByPhraseId,
 };

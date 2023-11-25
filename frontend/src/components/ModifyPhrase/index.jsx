@@ -17,6 +17,13 @@ const getSelectedPhraseAuthorAndEvent = (
     },
     dependenciesToUpdateTable
   );
+  const selectedTotalLikesPhraseData = useAxios(
+    {
+      method: "get",
+      endpoint: `usersPhrases/totalLikes/${selectedPhraseId}`,
+    },
+    dependenciesToUpdateTable
+  );
 
   const authorsData = useAxios(
     {
@@ -34,7 +41,12 @@ const getSelectedPhraseAuthorAndEvent = (
     dependenciesToUpdateTable
   );
 
-  return { selectedPhraseData, authorsData, eventsData };
+  return {
+    selectedPhraseData,
+    authorsData,
+    eventsData,
+    selectedTotalLikesPhraseData,
+  };
 };
 
 const eventsNotAlreadySelectedInSelectedPhrase = (
@@ -53,11 +65,15 @@ export default function ModifyPhrase({
   setModifyPhrase,
   updateTable,
 }) {
-  const { selectedPhraseData, authorsData, eventsData } =
-    getSelectedPhraseAuthorAndEvent(selectedPhraseId, [
-      selectedPhraseId,
-      updateTable,
-    ]);
+  const {
+    selectedPhraseData,
+    authorsData,
+    eventsData,
+    selectedTotalLikesPhraseData,
+  } = getSelectedPhraseAuthorAndEvent(selectedPhraseId, [
+    selectedPhraseId,
+    updateTable,
+  ]);
 
   const [modifiedPhrase, setModifiedPhrase] = useState("");
   const [modifiedAuthor, setModifiedAuthor] = useState("");
@@ -69,7 +85,7 @@ export default function ModifyPhrase({
     setEventsListIdToModify(selectedPhraseData?.response?.events_id);
   }, [selectedPhraseId, selectedPhraseData?.response]);
 
-  // TODO - Bug when scrolling table in the top of the tableBody - CSS.
+  // TODO - Bug when scrolling table in the top of the tableBody - CSS - DONE.
   // TODO - Delete event on formData obj - DONE.
   // TODO - PUT events array from formData obj - DONE.
   // TODO - PUT phrase from formData obj. - DONE
@@ -85,7 +101,9 @@ export default function ModifyPhrase({
       author_id: modifiedAuthor || selectedPhraseData?.response?.author_id,
       events:
         eventsListIdToModify || selectedPhraseData?.response?.events_titles,
-      likes: modifiedLikes ? 0 : selectedPhraseData?.response?.likes,
+      likes: modifiedLikes
+        ? 0
+        : selectedTotalLikesPhraseData?.response?.total_likes,
     };
 
     axios
@@ -219,7 +237,10 @@ export default function ModifyPhrase({
         </div>
         <label htmlFor="likes" className={style.labelLikes}>
           Totale likes :{" "}
-          {modifiedLikes ? 0 : selectedPhraseData?.response?.likes} - Reset
+          {modifiedLikes
+            ? 0
+            : selectedTotalLikesPhraseData?.response?.total_likes || 0}
+          - Reset
           <input
             type="checkbox"
             name="likes"

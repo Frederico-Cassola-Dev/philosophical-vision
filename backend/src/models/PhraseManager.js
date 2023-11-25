@@ -168,7 +168,7 @@ class PhraseManager extends AbstractManager {
         `UPDATE  ${this.table}
           SET
             phrase = ?, 
-            author_id = ?,
+            author_id = ?
           WHERE id = ?
     `,
         [phrase.phrase, phrase.author_id, phrase.phraseId]
