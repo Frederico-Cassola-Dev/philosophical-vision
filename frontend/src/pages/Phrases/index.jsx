@@ -97,6 +97,7 @@ export default function Phrases() {
           placeholder="Événement"
         />
         <select
+          aria-label="categories"
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
             dispatch({

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export function EmailIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.gmail.com">
+    <Link to="https://www.gmail.com" aria-label="GMail">
       <svg
         type="button"
         xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ export function EmailIconLink({ size, color, classStyle }) {
 
 export function FacebookIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.facebook.com">
+    <Link to="https://www.facebook.com" aria-label="Facebook">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -49,7 +49,7 @@ export function FacebookIconLink({ size, color, classStyle }) {
 
 export function GitHubIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.github.com">
+    <Link to="https://www.github.com" aria-label="GitHub">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -71,7 +71,7 @@ export function GitHubIconLink({ size, color, classStyle }) {
 
 export function InstagramIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.instagram.com">
+    <Link to="https://www.instagram.com" aria-label="Instagram">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -95,7 +95,7 @@ export function InstagramIconLink({ size, color, classStyle }) {
 
 export function LinkedInIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.linkedin.com">
+    <Link to="https://www.linkedin.com" aria-label="LinkedIn">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}

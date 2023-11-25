@@ -66,6 +66,8 @@ export default function PhraseItem({
           {likesToShow || 0}
         </span>
         <button
+          id={`likeButton${phraseToShow.phrase_id}`}
+          title="likeButton"
           type="button"
           className={style.likeButton}
           onClick={() => {
@@ -84,6 +86,8 @@ export default function PhraseItem({
         </button>
         <button
           type="button"
+          id={`favoriteButton${phraseToShow.phrase_id}`}
+          title="favoriteButton"
           className={style.favoriteButton}
           onClick={() => {
             setFavorite({
