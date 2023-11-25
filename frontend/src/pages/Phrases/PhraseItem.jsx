@@ -17,8 +17,6 @@ export default function PhraseItem({
   usersPhrasesId,
   totalLikes,
 }) {
-  // console.log("🚀 - totalLikes:", totalLikes);
-
   const { user } = useContext(userContext);
   const [like, setLike] = useState({
     isLiked,
@@ -30,7 +28,6 @@ export default function PhraseItem({
   });
   const [newUsersPhrasesId, setNewUsersPhrasesId] = useState(usersPhrasesId);
   const [likesToShow, setLikesToShow] = useState(totalLikes);
-  // console.log("🚀 - likesToShow:", likesToShow);
 
   useEffect(() => {
     if (favorite.phraseId || like.phraseId) {
@@ -56,7 +53,7 @@ export default function PhraseItem({
   return (
     <div key={phraseToShow.phrase_id}>
       <p className={style.visionPhrase}>{phraseToShow.phrase}</p>
-      <div className={style.reactionsAndAutorContainer}>
+      <div className={style.reactionsAndAuthorContainer}>
         <span className={style.author}>Auteur: {phraseToShow.author}</span>
         <span className={style.totalLikes}>
           {/* {isLiked && like.phraseId === phraseToShow.phrase_id
