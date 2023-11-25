@@ -1,11 +1,10 @@
 @import " ../../../../scss/variables";
 
 .admin {
-  height: 78.8vh;
+  min-height: calc(100vh - 12.6rem);
   font-family: $primary-font;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
-  flex-grow: 1;
 
   .adminTitle {
     margin-top: $space-l;

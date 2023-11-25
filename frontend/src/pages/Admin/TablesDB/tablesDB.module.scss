@@ -5,7 +5,8 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 78.8vh;
+  height: calc(100vh - 12.6rem);
+
   padding: $space-s;
   font-family: $primary-font;
   font-size: $font-size-l;
