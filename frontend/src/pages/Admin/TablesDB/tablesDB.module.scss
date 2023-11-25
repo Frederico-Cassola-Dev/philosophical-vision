@@ -16,6 +16,7 @@
     justify-content: flex-end;
     align-items: center;
     width: 100%;
+    padding: $space-xs;
 
     .linkReturnBtn {
       color: $color-text-primary;
@@ -49,7 +50,6 @@
 
   .sectionTable {
     width: 100%;
-    padding: $space-m 0;
     overflow: scroll;
 
     &:hover::-webkit-scrollbar-thumb {
@@ -59,7 +59,7 @@
     .table {
       border-collapse: collapse;
       width: 100%;
-
+      
       th {
         position: sticky;
         top: 0;
@@ -67,7 +67,7 @@
         padding: $space-2xs;
         border-collapse: collapse;
         background-color: $color-background-primary;
-
+        
         &:nth-child(1) {
           z-index: 1;
         }
@@ -91,6 +91,7 @@
             top: 0;
             left: -2px;
           }
+
           &:hover {
             background-color: $color-primary-active;
           }
