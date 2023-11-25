@@ -24,7 +24,7 @@ const checkUserData = (req, res, next) => {
   });
 
   if (error) {
-    res.status(400).json({ message: "Invalid user" });
+    res.status(400).json({ message: "Invalid data" });
   } else {
     next();
   }
