@@ -68,7 +68,7 @@ export default function MyAccount() {
         .post(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/${
             user.id
-          }/verifypassword`,
+          }/verifyPassword`,
           { password: passwordToVerify }
         )
         .then((response) => {

@@ -34,7 +34,7 @@ router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", hashPassword, userControllers.edit);
 router.post(
-  "/users/:id/verifypassword",
+  "/users/:id/verifyPassword",
   userControllers.readToVerifyAuth,
   verifyToModifyPassword
 );
@@ -71,11 +71,11 @@ router.get("/events/:id", eventControllers.read);
 router.post("/events", eventControllers.add);
 
 //* Events_Phrases
-router.get("/eventphrase", eventPhraseControllers.browse);
-router.get("/eventphrase/:id", eventPhraseControllers.browseByPhraseId);
-router.post("/eventphrase", eventPhraseControllers.add);
+router.get("/eventPhrase", eventPhraseControllers.browse);
+router.get("/eventPhrase/:id", eventPhraseControllers.browseByPhraseId);
+router.post("/eventPhrase", eventPhraseControllers.add);
 router.delete(
-  "/eventphrase/:phraseId/:eventId",
+  "/eventPhrase/:phraseId/:eventId",
   eventPhraseControllers.destroy
 );
 

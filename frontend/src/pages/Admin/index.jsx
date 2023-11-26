@@ -32,7 +32,7 @@ export default function Admin() {
         })
         .then((response) => {
           axios
-            .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
+            .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventPhrase`, {
               eventId: newEvent,
               phraseId: parseInt(response.data.insertId, 10),
             })
