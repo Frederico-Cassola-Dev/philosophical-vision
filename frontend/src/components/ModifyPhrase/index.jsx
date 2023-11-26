@@ -236,10 +236,10 @@ export default function ModifyPhrase({
           </label>
         </div>
         <label htmlFor="likes" className={style.labelLikes}>
-          Totale likes :{" "}
+          Totaux likes :{" "}
           {modifiedLikes
             ? 0
-            : selectedTotalLikesPhraseData?.response?.total_likes || 0}
+            : selectedTotalLikesPhraseData?.response?.total_likes || 0}{" "}
           - Reset
           <input
             type="checkbox"
