@@ -17,7 +17,6 @@ import newAuthorReducer, {
 
 export default function NewAuthor() {
   const navigate = useNavigate();
-  // TODO - Bouton retourné
   const [newAuthor, setNewAuthor] = useReducer(newAuthorReducer, initialState);
 
   const periodData = useAxios({

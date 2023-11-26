@@ -2,8 +2,13 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export function EmailIconLink({ size, color, classStyle }) {
+  const emailAddress = "frederico.cassola.dev@gmail.com";
+
+  const handleEmailIconClick = () => {
+    window.location.href = `mailto:${emailAddress}`;
+  };
   return (
-    <Link to="https://www.gmail.com">
+    <button type="button" aria-label="Email" onClick={handleEmailIconClick}>
       <svg
         type="button"
         xmlns="http://www.w3.org/2000/svg"
@@ -21,13 +26,18 @@ export function EmailIconLink({ size, color, classStyle }) {
         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
         <polyline points="22,6 12,13 2,6" />
       </svg>
-    </Link>
+    </button>
   );
 }
 
 export function FacebookIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.facebook.com">
+    <Link
+      to="https://www.facebook.com/fredericocassola/"
+      aria-label="Facebook"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -49,7 +59,12 @@ export function FacebookIconLink({ size, color, classStyle }) {
 
 export function GitHubIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.github.com">
+    <Link
+      to="https://github.com/Frederico-Cassola-Dev"
+      aria-label="GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -71,7 +86,12 @@ export function GitHubIconLink({ size, color, classStyle }) {
 
 export function InstagramIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.instagram.com">
+    <Link
+      to="https://www.instagram.com/fredericocassola/"
+      aria-label="Instagram"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -95,7 +115,12 @@ export function InstagramIconLink({ size, color, classStyle }) {
 
 export function LinkedInIconLink({ size, color, classStyle }) {
   return (
-    <Link to="https://www.linkedin.com">
+    <Link
+      to="https://www.linkedin.com/in/frederico-cassola"
+      aria-label="LinkedIn"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}

@@ -1,4 +1,3 @@
-// Import access to database tables
 const tables = require("../tables");
 
 const browse = async (req, res, next) => {
@@ -89,20 +88,6 @@ const edit = async (req, res, next) => {
     next(err);
   }
 };
-const editLikesAndFavorites = async (req, res, next) => {
-  const phrase = { ...req.body, phraseId: parseInt(req.params.id, 10) };
-
-  try {
-    const updatedId = await tables.phrases.updateLikesAndFavorites(phrase);
-    if (updatedId == null) {
-      res.status(204);
-    } else {
-      res.json(updatedId);
-    }
-  } catch (err) {
-    next(err);
-  }
-};
 
 const destroy = async (req, res, next) => {
   const id = parseInt(req.params.id, 10);
@@ -125,7 +110,6 @@ module.exports = {
   read4ByRandomEvent,
   read4ByEventId,
   edit,
-  editLikesAndFavorites,
   add,
   destroy,
 };

@@ -21,7 +21,6 @@ import Admin from "./pages/Admin";
 import NewAuthor from "./pages/Admin/NewAuthor";
 import NewEvent from "./pages/Admin/NewEvent";
 import TablesDB from "./pages/Admin/TablesDB";
-// import NotFound from "./pages/NotFound";
 import LoggedOut from "./pages/LoggedOut";
 
 import "./scss/styles.scss";

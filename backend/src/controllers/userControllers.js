@@ -59,9 +59,17 @@ const add = async (req, res, next) => {
   const user = req.body;
 
   try {
-    const insertId = await tables.users.create(user);
+    const verifyEmail = await tables.users.readByEmail(user.email);
 
-    res.status(201).json({ insertId });
+    if (verifyEmail) {
+      res.status(409).json({
+        message: "Email existant. Insérez un different email.",
+      });
+    } else {
+      const insertId = await tables.users.create(user);
+
+      res.status(201).json({ insertId });
+    }
   } catch (err) {
     next(err);
   }

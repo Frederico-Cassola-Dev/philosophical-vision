@@ -19,8 +19,6 @@ class PhraseManager extends AbstractManager {
       `select
         p.id,
         phrase,
-        likes,
-        is_favorite,
         author_id,
         a.known_name as author,
         ep.event_id, 
@@ -41,8 +39,6 @@ class PhraseManager extends AbstractManager {
       `select 
         p.id,
         phrase,
-        likes,
-        is_favorite,
         author_id,
         a.known_name as author,
         group_concat( e.title SEPARATOR ', ') event_title
@@ -66,7 +62,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByRandomEvent() {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, ep.event_id, e.title event_title FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, ep.event_id, e.title event_title FROM ${this.table} p
         inner join events_phrases ep on ep.phrase_id = p.id
         inner join events e on e.id = ep.event_id
         order by rand()
@@ -78,7 +74,7 @@ class PhraseManager extends AbstractManager {
 
   async read4ByEventId(id) {
     const [rows] = await this.database.query(
-      `SELECT p.id phrase_id, p.phrase, p.likes, p.is_favorite, p.author_id, ep.event_id, e.title event_title, a.known_name as author FROM ${this.table} p
+      `SELECT p.id phrase_id, p.phrase, p.author_id, ep.event_id, e.title event_title, a.known_name as author FROM ${this.table} p
         inner join events_phrases ep on ep.phrase_id = p.id
         inner join events e on e.id = ep.event_id
         inner join authors as a on a.id = p.author_id
@@ -92,7 +88,7 @@ class PhraseManager extends AbstractManager {
   }
 
   async update(phrase) {
-    const [idsFromEventsPhrasesTableThatMAtchPhraseIdToChange] =
+    const [idsFromEventsPhrasesTableThatMatchPhraseIdToChange] =
       await this.database.query(
         `
       SELECT * from events_phrases
@@ -102,7 +98,7 @@ class PhraseManager extends AbstractManager {
       );
 
     const eventsIdsInDB =
-      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.map(
+      idsFromEventsPhrasesTableThatMatchPhraseIdToChange.map(
         (item) => item.event_id
       );
 
@@ -110,11 +106,11 @@ class PhraseManager extends AbstractManager {
 
     if (
       phrase.events.length ===
-      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.length
+      idsFromEventsPhrasesTableThatMatchPhraseIdToChange.length
     ) {
       let updateQuery = "";
 
-      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.forEach(
+      idsFromEventsPhrasesTableThatMatchPhraseIdToChange.forEach(
         (item, index) => {
           updateQuery += `WHEN ep.id = ${item.id} THEN ${phrase.events[index]} `;
         }
@@ -128,26 +124,33 @@ class PhraseManager extends AbstractManager {
             CASE ${updateQuery}
               END, 
           p.phrase = ?, 
-          p.author_id = ?,
-          p.likes = ?
+          p.author_id = ?
         WHERE ep.phrase_id = ?;
   `;
 
-      const [rows] = await this.database.query(queryToUpdate, [
+      const [updatePhrase] = await this.database.query(queryToUpdate, [
         phrase.phrase,
         phrase.author_id,
-        phrase.likes,
         phrase.phraseId,
       ]);
 
-      return rows;
+      const [updateLikes] = await this.database.query(
+        `UPDATE users_phrases
+          SET
+            is_liked = ? 
+          WHERE phrase_id = ?
+    `,
+        [phrase.likes, phrase.phraseId]
+      );
+
+      return [updatePhrase, updateLikes];
     }
 
     // ------ Add events ------
 
     if (
       phrase.events.length >
-      idsFromEventsPhrasesTableThatMAtchPhraseIdToChange.length
+      idsFromEventsPhrasesTableThatMatchPhraseIdToChange.length
     ) {
       const newEventsToAdd = phrase.events.filter(
         (value) => !eventsIdsInDB.includes(value)
@@ -165,23 +168,31 @@ class PhraseManager extends AbstractManager {
         insertQuery += `(${newEventsToAdd[0]}, ${phrase.phraseId})`;
       }
 
-      const [insertResult] = await this.database.query(
+      const [addEvent] = await this.database.query(
         `insert into events_phrases (event_id, phrase_id) 
         values ${insertQuery}`
       );
 
-      const [updateRows] = await this.database.query(
-        `UPDATE  ${this.table}
+      const [updatePhrase] = await this.database.query(
+        `UPDATE ${this.table}
           SET
             phrase = ?, 
-            author_id = ?,
-            likes = ?
+            author_id = ?
           WHERE id = ?
     `,
-        [phrase.phrase, phrase.author_id, phrase.likes, phrase.phraseId]
+        [phrase.phrase, phrase.author_id, phrase.phraseId]
       );
 
-      return [insertResult.insertId, updateRows];
+      const [updateLikes] = await this.database.query(
+        `UPDATE users_phrases
+          SET
+            is_liked = ? 
+          WHERE phrase_id = ?
+    `,
+        [phrase.likes, phrase.phraseId]
+      );
+
+      return [addEvent.insertId, updatePhrase, updateLikes];
     }
 
     // ------ Delete events ------
@@ -198,40 +209,33 @@ class PhraseManager extends AbstractManager {
 
     deleteQuery = deleteQuery.slice(0, -2);
 
-    const [rows] = await this.database.query(
+    const [deleteEvents] = await this.database.query(
       `DELETE events_phrases
         FROM events_phrases
         WHERE (event_id, phrase_id) IN (${deleteQuery})
   `
     );
 
-    const [updateRows] = await this.database.query(
+    const [updatePhrase] = await this.database.query(
       `UPDATE  ${this.table}
         SET
           phrase = ?, 
-          author_id = ?, 
-          likes = ?
+          author_id = ?
         WHERE id = ?
   `,
-      [phrase.phrase, phrase.author_id, phrase.likes, phrase.phraseId]
+      [phrase.phrase, phrase.author_id, phrase.phraseId]
     );
 
-    return [rows, updateRows];
-  }
-
-  async updateLikesAndFavorites(phrase) {
-    const [rows] = await this.database.query(
-      `update ${this.table} 
-      set phrase = ?, likes = ?, is_favorite = ?, author_id = ? where id = ?`,
-      [
-        phrase.phrase,
-        phrase.likes,
-        phrase.is_favorite,
-        phrase.author_id,
-        phrase.phraseId,
-      ]
+    const [updateLikes] = await this.database.query(
+      `UPDATE users_phrases
+        SET
+          is_liked = ? 
+        WHERE phrase_id = ?
+  `,
+      [phrase.likes, phrase.phraseId]
     );
-    return rows;
+
+    return [deleteEvents, updatePhrase, updateLikes];
   }
 
   async delete(id) {

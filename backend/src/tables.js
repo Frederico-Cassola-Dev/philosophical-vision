@@ -4,6 +4,7 @@
 
 // Import the manager modules responsible for handling data operations on the tables
 const UserManager = require("./models/UserManager");
+const UserPhraseManager = require("./models/UserPhraseManager");
 const PhraseManager = require("./models/PhraseManager");
 const EventManager = require("./models/EventManager");
 const CategoryManager = require("./models/CategoryManager");
@@ -13,13 +14,13 @@ const PeriodManager = require("./models/PeriodManager");
 
 const managers = [
   UserManager,
+  UserPhraseManager,
   PhraseManager,
   EventManager,
   EventPhraseManager,
   PeriodManager,
   CategoryManager,
   AuthorManager,
-  // Add other managers here
 ];
 
 // Create an empty object to hold data managers for different tables

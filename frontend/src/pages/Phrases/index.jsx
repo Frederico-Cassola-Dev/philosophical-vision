@@ -2,6 +2,7 @@ import { useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import userContext from "../../contexts/userContext";
 import SearchSelectModal from "../../components/SearchSelectModal";
 import phrasesReducer, {
   OPEN_MODAL,
@@ -10,17 +11,35 @@ import phrasesReducer, {
   SET_PHRASES,
   initialState,
 } from "./utils/phrases-reducer";
+import PhraseItem from "./PhraseItem";
 
 import style from "./phrases.module.scss";
-import PhraseItem from "./PhraseItem";
-import userContext from "../../contexts/userContext";
 
 export default function Phrases() {
-  const { setUser, setToken } = useContext(userContext);
+  const { user, setUser, setToken } = useContext(userContext);
+  const [state, dispatch] = useReducer(phrasesReducer, initialState);
   const navigate = useNavigate();
+  const usersFavoritePhrases = useAxios(
+    {
+      method: "get",
+      endpoint: `usersPhrases/favorites/${user?.id}`,
+    },
+    [state.phrasesToShow]
+  );
 
-  // TODO - verify if no access navigate for the page error or unauthorize access
-  // TODO - Test this function logout if it's useful for this step
+  const totalLikes = useAxios(
+    {
+      method: "get",
+      endpoint: "usersPhrases/totalLikes",
+    },
+    [state.phrasesToShow]
+  );
+
+  const categoriesData = useAxios({
+    method: "get",
+    endpoint: "categories",
+  });
+
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -29,13 +48,6 @@ export default function Phrases() {
       "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/loggedOut");
   };
-
-  const [state, dispatch] = useReducer(phrasesReducer, initialState);
-
-  const categoriesData = useAxios({
-    method: "get",
-    endpoint: "categories",
-  });
 
   axios.defaults.withCredentials = true;
 
@@ -83,6 +95,7 @@ export default function Phrases() {
           placeholder="Événement"
         />
         <select
+          aria-label="categories"
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
             dispatch({
@@ -105,10 +118,25 @@ export default function Phrases() {
         </p>
       </div>
       <div className={style.visionsContainer}>
-        {state.phrasesToShow &&
-          state.phrasesToShow?.map((item) => (
-            <PhraseItem key={item.phrase_id} phraseToShow={item} />
-          ))}
+        {state.phrasesToShow?.map((item) => {
+          const foundFavoritePhrases = usersFavoritePhrases.response?.find(
+            (phrase) => item.phrase_id === phrase.phrase_id
+          );
+          const foundTotalLikes = totalLikes.response?.find(
+            (phrase) => item.phrase_id === phrase.phrase_id
+          );
+
+          return (
+            <PhraseItem
+              key={item.phrase_id}
+              phraseToShow={item}
+              isFavorite={!!foundFavoritePhrases?.is_favorite}
+              isLiked={!!foundFavoritePhrases?.is_liked}
+              usersPhrasesId={foundFavoritePhrases?.id}
+              totalLikes={Number(foundTotalLikes?.total_likes) || 0}
+            />
+          );
+        })}
       </div>
     </div>
   );

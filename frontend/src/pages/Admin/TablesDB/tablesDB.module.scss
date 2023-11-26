@@ -5,7 +5,8 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 16.1vh);
+  height: calc(100vh - 12.6rem);
+
   padding: $space-s;
   font-family: $primary-font;
   font-size: $font-size-l;
@@ -16,6 +17,7 @@
     justify-content: flex-end;
     align-items: center;
     width: 100%;
+    padding: $space-xs;
 
     .linkReturnBtn {
       color: $color-text-primary;
@@ -49,7 +51,6 @@
 
   .sectionTable {
     width: 100%;
-    padding: $space-m 0;
     overflow: scroll;
 
     &:hover::-webkit-scrollbar-thumb {
@@ -59,7 +60,7 @@
     .table {
       border-collapse: collapse;
       width: 100%;
-
+      
       th {
         position: sticky;
         top: 0;
@@ -67,7 +68,7 @@
         padding: $space-2xs;
         border-collapse: collapse;
         background-color: $color-background-primary;
-
+        
         &:nth-child(1) {
           z-index: 1;
         }
@@ -91,6 +92,7 @@
             top: 0;
             left: -2px;
           }
+
           &:hover {
             background-color: $color-primary-active;
           }

@@ -33,7 +33,6 @@ class EventManager extends AbstractManager {
         phrases.id phrase_id,
         phrases.phrase, 
         phrases.author_id, 
-        phrases.likes, 
         authors.known_name author,
         JSON_ARRAYAGG(events.id) AS events_id, 
         JSON_ARRAYAGG(events.title) AS events_titles

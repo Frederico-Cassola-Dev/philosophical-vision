@@ -48,8 +48,6 @@ create table
     phrases (
         id int primary key auto_increment NOT NULL,
         phrase varchar(254) NOT NULL,
-        likes INT NOT NULL DEFAULT 0,
-        is_favorite TINYINT default 0,
         author_id int NOT NULL,
         Foreign Key (author_id) REFERENCES authors(id)
     );
@@ -59,6 +57,8 @@ create table
         id int primary key auto_increment NOT NULL,
         user_id int,
         phrase_id int,
+        is_liked TINYINT default 0,
+        is_favorite TINYINT default 0,
         FOREIGN KEY(user_id) REFERENCES users(id),
         FOREIGN KEY(phrase_id) REFERENCES phrases(id)
         on delete cascade
@@ -119,31 +119,31 @@ VALUES (
         "John",
         "Springfield",
         "john.springfield@springfield.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "admin",
@@ -271,114 +271,80 @@ VALUES (
 INSERT into
     phrases (
         phrase,
-        likes,
-        is_favorite,
         author_id
     )
 VALUES (
         "The unexamined life is not worth living",
-        10,
-        1,
         1
     ), (
         "Whereof one cannot speak, thereof one must be silent",
-        3,
-        0,
         2
     ), (
         "I think therefore I am",
-        2,
-        0,
         3
     ), (
         "2 The unexamined life is not worth living",
-        0,
-        0,
         5
     ), (
         "3 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "4 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "5 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "6 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "7 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "8 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "9 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "10 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "11 The unexamined life is not worth living",
-        7,
-        0,
         6
     ), (
         "12 The unexamined life is not worth living",
-        7,
-        0,
         6
     );
 
 INSERT INTO
-    users_phrases (user_id, phrase_id)
-VALUES (1, 3), (2, 3), (3, 2), (4, 2), (4, 4), (4, 5), (1, 1);
-
-INSERT INTO
     events_phrases (event_id, phrase_id)
 VALUES 
-(1, 1), 
-(9, 1), 
-(1, 2), 
-(4, 2), 
-(5, 2), 
-(9, 2), 
-(3, 3), 
-(5, 3), 
-(1, 4), 
-(2, 4), 
-(3, 4), 
-(5, 4), 
-(7, 5), 
-(9, 5), 
-(10, 6), 
-(1, 7), 
-(9, 7), 
-(1, 8), 
-(6, 8), 
-(1, 9), 
-(5, 9), 
-(6, 9), 
-(6, 10), 
-(6, 11), 
-(6, 12), 
-(10, 12),
-(8, 13), 
-(8, 14);
+  (1, 1), 
+  (9, 1), 
+  (1, 2), 
+  (4, 2), 
+  (5, 2), 
+  (9, 2), 
+  (3, 3), 
+  (5, 3), 
+  (1, 4), 
+  (2, 4), 
+  (3, 4), 
+  (5, 4), 
+  (7, 5), 
+  (9, 5), 
+  (10, 6), 
+  (1, 7), 
+  (9, 7), 
+  (1, 8), 
+  (6, 8), 
+  (1, 9), 
+  (5, 9), 
+  (6, 9), 
+  (6, 10), 
+  (6, 11), 
+  (6, 12), 
+  (10, 12),
+  (8, 13), 
+  (8, 14);

@@ -20,6 +20,14 @@ export default function TablesDB() {
     [modifyPhrase, selectedPhraseId, updateTable]
   );
 
+  const totalLikesData = useAxios(
+    {
+      method: "get",
+      endpoint: "usersPhrases/totalLikes",
+    },
+    [modifyPhrase, selectedPhraseId, updateTable]
+  );
+
   return (
     <div className={style.tablesDB}>
       {modifyPhrase && (
@@ -33,7 +41,7 @@ export default function TablesDB() {
       {!modifyPhrase && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Return
+            Retourné
           </Link>
         </div>
       )}
@@ -42,60 +50,66 @@ export default function TablesDB() {
           <thead>
             {table === "phrases" && (
               <tr>
-                <th>Title</th>
-                <th>Author</th>
+                <th>Phrase</th>
+                <th>Auteur</th>
                 <th>Likes</th>
-                <th>Events</th>
+                <th>Événements</th>
               </tr>
             )}
             {table === "events" && (
               <tr>
-                <th>Title</th>
-                <th>Category Id</th>
+                <th>Titre</th>
+                <th>Catégorie Id</th>
               </tr>
             )}
             {table === "authors" && (
               <tr>
-                <th>Known Name</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Period</th>
-                <th>Philo current</th>
-                <th>Born</th>
-                <th>Dead</th>
+                <th>Nom connu</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Période</th>
+                <th>Current Philo</th>
+                <th>Né</th>
+                <th>Décès</th>
                 <th>Era</th>
               </tr>
             )}
             {table === "categories" && (
               <tr>
-                <th>Title</th>
+                <th>Titre</th>
                 <th>Description</th>
               </tr>
             )}
             {table === "users" && (
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Prénom</th>
+                <th>Nom</th>
                 <th>Email</th>
               </tr>
             )}
           </thead>
           <tbody>
             {table === "phrases" &&
-              tableData?.response?.map((item) => (
-                <tr
-                  key={item.id}
-                  onClick={() => {
-                    setModifyPhrase(true);
-                    setSelectedPhraseId(item.id);
-                  }}
-                >
-                  <td>{item.phrase}</td>
-                  <td>{item.author}</td>
-                  <td>{item.likes}</td>
-                  <td>{item.event_title}</td>
-                </tr>
-              ))}
+              tableData?.response?.map((item) => {
+                const totalLikesResponse = totalLikesData?.response?.find(
+                  (phrase) => phrase.phrase_id === item.id
+                );
+
+                return (
+                  <tr
+                    key={item.id}
+                    onClick={() => {
+                      setModifyPhrase(true);
+                      setSelectedPhraseId(item.id);
+                    }}
+                  >
+                    <td>{item.phrase}</td>
+                    <td>{item.author}</td>
+                    <td>{totalLikesResponse?.total_likes || 0}</td>
+                    <td>{item.event_title}</td>
+                  </tr>
+                );
+              })}
             {table === "events" &&
               tableData?.response?.map((item) => (
                 <tr key={item.id}>
@@ -137,7 +151,7 @@ export default function TablesDB() {
       {!modifyPhrase && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Return
+            Retourné
           </Link>
         </div>
       )}

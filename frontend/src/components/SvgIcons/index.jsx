@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-export function IconHeart() {
+export function IconHeart({ alreadyLiked }) {
   const [fill, setFill] = useState(false);
+
+  useEffect(() => {
+    if (alreadyLiked) {
+      setFill(true);
+    }
+  }, [alreadyLiked]);
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,15 +28,18 @@ export function IconHeart() {
   );
 }
 
+IconHeart.propTypes = {
+  alreadyLiked: PropTypes.bool.isRequired,
+};
+
 export function IconStar({ alreadyFavorite }) {
   const [fill, setFill] = useState(false);
-  // console.log("🚀 - fill:", fill);
 
   useEffect(() => {
     if (alreadyFavorite) {
       setFill(true);
     }
-  }, []);
+  }, [alreadyFavorite]);
 
   return (
     <svg

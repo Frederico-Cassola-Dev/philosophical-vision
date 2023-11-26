@@ -8,10 +8,6 @@ import style from "./signIn.module.scss";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // console.log("🚀 - location:", location);
-
-  // const from = location.state?.from?.pathname || "/";
-  // console.log("🚀 - from:", from);
 
   const navigate = useNavigate();
   const { setUser, setToken } = useContext(userContext);
@@ -32,7 +28,6 @@ export default function SignIn() {
         setUser(response.data.user);
         setToken(response.data.token);
         localStorage.setItem("user_info", JSON.stringify(response.data));
-        // navigate(from, { replace: true });
         if (response.data.user.is_admin) {
           navigate("/admin", { replace: true });
         } else {

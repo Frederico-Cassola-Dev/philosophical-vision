@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const userControllers = require("./controllers/userControllers");
+const userPhraseControllers = require("./controllers/userPhraseControllers");
 const phraseControllers = require("./controllers/phraseControllers");
 const eventControllers = require("./controllers/eventControllers");
 const categoryControllers = require("./controllers/categoryControllers");
@@ -11,6 +12,7 @@ const eventPhraseControllers = require("./controllers/eventPhraseControllers");
 const periodControllers = require("./controllers/periodControllers");
 
 const {
+  checkUserData,
   hashPassword,
   verifyPassword,
   verifyToken,
@@ -19,19 +21,36 @@ const {
 
 //* OPEN ROUTES
 router.post("/login", userControllers.readByEmail, verifyPassword);
-router.post("/users", hashPassword, userControllers.add);
+router.post("/users", checkUserData, hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
+//*---------------------------
 //* PROTECTED ROUTES
+//*---------------------------
 router.use(verifyToken);
+
 //* Users
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.put("/users/:id", hashPassword, userControllers.edit);
 router.post(
-  "/users/:id/verifypassword",
+  "/users/:id/verifyPassword",
   userControllers.readToVerifyAuth,
   verifyToModifyPassword
+);
+//* Users_Phrases
+router.get(
+  "/usersPhrases/favorites/:id",
+  userPhraseControllers.readFavoritePhrases
+);
+router.get("/usersPhrases/totalLikes", userPhraseControllers.sumTotalLikes);
+router.get(
+  "/usersPhrases/totalLikes/:id",
+  userPhraseControllers.sumTotalLikesByPhraseId
+);
+router.post(
+  "/usersPhrases/:userId/favoriteOrLiked/:phraseId",
+  userPhraseControllers.replaceFavoriteOrLikedPhrases
 );
 
 //* Phrases
@@ -41,10 +60,6 @@ router.get("/phrases4/events/:id", phraseControllers.read4ByEventId);
 router.get("/phrases4/randomevents", phraseControllers.read4ByRandomEvent);
 router.post("/phrases", phraseControllers.add);
 router.put("/phrases/:id", phraseControllers.edit);
-router.put(
-  "/phrases/likesandfavorites/:id",
-  phraseControllers.editLikesAndFavorites
-);
 router.delete("/phrases/:id", phraseControllers.destroy);
 
 //* Events
@@ -53,11 +68,13 @@ router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);
 router.get("/events/:title", eventControllers.browseAllByTitle);
 router.get("/events/:id", eventControllers.read);
 router.post("/events", eventControllers.add);
-router.get("/eventphrase", eventPhraseControllers.browse);
-router.get("/eventphrase/:id", eventPhraseControllers.browseByPhraseId);
-router.post("/eventphrase", eventPhraseControllers.add);
+
+//* Events_Phrases
+router.get("/eventPhrase", eventPhraseControllers.browse);
+router.get("/eventPhrase/:id", eventPhraseControllers.browseByPhraseId);
+router.post("/eventPhrase", eventPhraseControllers.add);
 router.delete(
-  "/eventphrase/:phraseId/:eventId",
+  "/eventPhrase/:phraseId/:eventId",
   eventPhraseControllers.destroy
 );
 
