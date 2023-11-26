@@ -71,14 +71,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      // width: 70vw;
       gap: $space-s;
 
       .author {
-        margin-right: $space-2xl;
+        // padding-right: $space-xl;
+        // padding-left: $space-l;
+        // text-align: center;
+        // flex-grow: 1;
       }
 
       .totalLikes {
-        margin-bottom: $space-2xs;
+        padding-bottom: $space-2xs;
         font-weight: $font-weight-bold;
         color: $color-primary-active;
       }
