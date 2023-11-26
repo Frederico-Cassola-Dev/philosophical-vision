@@ -48,8 +48,6 @@ create table
     phrases (
         id int primary key auto_increment NOT NULL,
         phrase varchar(254) NOT NULL,
-        -- likes INT NOT NULL DEFAULT 0,
-        -- is_favorite TINYINT default 0,
         author_id int NOT NULL,
         Foreign Key (author_id) REFERENCES authors(id)
     );
@@ -273,96 +271,51 @@ VALUES (
 INSERT into
     phrases (
         phrase,
-        -- likes,
-        -- is_favorite,
         author_id
     )
 VALUES (
         "The unexamined life is not worth living",
-        -- 10,
-        -- 1,
         1
     ), (
         "Whereof one cannot speak, thereof one must be silent",
-        -- 3,
-        -- 0,
         2
     ), (
         "I think therefore I am",
-        -- 2,
-        -- 0,
         3
     ), (
         "2 The unexamined life is not worth living",
-        -- 0,
-        -- 0,
         5
     ), (
         "3 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "4 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "5 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "6 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "7 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "8 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "9 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "10 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "11 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     ), (
         "12 The unexamined life is not worth living",
-        -- 7,
-        -- 0,
         6
     );
-
--- INSERT INTO
---     users_phrases (user_id, phrase_id, is_liked, is_favorite)
--- VALUES 
---   (1, 3, 1, 1), 
---   (1, 1, 0, 0), 
---   (2, 3, 1, 1), 
---   (3, 2, 0, 1), 
---   (4, 2, 1, 1), 
---   (4, 4, 0, 0), 
---   (4, 5, 0, 1), 
---   (7, 2, 1, 1), 
---   (7, 3, 1, 0), 
---   (7, 4, 1, 0), 
---   (7, 5, 1, 1);
 
 INSERT INTO
     events_phrases (event_id, phrase_id)
