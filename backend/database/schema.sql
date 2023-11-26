@@ -121,31 +121,31 @@ VALUES (
         "John",
         "Springfield",
         "john.springfield@springfield.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
-        "12345678",
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
     ), (
         "admin",
