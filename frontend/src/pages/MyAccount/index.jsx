@@ -7,12 +7,6 @@ import userContext from "../../contexts/userContext";
 import style from "./myAccount.module.scss";
 
 export default function MyAccount() {
-  // TODO - logout after user modifications and sign in with the new info
-  // TODO - Style wrong password not ok UI/UX
-  // TODO - Create a reducer to manage the states
-  // TODO - verify old password on backend - DONE
-  // TODO - make the put for the new password - DONE
-  // TODO - update local storage with the user modifications - DONE
   const { user } = useContext(userContext);
   const navigate = useNavigate();
   const [newLastName, setNewLastName] = useState(null);

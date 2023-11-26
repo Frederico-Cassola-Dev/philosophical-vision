@@ -85,14 +85,6 @@ export default function ModifyPhrase({
     setEventsListIdToModify(selectedPhraseData?.response?.events_id);
   }, [selectedPhraseId, selectedPhraseData?.response]);
 
-  // TODO - Bug when scrolling table in the top of the tableBody - CSS - DONE.
-  // TODO - Delete event on formData obj - DONE.
-  // TODO - PUT events array from formData obj - DONE.
-  // TODO - PUT phrase from formData obj. - DONE
-  // TODO - PUT author from formData obj. - DONE
-  // TODO - PUT likes from formData obj. - DONE -NEED CONFIRMATION
-  // TODO - Confirm the PUT if the same number of events. - DONE
-
   const handleSubmitForm = (e) => {
     e.preventDefault();
 

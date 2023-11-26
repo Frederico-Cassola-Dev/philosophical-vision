@@ -15,8 +15,6 @@ import PhraseItem from "./PhraseItem";
 
 import style from "./phrases.module.scss";
 
-// TODO - verify if no access navigate for the page error or unauthorize access
-// TODO - Test this function logout if it's useful for this step
 export default function Phrases() {
   const { user, setUser, setToken } = useContext(userContext);
   const [state, dispatch] = useReducer(phrasesReducer, initialState);

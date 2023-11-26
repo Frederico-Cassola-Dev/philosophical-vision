@@ -6,10 +6,6 @@ import style from "./phrases.module.scss";
 import { IconHeart, IconStar } from "../../components/SvgIcons";
 import userContext from "../../contexts/userContext";
 
-// TODO - like - NOT ASSOCIATE WITH USER
-// TODO - favorite - NOT ASSOCIATE WITH USER
-// TODO - CSS - bug on author when push the like button
-// TODO - add feature - show the authors under the phrase -DONE
 export default function PhraseItem({
   phraseToShow,
   isFavorite,
