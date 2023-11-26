@@ -43,7 +43,6 @@ export default function PhraseItem({
           }
         )
         .then((response) => {
-          console.info(response);
           setNewUsersPhrasesId(response.data.insertId);
         })
         .catch((err) => console.error(err));
@@ -55,16 +54,7 @@ export default function PhraseItem({
       <p className={style.visionPhrase}>{phraseToShow.phrase}</p>
       <div className={style.reactionsAndAuthorContainer}>
         <span className={style.author}>Auteur: {phraseToShow.author}</span>
-        <span className={style.totalLikes}>
-          {/* {isLiked && like.phraseId === phraseToShow.phrase_id
-            ? totalLikes
-            : Number(totalLikes) + 1} */}
-          {/* {isLiked && like.phraseId === phraseToShow.phrase_id
-            ? Number(totalLikes) - 1
-            : Number(totalLikes) + 1 || 0} */}
-          {/* {totalLikes || 0} */}
-          {likesToShow || 0}
-        </span>
+        <span className={style.totalLikes}>{likesToShow || 0}</span>
         <button
           id={`likeButton${phraseToShow.phrase_id}`}
           title="likeButton"

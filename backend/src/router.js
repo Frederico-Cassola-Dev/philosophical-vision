@@ -60,7 +60,6 @@ router.get("/phrases4/events/:id", phraseControllers.read4ByEventId);
 router.get("/phrases4/randomevents", phraseControllers.read4ByRandomEvent);
 router.post("/phrases", phraseControllers.add);
 router.put("/phrases/:id", phraseControllers.edit);
-router.put("/phrases/likes/:id", phraseControllers.editLikes);
 router.delete("/phrases/:id", phraseControllers.destroy);
 
 //* Events

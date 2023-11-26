@@ -135,7 +135,7 @@ export default function Phrases() {
               isFavorite={!!foundFavoritePhrases?.is_favorite}
               isLiked={!!foundFavoritePhrases?.is_liked}
               usersPhrasesId={foundFavoritePhrases?.id}
-              totalLikes={Number(foundTotalLikes?.total_likes)}
+              totalLikes={Number(foundTotalLikes?.total_likes) || 0}
             />
           );
         })}
