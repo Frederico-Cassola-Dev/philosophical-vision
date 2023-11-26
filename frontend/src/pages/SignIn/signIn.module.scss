@@ -1,83 +1,45 @@
 @import "../../scss/variables";
 
-.signUp {
+.signIn {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 83.9vh;
+  height: calc(100vh - 9.6rem);
   font-family: $primary-font;
-  color: $color-text-primary;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
 
-  .formInput {
+  .formContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: $space-xl;
-    width: 70%;
-    height: 100%;
+    margin-bottom: $space-3xl;
+    width: 65%;
 
     label {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: flex-start;
       flex-direction: column;
       width: 100%;
       margin-top: $space-m;
-
-      .errorInput {
-        outline: 2px solid red;
-      }
 
       input {
         width: 100%;
         height: $space-m;
         margin-top: $space-2xs;
         padding-left: $space-2xs;
-        border-radius: $border-radius-s;
         font-weight: $font-weight-bold;
+        border-radius: $border-radius-s;
 
         &:focus {
           outline: 2px solid $border-color-active;
         }
       }
-
       &:focus-within {
         color: $border-color-active;
-      }
-
-      .inputAvatar {
-        width: 50vw;
-      }
-    }
-
-    .avatarLabelInputContainer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: row;
-      width: 100%;
-
-      .labelAvatar {
-        margin: 0;
-      }
-
-      .avatarContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-
-        img {
-          width: 60px;
-          aspect-ratio: 1 / 1;
-          margin-left: $space-xs;
-          border-radius: $border-radius-round;
-          object-fit: fit;
-        }
       }
     }
 

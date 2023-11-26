@@ -1,45 +1,65 @@
 @import "../../scss/variables";
 
-.signIn {
+.signUp {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  height: 83.9vh;
+  height: calc(100vh - 9.6rem);
   font-family: $primary-font;
+  color: $color-text-primary;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
 
-  .formContainer {
+  .formInput {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    margin-bottom: $space-3xl;
-    width: 65%;
+    margin-top: $space-xl;
+    width: 70%;
+    height: 100%;
 
     label {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;
       width: 100%;
-      margin-top: $space-m;
+      margin-top: $space-2xs;
+
+      .errorInput {
+        outline: 2px solid red;
+      }
 
       input {
         width: 100%;
         height: $space-m;
         margin-top: $space-2xs;
         padding-left: $space-2xs;
-        font-weight: $font-weight-bold;
         border-radius: $border-radius-s;
+        font-weight: $font-weight-bold;
 
         &:focus {
           outline: 2px solid $border-color-active;
         }
       }
+
       &:focus-within {
         color: $border-color-active;
+      }
+
+      .inputValidationMessage {
+        text-align: center;
+        font-weight: $font-weight-normal;
+      }
+
+      .inputValidationHidden {
+        visibility: hidden;
+      }
+      
+      .inputPasswordValidationHidden {
+        display: none;
       }
     }
 

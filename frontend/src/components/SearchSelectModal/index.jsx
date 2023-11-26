@@ -1,23 +1,50 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
 import {
   CLOSE_MODAL,
   SELECT_OPEN_MODAL,
 } from "../../pages/Phrases/utils/phrases-reducer";
-import CloseIconModal from "./CloseIconModal";
+import userContext from "../../contexts/userContext";
 
-import style from "./_searchSelectModal.module.scss";
+import CloseIconModal from "./CloseIconModal";
+import style from "./searchSelectModal.module.scss";
 
 export default function SearchSelectModal({ state, dispatch }) {
-  const eventsByCategoryResponse = useAxios({
+  const { setUser, setToken } = useContext(userContext);
+  const navigate = useNavigate();
+  const eventsByCategoryData = useAxios({
     method: "get",
     endpoint: `events/categories/${state.categoryId}`,
   });
 
-  const eventsByTitleResponse = useAxios({
-    method: "get",
-    endpoint: `events/${state.filteredEvent}`,
-  });
+  const eventsByTitleData = useAxios(
+    {
+      method: "get",
+      endpoint: `events/${state.filteredEvent}`,
+    },
+    [state.filteredEvent]
+  );
+
+  // TODO - verify if no access navigate for the page error or unauthorize access
+  // TODO - Test this function logout if it's useful for this step
+  // TODO - Logged out direct when the token as expired
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+    document.cookie =
+      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    navigate("/loggedOut");
+  };
+
+  if (
+    (eventsByCategoryData?.error?.response.status ||
+      eventsByTitleData?.error?.response.status) === 401
+  ) {
+    logout();
+  }
 
   return (
     <div className={style.overlay}>
@@ -32,7 +59,7 @@ export default function SearchSelectModal({ state, dispatch }) {
         <div className={style.listContainer}>
           <ul className={style.list}>
             {state.categoryId !== "" &&
-              eventsByCategoryResponse?.map((events) => (
+              eventsByCategoryData?.response?.map((events) => (
                 <li className={style.listItems} key={events.id}>
                   <button
                     type="button"
@@ -52,7 +79,7 @@ export default function SearchSelectModal({ state, dispatch }) {
                 </li>
               ))}
             {state.filteredEvent !== "" &&
-              eventsByTitleResponse?.map((events) => (
+              eventsByTitleData?.response?.map((events) => (
                 <li className={style.listItems} key={events.id}>
                   <button
                     type="button"
@@ -81,7 +108,7 @@ export default function SearchSelectModal({ state, dispatch }) {
 SearchSelectModal.propTypes = {
   state: PropTypes.shape({
     categoryId: PropTypes.string,
-    eventId: PropTypes.string,
+    eventId: PropTypes.number,
     filteredEvent: PropTypes.string,
     openModal: PropTypes.bool,
   }),

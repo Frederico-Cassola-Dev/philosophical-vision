@@ -1,11 +1,10 @@
 import useAxios from "../../hooks/useAxios";
 
 import singleLogoLittle from "../../assets/logo/single_logo_little.png";
-
-import style from "./_home.module.scss";
+import style from "./home.module.scss";
 
 export default function Home() {
-  const phrasesResponse = useAxios({
+  const phrasesData = useAxios({
     method: "get",
     endpoint: "phrases5",
   });
@@ -15,19 +14,19 @@ export default function Home() {
       <main className={style.main}>
         <div className={style.titleContainer}>
           <h1 className={style.title}>
-            <img src={singleLogoLittle} alt="logo" />
+            <img src={singleLogoLittle} width="84" height="48" alt="logo" />
             Vision
-            <span className={style.subTitle}>Philosophical</span>
+            <span className={style.subTitle}>Philosophique</span>
           </h1>
         </div>
         <section className={style.descriptionSection}>
           <p className={style.descriptionText}>
-            This site offers various philosophical perspectives from around the
-            world, addressing common and everyday situations in your life.
+            Ce site propose diverses perspectives philosophiques du monde
+            entier, abordant des situations communes et quotidiennes de la vie..
           </p>
         </section>
         <section className={style.randomPhrasesSection}>
-          {phrasesResponse?.map((item, index) => (
+          {phrasesData?.response?.map((item, index) => (
             <p className={style[`phrase${index}`]} key={item.id}>
               {item.phrase}
             </p>

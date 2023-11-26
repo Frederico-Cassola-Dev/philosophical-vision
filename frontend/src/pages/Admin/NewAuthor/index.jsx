@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../../hooks/useAxios";
 import style from "./newAuthor.module.scss";
@@ -15,9 +16,10 @@ import newAuthorReducer, {
 } from "./utils/newAuthor-reducer";
 
 export default function NewAuthor() {
+  const navigate = useNavigate();
   const [newAuthor, setNewAuthor] = useReducer(newAuthorReducer, initialState);
 
-  const periodsResponse = useAxios({
+  const periodData = useAxios({
     method: "get",
     endpoint: "periods",
   });
@@ -44,7 +46,7 @@ export default function NewAuthor() {
 
   return (
     <div className={style.newAuthor}>
-      <h1 className={style.title}>Add new author</h1>
+      <h1 className={style.title}>Ajouter nouveau auteur</h1>
       <form
         className={style.form}
         onSubmit={(e) => {
@@ -53,7 +55,7 @@ export default function NewAuthor() {
         }}
       >
         <label htmlFor="knownName" className={style.inputLabel}>
-          Known name
+          Nom connu
           <input
             type="text"
             name="knownName"
@@ -68,7 +70,7 @@ export default function NewAuthor() {
           />
         </label>
         <label htmlFor="firstName" className={style.inputLabel}>
-          First name
+          Prénom
           <input
             type="text"
             name="firstName"
@@ -83,7 +85,7 @@ export default function NewAuthor() {
           />
         </label>
         <label htmlFor="lastName" className={style.inputLabel}>
-          Last name
+          Nom
           <input
             type="text"
             name="lastName"
@@ -98,7 +100,7 @@ export default function NewAuthor() {
           />
         </label>
         <label htmlFor="periodId" className={style.inputLabel}>
-          periodId
+          Période
           <select
             name="periodId"
             id=""
@@ -110,17 +112,16 @@ export default function NewAuthor() {
               })
             }
           >
-            <option defaultChecked>Select the periodId</option>
-            {periodsResponse &&
-              periodsResponse.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.title}
-                </option>
-              ))}
+            <option defaultChecked>Sélectionne</option>
+            {periodData?.response?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.title}
+              </option>
+            ))}
           </select>
         </label>
         <label htmlFor="philoCurrent" className={style.inputLabel}>
-          Philosophical current
+          Courant philosophique
           <select
             name="era"
             id=""
@@ -132,14 +133,14 @@ export default function NewAuthor() {
               })
             }
           >
-            <option defaultChecked>Select the periodId</option>
+            <option defaultChecked>Sélectionne</option>
             <option value="1">Socratic</option>
             <option value="2">Illuminism</option>
           </select>
         </label>
         <div className={style.datesContainer}>
           <label htmlFor="bornDate" className={style.inputLabelBorn}>
-            Born date
+            Né
             <input
               type="date"
               name="bornDate"
@@ -154,7 +155,7 @@ export default function NewAuthor() {
             />
           </label>
           <label htmlFor="deadDate" className={style.inputLabelDead}>
-            Dead Date
+            Décédé
             <input
               type="date"
               name="deadDate"
@@ -188,7 +189,14 @@ export default function NewAuthor() {
         </div>
         <div className={style.submitBtnContainer}>
           <button type="submit" className={style.submitBtn}>
-            Save the new author
+            Sauvegarder
+          </button>
+          <button
+            type="button"
+            className={style.submitBtn}
+            onClick={() => navigate("/admin")}
+          >
+            Retourné
           </button>
         </div>
       </form>

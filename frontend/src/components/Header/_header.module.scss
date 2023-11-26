@@ -5,13 +5,13 @@
   justify-content: space-between;
   align-items: center;
   width: 100vw;
-  height: 8vh;
+  min-height: 4.7rem;
   font-family: $primary-font;
   color: $color-text-primary;
   background-color: $color-background-primary;
 
   .logoContainer {
-    width: 65px;
+    min-width: 6.5rem;
     height: auto;
     margin-left: $space-xs;
   }
@@ -19,20 +19,24 @@
   .hiddenLogo {
     display: none;
   }
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .link {
+      font-size: $font-size-m;
+      font-weight: $font-weight-bold;
+      color: $color-text-primary;
+      margin-right: $space-s;
+      padding: $space-2xs $space-xs;
+      border: 1px solid $color-primary-active;
+      border-radius: $border-radius-l;
+      text-decoration: none;
 
-  .link {
-    font-size: $font-size-l;
-    font-weight: $font-weight-bold;
-    color: $color-text-primary;
-    margin-right: $space-s;
-    padding: $space-2xs $space-xs;
-    border: 1px solid $color-primary-active;
-    border-radius: $border-radius-l;
-    text-decoration: none;
-
-    &:hover {
-      color: $color-primary-active;
-      background-color: $color-text-hover;
+      &:hover {
+        color: $color-primary-active;
+        background-color: $color-text-hover;
+      }
     }
   }
 }

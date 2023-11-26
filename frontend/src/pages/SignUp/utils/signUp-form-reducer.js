@@ -1,30 +1,23 @@
-export const SIGN_UP_UPDATE_AVATAR = "signUp/updateAvatar";
 export const SIGN_UP_UPDATE_FIRST_NAME = "signUp/updateFirstName";
 export const SIGN_UP_UPDATE_LAST_NAME = "signUp/updateLastName";
-export const SIGN_UP_UPDATE_EMAIL_NAME = "signUp/updateEmail";
-export const SIGN_UP_UPDATE_PASSWORD_NAME = "signUp/updatePassword";
-export const SIGN_UP_UPDATE_SECOND_PASSWORD = "signUp/updateSecondPassword";
+export const SIGN_UP_UPDATE_EMAIL = "signUp/updateEmail";
+export const SIGN_UP_UPDATE_EMAIL_MESSAGE = "signUp/updateEmailMessage";
+export const SIGN_UP_UPDATE_PASSWORD = "signUp/updatePassword";
+export const SIGN_UP_UPDATE_CONFIRM_PASSWORD = "signUp/updateConfirmPassword";
+export const SIGN_UP_UPDATE_PASSWORDS_MATCH = "signUp/updatePasswordsMatch";
 
 export const signUpInitialState = {
-  avatar: null,
-  avatarName: "",
   firstName: "",
   lastName: "",
   email: "",
+  emailMessage: "",
   password: "",
-  secondPassword: "",
+  confirmPassword: "",
+  passwordsMatch: false,
 };
 
 export default function signUpFormReducer(state, action) {
   switch (action.type) {
-    case SIGN_UP_UPDATE_AVATAR: {
-      const { avatar, avatarName } = action.payload;
-      return {
-        ...state,
-        avatar,
-        avatarName,
-      };
-    }
     case SIGN_UP_UPDATE_FIRST_NAME: {
       const { firstName } = action.payload;
       return {
@@ -39,25 +32,40 @@ export default function signUpFormReducer(state, action) {
         lastName,
       };
     }
-    case SIGN_UP_UPDATE_EMAIL_NAME: {
+    case SIGN_UP_UPDATE_EMAIL: {
       const { email } = action.payload;
       return {
         ...state,
         email,
       };
     }
-    case SIGN_UP_UPDATE_PASSWORD_NAME: {
+    case SIGN_UP_UPDATE_EMAIL_MESSAGE: {
+      const { emailMessage } = action.payload;
+
+      return {
+        ...state,
+        emailMessage,
+      };
+    }
+    case SIGN_UP_UPDATE_PASSWORD: {
       const { password } = action.payload;
       return {
         ...state,
         password,
       };
     }
-    case SIGN_UP_UPDATE_SECOND_PASSWORD: {
-      const { secondPassword } = action.payload;
+    case SIGN_UP_UPDATE_CONFIRM_PASSWORD: {
+      const { confirmPassword } = action.payload;
       return {
         ...state,
-        secondPassword,
+        confirmPassword,
+      };
+    }
+    case SIGN_UP_UPDATE_PASSWORDS_MATCH: {
+      const { passwordsMatch } = action.payload;
+      return {
+        ...state,
+        passwordsMatch,
       };
     }
 

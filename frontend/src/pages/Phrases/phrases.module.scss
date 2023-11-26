@@ -6,11 +6,12 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 83.9vh;
+  height: calc(100vh - 9.6rem);
   font-family: $primary-font;
   font-size: $font-size-l;
 
   .inputsContainer {
+    display: flex;
     margin-top: $space-l;
 
     .inputSearchCategory {
@@ -66,19 +67,19 @@
       width: 90vw;
     }
 
-    .reactionsAndAutorContainer {
+    .reactionsAndAuthorContainer {
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: center;
-      margin-right: $space-m;
       gap: $space-s;
 
-      .author{
-        margin-right: $space-2xl;
+      .author {
+        padding-right: $space-xl;
       }
-      
+
       .totalLikes {
-        margin-bottom: $space-2xs;
+        width: $space-m;
+        padding-bottom: $space-2xs;
         font-weight: $font-weight-bold;
         color: $color-primary-active;
       }

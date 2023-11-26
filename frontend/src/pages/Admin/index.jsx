@@ -13,11 +13,12 @@ export default function Admin() {
   const [newAuthor, setNewAuthor] = useState(null);
   const [newEvent, setNewEvent] = useState(null);
 
-  const authorsResponse = useAxios({
+  const authorsData = useAxios({
     method: "get",
     endpoint: "authors",
   });
-  const eventsResponse = useAxios({
+
+  const eventsData = useAxios({
     method: "get",
     endpoint: "events",
   });
@@ -31,7 +32,7 @@ export default function Admin() {
         })
         .then((response) => {
           axios
-            .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventphrase`, {
+            .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventPhrase`, {
               eventId: newEvent,
               phraseId: parseInt(response.data.insertId, 10),
             })
@@ -51,35 +52,35 @@ export default function Admin() {
     >
       <h1 className={style.adminTitle}>Administration</h1>
       <div className={style.tablesDBButtons}>
-        <Link to="/admin/tablesdb/phrases">
+        <Link to="/admin/tablesDb/phrases">
           <button className={style.buttons} type="button">
             Phrases
           </button>
         </Link>
-        <Link to="/admin/tablesdb/events">
+        <Link to="/admin/tablesDb/events">
           <button className={style.buttons} type="button">
-            Events
+            Événement
           </button>
         </Link>
-        <Link to="/admin/tablesdb/authors">
+        <Link to="/admin/tablesDb/authors">
           <button className={style.buttons} type="button">
-            Authors
+            Auteurs
           </button>
         </Link>
-        <Link to="/admin/tablesdb/categories">
+        <Link to="/admin/tablesDb/categories">
           <button className={style.buttons} type="button">
             Categories
           </button>
         </Link>
-        <Link to="/admin/tablesdb/users">
+        <Link to="/admin/tablesDb/users">
           <button className={style.buttons} type="button">
-            Users
+            Utilisateurs
           </button>
         </Link>
       </div>
       <form className={style.form}>
         <label htmlFor="phrase" className={style.label}>
-          New Phrase
+          Nouvelle Phrase
           <input
             type="text"
             className={style.input}
@@ -95,18 +96,19 @@ export default function Admin() {
             className={style.select}
             onChange={(e) => setNewAuthor(e.target.value)}
           >
-            <option defaultChecked>Select an Author</option>
-            {authorsResponse &&
-              authorsResponse.map((author) => (
-                <option key={author.id} value={author.id}>
-                  {author.known_name}
-                </option>
-              ))}
+            <option defaultChecked>Auteur</option>
+            {authorsData?.response?.map((author) => (
+              <option key={author.id} value={author.id}>
+                {author.known_name}
+              </option>
+            ))}
           </select>
-          <Link to="/admin/newauthor" className={style.link}>
+          <Link to="/admin/newAuthor" className={style.link}>
             <button type="button" className={style.addAuthorBtn}>
               <IconAdd />
-              <span className={style.addAuthorBtnDescription}>Add author</span>
+              <span className={style.addAuthorBtnDescription}>
+                Ajouter author
+              </span>
             </button>
           </Link>
         </div>
@@ -117,24 +119,25 @@ export default function Admin() {
             className={style.select}
             onChange={(e) => setNewEvent(e.target.value)}
           >
-            <option defaultChecked>Select the event</option>
-            {eventsResponse &&
-              eventsResponse.map((events) => (
-                <option key={events.id} value={events.id}>
-                  {events.title}
-                </option>
-              ))}
+            <option defaultChecked>Événement</option>
+            {eventsData?.response?.map((events) => (
+              <option key={events.id} value={events.id}>
+                {events.title}
+              </option>
+            ))}
           </select>
           <Link to="/admin/newEvent" className={style.link}>
             <button type="button" className={style.addEventBtn}>
               <IconAdd />
-              <span className={style.addEventBtnDescription}>Add event</span>
+              <span className={style.addEventBtnDescription}>
+                Ajouter événement
+              </span>
             </button>
           </Link>
         </div>
         <div className={style.submitBtnContainer}>
           <button type="submit" className={style.submitBtn}>
-            Save the new phrase
+            Sauvegarder nouvelle phrase
           </button>
         </div>
       </form>

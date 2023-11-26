@@ -1,0 +1,84 @@
+@import "../../scss/variables";
+
+.myAccount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 9.6rem);
+  font-family: $primary-font;
+  color: $color-text-primary;
+  font-size: $font-size-l;
+  font-weight: $font-weight-bold;
+
+  .formInput {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin-top: $space-xl;
+    width: 70%;
+    height: 100%;
+
+    label {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 100%;
+      margin-top: $space-m;
+
+      .errorInput {
+        outline: 2px solid red;
+      }
+
+      input {
+        width: 100%;
+        height: $space-m;
+        margin-top: $space-2xs;
+        padding-left: $space-2xs;
+        border-radius: $border-radius-s;
+        font-weight: $font-weight-bold;
+
+        &:focus {
+          outline: 2px solid $border-color-active;
+        }
+      }
+
+      &:focus-within {
+        color: $border-color-active;
+      }
+    }
+
+    .errorMessage {
+      height: 1rem;
+      padding-top: $space-xs;
+    }
+    .errorMessageHidden {
+      display: hidden;
+      padding-top: $space-xs;
+      height: 1rem;
+    }
+
+    .submitButtonContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      button {
+        color: $color-text-primary;
+        border: 1px solid $color-primary-active;
+        border-radius: $border-radius-l;
+        padding: $space-2xs $space-xs;
+        margin-top: $space-xs;
+        font-size: $font-size-l;
+        font-weight: $font-weight-bold;
+
+        &:hover {
+          background-color: $color-text-hover;
+        }
+      }
+    }
+  }
+}

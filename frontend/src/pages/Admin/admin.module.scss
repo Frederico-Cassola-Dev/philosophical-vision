@@ -1,11 +1,7 @@
 @import " ../../../../scss/variables";
 
 .admin {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  height: calc(100vh - 16.1vh);
+  min-height: calc(100vh - 12.6rem);
   font-family: $primary-font;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
@@ -13,9 +9,10 @@
   .adminTitle {
     margin-top: $space-l;
     font-size: $font-size-3xl;
+    text-align: center;
   }
 
-  .tablesDBButtons{
+  .tablesDBButtons {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -24,9 +21,9 @@
     padding-right: $space-s;
     padding-bottom: $space-2xs;
     padding-left: $space-s;
-    gap: $space-xs;
+    gap: $space-2xs;
 
-    .buttons{
+    .buttons {
       color: $color-text-primary;
       border: 1px solid $color-primary-active;
       border-radius: $border-radius-l;
@@ -87,6 +84,7 @@
           outline: 2px solid $border-color-active;
         }
       }
+
       .addAuthorBtn {
         display: flex;
         justify-content: center;
@@ -98,6 +96,7 @@
           color: $color-text-hover;
         }
       }
+      
       .addAuthorBtnDescription {
         font-family: $primary-font;
         font-size: $font-size-l;

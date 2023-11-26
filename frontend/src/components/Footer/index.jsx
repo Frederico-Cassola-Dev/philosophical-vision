@@ -15,7 +15,7 @@ export default function Footer() {
     <footer className={style.footer}>
       <Link to="/aboutme" className={style.aboutMeLink}>
         <button type="button" className={style.aboutMeButton}>
-          About me
+          À propos de moi
         </button>
       </Link>
       <ul className={style.socialList}>

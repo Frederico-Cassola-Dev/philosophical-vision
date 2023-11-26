@@ -1,6 +1,8 @@
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import userContext from "../../contexts/userContext";
 import SearchSelectModal from "../../components/SearchSelectModal";
 import phrasesReducer, {
   OPEN_MODAL,
@@ -9,17 +11,45 @@ import phrasesReducer, {
   SET_PHRASES,
   initialState,
 } from "./utils/phrases-reducer";
-
-import style from "./_phrases.module.scss";
 import PhraseItem from "./PhraseItem";
 
-export default function Phrases() {
-  const [state, dispatch] = useReducer(phrasesReducer, initialState);
+import style from "./phrases.module.scss";
 
-  const categoriesResponse = useAxios({
+export default function Phrases() {
+  const { user, setUser, setToken } = useContext(userContext);
+  const [state, dispatch] = useReducer(phrasesReducer, initialState);
+  const navigate = useNavigate();
+  const usersFavoritePhrases = useAxios(
+    {
+      method: "get",
+      endpoint: `usersPhrases/favorites/${user?.id}`,
+    },
+    [state.phrasesToShow]
+  );
+
+  const totalLikes = useAxios(
+    {
+      method: "get",
+      endpoint: "usersPhrases/totalLikes",
+    },
+    [state.phrasesToShow]
+  );
+
+  const categoriesData = useAxios({
     method: "get",
     endpoint: "categories",
   });
+
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+    document.cookie =
+      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    navigate("/loggedOut");
+  };
+
+  axios.defaults.withCredentials = true;
 
   useEffect(() => {
     axios
@@ -36,6 +66,10 @@ export default function Phrases() {
       )
       .catch((err) => console.error(err));
   }, [state.eventId]);
+
+  if (categoriesData?.error?.response.status === 401) {
+    logout();
+  }
 
   return (
     <div className={style.phrases}>
@@ -58,9 +92,10 @@ export default function Phrases() {
             });
           }}
           value={state.openModal ? state.filteredEvent : ""}
-          placeholder="Search your event"
+          placeholder="Événement"
         />
         <select
+          aria-label="categories"
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
             dispatch({
@@ -69,8 +104,8 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Select a category</option>
-          {categoriesResponse?.map((category) => (
+          <option defaultChecked>Catégorie</option>
+          {categoriesData.response?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
             </option>
@@ -83,10 +118,25 @@ export default function Phrases() {
         </p>
       </div>
       <div className={style.visionsContainer}>
-        {state.phrasesToShow &&
-          state.phrasesToShow?.map((item) => (
-            <PhraseItem key={item.phrase_id} phraseToShow={item} />
-          ))}
+        {state.phrasesToShow?.map((item) => {
+          const foundFavoritePhrases = usersFavoritePhrases.response?.find(
+            (phrase) => item.phrase_id === phrase.phrase_id
+          );
+          const foundTotalLikes = totalLikes.response?.find(
+            (phrase) => item.phrase_id === phrase.phrase_id
+          );
+
+          return (
+            <PhraseItem
+              key={item.phrase_id}
+              phraseToShow={item}
+              isFavorite={!!foundFavoritePhrases?.is_favorite}
+              isLiked={!!foundFavoritePhrases?.is_liked}
+              usersPhrasesId={foundFavoritePhrases?.id}
+              totalLikes={Number(foundTotalLikes?.total_likes) || 0}
+            />
+          );
+        })}
       </div>
     </div>
   );
