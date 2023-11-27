@@ -38,6 +38,8 @@ router.post(
   userControllers.readToVerifyAuth,
   verifyToModifyPassword
 );
+router.delete("/users/:id", userControllers.destroy);
+
 //* Users_Phrases
 router.get(
   "/usersPhrases/favorites/:id",

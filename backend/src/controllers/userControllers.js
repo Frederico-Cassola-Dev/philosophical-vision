@@ -90,6 +90,20 @@ const edit = async (req, res, next) => {
   }
 };
 
+const destroy = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const userId = await tables.users.delete(id);
+    if (userId == null) {
+      res.status(204);
+    } else {
+      res.json(userId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
@@ -97,4 +111,5 @@ module.exports = {
   readToVerifyAuth,
   add,
   edit,
+  destroy,
 };

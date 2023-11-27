@@ -73,6 +73,17 @@ class UserManager extends AbstractManager {
     );
     return rows;
   }
+
+  async delete(id) {
+    //* There are a ON DELETE CASCADE in the tables events_phrases and users_phrases for the foreign keys
+    const [rows] = await this.database.query(
+      `delete ${this.table}
+        from ${this.table}
+        where ${this.table}.id = ? `,
+      [id]
+    );
+    return rows;
+  }
 }
 
 module.exports = UserManager;
