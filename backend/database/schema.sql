@@ -59,7 +59,8 @@ create table
         phrase_id int,
         is_liked TINYINT default 0,
         is_favorite TINYINT default 0,
-        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(user_id) REFERENCES users(id)
+        on delete cascade,
         FOREIGN KEY(phrase_id) REFERENCES phrases(id)
         on delete cascade
     );
@@ -116,6 +117,12 @@ INSERT into
         is_admin
     )
 VALUES (
+        "admin",
+        "admin",
+        "admin@admin.com",
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+        1
+    ),(
         "John",
         "Springfield",
         "john.springfield@springfield.com",
@@ -145,12 +152,6 @@ VALUES (
         "andrea.fritz@fritz.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
         0
-    ), (
-        "admin",
-        "admin",
-        "admin@admin.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        1
     ), (
         "carlos",
         "cassola",
