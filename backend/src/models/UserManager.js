@@ -75,7 +75,7 @@ class UserManager extends AbstractManager {
   }
 
   async delete(id) {
-    //* There are a ON DELETE CASCADE in the tables events_phrases and users_phrases for the foreign keys
+    //* There are a ON DELETE CASCADE in the table users_phrases for the foreign keys
     const [rows] = await this.database.query(
       `delete ${this.table}
         from ${this.table}
