@@ -1,0 +1,41 @@
+@import "../../scss/variables";
+
+.favoritesPhrases{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 9.6rem);
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
+
+  .title{
+    font-family: $secondary-font;
+    font-weight: $font-weight-normal;
+    font-size: $font-size-5xl;
+    padding-top: $space-l;
+    padding-bottom: $space-l;
+  }
+
+  .favoritesPhrasesContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: $space-m;
+
+    .singleFavoritePhrase{
+      .phrase{
+        font-family: $primary-font;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-l;
+      }
+
+      .authorContainer{
+        text-align: center;
+      }
+    }
+  }
+
+}

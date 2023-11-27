@@ -30,7 +30,7 @@ class UserPhraseManager extends AbstractManager {
 
   async readFavoritePhrases(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where user_id = ?`,
+      `select * from ${this.table} where user_id = ? AND is_favorite = 1`,
       [id]
     );
 

@@ -1,5 +1,5 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import userContext from "../../contexts/userContext";
 
 import singleLogo from "../../assets/logo/single_logo_little.png";
@@ -48,6 +48,9 @@ function Header() {
                 <Link to="/phrases" className={style.link}>
                   Phrases
                 </Link>
+                <Link to="/favorites" className={style.link}>
+                  Favorites
+                </Link>
               </>
             )}
             {pathname === "/phrases" && (
@@ -58,12 +61,31 @@ function Header() {
                 <Link to="/myAccount" className={style.link}>
                   Mon compte
                 </Link>
+                <Link to="/favorites" className={style.link}>
+                  Favorites
+                </Link>
               </>
             )}
             {pathname === "/myAccount" && (
               <>
                 <Link to="/" className={style.link} onClick={logout}>
                   Déconnecter
+                </Link>
+                <Link to="/phrases" className={style.link}>
+                  Phrases
+                </Link>
+                <Link to="/favorites" className={style.link}>
+                  Favorites
+                </Link>
+              </>
+            )}
+            {pathname === "/favorites" && (
+              <>
+                <Link to="/" className={style.link} onClick={logout}>
+                  Déconnecter
+                </Link>
+                <Link to="/myAccount" className={style.link}>
+                  Mon compte
                 </Link>
                 <Link to="/phrases" className={style.link}>
                   Phrases

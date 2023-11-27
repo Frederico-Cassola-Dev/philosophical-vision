@@ -22,6 +22,7 @@ import NewAuthor from "./pages/Admin/NewAuthor";
 import NewEvent from "./pages/Admin/NewEvent";
 import TablesDB from "./pages/Admin/TablesDB";
 import LoggedOut from "./pages/LoggedOut";
+import FavoritesPhrases from "./pages/FavoritesPhrases";
 
 import "./scss/styles.scss";
 
@@ -40,7 +41,7 @@ function App() {
   return (
     <>
       <p className="underConstruction">
-        La version desktop est en construction
+        La version desktop est en construction.
       </p>
       <div className="app">
         <Router>
@@ -57,6 +58,7 @@ function App() {
             <Route element={<ProtectedLayout isAdmin={!!user?.is_admin} />}>
               <Route path="phrases" element={<Phrases />} />
               <Route path="myAccount" element={<MyAccount />} />
+              <Route path="favorites" element={<FavoritesPhrases />} />
             </Route>
             <Route
               element={<ProtectedAdminLayout isAdmin={!!user?.is_admin} />}
