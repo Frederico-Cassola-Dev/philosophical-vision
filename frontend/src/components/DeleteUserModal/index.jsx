@@ -28,11 +28,11 @@ export default function DeleteUserModal({
       <div className={style.userContainer}>
         <div className={style.userFieldContainer}>
           <p className={style.title}>Prénom:</p>
-          <p className={style.content}>{userData?.response?.firstname}</p>
+          <p className={style.content}>{userData?.response?.first_name}</p>
         </div>
         <div className={style.userFieldContainer}>
           <p className={style.title}>Nom:</p>
-          <p className={style.content}> {userData?.response?.lastname}</p>
+          <p className={style.content}> {userData?.response?.last_name}</p>
         </div>
         <div className={style.userFieldContainer}>
           <p className={style.title}>Email:</p>

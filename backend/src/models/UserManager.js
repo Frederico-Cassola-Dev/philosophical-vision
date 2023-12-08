@@ -7,7 +7,7 @@ class UserManager extends AbstractManager {
 
   async create(user) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, email, password) values (?, ?, ?, ?)`,
+      `insert into ${this.table} (first_name, last_name, email, password) values (?, ?, ?, ?)`,
       [user.firstName, user.lastName, user.email, user.hashPassword]
     );
 
@@ -16,7 +16,7 @@ class UserManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select u.id, u.firstname, u.lastname, u.email, r.role_name from ${this.table} u
+      `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
       INNER JOIN users_roles ur on ur.user_id = u.id
       INNER JOIN roles r on r.id = ur.role_id 
       where u.id = ?`,
@@ -28,7 +28,7 @@ class UserManager extends AbstractManager {
 
   async readByEmail(email) {
     const [rows] = await this.database.query(
-      `SELECT u.id, u.firstname, users_roles.role_id, u.email, u.password FROM ${this.table} u
+      `SELECT u.id, u.first_name, users_roles.role_id, u.email, u.password FROM ${this.table} u
         INNER JOIN users_roles ON users_roles.user_id = u.id
         INNER JOIN roles ON roles.id = users_roles.role_id       
       where u.email = ?`,
@@ -40,7 +40,7 @@ class UserManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select u.id, u.firstname, u.lastname, u.email, r.role_name from ${this.table} u
+      `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
       INNER JOIN users_roles ur on ur.user_id = u.id
       INNER JOIN roles r on r.id = ur.role_id`
     );
@@ -54,8 +54,8 @@ class UserManager extends AbstractManager {
         `
     UPDATE  ${this.table}
     SET
-      firstname = ?, 
-      lastname = ?,
+      first_name = ?, 
+      last_name = ?,
       email = ?,
       password = ?
     WHERE id = ?
@@ -74,8 +74,8 @@ class UserManager extends AbstractManager {
       `
   UPDATE  ${this.table}
   SET
-    firstname = ?, 
-    lastname = ?,
+    first_name = ?, 
+    last_name = ?,
     email = ?
   WHERE id = ?
   `,

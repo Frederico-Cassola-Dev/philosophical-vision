@@ -144,8 +144,8 @@ export default function TablesDB() {
               tableData?.response?.map((item) => (
                 <tr key={item.id}>
                   <td>{item.known_name}</td>
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.period_title}</td>
                   <td>{item.philo_current}</td>
                   <td>{item.born_date}</td>
@@ -169,8 +169,8 @@ export default function TablesDB() {
                     setSelectedUserId(item.id);
                   }}
                 >
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.email}</td>
                   <td>{item.role_name}</td>
                 </tr>

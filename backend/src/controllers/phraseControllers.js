@@ -13,7 +13,6 @@ const browse = async (req, res, next) => {
 const browse5 = async (req, res, next) => {
   try {
     const phrases = await tables.phrases.read5();
-
     res.json(phrases);
   } catch (err) {
     next(err);

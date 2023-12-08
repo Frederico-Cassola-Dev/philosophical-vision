@@ -3,10 +3,10 @@
 create table
     users (
         id int primary key auto_increment NOT NULL,
-        firstname varchar(100) NOT NULL,
-        lastname varchar(100) NOT NULL,
+        first_name varchar(100) NOT NULL,
+        last_name varchar(100) NOT NULL,
         email varchar(254) NOT NULL unique,
-        password varchar(100) NOT NULL
+        password varchar(254) NOT NULL
     );
 
 create table
@@ -48,8 +48,8 @@ create table
     authors (
         id int PRIMARY KEY auto_increment NOT NULL,
         known_name varchar(100) NOT NULL,
-        firstname varchar(100),
-        lastname varchar(100),
+        first_name varchar(100),
+        last_name varchar(100),
         period_id int NOT NULL,
         philo_current varchar(100) NOT NULL,
         born_date varchar(100),
@@ -124,8 +124,8 @@ VALUES (
 
 INSERT into
     users (
-        firstname,
-        lastname,
+        first_name,
+        last_name,
         email,
         password
     )
@@ -191,8 +191,8 @@ periods (
 INSERT INTO
     authors (
         known_name,
-        firstname,
-        lastname,
+        first_name,
+        last_name,
         period_id,
         philo_current,
         born_date,
