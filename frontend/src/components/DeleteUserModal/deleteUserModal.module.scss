@@ -9,19 +9,18 @@
   width: 90vw;
   height: 20vh;
 
-  .userContainer{
-    .userFieldContainer{
+  .userContainer {
+    .userFieldContainer {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       gap: $space-2xs;
 
-      .content{
+      .content {
         font-size: $font-size-m;
-font-weight: $font-weight-normal;
+        font-weight: $font-weight-normal;
       }
     }
-    
   }
 
   .buttonsContainer {
