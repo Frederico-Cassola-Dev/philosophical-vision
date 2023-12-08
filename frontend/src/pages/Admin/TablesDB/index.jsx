@@ -107,6 +107,7 @@ export default function TablesDB() {
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Email</th>
+                <th>Rôle</th>
               </tr>
             )}
           </thead>
@@ -171,6 +172,7 @@ export default function TablesDB() {
                   <td>{item.firstname}</td>
                   <td>{item.lastname}</td>
                   <td>{item.email}</td>
+                  <td>{item.role_name}</td>
                 </tr>
               ))}
           </tbody>
