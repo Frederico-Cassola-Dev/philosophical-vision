@@ -13,6 +13,15 @@ export default function Admin() {
   const [newAuthor, setNewAuthor] = useState(null);
   const [newEvent, setNewEvent] = useState(null);
 
+  // console.log(
+  //   "Phrase ==> ",
+  //   newPhrase,
+  //   "Author ==> ",
+  //   newAuthor,
+  //   "Event ==> ",
+  //   newEvent
+  // );
+
   const authorsData = useAxios({
     method: "get",
     endpoint: "authors",

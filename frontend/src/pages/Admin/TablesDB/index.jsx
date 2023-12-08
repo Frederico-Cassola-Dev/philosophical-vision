@@ -57,7 +57,7 @@ export default function TablesDB() {
       {!modifyPhrase && !deleteUserModal && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Retourné
+            Retourner
           </Link>
         </div>
       )}
@@ -179,7 +179,7 @@ export default function TablesDB() {
       {!modifyPhrase && !deleteUserModal && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Retourné
+            Retourner
           </Link>
         </div>
       )}
