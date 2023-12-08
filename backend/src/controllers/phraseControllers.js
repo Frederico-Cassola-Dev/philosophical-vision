@@ -13,7 +13,6 @@ const browse = async (req, res, next) => {
 const browse5 = async (req, res, next) => {
   try {
     const phrases = await tables.phrases.read5();
-
     res.json(phrases);
   } catch (err) {
     next(err);
@@ -64,6 +63,7 @@ const read4ByEventId = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   const phrase = req.body;
+  // console.log("🚀 - phrase:", phrase)
 
   try {
     const insertId = await tables.phrases.create(phrase);

@@ -57,7 +57,7 @@ export default function TablesDB() {
       {!modifyPhrase && !deleteUserModal && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Retourné
+            Retourner
           </Link>
         </div>
       )}
@@ -107,6 +107,7 @@ export default function TablesDB() {
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Email</th>
+                <th>Rôle</th>
               </tr>
             )}
           </thead>
@@ -143,8 +144,8 @@ export default function TablesDB() {
               tableData?.response?.map((item) => (
                 <tr key={item.id}>
                   <td>{item.known_name}</td>
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.period_title}</td>
                   <td>{item.philo_current}</td>
                   <td>{item.born_date}</td>
@@ -168,9 +169,10 @@ export default function TablesDB() {
                     setSelectedUserId(item.id);
                   }}
                 >
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.email}</td>
+                  <td>{item.role_name}</td>
                 </tr>
               ))}
           </tbody>
@@ -179,7 +181,7 @@ export default function TablesDB() {
       {!modifyPhrase && !deleteUserModal && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Retourné
+            Retourner
           </Link>
         </div>
       )}

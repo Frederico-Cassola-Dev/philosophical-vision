@@ -28,8 +28,8 @@ export default function MyAccount() {
     ) {
       axios
         .put(`${import.meta.env.VITE_BACKEND_URL}/api/users/${user?.id}`, {
-          newLastName: newLastName || user.lastname,
-          newFirstName: newFirstName || user.firstname,
+          newLastName: newLastName || user.last_name,
+          newFirstName: newFirstName || user.first_name,
           newEmail: newEmail && validateOldPassword ? newEmail : user.email,
           password: validateOldPassword && newPassword,
         })
@@ -81,7 +81,7 @@ export default function MyAccount() {
             type="text"
             name="lastName"
             id="lastName"
-            placeholder={user?.lastname}
+            placeholder={user?.last_name}
             onChange={(e) => setNewLastName(e.target.value)}
           />
         </label>
@@ -91,7 +91,7 @@ export default function MyAccount() {
             type="text"
             name="firstName"
             id="firstName"
-            placeholder={user?.firstname}
+            placeholder={user?.first_name}
             onChange={(e) => setNewFirstName(e.target.value)}
           />
         </label>

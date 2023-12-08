@@ -13,7 +13,7 @@ const getSelectedPhraseAuthorAndEvent = (
   const selectedPhraseData = useAxios(
     {
       method: "get",
-      endpoint: `eventphrase/${selectedPhraseId}`,
+      endpoint: `eventPhrase/${selectedPhraseId}`,
     },
     dependenciesToUpdateTable
   );

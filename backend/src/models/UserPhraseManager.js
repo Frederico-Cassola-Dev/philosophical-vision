@@ -7,7 +7,7 @@ class UserPhraseManager extends AbstractManager {
 
   async create(userPhrase) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, email, password) values (?, ?, ?, ?)`,
+      `insert into ${this.table} (first_name, last_name, email, password) values (?, ?, ?, ?)`,
       [
         userPhrase.firstName,
         userPhrase.lastName,

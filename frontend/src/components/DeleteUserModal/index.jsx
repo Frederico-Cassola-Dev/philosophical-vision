@@ -26,13 +26,22 @@ export default function DeleteUserModal({
   return (
     <div className={style.deleteUserModal}>
       <div className={style.userContainer}>
-        <p className={style.firstNameField}>
-          Prénom: {userData?.response?.firstname}
-        </p>
-        <p className={style.lastNameField}>
-          Nom: {userData?.response?.lastname}
-        </p>
-        <p className={style.emailField}>Email: {userData?.response?.email}</p>
+        <div className={style.userFieldContainer}>
+          <p className={style.title}>Prénom:</p>
+          <p className={style.content}>{userData?.response?.first_name}</p>
+        </div>
+        <div className={style.userFieldContainer}>
+          <p className={style.title}>Nom:</p>
+          <p className={style.content}> {userData?.response?.last_name}</p>
+        </div>
+        <div className={style.userFieldContainer}>
+          <p className={style.title}>Email:</p>
+          <p className={style.content}> {userData?.response?.email}</p>
+        </div>
+        <div className={style.userFieldContainer}>
+          <p className={style.title}> Rôle:</p>
+          <p className={style.content}> {userData?.response?.role_name}</p>
+        </div>
       </div>
       <div className={style.buttonsContainer}>
         <button type="button" onClick={handleDeleteUser}>
