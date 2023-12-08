@@ -28,7 +28,7 @@ export default function SignIn() {
         setUser(response.data.user);
         setToken(response.data.token);
         localStorage.setItem("user_info", JSON.stringify(response.data));
-        if (response.data.user.is_admin) {
+        if (response.data.user.role_id === 1) {
           navigate("/admin", { replace: true });
         } else {
           navigate("/phrases", { replace: true });
