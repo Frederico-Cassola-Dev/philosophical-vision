@@ -6,9 +6,23 @@ create table
         firstname varchar(100) NOT NULL,
         lastname varchar(100) NOT NULL,
         email varchar(254) NOT NULL unique,
-        password varchar(100) NOT NULL,
-        is_admin TINYINT default 0
+        password varchar(100) NOT NULL
     );
+
+create table
+    roles (
+      id int primary key auto_increment NOT NULL,
+      role_name varchar(100) NOT NULL
+    );
+
+create table 
+    users_roles (
+      id int primary key auto_increment NOT NULL,
+      user_id int not null,
+      role_id int not null,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (role_id) REFERENCES roles(id)
+);
 
 create table
     categories(
@@ -113,53 +127,62 @@ INSERT into
         firstname,
         lastname,
         email,
-        password,
-        is_admin
+        password
     )
 VALUES (
         "admin",
         "admin",
         "admin@admin.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        1
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ),(
         "John",
         "Springfield",
         "john.springfield@springfield.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "carlos",
         "cassola",
         "cfcassola@gmail.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     );
 
+
+INSERT INTO 
+roles (
+      role_name
+    ) Values ( "administrator"), ("user");
+
+INSERT INTO 
+users_roles (
+      user_id, role_id
+    ) Values ("1", "1"), 
+    ("1", "2"),
+    ("2", "2"),
+    ("3", "2"),
+    ("4", "2"),
+    ("5", "2"),
+    ("6", "2"),
+    ("7", "2");
 
 INSERT INTO 
 periods (
