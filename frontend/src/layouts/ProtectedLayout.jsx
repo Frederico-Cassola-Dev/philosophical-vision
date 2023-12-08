@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export default function ProtectedLayout({ isAdmin }) {
+export default function ProtectedLayout({ userRole }) {
   const location = useLocation();
   const userInfo = JSON.parse(localStorage.getItem("user_info"));
 
@@ -9,7 +9,7 @@ export default function ProtectedLayout({ isAdmin }) {
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
 
-  if (isAdmin) {
+  if (userRole === 1) {
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
 
@@ -17,5 +17,5 @@ export default function ProtectedLayout({ isAdmin }) {
 }
 
 ProtectedLayout.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
+  userRole: PropTypes.number.isRequired,
 };

@@ -55,14 +55,12 @@ function App() {
             <Route path="loggedOut" element={<LoggedOut />} />
             <Route path="*" element={<Navigate to="/" replace />} />
             {/* private routes  */}
-            <Route element={<ProtectedLayout isAdmin={!!user?.is_admin} />}>
+            <Route element={<ProtectedLayout userRole={user?.role_id} />}>
               <Route path="phrases" element={<Phrases />} />
               <Route path="myAccount" element={<MyAccount />} />
               <Route path="favorites" element={<FavoritesPhrases />} />
             </Route>
-            <Route
-              element={<ProtectedAdminLayout isAdmin={!!user?.is_admin} />}
-            >
+            <Route element={<ProtectedAdminLayout userRole={user?.role_id} />}>
               <Route path="admin" element={<Admin />} />
               <Route path="admin/newAuthor" element={<NewAuthor />} />
               <Route path="admin/newEvent" element={<NewEvent />} />

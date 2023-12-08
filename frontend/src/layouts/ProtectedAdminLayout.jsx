@@ -3,11 +3,9 @@
 import { PropTypes } from "prop-types";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export default function ProtectedAdminLayout({ isAdmin }) {
-  // const [isTokenExpired, setIsTokenExpired] = useState(false);
+export default function ProtectedAdminLayout({ userRole }) {
   const location = useLocation();
   const userInfo = JSON.parse(localStorage.getItem("user_info"));
-  // console.log("🚀 - userInfo:", !!userInfo.user.is_admin);
 
   // const navigate = useNavigate();
 
@@ -32,7 +30,7 @@ export default function ProtectedAdminLayout({ isAdmin }) {
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
 
-  if (!isAdmin) {
+  if (userRole === 2) {
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
 
@@ -40,5 +38,5 @@ export default function ProtectedAdminLayout({ isAdmin }) {
 }
 
 ProtectedAdminLayout.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
+  userRole: PropTypes.number.isRequired,
 };
