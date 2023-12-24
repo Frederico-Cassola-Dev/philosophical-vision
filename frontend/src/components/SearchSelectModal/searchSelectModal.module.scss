@@ -48,10 +48,9 @@
       align-items: center;
       padding: $space-xs;
       overflow-y: auto;
-      list-style: none;
 
       .list {
-        list-style-type: none;
+        list-style: none;
 
         .listItems {
           button {
