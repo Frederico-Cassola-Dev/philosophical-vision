@@ -20,8 +20,10 @@ create table
       id int primary key auto_increment NOT NULL,
       user_id int not null,
       role_id int not null,
-      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (user_id) REFERENCES users(id)
+      on delete cascade,
       FOREIGN KEY (role_id) REFERENCES roles(id)
+      on delete cascade
 );
 
 create table
