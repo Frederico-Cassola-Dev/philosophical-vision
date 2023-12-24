@@ -38,6 +38,8 @@ router.post(
   userControllers.readToVerifyAuth,
   verifyToModifyPassword
 );
+router.delete("/users/:id", userControllers.destroy);
+
 //* Users_Phrases
 router.get(
   "/usersPhrases/favorites/:id",
@@ -57,7 +59,7 @@ router.post(
 router.get("/phrases", phraseControllers.browse);
 router.get("/phrases/:id", phraseControllers.read);
 router.get("/phrases4/events/:id", phraseControllers.read4ByEventId);
-router.get("/phrases4/randomevents", phraseControllers.read4ByRandomEvent);
+router.get("/phrases4/randomEvents", phraseControllers.read4ByRandomEvent);
 router.post("/phrases", phraseControllers.add);
 router.put("/phrases/:id", phraseControllers.edit);
 router.delete("/phrases/:id", phraseControllers.destroy);

@@ -5,3 +5,26 @@
   color: $color-text-primary;
   background-color: $color-background-primary;
 }
+
+.underConstruction {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .app {
+    display: none;
+  }
+
+  .underConstruction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-family: $primary-font;
+    font-size: $font-size-6xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    background-color: $color-background-primary;
+  }
+}

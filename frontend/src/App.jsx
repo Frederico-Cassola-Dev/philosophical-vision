@@ -22,6 +22,7 @@ import NewAuthor from "./pages/Admin/NewAuthor";
 import NewEvent from "./pages/Admin/NewEvent";
 import TablesDB from "./pages/Admin/TablesDB";
 import LoggedOut from "./pages/LoggedOut";
+import FavoritesPhrases from "./pages/FavoritesPhrases";
 
 import "./scss/styles.scss";
 
@@ -38,32 +39,38 @@ function App() {
     }
   }, []);
   return (
-    <div className="app">
-      <Router>
-        <Header />
-        <Routes>
-          {/* public routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="aboutMe" element={<AboutMe />} />
-          <Route path="signIn" element={<SignIn />} />
-          <Route path="signUp" element={<SignUp />} />
-          <Route path="loggedOut" element={<LoggedOut />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-          {/* private routes  */}
-          <Route element={<ProtectedLayout isAdmin={!!user?.is_admin} />}>
-            <Route path="phrases" element={<Phrases />} />
-            <Route path="myAccount" element={<MyAccount />} />
-          </Route>
-          <Route element={<ProtectedAdminLayout isAdmin={!!user?.is_admin} />}>
-            <Route path="admin" element={<Admin />} />
-            <Route path="admin/newAuthor" element={<NewAuthor />} />
-            <Route path="admin/newEvent" element={<NewEvent />} />
-            <Route path="admin/tablesDb/:table" element={<TablesDB />} />
-          </Route>
-        </Routes>
-        <Footer />
-      </Router>
-    </div>
+    <>
+      <p className="underConstruction">
+        La version desktop est en construction.
+      </p>
+      <div className="app">
+        <Router>
+          <Header />
+          <Routes>
+            {/* public routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="aboutMe" element={<AboutMe />} />
+            <Route path="signIn" element={<SignIn />} />
+            <Route path="signUp" element={<SignUp />} />
+            <Route path="loggedOut" element={<LoggedOut />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            {/* private routes  */}
+            <Route element={<ProtectedLayout userRole={user?.role_id} />}>
+              <Route path="phrases" element={<Phrases />} />
+              <Route path="myAccount" element={<MyAccount />} />
+              <Route path="favorites" element={<FavoritesPhrases />} />
+            </Route>
+            <Route element={<ProtectedAdminLayout userRole={user?.role_id} />}>
+              <Route path="admin" element={<Admin />} />
+              <Route path="admin/newAuthor" element={<NewAuthor />} />
+              <Route path="admin/newEvent" element={<NewEvent />} />
+              <Route path="admin/tablesDb/:table" element={<TablesDB />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </Router>
+      </div>
+    </>
   );
 }
 

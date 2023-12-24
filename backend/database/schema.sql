@@ -3,12 +3,26 @@
 create table
     users (
         id int primary key auto_increment NOT NULL,
-        firstname varchar(100) NOT NULL,
-        lastname varchar(100) NOT NULL,
+        first_name varchar(100) NOT NULL,
+        last_name varchar(100) NOT NULL,
         email varchar(254) NOT NULL unique,
-        password varchar(100) NOT NULL,
-        is_admin TINYINT default 0
+        password varchar(254) NOT NULL
     );
+
+create table
+    roles (
+      id int primary key auto_increment NOT NULL,
+      role_name varchar(100) NOT NULL
+    );
+
+create table 
+    users_roles (
+      id int primary key auto_increment NOT NULL,
+      user_id int not null,
+      role_id int not null,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (role_id) REFERENCES roles(id)
+);
 
 create table
     categories(
@@ -34,8 +48,8 @@ create table
     authors (
         id int PRIMARY KEY auto_increment NOT NULL,
         known_name varchar(100) NOT NULL,
-        firstname varchar(100),
-        lastname varchar(100),
+        first_name varchar(100),
+        last_name varchar(100),
         period_id int NOT NULL,
         philo_current varchar(100) NOT NULL,
         born_date varchar(100),
@@ -59,7 +73,8 @@ create table
         phrase_id int,
         is_liked TINYINT default 0,
         is_favorite TINYINT default 0,
-        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(user_id) REFERENCES users(id)
+        on delete cascade,
         FOREIGN KEY(phrase_id) REFERENCES phrases(id)
         on delete cascade
     );
@@ -109,56 +124,64 @@ VALUES (
 
 INSERT into
     users (
-        firstname,
-        lastname,
+        first_name,
+        last_name,
         email,
-        password,
-        is_admin
+        password
     )
 VALUES (
+        "admin",
+        "admin",
+        "admin@admin.com",
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+    ),(
         "John",
         "Springfield",
         "john.springfield@springfield.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
-    ), (
-        "admin",
-        "admin",
-        "admin@admin.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        1
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     ), (
         "carlos",
         "cassola",
         "cfcassola@gmail.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
     );
 
+
+INSERT INTO 
+roles (
+      role_name
+    ) Values ( "administrator"), ("user");
+
+INSERT INTO 
+users_roles (
+      user_id, role_id
+    ) Values ( 1, 1), 
+    (2, 2),
+    (3, 2),
+    (4, 2),
+    (5, 2),
+    (6, 2),
+    (7, 2);
 
 INSERT INTO 
 periods (
@@ -168,8 +191,8 @@ periods (
 INSERT INTO
     authors (
         known_name,
-        firstname,
-        lastname,
+        first_name,
+        last_name,
         period_id,
         philo_current,
         born_date,

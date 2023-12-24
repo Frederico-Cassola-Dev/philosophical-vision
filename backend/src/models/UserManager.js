@@ -7,7 +7,7 @@ class UserManager extends AbstractManager {
 
   async create(user) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, email, password) values (?, ?, ?, ?)`,
+      `insert into ${this.table} (first_name, last_name, email, password) values (?, ?, ?, ?)`,
       [user.firstName, user.lastName, user.email, user.hashPassword]
     );
 
@@ -16,7 +16,10 @@ class UserManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
+      INNER JOIN users_roles ur on ur.user_id = u.id
+      INNER JOIN roles r on r.id = ur.role_id 
+      where u.id = ?`,
       [id]
     );
 
@@ -25,7 +28,10 @@ class UserManager extends AbstractManager {
 
   async readByEmail(email) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where email = ?`,
+      `SELECT u.id, u.first_name, users_roles.role_id, u.email, u.password FROM ${this.table} u
+        INNER JOIN users_roles ON users_roles.user_id = u.id
+        INNER JOIN roles ON roles.id = users_roles.role_id       
+      where u.email = ?`,
       [email]
     );
 
@@ -33,7 +39,11 @@ class UserManager extends AbstractManager {
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(
+      `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
+      INNER JOIN users_roles ur on ur.user_id = u.id
+      INNER JOIN roles r on r.id = ur.role_id`
+    );
 
     return rows;
   }
@@ -44,8 +54,8 @@ class UserManager extends AbstractManager {
         `
     UPDATE  ${this.table}
     SET
-      firstname = ?, 
-      lastname = ?,
+      first_name = ?, 
+      last_name = ?,
       email = ?,
       password = ?
     WHERE id = ?
@@ -64,12 +74,23 @@ class UserManager extends AbstractManager {
       `
   UPDATE  ${this.table}
   SET
-    firstname = ?, 
-    lastname = ?,
+    first_name = ?, 
+    last_name = ?,
     email = ?
   WHERE id = ?
   `,
       [user.newLastName, user.newFirstName, user.newEmail, user.userId]
+    );
+    return rows;
+  }
+
+  async delete(id) {
+    //* There are a ON DELETE CASCADE in the table users_phrases for the foreign keys
+    const [rows] = await this.database.query(
+      `delete ${this.table}
+        from ${this.table}
+        where ${this.table}.id = ? `,
+      [id]
     );
     return rows;
   }

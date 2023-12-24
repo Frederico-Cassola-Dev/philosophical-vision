@@ -2,14 +2,18 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 
-import style from "./tablesDB.module.scss";
 import ModifyPhrase from "../../../components/ModifyPhrase";
+import DeleteUserModal from "../../../components/DeleteUserModal";
+
+import style from "./tablesDB.module.scss";
 
 export default function TablesDB() {
   const { table } = useParams();
 
   const [selectedPhraseId, setSelectedPhraseId] = useState("");
+  const [selectedUserId, setSelectedUserId] = useState("");
   const [modifyPhrase, setModifyPhrase] = useState(false);
+  const [deleteUserModal, setDeleteUserModal] = useState(false);
   const [updateTable, setUpdateTable] = useState(false);
 
   const tableData = useAxios(
@@ -17,7 +21,13 @@ export default function TablesDB() {
       method: "get",
       endpoint: `${table}`,
     },
-    [modifyPhrase, selectedPhraseId, updateTable]
+    [
+      modifyPhrase,
+      selectedPhraseId,
+      updateTable,
+      deleteUserModal,
+      selectedUserId,
+    ]
   );
 
   const totalLikesData = useAxios(
@@ -25,7 +35,13 @@ export default function TablesDB() {
       method: "get",
       endpoint: "usersPhrases/totalLikes",
     },
-    [modifyPhrase, selectedPhraseId, updateTable]
+    [
+      modifyPhrase,
+      selectedPhraseId,
+      updateTable,
+      deleteUserModal,
+      selectedUserId,
+    ]
   );
 
   return (
@@ -38,12 +54,18 @@ export default function TablesDB() {
           setUpdateTable={setUpdateTable}
         />
       )}
-      {!modifyPhrase && (
+      {!modifyPhrase && !deleteUserModal && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Retourné
+            Retourner
           </Link>
         </div>
+      )}
+      {deleteUserModal && (
+        <DeleteUserModal
+          setDeleteUserModal={setDeleteUserModal}
+          selectedUserId={selectedUserId}
+        />
       )}
       <section className={style.sectionTable}>
         <table className={style.table}>
@@ -85,6 +107,7 @@ export default function TablesDB() {
                 <th>Prénom</th>
                 <th>Nom</th>
                 <th>Email</th>
+                <th>Rôle</th>
               </tr>
             )}
           </thead>
@@ -121,8 +144,8 @@ export default function TablesDB() {
               tableData?.response?.map((item) => (
                 <tr key={item.id}>
                   <td>{item.known_name}</td>
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.period_title}</td>
                   <td>{item.philo_current}</td>
                   <td>{item.born_date}</td>
@@ -139,19 +162,26 @@ export default function TablesDB() {
               ))}
             {table === "users" &&
               tableData?.response?.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
+                <tr
+                  key={item.id}
+                  onClick={() => {
+                    setDeleteUserModal(true);
+                    setSelectedUserId(item.id);
+                  }}
+                >
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.email}</td>
+                  <td>{item.role_name}</td>
                 </tr>
               ))}
           </tbody>
         </table>
       </section>
-      {!modifyPhrase && (
+      {!modifyPhrase && !deleteUserModal && (
         <div className={style.linkContainer}>
           <Link to="/admin" className={style.linkReturnBtn}>
-            Retourné
+            Retourner
           </Link>
         </div>
       )}

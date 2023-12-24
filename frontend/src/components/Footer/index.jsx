@@ -13,7 +13,7 @@ import style from "./_footer.module.scss";
 export default function Footer() {
   return (
     <footer className={style.footer}>
-      <Link to="/aboutme" className={style.aboutMeLink}>
+      <Link to="/aboutMe" className={style.aboutMeLink}>
         <button type="button" className={style.aboutMeButton}>
           À propos de moi
         </button>
