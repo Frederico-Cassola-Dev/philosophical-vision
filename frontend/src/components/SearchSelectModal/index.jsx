@@ -108,7 +108,7 @@ export default function SearchSelectModal({ state, dispatch }) {
 SearchSelectModal.propTypes = {
   state: PropTypes.shape({
     categoryId: PropTypes.string,
-    eventId: PropTypes.number,
+    eventId: PropTypes.string,
     filteredEvent: PropTypes.string,
     openModal: PropTypes.bool,
   }),
