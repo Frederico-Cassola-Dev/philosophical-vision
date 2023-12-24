@@ -26,7 +26,6 @@ export default function ProtectedAdminLayout({ userRole }) {
   //   }
   // }, []);
   if (!userInfo) {
-    // console.log("no user");
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
 
@@ -38,5 +37,9 @@ export default function ProtectedAdminLayout({ userRole }) {
 }
 
 ProtectedAdminLayout.propTypes = {
-  userRole: PropTypes.number.isRequired,
+  userRole: PropTypes.number,
+};
+
+ProtectedAdminLayout.defaultProps = {
+  userRole: null,
 };

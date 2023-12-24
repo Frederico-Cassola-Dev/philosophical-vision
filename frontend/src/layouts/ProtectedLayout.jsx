@@ -17,5 +17,9 @@ export default function ProtectedLayout({ userRole }) {
 }
 
 ProtectedLayout.propTypes = {
-  userRole: PropTypes.number.isRequired,
+  userRole: PropTypes.number,
+};
+
+ProtectedLayout.defaultProps = {
+  userRole: null,
 };
