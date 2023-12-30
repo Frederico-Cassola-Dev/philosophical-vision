@@ -10,8 +10,12 @@ import style from "./admin.module.scss";
 
 export default function Admin() {
   const [newPhrase, setNewPhrase] = useState("");
-  const [newAuthor, setNewAuthor] = useState(null);
-  const [newEvent, setNewEvent] = useState(null);
+  const [newAuthor, setNewAuthor] = useState("");
+  const [newEvent, setNewEvent] = useState("");
+  const [submitMessage, setSubmitMessage] = useState({
+    message: "Sauvegarder nouvelle phrase",
+    messageColor: "",
+  });
 
   const authorsData = useAxios({
     method: "get",
@@ -35,6 +39,21 @@ export default function Admin() {
             .post(`${import.meta.env.VITE_BACKEND_URL}/api/eventPhrase`, {
               eventId: newEvent,
               phraseId: parseInt(response.data.insertId, 10),
+            })
+            .then(() => {
+              setSubmitMessage({
+                message: "Nouvelle phrase ajoutée",
+                messageColor: "green",
+              });
+              setTimeout(() => {
+                setSubmitMessage({
+                  message: "Sauvegarder nouvelle phrase",
+                  messageColor: "",
+                });
+                setNewPhrase("");
+                setNewAuthor("");
+                setNewEvent("");
+              }, 2000);
             })
             .catch((err) => console.error(err));
         })
@@ -94,9 +113,10 @@ export default function Admin() {
             name="listAuthors"
             id="author"
             className={style.select}
+            value={newAuthor}
             onChange={(e) => setNewAuthor(e.target.value)}
           >
-            <option defaultChecked>Auteur</option>
+            <option value="">Auteur</option>
             {authorsData?.response?.map((author) => (
               <option key={author.id} value={author.id}>
                 {author.known_name}
@@ -117,9 +137,10 @@ export default function Admin() {
             name="listEvents"
             id="events"
             className={style.select}
+            value={newEvent}
             onChange={(e) => setNewEvent(e.target.value)}
           >
-            <option defaultChecked>Événement</option>
+            <option value="">Événement</option>
             {eventsData?.response?.map((events) => (
               <option key={events.id} value={events.id}>
                 {events.title}
@@ -136,8 +157,14 @@ export default function Admin() {
           </Link>
         </div>
         <div className={style.submitBtnContainer}>
-          <button type="submit" className={style.submitBtn}>
-            Sauvegarder nouvelle phrase
+          <button
+            type="submit"
+            className={style.submitBtn}
+            style={{
+              background: submitMessage.messageColor,
+            }}
+          >
+            {submitMessage.message}
           </button>
         </div>
       </form>
