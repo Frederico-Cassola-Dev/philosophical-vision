@@ -5,6 +5,7 @@ import useAxios from "../../hooks/useAxios";
 
 import { IconAdd } from "../../components/SvgIcons";
 import style from "./admin.module.scss";
+import DialogNotification from "../../components/DialogNotification";
 
 // TODO - addFeature - after save btn show saved and then return state before
 
@@ -12,10 +13,10 @@ export default function Admin() {
   const [newPhrase, setNewPhrase] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
   const [newEvent, setNewEvent] = useState("");
-  const [submitMessage, setSubmitMessage] = useState({
-    message: "Sauvegarder nouvelle phrase",
-    messageColor: "",
-  });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(
+    "Sauvegarder nouvelle phrase"
+  );
 
   const authorsData = useAxios({
     method: "get",
@@ -41,23 +42,20 @@ export default function Admin() {
               phraseId: parseInt(response.data.insertId, 10),
             })
             .then(() => {
-              setSubmitMessage({
-                message: "Nouvelle phrase ajoutée",
-                messageColor: "green",
-              });
-              setTimeout(() => {
-                setSubmitMessage({
-                  message: "Sauvegarder nouvelle phrase",
-                  messageColor: "",
-                });
-                setNewPhrase("");
-                setNewAuthor("");
-                setNewEvent("");
-              }, 2000);
+              setSubmitMessage("Nouvelle phrase ajoutée");
+              setNewPhrase("");
+              setNewAuthor("");
+              setNewEvent("");
+              setIsDialogOpen(true);
+              // if(!isDialogOpen){
+              // }, 2000);
             })
             .catch((err) => console.error(err));
         })
         .catch((err) => console.error(err));
+    } else {
+      setSubmitMessage("Remplissé et selectione tous les champs");
+      setIsDialogOpen(true);
     }
   };
 
@@ -97,6 +95,12 @@ export default function Admin() {
           </button>
         </Link>
       </div>
+      {isDialogOpen && (
+        <DialogNotification
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
       <form className={style.form}>
         <label htmlFor="phrase" className={style.label}>
           Nouvelle Phrase
@@ -157,14 +161,8 @@ export default function Admin() {
           </Link>
         </div>
         <div className={style.submitBtnContainer}>
-          <button
-            type="submit"
-            className={style.submitBtn}
-            style={{
-              background: submitMessage.messageColor,
-            }}
-          >
-            {submitMessage.message}
+          <button type="submit" className={style.submitBtn}>
+            Sauvegarder nouvelle phrase
           </button>
         </div>
       </form>

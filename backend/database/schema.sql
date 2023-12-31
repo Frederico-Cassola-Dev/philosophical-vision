@@ -43,7 +43,12 @@ create table
 
 create table periods (
      id int PRIMARY KEY auto_increment NOT NULL,
-     title varchar(100) NOT NULL
+     title varchar(254) NOT NULL
+    );
+
+create table philo_currents (
+     id int PRIMARY KEY auto_increment NOT NULL,
+     title varchar(254) NOT NULL
     );
 
 create table
@@ -53,11 +58,12 @@ create table
         first_name varchar(100),
         last_name varchar(100),
         period_id int NOT NULL,
-        philo_current varchar(100) NOT NULL,
+        philo_current_id int NOT NULL,
         born_date varchar(100),
         dead_date varchar(100),
         era varchar(50) NOT NULL,
-        FOREIGN KEY(period_id) REFERENCES periods(id)
+        FOREIGN KEY(period_id) REFERENCES periods(id),
+        FOREIGN KEY(philo_current_id) REFERENCES philo_currents(id)
     );
 
 create table
@@ -190,13 +196,18 @@ periods (
       title
     ) Values ( "Ancient"), ("Medieval"), ("Modern");
 
+INSERT INTO 
+philo_currents (
+      title
+    ) Values ( "Socratic"), ("Illuminism"), ("Rationalism"), ("Modern"), ("Add more into db");
+
 INSERT INTO
     authors (
         known_name,
         first_name,
         last_name,
         period_id,
-        philo_current,
+        philo_current_id,
         born_date,
         dead_date,
         era
@@ -206,7 +217,7 @@ VALUES (
         null,
         null,
         1,
-        "Socratic",
+        1,
         "11/11/1234",
         "12/01/2132",
         "BCE"
@@ -215,7 +226,7 @@ VALUES (
         "Ludwig",
         "Wittgenstein",
         3,
-        "Modern",
+        4,
         "14/04/923",
         "20/07/04",
         "CE"
@@ -224,7 +235,7 @@ VALUES (
         "Ludwig",
         "Ludwig",
         3,
-        "Modern",
+        4,
         "14/04/923",
         "20/07/04",
         "CE"
@@ -233,7 +244,7 @@ VALUES (
         "Ludwig",
         "Ludwig",
         3,
-        "Modern",
+        4,
         "14/04/923",
         "20/07/04",
         "CE"
@@ -242,7 +253,7 @@ VALUES (
         "Ludwig",
         "Ludwig",
         3,
-        "Modern",
+        4,
         "14/04/923",
         "20/07/04",
         "CE"
@@ -251,7 +262,7 @@ VALUES (
         "Ludwig",
         "Ludwig",
         3,
-        "Modern",
+        4,
         "14/04/923",
         "20/07/04",
         "CE"
@@ -260,7 +271,7 @@ VALUES (
         "René",
         "Descartes",
         2,
-        "Rationalism",
+        3,
        "14/04/923",
         "14/04/923",
         "CE"
@@ -269,7 +280,7 @@ VALUES (
         null,
         null,
         1,
-        "Socratic",
+        1,
         "11/11/1234",
         "12/01/2132",
         "BCE"
@@ -278,7 +289,7 @@ VALUES (
         null,
         null,
         1,
-        "Socratic",
+        1,
         "11/11/1234",
         "12/01/2132",
         "BCE"
@@ -287,7 +298,7 @@ VALUES (
         null,
         null,
         1,
-        "Socratic",
+        1,
         "11/11/1234",
         "12/01/2132",
         "BCE"

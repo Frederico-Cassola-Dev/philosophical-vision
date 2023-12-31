@@ -10,6 +10,7 @@ const categoryControllers = require("./controllers/categoryControllers");
 const authorControllers = require("./controllers/authorControllers");
 const eventPhraseControllers = require("./controllers/eventPhraseControllers");
 const periodControllers = require("./controllers/periodControllers");
+const philoCurrentControllers = require("./controllers/philoCurrentControllers");
 
 const {
   checkUserData,
@@ -94,5 +95,10 @@ router.post("/authors", authorControllers.add);
 router.get("/periods", periodControllers.browse);
 router.get("/periods/:id", periodControllers.read);
 router.post("/periods", periodControllers.add);
+
+//* Philo Currents
+router.get("/philoCurrents", philoCurrentControllers.browse);
+router.get("/philoCurrents/:id", philoCurrentControllers.read);
+router.post("/philoCurrents", philoCurrentControllers.add);
 
 module.exports = router;
