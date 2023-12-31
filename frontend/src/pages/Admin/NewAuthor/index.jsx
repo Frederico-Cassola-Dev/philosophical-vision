@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../../hooks/useAxios";
@@ -13,12 +13,19 @@ import newAuthorReducer, {
   INPUT_BORN_DATE,
   INPUT_DEAD_DATE,
   INPUT_ERA,
+  RESET,
 } from "./utils/newAuthor-reducer";
+import DialogNotification from "../../../components/DialogNotification";
+
+// TODO - Need map philosophic current SELECT options
 
 export default function NewAuthor() {
   const navigate = useNavigate();
   const [newAuthor, setNewAuthor] = useReducer(newAuthorReducer, initialState);
-
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(
+    "Sauvegarder nouveau auteur"
+  );
   const periodData = useAxios({
     method: "get",
     endpoint: "periods",
@@ -39,13 +46,26 @@ export default function NewAuthor() {
         .post(`${import.meta.env.VITE_BACKEND_URL}/api/authors`, {
           ...newAuthor,
         })
-        .then((response) => console.info(response))
+        .then(() => {
+          setSubmitMessage("Nouveau auteur ajouté");
+          setIsDialogOpen(true);
+          setNewAuthor({ type: RESET });
+        })
         .catch((err) => console.error(err));
+    } else {
+      setSubmitMessage("Remplissé et selectione tous les champs");
+      setIsDialogOpen(true);
     }
   };
 
   return (
     <div className={style.newAuthor}>
+      {isDialogOpen && (
+        <DialogNotification
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
       <h1 className={style.title}>Ajouter nouveau auteur</h1>
       <form
         className={style.form}
@@ -105,6 +125,7 @@ export default function NewAuthor() {
             name="periodId"
             id=""
             className={style.select}
+            value={newAuthor.periodId}
             onChange={(e) =>
               setNewAuthor({
                 type: INPUT_PERIOD_ID,
@@ -112,7 +133,7 @@ export default function NewAuthor() {
               })
             }
           >
-            <option defaultChecked>Sélectionne</option>
+            <option value="">Sélectionne</option>
             {periodData?.response?.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.title}
@@ -175,6 +196,7 @@ export default function NewAuthor() {
               name="era"
               id=""
               className={style.selectEra}
+              value={newAuthor.era}
               onChange={(e) =>
                 setNewAuthor({
                   type: INPUT_ERA,
@@ -182,6 +204,7 @@ export default function NewAuthor() {
                 })
               }
             >
+              <option value="">Selectione</option>
               <option value="BCE">BCE</option>
               <option value="CE">CE</option>
             </select>
@@ -196,7 +219,7 @@ export default function NewAuthor() {
             className={style.submitBtn}
             onClick={() => navigate("/admin")}
           >
-            Retourné
+            Retourner
           </button>
         </div>
       </form>

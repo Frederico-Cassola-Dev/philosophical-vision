@@ -14,7 +14,6 @@ export default function Admin() {
   const [newAuthor, setNewAuthor] = useState("");
   const [newEvent, setNewEvent] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const [submitMessage, setSubmitMessage] = useState(
     "Sauvegarder nouvelle phrase"
   );
@@ -96,6 +95,12 @@ export default function Admin() {
           </button>
         </Link>
       </div>
+      {isDialogOpen && (
+        <DialogNotification
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
       <form className={style.form}>
         <label htmlFor="phrase" className={style.label}>
           Nouvelle Phrase
@@ -161,12 +166,6 @@ export default function Admin() {
           </button>
         </div>
       </form>
-      {isDialogOpen && (
-        <DialogNotification
-          dialogContent={submitMessage}
-          setIsDialogOpen={setIsDialogOpen}
-        />
-      )}
     </div>
   );
 }
