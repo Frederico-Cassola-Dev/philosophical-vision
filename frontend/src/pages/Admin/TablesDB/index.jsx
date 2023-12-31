@@ -147,7 +147,7 @@ export default function TablesDB() {
                   <td>{item.first_name}</td>
                   <td>{item.last_name}</td>
                   <td>{item.period_title}</td>
-                  <td>{item.philo_current_id}</td>
+                  <td>{item.philo_current_title}</td>
                   <td>{item.born_date}</td>
                   <td>{item.dead_date}</td>
                   <td>{item.era}</td>
