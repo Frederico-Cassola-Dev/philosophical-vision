@@ -17,8 +17,6 @@ import newAuthorReducer, {
 } from "./utils/newAuthor-reducer";
 import DialogNotification from "../../../components/DialogNotification";
 
-// TODO - Need map philosophic current SELECT options
-
 export default function NewAuthor() {
   const navigate = useNavigate();
   const [newAuthor, setNewAuthor] = useReducer(newAuthorReducer, initialState);
@@ -26,9 +24,14 @@ export default function NewAuthor() {
   const [submitMessage, setSubmitMessage] = useState(
     "Sauvegarder nouveau auteur"
   );
-  const periodData = useAxios({
+
+  const periodsData = useAxios({
     method: "get",
     endpoint: "periods",
+  });
+  const philoCurrentsData = useAxios({
+    method: "get",
+    endpoint: "philoCurrents",
   });
 
   const handleNewAuthorPost = () => {
@@ -134,7 +137,7 @@ export default function NewAuthor() {
             }
           >
             <option value="">Sélectionne</option>
-            {periodData?.response?.map((item) => (
+            {periodsData?.response?.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.title}
               </option>
@@ -147,6 +150,7 @@ export default function NewAuthor() {
             name="era"
             id=""
             className={style.select}
+            value={newAuthor.philoCurrent}
             onChange={(e) =>
               setNewAuthor({
                 type: INPUT_PHILO_CURRENT,
@@ -154,9 +158,12 @@ export default function NewAuthor() {
               })
             }
           >
-            <option defaultChecked>Sélectionne</option>
-            <option value="1">Socratic</option>
-            <option value="2">Illuminism</option>
+            <option value="">Sélectionne</option>
+            {philoCurrentsData?.response?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.title}
+              </option>
+            ))}
           </select>
         </label>
         <div className={style.datesContainer}>
