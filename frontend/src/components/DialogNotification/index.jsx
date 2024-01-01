@@ -12,7 +12,7 @@ export default function DialogNotification({ dialogContent, setIsDialogOpen }) {
           className={style.dialogCloseButton}
           onClick={() => setIsDialogOpen(false)}
         >
-          Retorner
+          Retourner
         </button>
       </dialog>
     </div>
