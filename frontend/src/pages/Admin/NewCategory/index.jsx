@@ -12,14 +12,14 @@ export default function NewCategory() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
-  const handleNewEventPost = () => {
+  const handleNewCategoryPost = () => {
     if (newCategory) {
       axios
-        .post(`${import.meta.env.VITE_BACKEND_URL}/api/events`, {
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, {
           title: newCategory,
         })
         .then(() => {
-          setSubmitMessage("Nouveau événement ajouté");
+          setSubmitMessage("Nouvelle catégorie ajoutée");
           setIsDialogOpen(true);
           setNewCategory("");
         })
@@ -31,7 +31,7 @@ export default function NewCategory() {
   };
   return (
     <div className={style.newCategory}>
-      <h1 className={style.title}>Ajouter nouveau Événement</h1>
+      <h1 className={style.title}>Ajouter nouvelle catégorie</h1>
       {isDialogOpen && (
         <DialogNotification
           dialogContent={submitMessage}
@@ -42,7 +42,7 @@ export default function NewCategory() {
         className={style.form}
         onSubmit={(e) => {
           e.preventDefault();
-          handleNewEventPost();
+          handleNewCategoryPost();
         }}
       >
         <label htmlFor="title" className={style.label}>
