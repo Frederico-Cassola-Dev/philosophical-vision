@@ -23,6 +23,7 @@ import NewEvent from "./pages/Admin/NewEvent";
 import TablesDB from "./pages/Admin/TablesDB";
 import LoggedOut from "./pages/LoggedOut";
 import FavoritesPhrases from "./pages/FavoritesPhrases";
+import NewCategory from "./pages/Admin/NewCategory";
 
 import "./scss/styles.scss";
 
@@ -64,6 +65,7 @@ function App() {
               <Route path="admin" element={<Admin />} />
               <Route path="admin/newAuthor" element={<NewAuthor />} />
               <Route path="admin/newEvent" element={<NewEvent />} />
+              <Route path="admin/newCategory" element={<NewCategory />} />
               <Route path="admin/tablesDb/:table" element={<TablesDB />} />
             </Route>
           </Routes>

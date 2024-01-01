@@ -25,24 +25,8 @@ class CategoryManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(`select * from ${this.table}`);
-
-    // Return the array of Users
     return rows;
   }
-
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing category
-
-  // async update(category) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an category by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
 }
 
 module.exports = CategoryManager;

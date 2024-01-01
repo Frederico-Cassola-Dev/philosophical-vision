@@ -2,7 +2,6 @@ import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../../hooks/useAxios";
-import style from "./newAuthor.module.scss";
 import newAuthorReducer, {
   initialState,
   INPUT_KNOWN_NAME,
@@ -15,15 +14,16 @@ import newAuthorReducer, {
   INPUT_ERA,
   RESET,
 } from "./utils/newAuthor-reducer";
+
 import DialogNotification from "../../../components/DialogNotification";
+
+import style from "./newAuthor.module.scss";
 
 export default function NewAuthor() {
   const navigate = useNavigate();
   const [newAuthor, setNewAuthor] = useReducer(newAuthorReducer, initialState);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState(
-    "Sauvegarder nouveau auteur"
-  );
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const periodsData = useAxios({
     method: "get",
@@ -56,7 +56,7 @@ export default function NewAuthor() {
         })
         .catch((err) => console.error(err));
     } else {
-      setSubmitMessage("Remplissé et selectione tous les champs");
+      setSubmitMessage("Remplissez et sélectionnez tous les champs");
       setIsDialogOpen(true);
     }
   };
@@ -211,7 +211,7 @@ export default function NewAuthor() {
                 })
               }
             >
-              <option value="">Selectione</option>
+              <option value="">Sélectionne</option>
               <option value="BCE">BCE</option>
               <option value="CE">CE</option>
             </select>
