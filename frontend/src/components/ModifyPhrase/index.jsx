@@ -158,19 +158,17 @@ export default function ModifyPhrase({
         />
       )}
       <form className={style.phraseForm} onSubmit={handleSubmitForm}>
-        <label htmlFor="phrase">
-          <textarea
-            type="text"
-            id="phrase"
-            name="phrase"
-            placeholder={
-              selectedPhraseData?.response
-                ? selectedPhraseData?.response?.phrase
-                : ""
-            }
-            onChange={(e) => setModifiedPhrase(e.target.value)}
-          />
-        </label>
+        <textarea
+          type="text"
+          id="phrase"
+          name="phrase"
+          placeholder={
+            selectedPhraseData?.response
+              ? selectedPhraseData?.response?.phrase
+              : ""
+          }
+          onChange={(e) => setModifiedPhrase(e.target.value)}
+        />
         <label htmlFor="listAuthors">
           <h3 className={style.labelTitle}>Auteur</h3>
           <select
@@ -208,6 +206,7 @@ export default function ModifyPhrase({
                       type="button"
                       className={style.deleteButtons}
                       onClick={() => handleDeleteEventFromListToFormData(item)}
+                      aria-label={`Évent effacé: ${eventToShow?.title}`}
                     >
                       <DeleteIcon />
                     </button>
@@ -240,6 +239,7 @@ export default function ModifyPhrase({
               type="button"
               className={style.addEventBtn}
               onClick={handleAddEventFromListToFormData}
+              aria-label="Évent ajoutée"
             >
               <IconAdd />
             </button>
