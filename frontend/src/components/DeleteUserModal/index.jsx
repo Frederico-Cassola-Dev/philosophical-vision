@@ -25,6 +25,7 @@ export default function DeleteUserModal({
 
   return (
     <div className={style.deleteUserModal}>
+      <h2>Effacer utilisateur</h2>
       <div className={style.userContainer}>
         <div className={style.userFieldContainer}>
           <p className={style.title}>Prénom:</p>

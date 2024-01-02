@@ -2,14 +2,29 @@
 
 .deleteUserModal {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
   flex-direction: column;
-  font-size: $font-size-xl;
-  width: 90vw;
-  height: 20vh;
+  height: calc(100vh - 12.6rem);
+  padding: $space-s;
+  font-family: $primary-font;
+  font-size: $font-size-l;
+  font-weight: $font-weight-bold;
+
+  h2 {
+    text-align: center;
+    font-size: $font-size-3xl;
+    padding-top: $space-l;
+  }
 
   .userContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    padding-top: $space-m;
+
     .userFieldContainer {
       display: flex;
       justify-content: flex-start;
@@ -28,6 +43,7 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
+    padding-top: $space-m;
     gap: $space-s;
 
     button {
