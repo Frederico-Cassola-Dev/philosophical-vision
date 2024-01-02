@@ -5,7 +5,7 @@ import style from "./dialogNotification.module.scss";
 export default function DialogNotification({
   dialogContent,
   setIsDialogOpen,
-  setModifyPhrase = () => {},
+  returnSetPreviousPage = () => {},
 }) {
   return (
     <div className={style.dialogOverlay}>
@@ -16,7 +16,7 @@ export default function DialogNotification({
           className={style.dialogCloseButton}
           onClick={() => {
             setIsDialogOpen(false);
-            setModifyPhrase(false);
+            returnSetPreviousPage(false);
           }}
         >
           Retourner
@@ -27,11 +27,11 @@ export default function DialogNotification({
 }
 
 DialogNotification.propTypes = {
-  setModifyPhrase: PropTypes.func,
+  returnSetPreviousPage: PropTypes.func,
   dialogContent: PropTypes.string.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
 };
 
 DialogNotification.defaultProps = {
-  setModifyPhrase: () => {},
+  returnSetPreviousPage: () => {},
 };

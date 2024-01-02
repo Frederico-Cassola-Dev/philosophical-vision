@@ -152,7 +152,7 @@ export default function ModifyPhrase({
       <h2>Phrase pour modifier</h2>
       {isDialogOpen && (
         <DialogNotification
-          setModifyPhrase={setModifyPhrase}
+          returnSetPreviousPage={setModifyPhrase}
           dialogContent={submitMessage}
           setIsDialogOpen={setIsDialogOpen}
         />
