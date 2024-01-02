@@ -99,21 +99,21 @@ create table
 
 INSERT INTO categories(title, description)
 VALUES (
-        "Social",
-        "social bla bla bla"
+        "Socialle",
+        "Socialle bla bla bla"
     ), (
-        "Dead",
-        "Dead bla bla bla"
-    ), ("Live", "Live bla bla bla"), (
-        "Sadness",
-        "Sadness bla bla bla"
-    ), ("Joy", "Joy bla bla bla"), ("Work", "Work bla bla bla"), (
-        "Friends",
-        "Friends bla bla bla"
+        "Mort",
+        "Mort bla bla bla"
+    ), ("Vie", "Vie bla bla bla"), (
+        "Tristesse",
+        "Tristesse bla bla bla"
+    ), ("Joie", "Joie bla bla bla"), ("Travail", "Travail bla bla bla"), (
+        "Amitié",
+        "Amitié bla bla bla"
     ), (
-        "Family",
-        "Family bla bla bla"
-    ), ("Money", "Money bla bla bla");
+        "Famille",
+        "Famille bla bla bla"
+    ), ("Argent", "Argent bla bla bla");
 
 INSERT into events (title, category_id)
 VALUES (
@@ -199,7 +199,69 @@ periods (
 INSERT INTO 
 philo_currents (
       title
-    ) Values ( "Socratic"), ("Illuminism"), ("Rationalism"), ("Modern"), ("Add more into db");
+    ) Values 
+    ( "Aristotélisme"), 
+    ("Bergsonisme"), 
+    ("Bouddhisme"), 
+    ("Cartésianisme"), 
+    ("Confucianisme"), 
+    ("Contractualisme"), 
+    ("Cynisme"), 
+    ("Darwinisme"), 
+    ("Décolonialisme"), 
+    ("Décolonialisme"), 
+    ("Déconstruction"), 
+    ("École de Francfort"), 
+    ("Éléatisme"), 
+    ("Empirisme"), 
+    ("Épicurisme"), 
+    ("Éthique minimale"), 
+    ("Études post-coloniales"), 
+    ("Évolutionnisme"), 
+    ("Existentialisme"), 
+    ("Féminisme"), 
+    ("Hédonisme"), 
+    ("Herméneutique"), 
+    ("Humanisme"), 
+    ("Idéalisme"), 
+    ("Idéalisme allemand"), 
+    ("Libéralisme"), 
+    ("Libertarianisme"), 
+    ("Libertarisme"), 
+    ("Lumières"), 
+    ("Marxisme"), 
+    ("Matérialisme"), 
+    ("Métaphysique"), 
+    ("Moralisme"), 
+    ("Néo-kantisme"), 
+    ("Néo-platonisme"), 
+    ("Pensée complexe"), 
+    ("Pessimisme"), 
+    ("Phénoménologie"), 
+    ("Philosophie analytique"), 
+    ("Platonisme"), 
+    ("Politique"), 
+    ("Pop-philosophie"), 
+    ("Postmodernisme"), 
+    ("Pragmatisme"), 
+    ("Pyrrhonisme"), 
+    ("Rationalisme"), 
+    ("Réalisme"), 
+    ("Scepticisme"), 
+    ("Scolastique"), 
+    ("Sensualisme"), 
+    ("Socialisme"), 
+    ("Socialisme libertaire"), 
+    ("Socratisme"), 
+    ("Sophistique"), 
+    ("Stoïcisme"), 
+    ("Structuralisme"), 
+    ("Taoïsme"), 
+    ("Théologie rationnelle"), 
+    ("Thomisme"), 
+    ("Transcendantalisme"), 
+    ("Utilitarisme"), 
+    ("Vitalisme");
 
 INSERT INTO
     authors (
@@ -217,90 +279,79 @@ VALUES (
         null,
         null,
         1,
-        1,
-        "11/11/1234",
-        "12/01/2132",
+        53,
+        "01/01/470",
+        "01/01/399",
         "BCE"
-    ), (
-        "Ludwig",
-        "Ludwig",
-        "Wittgenstein",
-        3,
-        4,
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig1",
-        "Ludwig",
-        "Ludwig",
-        3,
-        4,
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig2",
-        "Ludwig",
-        "Ludwig",
-        3,
-        4,
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig3",
-        "Ludwig",
-        "Ludwig",
-        3,
-        4,
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig4",
-        "Ludwig",
-        "Ludwig",
-        3,
-        4,
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
+    ),
+     (
         "Descartes",
         "René",
         "Descartes",
-        2,
         3,
-       "14/04/923",
-        "14/04/923",
+        46,
+       "02/31/1596",
+        "02/11/1560",
         "CE"
-    ), (
-        "Socrates1",
+    ), 
+    (
+        "Aristote",
         null,
         null,
         1,
         1,
-        "11/11/1234",
-        "12/01/2132",
+         "01/01/384",
+        "01/01/322",
         "BCE"
-    ), (
-        "Socrates2",
-        null,
-        null,
+    ), 
+    (
+        "Marc Aurèle",
+        "Marc",
+        "Aurèle",
         1,
+        55,
+        "04/26/121",
+        "03/17/180",
+        "CE"
+    ), 
+    (
+        "Luc Ferry",
+        "Luc",
+        "Ferry",
+        3,
+        41,
+        "01/03/1951",
+        "01/03/1951",
+        "CE"
+    ), 
+    (
+        "Schopenhauer",
+        "Arthur",
+        "Schopenhauer",
+        3,
+        37,
+        "02/22/1788",
+        "09/21/1860",
+        "CE"
+    ), 
+    (
+        "Héraclite",
+        "Héraclite",
+        "d'Éphèse",
         1,
-        "11/11/1234",
-        "12/01/2132",
+        32,
+        "01/01/544",
+        "01/01/480",
         "BCE"
-    ), (
-        "Socrates3",
+    ), 
+    (
+        "Confucius",
         null,
         null,
         1,
-        1,
-        "11/11/1234",
-        "12/01/2132",
+        5,
+        "09/28/551",
+        "04/11/479",
         "BCE"
     );
 
@@ -323,34 +374,34 @@ VALUES (
         5
     ), (
         "3 The unexamined life is not worth living",
-        6
+        5
     ), (
         "4 The unexamined life is not worth living",
-        6
+        5
     ), (
         "5 The unexamined life is not worth living",
-        6
+        5
     ), (
         "6 The unexamined life is not worth living",
-        6
+        3
     ), (
         "7 The unexamined life is not worth living",
-        6
+        3
     ), (
         "8 The unexamined life is not worth living",
-        6
+        3
     ), (
         "9 The unexamined life is not worth living",
-        6
+        3
     ), (
         "10 The unexamined life is not worth living",
-        6
+        3
     ), (
         "11 The unexamined life is not worth living",
-        6
+        3
     ), (
         "12 The unexamined life is not worth living",
-        6
+        3
     );
 
 INSERT INTO

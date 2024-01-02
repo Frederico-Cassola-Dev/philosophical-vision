@@ -1,13 +1,17 @@
+import { useState } from "react";
 import propTypes from "prop-types";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 
 import style from "./deleteUserModal.module.scss";
+import DialogNotification from "../DialogNotification";
 
 export default function DeleteUserModal({
   setDeleteUserModal,
   selectedUserId,
 }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
   const userData = useAxios(
     {
       method: "get",
@@ -19,12 +23,23 @@ export default function DeleteUserModal({
   const handleDeleteUser = () => {
     axios
       .delete(`${import.meta.env.VITE_BACKEND_URL}/api/users/${selectedUserId}`)
-      .then(() => setDeleteUserModal(false))
+      .then(() => {
+        setSubmitMessage("Auteur effacée");
+        setIsDialogOpen(true);
+      })
       .catch((err) => console.error(err));
   };
 
   return (
     <div className={style.deleteUserModal}>
+      <h2>Effacer utilisateur</h2>
+      {isDialogOpen && (
+        <DialogNotification
+          returnSetPreviousPage={setDeleteUserModal}
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
       <div className={style.userContainer}>
         <div className={style.userFieldContainer}>
           <p className={style.title}>Prénom:</p>

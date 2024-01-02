@@ -67,6 +67,7 @@ export default function PhraseItem({
               setLikesToShow(() => likesToShow + 1);
             }
           }}
+          aria-label="Phrase aimée ou non"
         >
           <IconHeart alreadyLiked={isLiked} />
         </button>
@@ -81,6 +82,7 @@ export default function PhraseItem({
               phraseId: phraseToShow.phrase_id,
             });
           }}
+          aria-label="Phrase favorite ou non"
         >
           <IconStar alreadyFavorite={isFavorite} />
         </button>

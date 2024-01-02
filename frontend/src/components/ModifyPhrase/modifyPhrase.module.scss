@@ -1,11 +1,21 @@
 @import "../../scss/variables";
 
-.modal {
-  width: 90vw;
+.modifyPhrase {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 12.6rem);
+  padding: $space-s;
+  font-family: $primary-font;
+  font-size: $font-size-l;
+  font-weight: $font-weight-bold;
 
   h2 {
     text-align: center;
-    font-size: $font-size-xl;
+    font-size: $font-size-3xl;
+    padding-top: $space-l;
+    padding-bottom: $space-m;
   }
 
   .phraseForm {
@@ -15,20 +25,21 @@
     flex-direction: column;
     width: 100%;
 
+    textarea {
+      width: calc(100% - 10px);
+      padding: $space-2xs;
+      font-weight: $font-weight-bold;
+      border-radius: $border-radius-s;
+    }
+
     label {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
-      padding: $space-2xs;
+      padding-top: $space-m;
       width: 100%;
 
-      textarea {
-        width: calc(100% - 10px);
-        padding: $space-2xs;
-        font-weight: $font-weight-bold;
-        border-radius: $border-radius-s;
-      }
 
       .select {
         width: 50%;
@@ -46,18 +57,18 @@
         width: 100%;
       }
     }
+    .labelTitle {
+      font-size: $font-size-l;
+      padding-bottom: $space-xs;
+    }
 
     .eventsContainer {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
-      padding: $space-2xs;
+      padding: $space-m $space-2xs $space-2xs $space-2xs;
 
-      .title {
-        font-size: $font-size-l;
-        padding-bottom: $space-xs;
-      }
 
       .events {
         display: flex;
@@ -117,6 +128,7 @@
       justify-content: space-around;
       align-items: center;
       width: 100%;
+      padding-top: $space-m;
       gap: $space-s;
 
       button {
