@@ -24,7 +24,7 @@ export default function DeleteUserModal({
     axios
       .delete(`${import.meta.env.VITE_BACKEND_URL}/api/users/${selectedUserId}`)
       .then(() => {
-        setSubmitMessage("Auteur effacée");
+        setSubmitMessage("Utilisateur effacée");
         setIsDialogOpen(true);
       })
       .catch((err) => console.error(err));
