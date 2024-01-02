@@ -148,10 +148,11 @@ export default function ModifyPhrase({
   };
 
   return (
-    <div className={style.modal}>
+    <div className={style.modifyPhrase}>
       <h2>Phrase pour modifier</h2>
       {isDialogOpen && (
         <DialogNotification
+          setModifyPhrase={setModifyPhrase}
           dialogContent={submitMessage}
           setIsDialogOpen={setIsDialogOpen}
         />
@@ -171,7 +172,7 @@ export default function ModifyPhrase({
           />
         </label>
         <label htmlFor="listAuthors">
-          Auteur
+          <h3 className={style.labelTitle}>Auteur</h3>
           <select
             name="listAuthors"
             id="listAuthors"
@@ -193,7 +194,7 @@ export default function ModifyPhrase({
           </select>
         </label>
         <div className={style.eventsContainer}>
-          <h3 className={style.title}>Événements</h3>
+          <h3 className={style.labelTitle}>Événements</h3>
           <div className={style.events}>
             {eventsListIdToModify?.map((item) => {
               if (item) {

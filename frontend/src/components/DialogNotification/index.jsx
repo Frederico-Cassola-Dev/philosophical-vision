@@ -2,7 +2,11 @@ import PropTypes from "prop-types";
 
 import style from "./dialogNotification.module.scss";
 
-export default function DialogNotification({ dialogContent, setIsDialogOpen }) {
+export default function DialogNotification({
+  dialogContent,
+  setIsDialogOpen,
+  setModifyPhrase = () => {},
+}) {
   return (
     <div className={style.dialogOverlay}>
       <dialog open className={style.customDialog}>
@@ -10,7 +14,10 @@ export default function DialogNotification({ dialogContent, setIsDialogOpen }) {
         <button
           type="button"
           className={style.dialogCloseButton}
-          onClick={() => setIsDialogOpen(false)}
+          onClick={() => {
+            setIsDialogOpen(false);
+            setModifyPhrase(false);
+          }}
         >
           Retourner
         </button>
@@ -20,6 +27,11 @@ export default function DialogNotification({ dialogContent, setIsDialogOpen }) {
 }
 
 DialogNotification.propTypes = {
+  setModifyPhrase: PropTypes.func,
   dialogContent: PropTypes.string.isRequired,
   setIsDialogOpen: PropTypes.func.isRequired,
+};
+
+DialogNotification.defaultProps = {
+  setModifyPhrase: () => {},
 };
