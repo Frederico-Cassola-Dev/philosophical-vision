@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import userContext from "../../contexts/userContext";
@@ -8,9 +8,14 @@ import style from "./signIn.module.scss";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const inputRef = useRef(null);
 
   const navigate = useNavigate();
   const { setUser, setToken } = useContext(userContext);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const login = (event) => {
     event.preventDefault();
@@ -46,6 +51,7 @@ export default function SignIn() {
             type="email"
             id="email"
             onChange={(e) => setEmail(e.target.value)}
+            ref={inputRef}
           />
         </label>
         <label htmlFor="password">
