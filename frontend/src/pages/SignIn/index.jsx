@@ -1,16 +1,26 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import userContext from "../../contexts/userContext";
 
 import style from "./signIn.module.scss";
+import DialogNotification from "../../components/DialogNotification";
 
 export default function SignIn() {
+  const inputRef = useRef(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(
+    "Sauvegarder nouvelle phrase"
+  );
 
   const navigate = useNavigate();
   const { setUser, setToken } = useContext(userContext);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const login = (event) => {
     event.preventDefault();
@@ -34,11 +44,24 @@ export default function SignIn() {
           navigate("/phrases", { replace: true });
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        if (err.response.status === 404 || err.response.status === 401) {
+          setSubmitMessage("Email inconnue ou mot de passe incorrect ");
+        }
+
+        setIsDialogOpen(true);
+      });
   };
 
   return (
     <div className={style.signIn}>
+      {isDialogOpen && (
+        <DialogNotification
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
       <form onSubmit={login} className={style.formContainer}>
         <label htmlFor="email">
           E-mail
@@ -46,6 +69,7 @@ export default function SignIn() {
             type="email"
             id="email"
             onChange={(e) => setEmail(e.target.value)}
+            ref={inputRef}
           />
         </label>
         <label htmlFor="password">
