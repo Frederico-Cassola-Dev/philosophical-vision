@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import style from "./dialogNotification.module.scss";
@@ -7,6 +8,12 @@ export default function DialogNotification({
   setIsDialogOpen,
   returnSetPreviousPage = () => {},
 }) {
+  const autoFocusRef = useRef(null);
+
+  useEffect(() => {
+    autoFocusRef.current.focus();
+  }, []);
+
   return (
     <div className={style.dialogOverlay}>
       <dialog open className={style.customDialog}>
@@ -18,6 +25,7 @@ export default function DialogNotification({
             setIsDialogOpen(false);
             returnSetPreviousPage(false);
           }}
+          ref={autoFocusRef}
         >
           Retourner
         </button>

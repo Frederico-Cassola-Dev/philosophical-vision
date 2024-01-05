@@ -54,7 +54,7 @@ export default function Admin() {
         })
         .catch((err) => console.error(err));
     } else {
-      setSubmitMessage("Remplissé et selectione tous les champs");
+      setSubmitMessage("Remplissez et sélectionnez tous les champs");
       setIsDialogOpen(true);
     }
   };
