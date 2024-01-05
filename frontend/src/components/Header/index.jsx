@@ -23,16 +23,18 @@ function Header() {
   return (
     <header className={style.header}>
       <div className={style.logoContainer}>
-        <Link
-          to="/"
-          className={
-            pathname === "/"
-              ? `${(style.logoContainer, style.hiddenLogo)}`
-              : `${style.logoContainer}`
-          }
-        >
-          <img src={singleLogo} alt="logo" />
-        </Link>
+        {!user && (
+          <Link
+            to="/"
+            className={
+              pathname === "/"
+                ? `${(style.logoContainer, style.hiddenLogo)}`
+                : `${style.logoContainer}`
+            }
+          >
+            <img src={singleLogo} alt="logo" />
+          </Link>
+        )}
       </div>
       <nav className={style.nav}>
         {user ? (
@@ -91,6 +93,11 @@ function Header() {
                   Phrases
                 </Link>
               </>
+            )}
+            {pathname === "/admin" && (
+              <Link to="/" className={style.link} onClick={logout}>
+                Déconnecter
+              </Link>
             )}
           </>
         ) : (
