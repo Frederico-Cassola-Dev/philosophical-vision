@@ -18,6 +18,8 @@ export default function Admin() {
     "Sauvegarder nouvelle phrase"
   );
 
+  axios.defaults.withCredentials = true;
+
   const authorsData = useAxios({
     method: "get",
     endpoint: "authors",
@@ -47,8 +49,6 @@ export default function Admin() {
               setNewAuthor("");
               setNewEvent("");
               setIsDialogOpen(true);
-              // if(!isDialogOpen){
-              // }, 2000);
             })
             .catch((err) => console.error(err));
         })

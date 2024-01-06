@@ -22,20 +22,22 @@ function Header() {
 
   return (
     <header className={style.header}>
-      <div className={style.logoContainer}>
-        <Link
-          to="/"
-          className={
-            pathname === "/"
-              ? `${(style.logoContainer, style.hiddenLogo)}`
-              : `${style.logoContainer}`
-          }
-        >
-          <img src={singleLogo} alt="logo" />
-        </Link>
-      </div>
+      {!user && (
+        <div className={style.logoContainer}>
+          <Link
+            to="/"
+            className={
+              pathname === "/"
+                ? `${(style.logoContainer, style.hiddenLogo)}`
+                : `${style.logoContainer}`
+            }
+          >
+            <img src={singleLogo} alt="logo" />
+          </Link>
+        </div>
+      )}
       <nav className={style.nav}>
-        {user ? (
+        {user?.role_id === 2 && (
           <>
             {pathname === "/" && (
               <>
@@ -92,8 +94,30 @@ function Header() {
                 </Link>
               </>
             )}
+            {pathname === "/admin" && (
+              <Link to="/" className={style.link} onClick={logout}>
+                Déconnecter
+              </Link>
+            )}
           </>
-        ) : (
+        )}
+        {user?.role_id === 1 && pathname === "/" && (
+          <>
+            <Link to="/" className={style.link} onClick={logout}>
+              Déconnecter
+            </Link>
+            <Link to="/admin" className={style.link}>
+              Administrateur
+            </Link>
+          </>
+        )}
+        {user?.role_id === 1 && pathname === "/admin" && (
+          <Link to="/" className={style.link} onClick={logout}>
+            Déconnecter
+          </Link>
+        )}
+
+        {!user && (
           <>
             {pathname === "/" && (
               <>
@@ -117,6 +141,16 @@ function Header() {
             )}
           </>
         )}
+        {/* {user && user.role_id === 1 && (
+          <>
+            <Link to="/" className={style.link} onClick={logout}>
+              Déconnecter
+            </Link>
+            <Link to="/admin" className={style.link}>
+              Administrateur
+            </Link>
+          </>
+        )} */}
       </nav>
     </header>
   );
