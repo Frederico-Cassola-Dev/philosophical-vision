@@ -80,6 +80,9 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        <button type="button" className={style.forgotPasswordBtn}>
+          Mot de passe oublié?
+        </button>
         <div className={style.submitButtonContainer}>
           <button type="submit">Se connecter</button>
         </div>

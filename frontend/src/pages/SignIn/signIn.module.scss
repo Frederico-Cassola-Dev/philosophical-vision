@@ -43,6 +43,13 @@
       }
     }
 
+    .forgotPasswordBtn{
+      margin-top: $space-xs;
+      color: $color-text-primary;
+      border: none;
+
+    }
+
     .submitButtonContainer {
       display: flex;
       justify-content: center;
@@ -54,7 +61,7 @@
         border: 1px solid $color-primary-active;
         border-radius: $border-radius-l;
         padding: $space-2xs $space-xs;
-        margin-top: $space-l;
+        margin-top: $space-s;
         font-size: $font-size-l;
         font-weight: $font-weight-bold;
 
