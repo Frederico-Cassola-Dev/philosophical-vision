@@ -22,8 +22,8 @@ function Header() {
 
   return (
     <header className={style.header}>
-      <div className={style.logoContainer}>
-        {!user && (
+      {!user && (
+        <div className={style.logoContainer}>
           <Link
             to="/"
             className={
@@ -34,8 +34,8 @@ function Header() {
           >
             <img src={singleLogo} alt="logo" />
           </Link>
-        )}
-      </div>
+        </div>
+      )}
       <nav className={style.nav}>
         {user ? (
           <>
