@@ -37,7 +37,7 @@ function Header() {
         </div>
       )}
       <nav className={style.nav}>
-        {user ? (
+        {user?.role_id === 2 && (
           <>
             {pathname === "/" && (
               <>
@@ -100,7 +100,24 @@ function Header() {
               </Link>
             )}
           </>
-        ) : (
+        )}
+        {user?.role_id === 1 && pathname === "/" && (
+          <>
+            <Link to="/" className={style.link} onClick={logout}>
+              Déconnecter
+            </Link>
+            <Link to="/admin" className={style.link}>
+              Administrateur
+            </Link>
+          </>
+        )}
+        {user?.role_id === 1 && pathname === "/admin" && (
+          <Link to="/" className={style.link} onClick={logout}>
+            Déconnecter
+          </Link>
+        )}
+
+        {!user && (
           <>
             {pathname === "/" && (
               <>
@@ -124,6 +141,16 @@ function Header() {
             )}
           </>
         )}
+        {/* {user && user.role_id === 1 && (
+          <>
+            <Link to="/" className={style.link} onClick={logout}>
+              Déconnecter
+            </Link>
+            <Link to="/admin" className={style.link}>
+              Administrateur
+            </Link>
+          </>
+        )} */}
       </nav>
     </header>
   );
