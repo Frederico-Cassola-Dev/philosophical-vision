@@ -14,6 +14,7 @@ export default function MyAccount() {
   const [newEmail, setNewEmail] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [oldPassword, setOldPassword] = useState(null);
+
   const [validateOldPassword, setValidateOldPassword] = useState(null);
   const [modifyMessage, setModifyMessage] = useState({
     isModify: false,

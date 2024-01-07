@@ -38,6 +38,18 @@ class UserManager extends AbstractManager {
     return rows[0];
   }
 
+  async readByResetToken(token) {
+    // console.log("🚀 - token:", token)
+
+    const [rows] = await this.database.query(
+      `SELECT * FROM users WHERE reset_token = ?`,
+      [token]
+    );
+    // console.log("🚀 - rows:", rows)
+
+    return rows[0];
+  }
+
   async readAll() {
     const [rows] = await this.database.query(
       `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
@@ -52,34 +64,55 @@ class UserManager extends AbstractManager {
     if (user.hashPassword) {
       const [rows] = await this.database.query(
         `
-    UPDATE  ${this.table}
-    SET
-      first_name = ?, 
-      last_name = ?,
-      email = ?,
-      password = ?
-      WHERE id = ?
-      `,
+        UPDATE  ${this.table}
+        SET
+        first_name = ?, 
+        last_name = ?,
+        email = ?,
+        password = ?
+        WHERE id = ?
+        `,
         [
-          user.newLastName,
           user.newFirstName,
+          user.newLastName,
           user.newEmail,
           user.hashPassword,
           user.userId,
         ]
       );
+
       return rows;
     }
+
+    if (user.resetToken) {
+      const [rows] = await this.database.query(
+        `  UPDATE  ${this.table}
+          SET
+          reset_token = ?, 
+          reset_token_expires_at = ?
+          WHERE id = ?
+          `,
+        [user.resetToken, user.expirationTime, user.userId]
+      );
+
+      return rows;
+    }
+
     const [rows] = await this.database.query(
       `
-      UPDATE  ${this.table}
-      SET
-        first_name = ?, 
+          UPDATE  ${this.table}
+          SET
+          first_name = ?, 
         last_name = ?,
         email = ?
       WHERE id = ?
   `,
-      [user.newLastName, user.newFirstName, user.newEmail, user.userId]
+      [
+        user.newFirstName || "",
+        user.newLastName || "",
+        user.newEmail,
+        user.userId,
+      ]
     );
     return rows;
   }

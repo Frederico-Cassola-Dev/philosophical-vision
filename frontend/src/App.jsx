@@ -24,6 +24,8 @@ import TablesDB from "./pages/Admin/TablesDB";
 import LoggedOut from "./pages/LoggedOut";
 import FavoritesPhrases from "./pages/FavoritesPhrases";
 import NewCategory from "./pages/Admin/NewCategory";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 import "./scss/styles.scss";
 
@@ -54,6 +56,8 @@ function App() {
             <Route path="signIn" element={<SignIn />} />
             <Route path="signUp" element={<SignUp />} />
             <Route path="loggedOut" element={<LoggedOut />} />
+            <Route path="forgotPassword" element={<ForgotPassword />} />
+            <Route path="resetPassword" element={<ResetPassword />} />
             <Route path="*" element={<Navigate to="/" replace />} />
             {/* private routes  */}
             <Route element={<ProtectedLayout userRole={user?.role_id} />}>

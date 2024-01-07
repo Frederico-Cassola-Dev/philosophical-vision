@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const registrationSchema = () => {
   return Joi.object({
@@ -17,6 +18,14 @@ const registrationSchema = () => {
       .required(),
   });
 };
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
 
 const checkUserData = (req, res, next) => {
   const { error } = registrationSchema("required").validate(req.body, {
@@ -61,6 +70,8 @@ const verifyPassword = (req, res) => {
   argon2
     .verify(req.user.password, req.body.password)
     .then((isVerified) => {
+      // console.log("🚀 - isVerified:", isVerified)
+
       if (isVerified) {
         const payload = { sub: req.user.id };
         const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
@@ -128,23 +139,38 @@ const verifyToModifyPassword = (req, res) => {
 
 const forgotPassword = (req, res, next) => {
   const { user } = req;
-  // console.log("🚀 - user:", user);
   const payload = { sub: user.id };
   const resetToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
     expiresIn: "1h",
   });
-  // console.log("🚀 - payload:", payload);
-
-  // console.log("🚀 - resetToken:", resetToken);
 
   delete req.user.password;
+
   const expirationTime = new Date();
-  // console.log("🚀 - expirationTime:", expirationTime);
 
   expirationTime.setHours(expirationTime.getHours() + 1);
 
-  res.json({ resetToken, expirationTime, payload });
+  req.body = { ...user, resetToken, expirationTime, userId: req.user.id };
+
   next();
+};
+
+const sendEmailResetPassword = (req, res) => {
+  const { newEmail, resetToken } = req.user;
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: newEmail,
+    subject: "Password Reset",
+    text: `Click the following link to reset your password: ${process.env.FRONTEND_URL}/resetPassword?token=${resetToken}`,
+  };
+
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      return res.status(500).json({ message: "Failed to send reset email" });
+    }
+    return res.json({ message: "Password reset email sent successfully" });
+  });
 };
 
 module.exports = {
@@ -154,4 +180,5 @@ module.exports = {
   verifyToken,
   verifyToModifyPassword,
   forgotPassword,
+  sendEmailResetPassword,
 };

@@ -41,6 +41,7 @@ const readToVerifyAuth = async (req, res, next) => {
 
 const readByEmail = async (req, res, next) => {
   const user = await tables.users.readByEmail(req.body.email);
+  // console.log("🚀 - user:", user)
 
   try {
     if (user == null) {
@@ -90,6 +91,52 @@ const edit = async (req, res, next) => {
   }
 };
 
+const editForgotPassword = async (req, res, next) => {
+  const user = {
+    newFirstName: req.body.first_name,
+    newLastName: req.body.last_name,
+    newEmail: req.body.email,
+    hashPassword: req.body.hashPassword,
+    resetToken: req.body.resetToken,
+    expirationTime: req.body.expirationTime,
+    userId: req.body.id,
+  };
+
+  try {
+    const updatedId = await tables.users.update(user);
+
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      req.user = user;
+
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  const { token } = req.body;
+
+  try {
+    const user = await tables.users.readByResetToken(token);
+
+    if (user == null || new Date(user.reset_token_expires_at) < new Date()) {
+      res
+        .status(404)
+        .send({ message: "User not found or invalid or expired token" });
+    } else {
+      req.body = user;
+
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const destroy = async (req, res, next) => {
   const id = parseInt(req.params.id, 10);
   try {
@@ -111,5 +158,7 @@ module.exports = {
   readToVerifyAuth,
   add,
   edit,
+  editForgotPassword,
+  resetPassword,
   destroy,
 };

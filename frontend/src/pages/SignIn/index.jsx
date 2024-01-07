@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import userContext from "../../contexts/userContext";
 
@@ -80,9 +80,11 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="button" className={style.forgotPasswordBtn}>
-          Mot de passe oublié?
-        </button>
+        <Link to="/forgotPassword">
+          <button type="button" className={style.forgotPasswordBtn}>
+            Mot de passe oublié?
+          </button>
+        </Link>
         <div className={style.submitButtonContainer}>
           <button type="submit">Se connecter</button>
         </div>
