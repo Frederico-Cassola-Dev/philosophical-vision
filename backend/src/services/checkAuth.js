@@ -126,10 +126,32 @@ const verifyToModifyPassword = (req, res) => {
     });
 };
 
+const forgotPassword = (req, res, next) => {
+  const { user } = req;
+  // console.log("🚀 - user:", user);
+  const payload = { sub: user.id };
+  const resetToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
+    expiresIn: "1h",
+  });
+  // console.log("🚀 - payload:", payload);
+
+  // console.log("🚀 - resetToken:", resetToken);
+
+  delete req.user.password;
+  const expirationTime = new Date();
+  // console.log("🚀 - expirationTime:", expirationTime);
+
+  expirationTime.setHours(expirationTime.getHours() + 1);
+
+  res.json({ resetToken, expirationTime, payload });
+  next();
+};
+
 module.exports = {
   checkUserData,
   hashPassword,
   verifyPassword,
   verifyToken,
   verifyToModifyPassword,
+  forgotPassword,
 };

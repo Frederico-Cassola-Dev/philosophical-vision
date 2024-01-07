@@ -18,10 +18,17 @@ const {
   verifyPassword,
   verifyToken,
   verifyToModifyPassword,
+  // forgotPassword,
 } = require("./services/checkAuth");
 
 //* OPEN ROUTES
 router.post("/login", userControllers.readByEmail, verifyPassword);
+// router.post(
+//   "/forgotPassword",
+//   userControllers.readByEmail,
+//   forgotPassword,
+//   userControllers.edit
+// );
 router.post("/users", checkUserData, hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 

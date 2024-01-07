@@ -16,7 +16,7 @@ class UserManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
+      `select u.id, u.first_name, u.last_name, u.email, u.password, r.role_name from ${this.table} u
       INNER JOIN users_roles ur on ur.user_id = u.id
       INNER JOIN roles r on r.id = ur.role_id 
       where u.id = ?`,
@@ -58,8 +58,8 @@ class UserManager extends AbstractManager {
       last_name = ?,
       email = ?,
       password = ?
-    WHERE id = ?
-    `,
+      WHERE id = ?
+      `,
         [
           user.newLastName,
           user.newFirstName,
@@ -72,12 +72,12 @@ class UserManager extends AbstractManager {
     }
     const [rows] = await this.database.query(
       `
-  UPDATE  ${this.table}
-  SET
-    first_name = ?, 
-    last_name = ?,
-    email = ?
-  WHERE id = ?
+      UPDATE  ${this.table}
+      SET
+        first_name = ?, 
+        last_name = ?,
+        email = ?
+      WHERE id = ?
   `,
       [user.newLastName, user.newFirstName, user.newEmail, user.userId]
     );

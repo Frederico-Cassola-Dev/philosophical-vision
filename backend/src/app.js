@@ -2,10 +2,19 @@
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
+// const nodemailer = require("nodemailer");
 
 const app = express();
 const cors = require("cors");
 const router = require("./router");
+
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASS,
+//   },
+// });
 
 app.use(
   cors({
