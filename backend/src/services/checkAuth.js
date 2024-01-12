@@ -70,8 +70,6 @@ const verifyPassword = (req, res) => {
   argon2
     .verify(req.user.password, req.body.password)
     .then((isVerified) => {
-      // console.log("🚀 - isVerified:", isVerified)
-
       if (isVerified) {
         const payload = { sub: req.user.id };
         const token = jwt.sign(payload, process.env.TOKEN_SECRET, {

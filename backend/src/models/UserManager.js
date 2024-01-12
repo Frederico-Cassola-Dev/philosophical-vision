@@ -45,8 +45,6 @@ class UserManager extends AbstractManager {
       `SELECT * FROM users WHERE reset_token = ?`,
       [token]
     );
-    // console.log("🚀 - rows:", rows)
-
     return rows[0];
   }
 
@@ -84,28 +82,14 @@ class UserManager extends AbstractManager {
       return rows;
     }
 
-    if (user.resetToken) {
-      const [rows] = await this.database.query(
-        `  UPDATE  ${this.table}
-          SET
-          reset_token = ?, 
-          reset_token_expires_at = ?
-          WHERE id = ?
-          `,
-        [user.resetToken, user.expirationTime, user.userId]
-      );
-
-      return rows;
-    }
-
     const [rows] = await this.database.query(
       `
           UPDATE  ${this.table}
           SET
-          first_name = ?, 
-        last_name = ?,
-        email = ?
-      WHERE id = ?
+            first_name = ?, 
+            last_name = ?,
+            email = ?
+          WHERE id = ?
   `,
       [
         user.newFirstName || "",
@@ -114,6 +98,37 @@ class UserManager extends AbstractManager {
         user.userId,
       ]
     );
+    return rows;
+  }
+
+  async updateResetToken(user) {
+    const [rows] = await this.database.query(
+      `
+        UPDATE  ${this.table}
+        SET
+          reset_token = ?, 
+          reset_token_expires_at = ?
+        WHERE id = ?
+      `,
+      [user.resetToken, user.expirationTime, user.userId]
+    );
+
+    return rows;
+  }
+
+  async updateAfterCreateResetToken(user) {
+    const [rows] = await this.database.query(
+      `
+        UPDATE  ${this.table}
+        SET
+          password = ?,
+          reset_token = null, 
+          reset_token_expires_at = null
+        WHERE id = ?
+      `,
+      [user.hashPassword, user.userId]
+    );
+
     return rows;
   }
 

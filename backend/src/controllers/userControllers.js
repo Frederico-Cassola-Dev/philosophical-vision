@@ -41,7 +41,6 @@ const readToVerifyAuth = async (req, res, next) => {
 
 const readByEmail = async (req, res, next) => {
   const user = await tables.users.readByEmail(req.body.email);
-  // console.log("🚀 - user:", user)
 
   try {
     if (user == null) {
@@ -101,14 +100,17 @@ const editForgotPassword = async (req, res, next) => {
     expirationTime: req.body.expirationTime,
     userId: req.body.id,
   };
+  // console.log("🚀 editForgotPassword - user:", user)
 
   try {
-    const updatedId = await tables.users.update(user);
+    const updatedId = await tables.users.updateResetToken(user);
+    // console.log("🚀 editForgotPassword - updatedId:", updatedId)
 
     if (updatedId == null) {
       res.status(204);
     } else {
       req.user = user;
+      // console.log("🚀 editForgotPassword -  req.user:",  req.user)
 
       next();
     }
@@ -117,8 +119,32 @@ const editForgotPassword = async (req, res, next) => {
   }
 };
 
-const resetPassword = async (req, res, next) => {
-  const { token } = req.body;
+const editUserAfterResetToken = async (req, res, next) => {
+  const user = {
+    newFirstName: req.body.first_name,
+    newLastName: req.body.last_name,
+    newEmail: req.body.email,
+    hashPassword: req.body.hashPassword,
+    resetToken: req.body.resetToken,
+    expirationTime: req.body.expirationTime,
+    userId: req.body.id,
+  };
+
+  try {
+    const updatedId = await tables.users.updateAfterCreateResetToken(user);
+
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      req.user = user;
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const resetPasswordAfterResetTokenCreated = async (req, res, next) => {
+  const { token, newPassword } = req.body;
 
   try {
     const user = await tables.users.readByResetToken(token);
@@ -128,7 +154,7 @@ const resetPassword = async (req, res, next) => {
         .status(404)
         .send({ message: "User not found or invalid or expired token" });
     } else {
-      req.body = user;
+      req.body = { ...user, password: newPassword };
 
       next();
     }
@@ -159,6 +185,7 @@ module.exports = {
   add,
   edit,
   editForgotPassword,
-  resetPassword,
+  editUserAfterResetToken,
+  resetPasswordAfterResetTokenCreated,
   destroy,
 };

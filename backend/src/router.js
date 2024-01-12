@@ -33,9 +33,9 @@ router.post(
 );
 router.post(
   "/resetPassword",
-  userControllers.resetPassword,
+  userControllers.resetPasswordAfterResetTokenCreated,
   hashPassword,
-  userControllers.editForgotPassword
+  userControllers.editUserAfterResetToken
 );
 router.post("/users", checkUserData, hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);

@@ -6,17 +6,15 @@ export default function ResetPassword() {
   const [token, setToken] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  axios.defaults.withCredentials = true;
-
   const handleResetPassword = async (event) => {
+    axios.defaults.withCredentials = true;
     event.preventDefault();
 
     axios
-      .post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/resetPassword`,
-
-        { token, newPassword }
-      )
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/resetPassword`, {
+        token,
+        newPassword,
+      })
       .catch((err) => console.error(err));
   };
 
