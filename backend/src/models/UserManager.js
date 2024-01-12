@@ -28,7 +28,7 @@ class UserManager extends AbstractManager {
 
   async readByEmail(email) {
     const [rows] = await this.database.query(
-      `SELECT u.id, u.first_name, users_roles.role_id, u.email, u.password FROM ${this.table} u
+      `SELECT u.id, u.first_name, u.last_name, users_roles.role_id, u.email, u.password FROM ${this.table} u
         INNER JOIN users_roles ON users_roles.user_id = u.id
         INNER JOIN roles ON roles.id = users_roles.role_id       
       where u.email = ?`,

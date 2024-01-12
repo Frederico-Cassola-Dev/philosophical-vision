@@ -9,6 +9,7 @@ import style from "./myAccount.module.scss";
 export default function MyAccount() {
   const { user } = useContext(userContext);
   const navigate = useNavigate();
+
   const [newLastName, setNewLastName] = useState(null);
   const [newFirstName, setNewFirstName] = useState(null);
   const [newEmail, setNewEmail] = useState(null);
