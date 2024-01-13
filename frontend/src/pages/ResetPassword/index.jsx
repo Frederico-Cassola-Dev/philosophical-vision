@@ -51,11 +51,12 @@ export default function ResetPassword() {
             type="password"
             name="confirmPassword"
             id="confirmPassword"
-            // className={
-            //   newUserValidatorState.confirmPasswordError
-            //     ? style.errorInput
-            //     : style.inputConfirmPassword
-            // }
+            className={
+              // newUserValidatorState.confirmPasswordError
+              // ? style.errorInput
+              // : style.inputConfirmPassword
+              style.inputConfirmPassword
+            }
             required
             // value={newUserState.confirmPassword}
             // onChange={(e) => {
@@ -82,11 +83,12 @@ export default function ResetPassword() {
             // }}
           />
           <span
-          // className={
-          //   newUserValidatorState.passwordsMatch
-          //     ? style.inputValidationMessage
-          //     : style.inputValidationHidden
-          // }
+            className={
+              // newUserValidatorState.passwordsMatch
+              // ? style.inputValidationMessage
+              // : style.inputValidationHidden
+              style.inputValidationHidden
+            }
           >
             Le mot de passe doit égale
           </span>
