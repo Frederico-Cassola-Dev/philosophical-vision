@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import signUpFormReducer, {
   SIGN_UP_UPDATE_PASSWORD,
@@ -15,9 +15,13 @@ import signUpFormValidatorReducer, {
   signUpInitialValidatorState,
 } from "../SignUp/utils/signUp-form-validator-reducer";
 
+import DialogNotification from "../../components/DialogNotification";
 import style from "./resetPassword.module.scss";
 
 export default function ResetPassword() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [newUserState, dispatchForm] = useReducer(
     signUpFormReducer,
     signUpInitialState
@@ -26,14 +30,15 @@ export default function ResetPassword() {
     signUpFormValidatorReducer,
     signUpInitialValidatorState
   );
-  const location = useLocation();
+
   const [token, setToken] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const tokenFromURL = searchParams.get("token");
 
-    // Set the token in the component state
     setToken(tokenFromURL);
   }, [location.search]);
 
@@ -46,11 +51,42 @@ export default function ResetPassword() {
         token,
         newPassword: newUserState.password,
       })
-      .catch((err) => console.error(err));
+      .then((response) => {
+        // console.log("🚀 - response:", response.data.changedRows);
+
+        if (response.data.changedRows === "1") {
+          setSubmitMessage("Mot de passe réinitialisé avec success");
+        } else {
+          setSubmitMessage("Problème rencontré, essayez à nouveau");
+        }
+        setIsDialogOpen(true);
+      })
+      .catch((err) => {
+        console.error(err);
+        if (err) {
+          setSubmitMessage("Problème rencontré, essayez à nouveau");
+          setIsDialogOpen(true);
+        }
+      });
   };
 
   return (
     <div className={style.resetPassword}>
+      {isDialogOpen && (
+        <DialogNotification
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+          returnSetPreviousPage={(openOrClose) => {
+            // console.log("🚀 - openOrClose:", openOrClose);
+
+            if (
+              !openOrClose &&
+              submitMessage === "Mot de passe réinitialisé avec success"
+            )
+              navigate("/signIn");
+          }}
+        />
+      )}
       <h2 className={style.title}>Reset Password</h2>
       <form className={style.formContainer} onSubmit={handleResetPassword}>
         {/* <label htmlFor="resetToken">

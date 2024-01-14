@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import userContext from "../../contexts/userContext";
 
-import style from "./signIn.module.scss";
 import DialogNotification from "../../components/DialogNotification";
+import style from "./signIn.module.scss";
 
 export default function SignIn() {
   const inputRef = useRef(null);
@@ -32,6 +32,7 @@ export default function SignIn() {
           email,
           password,
         },
+        //! Maybe remove this code
         { withCredentials: true }
       )
       .then((response) => {

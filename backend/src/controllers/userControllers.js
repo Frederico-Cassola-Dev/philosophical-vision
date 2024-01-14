@@ -100,17 +100,14 @@ const editForgotPassword = async (req, res, next) => {
     expirationTime: req.body.expirationTime,
     userId: req.body.id,
   };
-  // console.log("🚀 editForgotPassword - user:", user)
 
   try {
     const updatedId = await tables.users.updateResetToken(user);
-    // console.log("🚀 editForgotPassword - updatedId:", updatedId)
 
     if (updatedId == null) {
       res.status(204);
     } else {
       req.user = user;
-      // console.log("🚀 editForgotPassword -  req.user:",  req.user)
 
       next();
     }
@@ -137,6 +134,7 @@ const editUserAfterResetToken = async (req, res, next) => {
       res.status(204);
     } else {
       req.user = user;
+      res.json(updatedId);
     }
   } catch (err) {
     next(err);
