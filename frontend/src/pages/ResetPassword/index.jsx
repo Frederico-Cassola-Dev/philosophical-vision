@@ -52,9 +52,7 @@ export default function ResetPassword() {
         newPassword: newUserState.password,
       })
       .then((response) => {
-        // console.log("🚀 - response:", response.data.changedRows);
-
-        if (response.data.changedRows === "1") {
+        if (response.data.changedRows === 1) {
           setSubmitMessage("Mot de passe réinitialisé avec success");
         } else {
           setSubmitMessage("Problème rencontré, essayez à nouveau");
@@ -84,6 +82,11 @@ export default function ResetPassword() {
               submitMessage === "Mot de passe réinitialisé avec success"
             )
               navigate("/signIn");
+            if (
+              !openOrClose &&
+              submitMessage === "Problème rencontré, essayez à nouveau"
+            )
+              navigate("/");
           }}
         />
       )}
