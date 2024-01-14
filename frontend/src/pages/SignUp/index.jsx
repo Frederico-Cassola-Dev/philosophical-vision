@@ -231,8 +231,8 @@ export default function SignUp() {
                 : style.inputPasswordValidationHidden
             }
           >
-            Le mot de passe doit contenir ou minimum 8 caracteres, une lettre
-            majuscule, une lettre minuscule, un chifre et un caractère spécial
+            Le mot de passe doit contenir ou minimum 8 caractères, une lettre
+            majuscule, une lettre minuscule, un chiffre et un caractère spécial
           </span>
         </label>
         <label htmlFor="confirmPassword" className={style.labelConfirmPassword}>
