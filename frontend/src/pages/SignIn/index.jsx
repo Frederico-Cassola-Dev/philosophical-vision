@@ -26,15 +26,10 @@ export default function SignIn() {
     event.preventDefault();
     axios.defaults.withCredentials = true;
     axios
-      .post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
-        {
-          email,
-          password,
-        },
-        //! Maybe remove this code
-        { withCredentials: true }
-      )
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
+        email,
+        password,
+      })
       .then((response) => {
         setUser(response.data.user);
         setToken(response.data.token);
