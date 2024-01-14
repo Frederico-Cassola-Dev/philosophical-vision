@@ -1,4 +1,5 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import signUpFormReducer, {
   SIGN_UP_UPDATE_PASSWORD,
@@ -25,7 +26,16 @@ export default function ResetPassword() {
     signUpFormValidatorReducer,
     signUpInitialValidatorState
   );
+  const location = useLocation();
   const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tokenFromURL = searchParams.get("token");
+
+    // Set the token in the component state
+    setToken(tokenFromURL);
+  }, [location.search]);
 
   const handleResetPassword = async (event) => {
     axios.defaults.withCredentials = true;
@@ -43,17 +53,17 @@ export default function ResetPassword() {
     <div className={style.resetPassword}>
       <h2 className={style.title}>Reset Password</h2>
       <form className={style.formContainer} onSubmit={handleResetPassword}>
-        <label htmlFor="resetToken">
+        {/* <label htmlFor="resetToken">
           Votre token
-          <input
+          <textarea
             type="text"
             id="resetToken"
             name="resetToken"
             placeholder="Insérez votre token"
             value={token}
-            onChange={(e) => setToken(e.target.value)}
+            readOnly
           />
-        </label>
+        </label> */}
         <label htmlFor="newPassword">
           Nouvelle mot de passe
           <input
