@@ -282,7 +282,7 @@ export default function SignUp() {
           </span>
         </label>
         <div className={style.submitButtonContainer}>
-          <button type="submit">Submit</button>
+          <button type="submit">Envoyer</button>
         </div>
       </form>
     </div>

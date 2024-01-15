@@ -19,12 +19,10 @@ export default function ForgotPassword() {
     signUpFormReducer,
     signUpInitialState
   );
-
   const [newUserValidatorState, dispatchValidatorForm] = useReducer(
     signUpFormValidatorReducer,
     signUpInitialValidatorState
   );
-  // const [email, setEmail] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
