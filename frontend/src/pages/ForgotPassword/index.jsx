@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
+import DialogNotification from "../../components/DialogNotification";
 import style from "./forgotPassword.module.scss";
 
 export default function ForgotPassword() {
   const inputRef = useRef(null);
-
   const [email, setEmail] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
   useEffect(() => {
     inputRef.current.focus();
@@ -18,11 +20,32 @@ export default function ForgotPassword() {
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/forgotPassword`, {
         email,
       })
-      .catch((err) => console.error(err));
+      .then((response) => {
+        if (response.status === 200) {
+          setSubmitMessage("Email envoyé avec success");
+          setIsDialogOpen(true);
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setSubmitMessage("Ce email n'est pas enregistré");
+        }
+
+        if (err.response.status === 500) {
+          setSubmitMessage("Problème rencontré, essayez à nouveau");
+        }
+        setIsDialogOpen(true);
+      });
   };
 
   return (
     <div className={style.forgotPassword}>
+      {isDialogOpen && (
+        <DialogNotification
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
       <h1 className={style.title}>ForgotPassword</h1>
       <form onSubmit={handleForgotPassword} className={style.formContainer}>
         <label htmlFor="email">
@@ -36,7 +59,7 @@ export default function ForgotPassword() {
           />
         </label>
         <div className={style.submitButtonContainer}>
-          <button type="submit"> Envoyer email de recuperation</button>{" "}
+          <button type="submit"> Envoyer l'email de recuperation</button>{" "}
         </div>
       </form>
     </div>
