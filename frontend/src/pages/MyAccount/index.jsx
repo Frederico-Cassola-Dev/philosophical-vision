@@ -9,11 +9,13 @@ import style from "./myAccount.module.scss";
 export default function MyAccount() {
   const { user } = useContext(userContext);
   const navigate = useNavigate();
+
   const [newLastName, setNewLastName] = useState(null);
   const [newFirstName, setNewFirstName] = useState(null);
   const [newEmail, setNewEmail] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [oldPassword, setOldPassword] = useState(null);
+
   const [validateOldPassword, setValidateOldPassword] = useState(null);
   const [modifyMessage, setModifyMessage] = useState({
     isModify: false,

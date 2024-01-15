@@ -183,7 +183,7 @@ export default function SignUp() {
           >
             {newUserState.emailMessage
               ? newUserState.emailMessage
-              : "Le insérez un email correct"}
+              : "Insérez un email correct"}
           </span>
         </label>
         <label htmlFor="password" className={style.labelPassword1}>
@@ -231,8 +231,8 @@ export default function SignUp() {
                 : style.inputPasswordValidationHidden
             }
           >
-            Le mot de passe doit contenir ou minimum 8 caracteres, une lettre
-            majuscule, une lettre minuscule, un chifre et un caractère spécial
+            Le mot de passe doit contenir ou minimum 8 caractères, une lettre
+            majuscule, une lettre minuscule, un chiffre et un caractère spécial
           </span>
         </label>
         <label htmlFor="confirmPassword" className={style.labelConfirmPassword}>
@@ -282,7 +282,7 @@ export default function SignUp() {
           </span>
         </label>
         <div className={style.submitButtonContainer}>
-          <button type="submit">Submit</button>
+          <button type="submit">Envoyer</button>
         </div>
       </form>
     </div>

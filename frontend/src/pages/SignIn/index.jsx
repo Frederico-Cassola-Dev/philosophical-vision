@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import userContext from "../../contexts/userContext";
 
-import style from "./signIn.module.scss";
 import DialogNotification from "../../components/DialogNotification";
+import style from "./signIn.module.scss";
 
 export default function SignIn() {
   const inputRef = useRef(null);
@@ -26,14 +26,10 @@ export default function SignIn() {
     event.preventDefault();
     axios.defaults.withCredentials = true;
     axios
-      .post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
+        email,
+        password,
+      })
       .then((response) => {
         setUser(response.data.user);
         setToken(response.data.token);
@@ -80,9 +76,11 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="button" className={style.forgotPasswordBtn}>
-          Mot de passe oublié?
-        </button>
+        <Link to="/forgotPassword">
+          <button type="button" className={style.forgotPasswordBtn}>
+            Mot de passe oublié?
+          </button>
+        </Link>
         <div className={style.submitButtonContainer}>
           <button type="submit">Se connecter</button>
         </div>

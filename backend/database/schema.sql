@@ -6,7 +6,9 @@ create table
         first_name varchar(100) NOT NULL,
         last_name varchar(100) NOT NULL,
         email varchar(254) NOT NULL unique,
-        password varchar(254) NOT NULL
+        password varchar(254) NOT NULL,
+        reset_token varchar(254),
+        reset_token_expires_at DATETIME
     );
 
 create table
@@ -135,43 +137,59 @@ INSERT into
         first_name,
         last_name,
         email,
-        password
+        password,
+        reset_token,
+        reset_token_expires_at
     )
 VALUES (
         "admin",
         "admin",
         "admin@admin.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+        null,
+        null
     ),(
         "John",
         "Springfield",
         "john.springfield@springfield.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
-       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+       "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null
     ), (
         "carlos",
         "cassola",
         "cfcassola@gmail.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw"
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+        null,
+        null
     );
 
 

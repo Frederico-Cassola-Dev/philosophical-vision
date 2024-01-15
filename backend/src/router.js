@@ -18,10 +18,25 @@ const {
   verifyPassword,
   verifyToken,
   verifyToModifyPassword,
+  forgotPassword,
+  sendEmailResetPassword,
 } = require("./services/checkAuth");
 
 //* OPEN ROUTES
 router.post("/login", userControllers.readByEmail, verifyPassword);
+router.post(
+  "/forgotPassword",
+  userControllers.readByEmail,
+  forgotPassword,
+  userControllers.editForgotPassword,
+  sendEmailResetPassword
+);
+router.post(
+  "/resetPassword",
+  userControllers.resetPasswordAfterResetTokenCreated,
+  hashPassword,
+  userControllers.editUserAfterResetToken
+);
 router.post("/users", checkUserData, hashPassword, userControllers.add);
 router.get("/phrases5", phraseControllers.browse5);
 
