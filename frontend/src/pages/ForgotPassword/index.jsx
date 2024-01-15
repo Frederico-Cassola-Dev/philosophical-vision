@@ -1,12 +1,30 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import axios from "axios";
+import signUpFormReducer, {
+  SIGN_UP_UPDATE_EMAIL,
+  SIGN_UP_UPDATE_EMAIL_MESSAGE,
+  signUpInitialState,
+} from "../SignUp/utils/signUp-form-reducer";
+import signUpFormValidatorReducer, {
+  SIGN_UP_VALIDATE_EMAIL,
+  signUpInitialValidatorState,
+} from "../SignUp/utils/signUp-form-validator-reducer";
 
 import DialogNotification from "../../components/DialogNotification";
 import style from "./forgotPassword.module.scss";
 
 export default function ForgotPassword() {
   const inputRef = useRef(null);
-  const [email, setEmail] = useState("");
+  const [newUserState, dispatchForm] = useReducer(
+    signUpFormReducer,
+    signUpInitialState
+  );
+
+  const [newUserValidatorState, dispatchValidatorForm] = useReducer(
+    signUpFormValidatorReducer,
+    signUpInitialValidatorState
+  );
+  // const [email, setEmail] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
@@ -18,7 +36,7 @@ export default function ForgotPassword() {
     event.preventDefault();
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/forgotPassword`, {
-        email,
+        email: newUserState.email,
       })
       .then((response) => {
         if (response.status === 200) {
@@ -54,9 +72,44 @@ export default function ForgotPassword() {
             type="email"
             placeholder="Insérez votre email"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            id="email"
+            autoComplete="email"
             ref={inputRef}
+            className={
+              newUserValidatorState.emailError || newUserState.emailMessage
+                ? style.errorInput
+                : style.inputEmail
+            }
+            value={newUserState.email.email}
+            onChange={(e) => {
+              dispatchForm({
+                type: SIGN_UP_UPDATE_EMAIL,
+                payload: { email: e.target.value },
+              });
+              dispatchForm({
+                type: SIGN_UP_UPDATE_EMAIL_MESSAGE,
+                payload: { emailMessage: "" },
+              });
+            }}
+            onBlur={() =>
+              dispatchValidatorForm({
+                type: SIGN_UP_VALIDATE_EMAIL,
+                payload: newUserState,
+              })
+            }
           />
+          <span
+            className={
+              newUserValidatorState.emailError || newUserState.emailMessage
+                ? style.inputValidationMessage
+                : style.inputValidationHidden
+            }
+          >
+            {newUserState.emailMessage
+              ? newUserState.emailMessage
+              : "Insérez un email correct"}
+          </span>
         </label>
         <div className={style.submitButtonContainer}>
           <button type="submit"> Envoyer l'email de recuperation</button>{" "}

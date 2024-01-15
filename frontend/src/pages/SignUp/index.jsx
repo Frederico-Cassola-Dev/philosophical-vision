@@ -183,7 +183,7 @@ export default function SignUp() {
           >
             {newUserState.emailMessage
               ? newUserState.emailMessage
-              : "Le insérez un email correct"}
+              : "Insérez un email correct"}
           </span>
         </label>
         <label htmlFor="password" className={style.labelPassword1}>
