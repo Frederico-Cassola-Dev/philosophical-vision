@@ -11,7 +11,7 @@ import style from "./newEvent.module.scss";
 export default function NewEvent() {
   const navigate = useNavigate();
   const [newEvent, setNewEvent] = useState("");
-  const [newCategoryId, setNewCategory] = useState(null);
+  const [newCategoryId, setNewCategory] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
@@ -74,7 +74,7 @@ export default function NewEvent() {
               value={newCategoryId}
               onChange={(e) => setNewCategory(e.target.value)}
             >
-              <option value="">Sélectionne</option>
+              <option defaultChecked>Sélectionne</option>
               {categoriesData?.response?.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.title}
