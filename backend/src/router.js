@@ -82,10 +82,12 @@ router.delete("/phrases/:id", phraseControllers.destroy);
 
 //* Events
 router.get("/events", eventControllers.browse);
-router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);
-router.get("/events/:title", eventControllers.browseAllByTitle);
 router.get("/events/:id", eventControllers.read);
+router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);
+//! I think the route below is not necessary
+router.get("/events/:title", eventControllers.browseAllByTitle);
 router.post("/events", eventControllers.add);
+router.put("/events/:id", eventControllers.edit);
 
 //* Events_Phrases
 router.get("/eventPhrase", eventPhraseControllers.browse);

@@ -61,7 +61,9 @@ export default function NewCategory() {
           <button
             type="button"
             className={style.submitBtn}
-            onClick={() => navigate("/admin")}
+            onClick={() => {
+              navigate(-1);
+            }}
           >
             Retourner
           </button>

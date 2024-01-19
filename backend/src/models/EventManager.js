@@ -44,6 +44,21 @@ class EventManager extends AbstractManager {
     return rows;
   }
 
+  async update(event) {
+    const [rows] = await this.database.query(
+      `
+        UPDATE  ${this.table}
+        SET
+          title = ?, 
+          category_id = ?
+        WHERE id = ?
+      `,
+      [event.title, event.category, event.eventId]
+    );
+
+    return rows;
+  }
+
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing event
 

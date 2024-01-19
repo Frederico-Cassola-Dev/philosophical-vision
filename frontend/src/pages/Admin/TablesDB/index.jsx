@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 
 import ModifyPhrase from "../../../components/ModifyPhrase";
+import ModifyEvent from "../../../components/ModifyEvent";
 import DeleteUserModal from "../../../components/DeleteUserModal";
 
 import style from "./tablesDB.module.scss";
@@ -11,8 +12,12 @@ export default function TablesDB() {
   const { table } = useParams();
 
   const [selectedPhraseId, setSelectedPhraseId] = useState("");
+  const [selectedEventId, setSelectedEventId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState("");
   const [modifyPhrase, setModifyPhrase] = useState(false);
+  const [modifyEvent, setModifyEvent] = useState(false);
+  // console.log("🚀 - modifyEvent:", modifyEvent)
+
   const [deleteUserModal, setDeleteUserModal] = useState(false);
   const [updateTable, setUpdateTable] = useState(false);
 
@@ -23,6 +28,7 @@ export default function TablesDB() {
     },
     [
       modifyPhrase,
+      modifyEvent,
       selectedPhraseId,
       updateTable,
       deleteUserModal,
@@ -53,6 +59,12 @@ export default function TablesDB() {
           setModifyPhrase={setModifyPhrase}
           updateTable={updateTable}
           setUpdateTable={setUpdateTable}
+        />
+      )}
+      {modifyEvent && (
+        <ModifyEvent
+          selectedEventId={selectedEventId}
+          setModifyEvent={setModifyEvent}
         />
       )}
       {deleteUserModal && (
@@ -136,7 +148,13 @@ export default function TablesDB() {
                   })}
                 {table === "events" &&
                   tableData?.response?.map((item) => (
-                    <tr key={item.id}>
+                    <tr
+                      key={item.id}
+                      onClick={() => {
+                        setModifyEvent(true);
+                        setSelectedEventId(item.id);
+                      }}
+                    >
                       <td>{item.title}</td>
                       <td>{item.category_id}</td>
                     </tr>
