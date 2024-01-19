@@ -88,6 +88,7 @@ router.get("/events/categories/:id", eventControllers.browseAllByCategoryId);
 router.get("/events/:title", eventControllers.browseAllByTitle);
 router.post("/events", eventControllers.add);
 router.put("/events/:id", eventControllers.edit);
+router.delete("/events/:id", eventControllers.destroy);
 
 //* Events_Phrases
 router.get("/eventPhrase", eventPhraseControllers.browse);

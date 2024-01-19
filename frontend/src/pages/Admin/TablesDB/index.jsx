@@ -73,7 +73,7 @@ export default function TablesDB() {
           selectedUserId={selectedUserId}
         />
       )}
-      {!modifyPhrase && !deleteUserModal && (
+      {!modifyPhrase && !modifyEvent && !deleteUserModal && (
         <div className={style.tablesDB}>
           <div className={style.linkContainer}>
             <Link to="/admin" className={style.linkReturnBtn}>

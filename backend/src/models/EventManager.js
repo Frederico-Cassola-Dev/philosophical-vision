@@ -59,19 +59,16 @@ class EventManager extends AbstractManager {
     return rows;
   }
 
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing event
-
-  // async update(event) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an event by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
+  async delete(id) {
+    //* There are a ON DELETE CASCADE in the tables events_phrases and users_phrases for the foreign keys
+    const [rows] = await this.database.query(
+      `delete ${this.table}
+        from ${this.table}
+        where ${this.table}.id = ? `,
+      [id]
+    );
+    return rows;
+  }
 }
 
 module.exports = EventManager;

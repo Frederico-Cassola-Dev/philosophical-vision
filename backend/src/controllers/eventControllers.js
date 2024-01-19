@@ -66,6 +66,20 @@ const edit = async (req, res, next) => {
   }
 };
 
+const destroy = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const eventId = await tables.events.delete(id);
+    if (eventId == null) {
+      res.status(204);
+    } else {
+      res.json(eventId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   browseAllByCategoryId,
@@ -73,4 +87,5 @@ module.exports = {
   read,
   add,
   edit,
+  destroy,
 };

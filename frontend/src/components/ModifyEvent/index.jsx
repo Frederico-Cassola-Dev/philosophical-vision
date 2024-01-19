@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import DialogNotification from "../DialogNotification";
 
 import style from "./modifyEvent.module.scss";
 import { IconAdd } from "../SvgIcons";
 
 export default function ModifyEvent({ selectedEventId, setModifyEvent }) {
-  // console.log("🚀 - selectedEventId:", selectedEventId);
   const eventData = useAxios(
     {
       method: "get",
@@ -24,12 +24,11 @@ export default function ModifyEvent({ selectedEventId, setModifyEvent }) {
     },
     [selectedEventId]
   );
-  // console.log("🚀 - categoriesData:", categoriesData)
 
-  // console.log("🚀 - eventsData:", eventData.response);
   const [modifiedEvent, setModifiedEvent] = useState("");
   const [modifiedCategory, setModifiedCategory] = useState("");
-  // console.log("🚀 - modifiedCategory:", modifiedCategory);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const handleSubmitEventForm = (e) => {
     e.preventDefault();
@@ -42,22 +41,35 @@ export default function ModifyEvent({ selectedEventId, setModifyEvent }) {
           category: modifiedCategory || eventData.response.category_id,
         }
       )
-      // .then((response) => console.log(response))
+      .then(() => {
+        setSubmitMessage("Événement modifié");
+        setIsDialogOpen(true);
+      })
       .catch((err) => console.error(err));
   };
   const handleDeleteEvent = (e) => {
     e.preventDefault();
+    axios
+      .delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/events/${selectedEventId}`
+      )
+      .then(() => {
+        setSubmitMessage("Événement effacée");
+        setIsDialogOpen(true);
+      })
+      .catch((err) => console.error(err));
   };
+
   return (
     <div className={style.modifyEvent}>
       <h2>Événement pour modifier</h2>
-      {/* {isDialogOpen && (
+      {isDialogOpen && (
         <DialogNotification
-          returnSetPreviousPage={setModifyPhrase}
+          returnSetPreviousPage={setModifyEvent}
           dialogContent={submitMessage}
           setIsDialogOpen={setIsDialogOpen}
         />
-      )} */}
+      )}
       <form className={style.eventForm} onSubmit={handleSubmitEventForm}>
         <textarea
           type="text"
@@ -76,7 +88,7 @@ export default function ModifyEvent({ selectedEventId, setModifyEvent }) {
               value={modifiedCategory || eventData?.response?.category_id}
               onChange={(e) => setModifiedCategory(e.target.value)}
             >
-              <option defaultChecked>Modifier catégorie</option>
+              <option value="">Sélectionne</option>
               {categoriesData?.response &&
                 categoriesData.response.map((events) => (
                   <option key={events.id} value={events.id}>
@@ -103,7 +115,6 @@ export default function ModifyEvent({ selectedEventId, setModifyEvent }) {
             type="button"
             onClick={() => {
               setModifyEvent(false);
-              // getEvent(selectedEventId);
             }}
           >
             Retourner
