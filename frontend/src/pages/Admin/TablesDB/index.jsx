@@ -94,7 +94,7 @@ export default function TablesDB() {
                 {table === "events" && (
                   <tr>
                     <th>Titre</th>
-                    <th>Catégorie Id</th>
+                    <th>Catégorie</th>
                   </tr>
                 )}
                 {table === "authors" && (
@@ -156,7 +156,7 @@ export default function TablesDB() {
                       }}
                     >
                       <td>{item.title}</td>
-                      <td>{item.category_id}</td>
+                      <td>{item.category_title}</td>
                     </tr>
                   ))}
                 {table === "authors" &&

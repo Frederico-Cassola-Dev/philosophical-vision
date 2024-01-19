@@ -15,14 +15,21 @@ class EventManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `
+        select e.id, e.title, c.title category_title from ${this.table} e 
+        inner join categories c on c.id = e.category_id 
+        where e.id = ?`,
       [id]
     );
     return rows[0];
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(
+      `
+        select e.id, e.title, c.title category_title from ${this.table} e 
+        inner join categories c on c.id = e.category_id`
+    );
     return rows;
   }
 
