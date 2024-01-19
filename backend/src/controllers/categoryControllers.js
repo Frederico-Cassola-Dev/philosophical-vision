@@ -37,8 +37,39 @@ const add = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  const category = { ...req.body, categoryId: parseInt(req.params.id, 10) };
+
+  try {
+    const updatedId = await tables.categories.update(category);
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      res.json(updatedId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroy = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const categoryId = await tables.categories.delete(id);
+    if (categoryId == null) {
+      res.status(204);
+    } else {
+      res.json(categoryId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
   add,
+  edit,
+  destroy,
 };

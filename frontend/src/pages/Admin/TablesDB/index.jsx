@@ -7,33 +7,26 @@ import ModifyEvent from "../../../components/ModifyEvent";
 import DeleteUserModal from "../../../components/DeleteUserModal";
 
 import style from "./tablesDB.module.scss";
+import ModifyCategory from "../../../components/ModifyCategory";
 
 export default function TablesDB() {
   const { table } = useParams();
 
   const [selectedPhraseId, setSelectedPhraseId] = useState("");
   const [selectedEventId, setSelectedEventId] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState("");
   const [modifyPhrase, setModifyPhrase] = useState(false);
   const [modifyEvent, setModifyEvent] = useState(false);
-  // console.log("🚀 - modifyEvent:", modifyEvent)
-
+  const [modifyCategory, setModifyCategory] = useState(false);
   const [deleteUserModal, setDeleteUserModal] = useState(false);
-  const [updateTable, setUpdateTable] = useState(false);
 
   const tableData = useAxios(
     {
       method: "get",
       endpoint: `${table}`,
     },
-    [
-      modifyPhrase,
-      modifyEvent,
-      selectedPhraseId,
-      updateTable,
-      deleteUserModal,
-      selectedUserId,
-    ]
+    [modifyPhrase, modifyEvent, modifyCategory, deleteUserModal]
   );
 
   const totalLikesData = useAxios(
@@ -41,13 +34,7 @@ export default function TablesDB() {
       method: "get",
       endpoint: "usersPhrases/totalLikes",
     },
-    [
-      modifyPhrase,
-      selectedPhraseId,
-      updateTable,
-      deleteUserModal,
-      selectedUserId,
-    ]
+    [modifyPhrase, deleteUserModal]
   );
 
   return (
@@ -57,8 +44,6 @@ export default function TablesDB() {
           modifyPhrase={modifyPhrase}
           selectedPhraseId={selectedPhraseId}
           setModifyPhrase={setModifyPhrase}
-          updateTable={updateTable}
-          setUpdateTable={setUpdateTable}
         />
       )}
       {modifyEvent && (
@@ -67,13 +52,19 @@ export default function TablesDB() {
           setModifyEvent={setModifyEvent}
         />
       )}
+      {modifyCategory && (
+        <ModifyCategory
+          selectedCategoryId={selectedCategoryId}
+          setModifyCategory={setModifyCategory}
+        />
+      )}
       {deleteUserModal && (
         <DeleteUserModal
           setDeleteUserModal={setDeleteUserModal}
           selectedUserId={selectedUserId}
         />
       )}
-      {!modifyPhrase && !modifyEvent && !deleteUserModal && (
+      {!modifyPhrase && !modifyEvent && !modifyCategory && !deleteUserModal && (
         <div className={style.tablesDB}>
           <div className={style.linkContainer}>
             <Link to="/admin" className={style.linkReturnBtn}>
@@ -174,7 +165,13 @@ export default function TablesDB() {
                   ))}
                 {table === "categories" &&
                   tableData?.response?.map((item) => (
-                    <tr key={item.id}>
+                    <tr
+                      key={item.id}
+                      onClick={() => {
+                        setModifyCategory(true);
+                        setSelectedCategoryId(item.id);
+                      }}
+                    >
                       <td>{item.title}</td>
                       <td>{item.description}</td>
                     </tr>

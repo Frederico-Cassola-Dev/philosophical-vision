@@ -85,14 +85,16 @@ export default function ModifyEvent({ selectedEventId, setModifyEvent }) {
               name="categoriesList"
               id="categoriesList"
               className={`${style.select} ${style.categoriesList}`}
-              value={modifiedCategory || eventData?.response?.category_id}
+              value={modifiedCategory || eventData?.response?.category_title}
               onChange={(e) => setModifiedCategory(e.target.value)}
             >
-              <option value="">Sélectionne</option>
+              <option defaultChecked>
+                {eventData?.response?.category_title}
+              </option>
               {categoriesData?.response &&
-                categoriesData.response.map((events) => (
-                  <option key={events.id} value={events.id}>
-                    {events.title}
+                categoriesData.response.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.title}
                   </option>
                 ))}
             </select>
