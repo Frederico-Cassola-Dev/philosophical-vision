@@ -7,8 +7,8 @@ class CategoryManager extends AbstractManager {
 
   async create(category) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (title) values (?)`,
-      [category.title]
+      `insert into ${this.table} (title, description) values (?, ?)`,
+      [category.title, category.description]
     );
 
     return result.insertId;

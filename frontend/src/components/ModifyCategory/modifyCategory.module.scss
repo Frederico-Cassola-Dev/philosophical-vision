@@ -25,7 +25,6 @@
     flex-direction: column;
     width: 100%;
 
-
     label {
       display: flex;
       justify-content: center;
@@ -52,15 +51,14 @@
         }
       }
 
-
-    textarea {
-      width: calc(100% - 10px);
-      height: $space-3xl;
-      margin-top: $space-2xs;
-      padding: $space-2xs;
-      font-weight: $font-weight-bold;
-      border-radius: $border-radius-s;
-    }
+      textarea {
+        width: calc(100% - 10px);
+        height: $space-3xl;
+        margin-top: $space-2xs;
+        padding: $space-2xs;
+        font-weight: $font-weight-bold;
+        border-radius: $border-radius-s;
+      }
     }
 
     .buttonsContainer {
