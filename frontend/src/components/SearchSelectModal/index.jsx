@@ -1,19 +1,14 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
 import {
   CLOSE_MODAL,
   SELECT_OPEN_MODAL,
 } from "../../pages/Phrases/utils/phrases-reducer";
-import userContext from "../../contexts/userContext";
 
 import CloseIconModal from "./CloseIconModal";
 import style from "./searchSelectModal.module.scss";
 
 export default function SearchSelectModal({ state, dispatch }) {
-  const { setUser, setToken } = useContext(userContext);
-  const navigate = useNavigate();
   const eventsByCategoryData = useAxios({
     method: "get",
     endpoint: `events/categories/${state.categoryId}`,
@@ -26,22 +21,6 @@ export default function SearchSelectModal({ state, dispatch }) {
     },
     [state.filteredEvent]
   );
-
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.clear();
-    document.cookie =
-      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    navigate("/loggedOut");
-  };
-
-  if (
-    (eventsByCategoryData?.error?.response.status ||
-      eventsByTitleData?.error?.response.status) === 401
-  ) {
-    logout();
-  }
 
   return (
     <div className={style.overlay}>
