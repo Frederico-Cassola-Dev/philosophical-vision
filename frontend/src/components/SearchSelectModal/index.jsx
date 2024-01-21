@@ -27,9 +27,6 @@ export default function SearchSelectModal({ state, dispatch }) {
     [state.filteredEvent]
   );
 
-  // TODO - verify if no access navigate for the page error or unauthorize access
-  // TODO - Test this function logout if it's useful for this step
-  // TODO - Logged out direct when the token as expired
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -108,7 +105,7 @@ export default function SearchSelectModal({ state, dispatch }) {
 SearchSelectModal.propTypes = {
   state: PropTypes.shape({
     categoryId: PropTypes.string,
-    eventId: PropTypes.number,
+    eventId: PropTypes.string,
     filteredEvent: PropTypes.string,
     openModal: PropTypes.bool,
   }),

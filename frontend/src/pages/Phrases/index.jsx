@@ -40,6 +40,7 @@ export default function Phrases() {
     endpoint: "categories",
   });
 
+  //! Why this code?????????????
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -67,6 +68,7 @@ export default function Phrases() {
       .catch((err) => console.error(err));
   }, [state.eventId]);
 
+  //! Why this code?????????????
   if (categoriesData?.error?.response.status === 401) {
     logout();
   }
@@ -122,6 +124,7 @@ export default function Phrases() {
           const foundFavoritePhrases = usersFavoritePhrases.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );
+
           const foundTotalLikes = totalLikes.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );

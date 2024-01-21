@@ -90,6 +90,91 @@ const edit = async (req, res, next) => {
   }
 };
 
+const editForgotPassword = async (req, res, next) => {
+  const user = {
+    newFirstName: req.body.first_name,
+    newLastName: req.body.last_name,
+    newEmail: req.body.email,
+    hashPassword: req.body.hashPassword,
+    resetToken: req.body.resetToken,
+    expirationTime: req.body.expirationTime,
+    userId: req.body.id,
+  };
+
+  try {
+    const updatedId = await tables.users.updateResetToken(user);
+
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      req.user = user;
+
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const editUserAfterResetToken = async (req, res, next) => {
+  const user = {
+    newFirstName: req.body.first_name,
+    newLastName: req.body.last_name,
+    newEmail: req.body.email,
+    hashPassword: req.body.hashPassword,
+    resetToken: req.body.resetToken,
+    expirationTime: req.body.expirationTime,
+    userId: req.body.id,
+  };
+
+  try {
+    const updatedId = await tables.users.updateAfterCreateResetToken(user);
+
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      req.user = user;
+      res.json(updatedId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const resetPasswordAfterResetTokenCreated = async (req, res, next) => {
+  const { token, newPassword } = req.body;
+
+  try {
+    const user = await tables.users.readByResetToken(token);
+
+    if (user == null || new Date(user.reset_token_expires_at) < new Date()) {
+      res
+        .status(404)
+        .send({ message: "User not found or invalid or expired token" });
+    } else {
+      req.body = { ...user, password: newPassword };
+
+      next();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroy = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const userId = await tables.users.delete(id);
+    if (userId == null) {
+      res.status(204);
+    } else {
+      res.json(userId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
@@ -97,4 +182,8 @@ module.exports = {
   readToVerifyAuth,
   add,
   edit,
+  editForgotPassword,
+  editUserAfterResetToken,
+  resetPasswordAfterResetTokenCreated,
+  destroy,
 };

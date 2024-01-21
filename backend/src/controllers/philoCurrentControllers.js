@@ -1,11 +1,10 @@
-// Import access to database tables
 const tables = require("../tables");
 
 const browse = async (req, res, next) => {
   try {
-    const categories = await tables.categories.readAll();
+    const philoCurrents = await tables.philo_currents.readAll();
 
-    res.json(categories);
+    res.json(philoCurrents);
   } catch (err) {
     next(err);
   }
@@ -13,12 +12,12 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const category = await tables.categories.read(req.params.id);
+    const philoCurrent = await tables.philo_currents.read(req.params.id);
 
-    if (category == null) {
+    if (philoCurrent == null) {
       res.sendStatus(404);
     } else {
-      res.json(category);
+      res.json(philoCurrent);
     }
   } catch (err) {
     next(err);
@@ -26,10 +25,10 @@ const read = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
-  const category = req.body;
+  const philoCurrent = req.body;
 
   try {
-    const insertId = await tables.categories.create(category);
+    const insertId = await tables.philo_currents.create(philoCurrent);
 
     res.status(201).json({ insertId });
   } catch (err) {

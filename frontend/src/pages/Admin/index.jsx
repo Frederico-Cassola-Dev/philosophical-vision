@@ -5,13 +5,20 @@ import useAxios from "../../hooks/useAxios";
 
 import { IconAdd } from "../../components/SvgIcons";
 import style from "./admin.module.scss";
+import DialogNotification from "../../components/DialogNotification";
 
 // TODO - addFeature - after save btn show saved and then return state before
 
 export default function Admin() {
   const [newPhrase, setNewPhrase] = useState("");
-  const [newAuthor, setNewAuthor] = useState(null);
-  const [newEvent, setNewEvent] = useState(null);
+  const [newAuthor, setNewAuthor] = useState("");
+  const [newEvent, setNewEvent] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(
+    "Sauvegarder nouvelle phrase"
+  );
+
+  axios.defaults.withCredentials = true;
 
   const authorsData = useAxios({
     method: "get",
@@ -36,9 +43,19 @@ export default function Admin() {
               eventId: newEvent,
               phraseId: parseInt(response.data.insertId, 10),
             })
+            .then(() => {
+              setSubmitMessage("Nouvelle phrase ajoutée");
+              setNewPhrase("");
+              setNewAuthor("");
+              setNewEvent("");
+              setIsDialogOpen(true);
+            })
             .catch((err) => console.error(err));
         })
         .catch((err) => console.error(err));
+    } else {
+      setSubmitMessage("Remplissez et sélectionnez tous les champs");
+      setIsDialogOpen(true);
     }
   };
 
@@ -78,6 +95,12 @@ export default function Admin() {
           </button>
         </Link>
       </div>
+      {isDialogOpen && (
+        <DialogNotification
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
       <form className={style.form}>
         <label htmlFor="phrase" className={style.label}>
           Nouvelle Phrase
@@ -94,9 +117,10 @@ export default function Admin() {
             name="listAuthors"
             id="author"
             className={style.select}
+            value={newAuthor}
             onChange={(e) => setNewAuthor(e.target.value)}
           >
-            <option defaultChecked>Auteur</option>
+            <option value="">Auteur</option>
             {authorsData?.response?.map((author) => (
               <option key={author.id} value={author.id}>
                 {author.known_name}
@@ -117,9 +141,10 @@ export default function Admin() {
             name="listEvents"
             id="events"
             className={style.select}
+            value={newEvent}
             onChange={(e) => setNewEvent(e.target.value)}
           >
-            <option defaultChecked>Événement</option>
+            <option value="">Événement</option>
             {eventsData?.response?.map((events) => (
               <option key={events.id} value={events.id}>
                 {events.title}

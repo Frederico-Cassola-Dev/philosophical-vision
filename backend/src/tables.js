@@ -11,6 +11,7 @@ const CategoryManager = require("./models/CategoryManager");
 const AuthorManager = require("./models/AuthorManager");
 const EventPhraseManager = require("./models/EventPhraseManager");
 const PeriodManager = require("./models/PeriodManager");
+const PhiloCurrentManager = require("./models/PhiloCurrentManager");
 
 const managers = [
   UserManager,
@@ -21,6 +22,7 @@ const managers = [
   PeriodManager,
   CategoryManager,
   AuthorManager,
+  PhiloCurrentManager,
 ];
 
 // Create an empty object to hold data managers for different tables

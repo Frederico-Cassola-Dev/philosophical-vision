@@ -39,6 +39,7 @@ const read = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   const eventPhrase = req.body;
+  // console.log("🚀 - eventPhrase:", eventPhrase)
 
   try {
     const insertId = await tables.events_phrases.create(eventPhrase);

@@ -5,8 +5,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 12.6rem);
-
+  height: calc(100vh - 12.5rem);
   padding: $space-s;
   font-family: $primary-font;
   font-size: $font-size-l;
@@ -60,7 +59,7 @@
     .table {
       border-collapse: collapse;
       width: 100%;
-      
+
       th {
         position: sticky;
         top: 0;
@@ -68,13 +67,15 @@
         padding: $space-2xs;
         border-collapse: collapse;
         background-color: $color-background-primary;
-        
+
         &:nth-child(1) {
           z-index: 1;
         }
       }
 
       tbody {
+        cursor: pointer;
+
         tr:hover {
           background-color: $color-primary-active;
         }

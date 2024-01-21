@@ -19,15 +19,20 @@
   .hiddenLogo {
     display: none;
   }
+
   .nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
+    width: 100vw;
+    padding-right: $space-2xs;
+    gap: $space-2xs;
+    flex-grow: 1;
+
     .link {
       font-size: $font-size-m;
       font-weight: $font-weight-bold;
       color: $color-text-primary;
-      margin-right: $space-s;
       padding: $space-2xs $space-xs;
       border: 1px solid $color-primary-active;
       border-radius: $border-radius-l;

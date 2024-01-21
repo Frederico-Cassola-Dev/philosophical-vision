@@ -1,0 +1,47 @@
+@import "../../scss/variables";
+
+.dialogOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+
+  .customDialog {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    font-family: $primary-font;
+    font-size: $font-size-l;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    background-color: $color-background-primary;
+    border-radius: $border-radius-l;
+    border: 1px solid $color-primary-active;
+
+  }
+
+  .dialogContent{
+    font-size: $font-size-xl;
+    padding-bottom: $space-m;
+  }
+
+  .dialogCloseButton{
+    color: $color-text-primary;
+    border: 1px solid $color-primary-active;
+    border-radius: $border-radius-l;
+    padding: $space-2xs $space-xs;
+    font-size: $font-size-l;
+    font-weight: $font-weight-bold;
+
+    &:hover {
+      background-color: $color-text-hover;
+    }
+  }
+}

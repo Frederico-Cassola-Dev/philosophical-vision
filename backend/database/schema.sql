@@ -3,12 +3,30 @@
 create table
     users (
         id int primary key auto_increment NOT NULL,
-        firstname varchar(100) NOT NULL,
-        lastname varchar(100) NOT NULL,
+        first_name varchar(100) NOT NULL,
+        last_name varchar(100) NOT NULL,
         email varchar(254) NOT NULL unique,
-        password varchar(100) NOT NULL,
-        is_admin TINYINT default 0
+        password varchar(254) NOT NULL,
+        reset_token varchar(254),
+        reset_token_expires_at DATETIME
     );
+
+create table
+    roles (
+      id int primary key auto_increment NOT NULL,
+      role_name varchar(100) NOT NULL
+    );
+
+create table 
+    users_roles (
+      id int primary key auto_increment NOT NULL,
+      user_id int not null,
+      role_id int not null,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+      on delete cascade,
+      FOREIGN KEY (role_id) REFERENCES roles(id)
+      on delete cascade
+);
 
 create table
     categories(
@@ -27,21 +45,27 @@ create table
 
 create table periods (
      id int PRIMARY KEY auto_increment NOT NULL,
-     title varchar(100) NOT NULL
+     title varchar(254) NOT NULL
+    );
+
+create table philo_currents (
+     id int PRIMARY KEY auto_increment NOT NULL,
+     title varchar(254) NOT NULL
     );
 
 create table
     authors (
         id int PRIMARY KEY auto_increment NOT NULL,
         known_name varchar(100) NOT NULL,
-        firstname varchar(100),
-        lastname varchar(100),
+        first_name varchar(100),
+        last_name varchar(100),
         period_id int NOT NULL,
-        philo_current varchar(100) NOT NULL,
+        philo_current_id int NOT NULL,
         born_date varchar(100),
         dead_date varchar(100),
         era varchar(50) NOT NULL,
-        FOREIGN KEY(period_id) REFERENCES periods(id)
+        FOREIGN KEY(period_id) REFERENCES periods(id),
+        FOREIGN KEY(philo_current_id) REFERENCES philo_currents(id)
     );
 
 create table
@@ -59,7 +83,8 @@ create table
         phrase_id int,
         is_liked TINYINT default 0,
         is_favorite TINYINT default 0,
-        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(user_id) REFERENCES users(id)
+        on delete cascade,
         FOREIGN KEY(phrase_id) REFERENCES phrases(id)
         on delete cascade
     );
@@ -76,21 +101,21 @@ create table
 
 INSERT INTO categories(title, description)
 VALUES (
-        "Social",
-        "social bla bla bla"
+        "Socialle",
+        "Socialle bla bla bla"
     ), (
-        "Dead",
-        "Dead bla bla bla"
-    ), ("Live", "Live bla bla bla"), (
-        "Sadness",
-        "Sadness bla bla bla"
-    ), ("Joy", "Joy bla bla bla"), ("Work", "Work bla bla bla"), (
-        "Friends",
-        "Friends bla bla bla"
+        "Mort",
+        "Mort bla bla bla"
+    ), ("Vie", "Vie bla bla bla"), (
+        "Tristesse",
+        "Tristesse bla bla bla"
+    ), ("Joie", "Joie bla bla bla"), ("Travail", "Travail bla bla bla"), (
+        "Amitié",
+        "Amitié bla bla bla"
     ), (
-        "Family",
-        "Family bla bla bla"
-    ), ("Money", "Money bla bla bla");
+        "Famille",
+        "Famille bla bla bla"
+    ), ("Argent", "Argent bla bla bla");
 
 INSERT into events (title, category_id)
 VALUES (
@@ -109,69 +134,160 @@ VALUES (
 
 INSERT into
     users (
-        firstname,
-        lastname,
+        first_name,
+        last_name,
         email,
         password,
-        is_admin
+        reset_token,
+        reset_token_expires_at
     )
 VALUES (
+        "admin",
+        "admin",
+        "admin@admin.com",
+        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+        null,
+        null
+    ),(
         "John",
         "Springfield",
         "john.springfield@springfield.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       null,
+       null
     ), (
         "Anna",
         "Springfield",
         "anna.springfield@springfield.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       null,
+       null
     ), (
         "Philip",
         "Gotham",
         "philip.gotham@gotham.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       null,
+       null
     ), (
         "Susan",
         "Gotham",
         "susan.gotham@gotham.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+       null,
+       null
     ), (
         "Andrea",
         "Fritz",
         "andrea.fritz@fritz.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
-    ), (
-        "admin",
-        "admin",
-        "admin@admin.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        1
+       null,
+       null
     ), (
         "carlos",
         "cassola",
         "cfcassola@gmail.com",
         "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        0
+        null,
+        null
     );
 
+
+INSERT INTO 
+roles (
+      role_name
+    ) Values ( "administrator"), ("user");
+
+INSERT INTO 
+users_roles (
+      user_id, role_id
+    ) Values ( 1, 1), 
+    (2, 2),
+    (3, 2),
+    (4, 2),
+    (5, 2),
+    (6, 2),
+    (7, 2);
 
 INSERT INTO 
 periods (
       title
     ) Values ( "Ancient"), ("Medieval"), ("Modern");
 
+INSERT INTO 
+philo_currents (
+      title
+    ) Values 
+    ( "Aristotélisme"), 
+    ("Bergsonisme"), 
+    ("Bouddhisme"), 
+    ("Cartésianisme"), 
+    ("Confucianisme"), 
+    ("Contractualisme"), 
+    ("Cynisme"), 
+    ("Darwinisme"), 
+    ("Décolonialisme"), 
+    ("Décolonialisme"), 
+    ("Déconstruction"), 
+    ("École de Francfort"), 
+    ("Éléatisme"), 
+    ("Empirisme"), 
+    ("Épicurisme"), 
+    ("Éthique minimale"), 
+    ("Études post-coloniales"), 
+    ("Évolutionnisme"), 
+    ("Existentialisme"), 
+    ("Féminisme"), 
+    ("Hédonisme"), 
+    ("Herméneutique"), 
+    ("Humanisme"), 
+    ("Idéalisme"), 
+    ("Idéalisme allemand"), 
+    ("Libéralisme"), 
+    ("Libertarianisme"), 
+    ("Libertarisme"), 
+    ("Lumières"), 
+    ("Marxisme"), 
+    ("Matérialisme"), 
+    ("Métaphysique"), 
+    ("Moralisme"), 
+    ("Néo-kantisme"), 
+    ("Néo-platonisme"), 
+    ("Pensée complexe"), 
+    ("Pessimisme"), 
+    ("Phénoménologie"), 
+    ("Philosophie analytique"), 
+    ("Platonisme"), 
+    ("Politique"), 
+    ("Pop-philosophie"), 
+    ("Postmodernisme"), 
+    ("Pragmatisme"), 
+    ("Pyrrhonisme"), 
+    ("Rationalisme"), 
+    ("Réalisme"), 
+    ("Scepticisme"), 
+    ("Scolastique"), 
+    ("Sensualisme"), 
+    ("Socialisme"), 
+    ("Socialisme libertaire"), 
+    ("Socratisme"), 
+    ("Sophistique"), 
+    ("Stoïcisme"), 
+    ("Structuralisme"), 
+    ("Taoïsme"), 
+    ("Théologie rationnelle"), 
+    ("Thomisme"), 
+    ("Transcendantalisme"), 
+    ("Utilitarisme"), 
+    ("Vitalisme");
+
 INSERT INTO
     authors (
         known_name,
-        firstname,
-        lastname,
+        first_name,
+        last_name,
         period_id,
-        philo_current,
+        philo_current_id,
         born_date,
         dead_date,
         era
@@ -181,90 +297,79 @@ VALUES (
         null,
         null,
         1,
-        "Socratic",
-        "11/11/1234",
-        "12/01/2132",
+        53,
+        "01/01/470",
+        "01/01/399",
         "BCE"
-    ), (
-        "Ludwig",
-        "Ludwig",
-        "Wittgenstein",
-        3,
-        "Modern",
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig1",
-        "Ludwig",
-        "Ludwig",
-        3,
-        "Modern",
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig2",
-        "Ludwig",
-        "Ludwig",
-        3,
-        "Modern",
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig3",
-        "Ludwig",
-        "Ludwig",
-        3,
-        "Modern",
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
-        "Ludwig4",
-        "Ludwig",
-        "Ludwig",
-        3,
-        "Modern",
-        "14/04/923",
-        "20/07/04",
-        "CE"
-    ), (
+    ),
+     (
         "Descartes",
         "René",
         "Descartes",
-        2,
-        "Rationalism",
-       "14/04/923",
-        "14/04/923",
+        3,
+        46,
+       "02/31/1596",
+        "02/11/1560",
         "CE"
-    ), (
-        "Socrates1",
+    ), 
+    (
+        "Aristote",
         null,
         null,
         1,
-        "Socratic",
-        "11/11/1234",
-        "12/01/2132",
+        1,
+         "01/01/384",
+        "01/01/322",
         "BCE"
-    ), (
-        "Socrates2",
-        null,
-        null,
+    ), 
+    (
+        "Marc Aurèle",
+        "Marc",
+        "Aurèle",
         1,
-        "Socratic",
-        "11/11/1234",
-        "12/01/2132",
+        55,
+        "04/26/121",
+        "03/17/180",
+        "CE"
+    ), 
+    (
+        "Luc Ferry",
+        "Luc",
+        "Ferry",
+        3,
+        41,
+        "01/03/1951",
+        "01/03/1951",
+        "CE"
+    ), 
+    (
+        "Schopenhauer",
+        "Arthur",
+        "Schopenhauer",
+        3,
+        37,
+        "02/22/1788",
+        "09/21/1860",
+        "CE"
+    ), 
+    (
+        "Héraclite",
+        "Héraclite",
+        "d'Éphèse",
+        1,
+        32,
+        "01/01/544",
+        "01/01/480",
         "BCE"
-    ), (
-        "Socrates3",
+    ), 
+    (
+        "Confucius",
         null,
         null,
         1,
-        "Socratic",
-        "11/11/1234",
-        "12/01/2132",
+        5,
+        "09/28/551",
+        "04/11/479",
         "BCE"
     );
 
@@ -287,34 +392,34 @@ VALUES (
         5
     ), (
         "3 The unexamined life is not worth living",
-        6
+        5
     ), (
         "4 The unexamined life is not worth living",
-        6
+        5
     ), (
         "5 The unexamined life is not worth living",
-        6
+        5
     ), (
         "6 The unexamined life is not worth living",
-        6
+        3
     ), (
         "7 The unexamined life is not worth living",
-        6
+        3
     ), (
         "8 The unexamined life is not worth living",
-        6
+        3
     ), (
         "9 The unexamined life is not worth living",
-        6
+        3
     ), (
         "10 The unexamined life is not worth living",
-        6
+        3
     ), (
         "11 The unexamined life is not worth living",
-        6
+        3
     ), (
         "12 The unexamined life is not worth living",
-        6
+        3
     );
 
 INSERT INTO

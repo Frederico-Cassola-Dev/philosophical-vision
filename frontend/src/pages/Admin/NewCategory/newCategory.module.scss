@@ -1,77 +1,62 @@
-@import "../../scss/variables";
+@import "../../../scss/variables";
 
-.myAccount {
+.newCategory {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   height: calc(100vh - 9.5rem);
   font-family: $primary-font;
-  color: $color-text-primary;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
 
-  .formInput {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    margin-top: $space-xl;
-    width: 70%;
-    height: 100%;
+  .title {
+    margin-top: $space-l;
+    font-size: $font-size-3xl;
+  }
 
-    label {
+  .form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    min-width: 90vw;
+    padding: $space-s;
+
+    .label {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: flex-start;
       flex-direction: column;
       width: 100%;
-      margin-top: $space-m;
 
-      .errorInput {
-        outline: 2px solid red;
-      }
-
-      input {
-        width: 100%;
+      .input {
+        width: 93%;
         height: $space-m;
-        margin-top: $space-2xs;
-        padding-left: $space-2xs;
-        border-radius: $border-radius-s;
+        margin-top: $space-xs;
+        padding: 0 $space-xs;
         font-weight: $font-weight-bold;
+        border-radius: $border-radius-s;
 
         &:focus {
           outline: 2px solid $border-color-active;
         }
       }
+    } 
 
-      &:focus-within {
-        color: $border-color-active;
-      }
-    }
-
-    .errorMessage {
-      height: 1rem;
-      padding-top: $space-xs;
-    }
-    .errorMessageHidden {
-      display: hidden;
-      padding-top: $space-xs;
-      height: 1rem;
-    }
-
-    .submitButtonContainer {
+    .submitBtnContainer {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       width: 100%;
+      margin-top: $space-l;
+      gap: $space-m;
 
-      button {
+      .submitBtn {
         color: $color-text-primary;
         border: 1px solid $color-primary-active;
         border-radius: $border-radius-l;
         padding: $space-2xs $space-xs;
-        margin-top: $space-xs;
         font-size: $font-size-l;
         font-weight: $font-weight-bold;
 
