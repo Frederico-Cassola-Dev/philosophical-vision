@@ -9,17 +9,22 @@ import CloseIconModal from "./CloseIconModal";
 import style from "./searchSelectModal.module.scss";
 
 export default function SearchSelectModal({ state, dispatch }) {
-  const eventsByCategoryData = useAxios({
-    method: "get",
-    endpoint: `events/categories/${state.categoryId}`,
-  });
+  const eventsByCategoryData = useAxios(
+    {
+      method: "get",
+      endpoint: `events/categories/${state.categoryId}`,
+    },
+    // [state.categoryId !== ""]
+    [state.categoryId.length > 0 && state.filteredEvent === ""]
+  );
 
   const eventsByTitleData = useAxios(
     {
       method: "get",
       endpoint: `events/search/${state.filteredEvent}`,
     },
-    [state.filteredEvent !== ""]
+    // [state.filteredEvent !== ""]
+    [state.filteredEvent.length > 2 && state.categoryId === ""]
   );
 
   return (
