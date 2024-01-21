@@ -17,9 +17,9 @@ export default function SearchSelectModal({ state, dispatch }) {
   const eventsByTitleData = useAxios(
     {
       method: "get",
-      endpoint: `events/${state.filteredEvent}`,
+      endpoint: `events/search/${state.filteredEvent}`,
     },
-    [state.filteredEvent]
+    [state.filteredEvent !== ""]
   );
 
   return (
