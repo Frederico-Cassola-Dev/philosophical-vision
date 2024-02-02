@@ -8,7 +8,7 @@ export const initialState = {
   openModal: false,
   filteredEvent: "",
   categoryId: "",
-  eventId: "1",
+  eventId: 1,
   phrasesToShow: null,
 };
 
@@ -25,7 +25,6 @@ export default function phrasesReducer(state, action) {
 
     case SELECT_OPEN_MODAL: {
       const { categoryId, eventId } = action.payload;
-
       return {
         ...state,
         categoryId,

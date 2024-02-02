@@ -1,29 +1,31 @@
-@import "../../../scss/variables";
+@import "../../scss/variables";
 
-.newCategory {
+.modifyCategory {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 9.5rem);
+  height: calc(100vh - 12.5rem);
+  padding: $space-s;
   font-family: $primary-font;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
 
-  .title {
-    margin-top: $space-l;
+  h2 {
+    text-align: center;
     font-size: $font-size-3xl;
+    padding-top: $space-l;
+    padding-bottom: $space-m;
   }
 
-  .form {
+  .categoryForm {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    min-width: 90vw;
-    padding: $space-s;
+    width: 100%;
 
-    .label {
+    label {
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -31,10 +33,15 @@
       padding-top: $space-m;
       width: 100%;
 
-      .input {
+      .labelTitle {
+        font-size: $font-size-l;
+        padding-bottom: $space-xs;
+      }
+
+      .inputTitle {
         width: 93%;
         height: $space-m;
-        margin-top: $space-xs;
+        margin-top: $space-2xs;
         padding: 0 $space-xs;
         font-weight: $font-weight-bold;
         border-radius: $border-radius-s;
@@ -54,20 +61,20 @@
       }
     }
 
-    .submitBtnContainer {
+    .buttonsContainer {
       display: flex;
+      justify-content: space-around;
       align-items: center;
-      justify-content: center;
       width: 100%;
-      margin-top: $space-l;
-      gap: $space-m;
+      padding-top: $space-m;
+      gap: $space-s;
 
-      .submitBtn {
+      button {
         color: $color-text-primary;
         border: 1px solid $color-primary-active;
         border-radius: $border-radius-l;
         padding: $space-2xs $space-xs;
-        font-size: $font-size-l;
+        font-size: $font-size-s;
         font-weight: $font-weight-bold;
 
         &:hover {

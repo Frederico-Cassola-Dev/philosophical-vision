@@ -3,31 +3,30 @@ import { Link, useParams } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 
 import ModifyPhrase from "../../../components/ModifyPhrase";
+import ModifyEvent from "../../../components/ModifyEvent";
 import DeleteUserModal from "../../../components/DeleteUserModal";
 
 import style from "./tablesDB.module.scss";
+import ModifyCategory from "../../../components/ModifyCategory";
 
 export default function TablesDB() {
   const { table } = useParams();
 
   const [selectedPhraseId, setSelectedPhraseId] = useState("");
+  const [selectedEventId, setSelectedEventId] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState("");
   const [modifyPhrase, setModifyPhrase] = useState(false);
+  const [modifyEvent, setModifyEvent] = useState(false);
+  const [modifyCategory, setModifyCategory] = useState(false);
   const [deleteUserModal, setDeleteUserModal] = useState(false);
-  const [updateTable, setUpdateTable] = useState(false);
 
   const tableData = useAxios(
     {
       method: "get",
       endpoint: `${table}`,
     },
-    [
-      modifyPhrase,
-      selectedPhraseId,
-      updateTable,
-      deleteUserModal,
-      selectedUserId,
-    ]
+    [modifyPhrase, modifyEvent, modifyCategory, deleteUserModal]
   );
 
   const totalLikesData = useAxios(
@@ -35,13 +34,7 @@ export default function TablesDB() {
       method: "get",
       endpoint: "usersPhrases/totalLikes",
     },
-    [
-      modifyPhrase,
-      selectedPhraseId,
-      updateTable,
-      deleteUserModal,
-      selectedUserId,
-    ]
+    [modifyPhrase, deleteUserModal]
   );
 
   return (
@@ -51,8 +44,18 @@ export default function TablesDB() {
           modifyPhrase={modifyPhrase}
           selectedPhraseId={selectedPhraseId}
           setModifyPhrase={setModifyPhrase}
-          updateTable={updateTable}
-          setUpdateTable={setUpdateTable}
+        />
+      )}
+      {modifyEvent && (
+        <ModifyEvent
+          selectedEventId={selectedEventId}
+          setModifyEvent={setModifyEvent}
+        />
+      )}
+      {modifyCategory && (
+        <ModifyCategory
+          selectedCategoryId={selectedCategoryId}
+          setModifyCategory={setModifyCategory}
         />
       )}
       {deleteUserModal && (
@@ -61,7 +64,7 @@ export default function TablesDB() {
           selectedUserId={selectedUserId}
         />
       )}
-      {!modifyPhrase && !deleteUserModal && (
+      {!modifyPhrase && !modifyEvent && !modifyCategory && !deleteUserModal && (
         <div className={style.tablesDB}>
           <div className={style.linkContainer}>
             <Link to="/admin" className={style.linkReturnBtn}>
@@ -82,7 +85,7 @@ export default function TablesDB() {
                 {table === "events" && (
                   <tr>
                     <th>Titre</th>
-                    <th>Catégorie Id</th>
+                    <th>Catégorie</th>
                   </tr>
                 )}
                 {table === "authors" && (
@@ -136,9 +139,15 @@ export default function TablesDB() {
                   })}
                 {table === "events" &&
                   tableData?.response?.map((item) => (
-                    <tr key={item.id}>
+                    <tr
+                      key={item.id}
+                      onClick={() => {
+                        setModifyEvent(true);
+                        setSelectedEventId(item.id);
+                      }}
+                    >
                       <td>{item.title}</td>
-                      <td>{item.category_id}</td>
+                      <td>{item.category_title}</td>
                     </tr>
                   ))}
                 {table === "authors" &&
@@ -156,7 +165,13 @@ export default function TablesDB() {
                   ))}
                 {table === "categories" &&
                   tableData?.response?.map((item) => (
-                    <tr key={item.id}>
+                    <tr
+                      key={item.id}
+                      onClick={() => {
+                        setModifyCategory(true);
+                        setSelectedCategoryId(item.id);
+                      }}
+                    >
                       <td>{item.title}</td>
                       <td>{item.description}</td>
                     </tr>

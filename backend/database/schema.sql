@@ -21,7 +21,7 @@ create table
     users_roles (
       id int primary key auto_increment NOT NULL,
       user_id int not null,
-      role_id int not null,
+      role_id int not null default 2,
       FOREIGN KEY (user_id) REFERENCES users(id)
       on delete cascade,
       FOREIGN KEY (role_id) REFERENCES roles(id)
@@ -41,6 +41,7 @@ create table
         title varchar(254) NOT NULL,
         category_id INT NOT NULL,
         FOREIGN KEY(category_id) REFERENCES categories(id)
+        on delete cascade
     );
 
 create table periods (
@@ -94,7 +95,8 @@ create table
         id int primary key auto_increment NOT NULL,
         event_id int,
         phrase_id int,
-        FOREIGN KEY(event_id) REFERENCES events(id),
+        FOREIGN KEY(event_id) REFERENCES events(id)
+        on delete cascade,
         FOREIGN KEY(phrase_id) REFERENCES phrases(id)
         on delete cascade
     );

@@ -121,6 +121,7 @@ export default function Phrases() {
       </div>
       <div className={style.visionsContainer}>
         {state.phrasesToShow?.map((item) => {
+          //! Maybe remove this code into a folder
           const foundFavoritePhrases = usersFavoritePhrases.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );

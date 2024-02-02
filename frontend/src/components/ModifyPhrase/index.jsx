@@ -61,20 +61,13 @@ const eventsNotAlreadySelectedInSelectedPhrase = (
   return finalResult;
 };
 
-export default function ModifyPhrase({
-  selectedPhraseId,
-  setModifyPhrase,
-  updateTable,
-}) {
+export default function ModifyPhrase({ selectedPhraseId, setModifyPhrase }) {
   const {
     selectedPhraseData,
     authorsData,
     eventsData,
     selectedTotalLikesPhraseData,
-  } = getSelectedPhraseAuthorAndEvent(selectedPhraseId, [
-    selectedPhraseId,
-    updateTable,
-  ]);
+  } = getSelectedPhraseAuthorAndEvent(selectedPhraseId, [selectedPhraseId]);
 
   const [modifiedPhrase, setModifiedPhrase] = useState("");
   const [modifiedAuthor, setModifiedAuthor] = useState("");
@@ -287,5 +280,4 @@ export default function ModifyPhrase({
 ModifyPhrase.propTypes = {
   selectedPhraseId: propTypes.number.isRequired,
   setModifyPhrase: propTypes.func.isRequired,
-  updateTable: propTypes.bool.isRequired,
 };

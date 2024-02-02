@@ -15,14 +15,21 @@ class EventManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `
+        select e.id, e.title, c.title category_title from ${this.table} e 
+        inner join categories c on c.id = e.category_id 
+        where e.id = ?`,
       [id]
     );
     return rows[0];
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(
+      `
+        select e.id, e.title, c.title category_title from ${this.table} e 
+        inner join categories c on c.id = e.category_id`
+    );
     return rows;
   }
 
@@ -44,19 +51,31 @@ class EventManager extends AbstractManager {
     return rows;
   }
 
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing event
+  async update(event) {
+    const [rows] = await this.database.query(
+      `
+        UPDATE  ${this.table}
+        SET
+          title = ?, 
+          category_id = ?
+        WHERE id = ?
+      `,
+      [event.title, event.category, event.eventId]
+    );
 
-  // async update(event) {
-  //   ...
-  // }
+    return rows;
+  }
 
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an event by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
+  async delete(id) {
+    //* There are a ON DELETE CASCADE on the table events_phrases for the foreign keys
+    const [rows] = await this.database.query(
+      `delete ${this.table}
+        from ${this.table}
+        where ${this.table}.id = ? `,
+      [id]
+    );
+    return rows;
+  }
 }
 
 module.exports = EventManager;
