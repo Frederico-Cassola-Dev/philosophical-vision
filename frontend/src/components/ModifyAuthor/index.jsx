@@ -40,7 +40,7 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
-  const handleModifiedAuthor = (event) => {
+  const handleSubmitModifiedAuthor = (event) => {
     event.preventDefault();
 
     const newModifiedAuthor = {
@@ -96,7 +96,10 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
           setIsDialogOpen={setIsDialogOpen}
         />
       )}
-      <form className={style.modifyAuthorForm} onSubmit={handleModifiedAuthor}>
+      <form
+        className={style.modifyAuthorForm}
+        onSubmit={handleSubmitModifiedAuthor}
+      >
         <label htmlFor="knownName" className={style.inputLabel}>
           Nom connu
           <input
