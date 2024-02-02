@@ -12,18 +12,20 @@ export default function SearchSelectModal({ state, dispatch }) {
   const eventsByCategoryData = useAxios(
     {
       method: "get",
-      endpoint: `events/categories/${state.categoryId}`,
+      endpoint: `events/categories/${
+        state.categoryId ? state.categoryId : "1"
+      }`,
     },
-    // [state.categoryId !== ""]
+
     [state.categoryId.length > 0 && state.filteredEvent === ""]
   );
-
   const eventsByTitleData = useAxios(
     {
       method: "get",
-      endpoint: `events/search/${state.filteredEvent}`,
+      endpoint: `events/search/${
+        state.filteredEvent ? state.filteredEvent : "1"
+      }`,
     },
-    // [state.filteredEvent !== ""]
     [state.filteredEvent.length > 2 && state.categoryId === ""]
   );
 
@@ -89,7 +91,7 @@ export default function SearchSelectModal({ state, dispatch }) {
 SearchSelectModal.propTypes = {
   state: PropTypes.shape({
     categoryId: PropTypes.string,
-    eventId: PropTypes.string,
+    eventId: PropTypes.number,
     filteredEvent: PropTypes.string,
     openModal: PropTypes.bool,
   }),
@@ -97,5 +99,5 @@ SearchSelectModal.propTypes = {
 };
 
 SearchSelectModal.defaultProps = {
-  state: { categoryId: "", eventId: "", filteredEvent: "", openModal: false },
+  state: { categoryId: "", eventId: 1, filteredEvent: "", openModal: false },
 };
