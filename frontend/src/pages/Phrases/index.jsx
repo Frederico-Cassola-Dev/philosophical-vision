@@ -98,6 +98,7 @@ export default function Phrases() {
         />
         <select
           aria-label="categories"
+          value={state.categoryId}
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
             dispatch({
@@ -106,7 +107,9 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Catégorie</option>
+          <option value="" disabled hidden>
+            Catégorie
+          </option>
           {categoriesData.response?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
@@ -121,6 +124,7 @@ export default function Phrases() {
       </div>
       <div className={style.visionsContainer}>
         {state.phrasesToShow?.map((item) => {
+          //! Maybe remove this code into a folder
           const foundFavoritePhrases = usersFavoritePhrases.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );

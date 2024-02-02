@@ -21,7 +21,7 @@ create table
     users_roles (
       id int primary key auto_increment NOT NULL,
       user_id int not null,
-      role_id int not null,
+      role_id int not null default 2,
       FOREIGN KEY (user_id) REFERENCES users(id)
       on delete cascade,
       FOREIGN KEY (role_id) REFERENCES roles(id)
@@ -41,6 +41,7 @@ create table
         title varchar(254) NOT NULL,
         category_id INT NOT NULL,
         FOREIGN KEY(category_id) REFERENCES categories(id)
+        on delete cascade
     );
 
 create table periods (
@@ -94,7 +95,8 @@ create table
         id int primary key auto_increment NOT NULL,
         event_id int,
         phrase_id int,
-        FOREIGN KEY(event_id) REFERENCES events(id),
+        FOREIGN KEY(event_id) REFERENCES events(id)
+        on delete cascade,
         FOREIGN KEY(phrase_id) REFERENCES phrases(id)
         on delete cascade
     );
@@ -298,8 +300,8 @@ VALUES (
         null,
         1,
         53,
-        "01/01/470",
-        "01/01/399",
+        "0470-01-01",
+        "0399-01-01",
         "BCE"
     ),
      (
@@ -308,8 +310,8 @@ VALUES (
         "Descartes",
         3,
         46,
-       "02/31/1596",
-        "02/11/1560",
+       "1596-02-31",
+        "1560-02-11",
         "CE"
     ), 
     (
@@ -318,8 +320,8 @@ VALUES (
         null,
         1,
         1,
-         "01/01/384",
-        "01/01/322",
+         "0384-01-01",
+        "0322-01-01",
         "BCE"
     ), 
     (
@@ -328,8 +330,8 @@ VALUES (
         "Aurèle",
         1,
         55,
-        "04/26/121",
-        "03/17/180",
+        "0121-04-26",
+        "0180-03-17",
         "CE"
     ), 
     (
@@ -338,8 +340,8 @@ VALUES (
         "Ferry",
         3,
         41,
-        "01/03/1951",
-        "01/03/1951",
+        "1951-01-03",
+        "1951-01-03",
         "CE"
     ), 
     (
@@ -348,8 +350,8 @@ VALUES (
         "Schopenhauer",
         3,
         37,
-        "02/22/1788",
-        "09/21/1860",
+        "1788-02-22",
+        "1860-09-21",
         "CE"
     ), 
     (
@@ -358,8 +360,8 @@ VALUES (
         "d'Éphèse",
         1,
         32,
-        "01/01/544",
-        "01/01/480",
+        "0544-01-01",
+        "0480-01-01",
         "BCE"
     ), 
     (
@@ -368,8 +370,8 @@ VALUES (
         null,
         1,
         5,
-        "09/28/551",
-        "04/11/479",
+        "0551-09-28",
+        "0479-04-11",
         "BCE"
     );
 

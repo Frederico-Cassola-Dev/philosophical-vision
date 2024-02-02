@@ -11,7 +11,15 @@ class UserManager extends AbstractManager {
       [user.firstName, user.lastName, user.email, user.hashPassword]
     );
 
-    return result.insertId;
+    const [resultWithRole] = await this.database.query(
+      `insert into users_roles (user_id) values (?)`,
+      [result.insertId]
+    );
+
+    return {
+      userInsertedId: result.insertId,
+      userRoleInsertedId: resultWithRole.insertId,
+    };
   }
 
   async read(id) {

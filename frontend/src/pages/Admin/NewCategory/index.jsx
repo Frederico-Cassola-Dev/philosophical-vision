@@ -8,20 +8,23 @@ import style from "./newCategory.module.scss";
 
 export default function NewCategory() {
   const navigate = useNavigate();
-  const [newCategory, setNewCategory] = useState("");
+  const [newCategoryTitle, setNewCategoryTitle] = useState("");
+  const [newCategoryDescription, setNewCategoryDescription] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
   const handleNewCategoryPost = () => {
-    if (newCategory) {
+    if (newCategoryTitle) {
       axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, {
-          title: newCategory,
+          title: newCategoryTitle,
+          description: newCategoryDescription,
         })
         .then(() => {
           setSubmitMessage("Nouvelle catégorie ajoutée");
           setIsDialogOpen(true);
-          setNewCategory("");
+          setNewCategoryTitle("");
+          setNewCategoryDescription("");
         })
         .catch((err) => console.error(err));
     } else {
@@ -46,12 +49,26 @@ export default function NewCategory() {
         }}
       >
         <label htmlFor="title" className={style.label}>
-          Nouvelle Catégorie
+          Nouvelle catégorie
           <input
+            name="title"
+            id="title"
             type="text"
             className={style.input}
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
+            placeholder="Insérez le titre de la catégorie"
+            value={newCategoryTitle}
+            onChange={(e) => setNewCategoryTitle(e.target.value)}
+          />
+        </label>
+        <label htmlFor="categoryDescription" className={style.label}>
+          Description
+          <textarea
+            type="text"
+            id="categoryDescription"
+            name="categoryDescription"
+            placeholder="Insérez la description de la catégorie"
+            value={newCategoryDescription}
+            onChange={(e) => setNewCategoryDescription(e.target.value)}
           />
         </label>
         <div className={style.submitBtnContainer}>
@@ -61,7 +78,9 @@ export default function NewCategory() {
           <button
             type="button"
             className={style.submitBtn}
-            onClick={() => navigate("/admin")}
+            onClick={() => {
+              navigate(-1);
+            }}
           >
             Retourner
           </button>

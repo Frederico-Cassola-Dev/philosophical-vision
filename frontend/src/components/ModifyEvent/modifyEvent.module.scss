@@ -1,0 +1,112 @@
+@import "../../scss/variables";
+
+.modifyEvent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 12.5rem);
+  padding: $space-s;
+  font-family: $primary-font;
+  font-size: $font-size-l;
+  font-weight: $font-weight-bold;
+
+  h2 {
+    text-align: center;
+    font-size: $font-size-3xl;
+    padding-top: $space-l;
+    padding-bottom: $space-m;
+  }
+
+  .eventForm {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+
+    textarea {
+      width: calc(100% - 10px);
+      padding: $space-2xs;
+      font-weight: $font-weight-bold;
+      border-radius: $border-radius-s;
+    }
+
+    label {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      padding-top: $space-m;
+      width: 100%;
+
+      .labelTitle {
+        font-size: $font-size-l;
+        padding-bottom: $space-xs;
+      }
+
+      .selectContainer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        gap: $space-2xs;
+        padding: $space-3xs 0 0 0;
+
+        .select {
+          width: 70%;
+          height: $space-m + 3px;
+          padding-left: $space-2xs;
+          font-weight: $font-weight-bold;
+          border-radius: $border-radius-s;
+
+          &:focus {
+            outline: 2px solid $border-color-active;
+          }
+        }
+
+        .addCategoryBtn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: 0.5rem;
+          color: $color-text-primary;
+          border: none;
+
+          &:active {
+            color: $color-text-hover;
+          }
+          
+          .addCategoryBtnDescription {
+            font-family: $primary-font;
+            font-size: $font-size-l;
+            font-weight: $font-weight-bold;
+            margin-left: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .buttonsContainer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      padding-top: $space-m;
+      gap: $space-s;
+
+      button {
+        color: $color-text-primary;
+        border: 1px solid $color-primary-active;
+        border-radius: $border-radius-l;
+        padding: $space-2xs $space-xs;
+        font-size: $font-size-s;
+        font-weight: $font-weight-bold;
+
+        &:hover {
+          background-color: $color-text-hover;
+        }
+      }
+    }
+  }
+}
