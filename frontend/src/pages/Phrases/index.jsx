@@ -107,7 +107,7 @@ export default function Phrases() {
             });
           }}
         >
-          <option value="" selected disabled hidden>
+          <option value="" disabled hidden>
             Catégorie
           </option>
           {categoriesData.response?.map((category) => (
