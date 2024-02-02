@@ -29,7 +29,7 @@ export default function TablesDB() {
       method: "get",
       endpoint: `${table}`,
     },
-    [modifyPhrase, modifyEvent, modifyCategory, deleteUserModal]
+    [modifyPhrase, modifyEvent, modifyAuthor, modifyCategory, deleteUserModal]
   );
 
   const totalLikesData = useAxios(

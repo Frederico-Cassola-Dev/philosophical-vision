@@ -110,6 +110,8 @@ router.delete("/categories/:id", categoryControllers.destroy);
 router.get("/authors", authorControllers.browse);
 router.get("/authors/:id", authorControllers.read);
 router.post("/authors", authorControllers.add);
+router.put("/authors/:id", authorControllers.edit);
+router.delete("/authors/:id", authorControllers.destroy);
 
 //* Periods
 router.get("/periods", periodControllers.browse);

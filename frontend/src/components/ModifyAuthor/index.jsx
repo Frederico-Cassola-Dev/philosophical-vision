@@ -1,8 +1,10 @@
 import { useState } from "react";
 import propTypes from "prop-types";
+import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 
 import style from "./modifyAuthor.module.scss";
+import DialogNotification from "../DialogNotification";
 
 export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
   const selectedAuthorData = useAxios(
@@ -35,11 +37,66 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
   const [newBornDate, setNewBornDate] = useState("");
   const [newDeadDate, setNewDeadDate] = useState("");
   const [newEra, setNewEra] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleModifiedAuthor = (event) => {
+    event.preventDefault();
+
+    const newModifiedAuthor = {
+      newKnownName: newKnownName || selectedAuthorData.response?.known_name,
+      newFirstName: newFirstName || selectedAuthorData.response?.first_name,
+      newLastName: newLastName || selectedAuthorData.response?.last_name,
+      newPeriod: newPeriod || selectedAuthorData.response?.period_id,
+      newPhiloCurrent:
+        newPhiloCurrent || selectedAuthorData.response?.philo_current_id,
+      newBornDate: newBornDate || selectedAuthorData.response?.born_date,
+      newDeadDate: newDeadDate || selectedAuthorData.response?.dead_date,
+      newEra: newEra || selectedAuthorData.response?.era,
+    };
+
+    axios
+      .put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/authors/${selectedAuthorId}`,
+        { newModifiedAuthor }
+      )
+      .then(() => {
+        setSubmitMessage("Auteur modifié");
+        setIsDialogOpen(true);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleSubmitDeleteAuthor = (event) => {
+    event.preventDefault();
+    axios
+      .delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/authors/${selectedAuthorId}`
+      )
+      .then(() => {
+        setSubmitMessage("Auteur effacé");
+        setIsDialogOpen(true);
+      })
+      .catch((err) => {
+        if (err) {
+          setSubmitMessage("Auteur déjà utilisé, impossible de effacer");
+          setIsDialogOpen(true);
+        }
+        console.error(err);
+      });
+  };
 
   return (
     <div className={style.modifyAuthor}>
       <h2 className={style.title}>Modify Author</h2>
-      <form className={style.modifyAuthorForm}>
+      {isDialogOpen && (
+        <DialogNotification
+          returnSetPreviousPage={setModifyAuthor}
+          dialogContent={submitMessage}
+          setIsDialogOpen={setIsDialogOpen}
+        />
+      )}
+      <form className={style.modifyAuthorForm} onSubmit={handleModifiedAuthor}>
         <label htmlFor="knownName" className={style.inputLabel}>
           Nom connu
           <input
@@ -173,7 +230,9 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
           </label>
         </div>
         <div className={style.buttonsContainer}>
-          <button type="button">Effacer</button>
+          <button type="button" onClick={handleSubmitDeleteAuthor}>
+            Effacer
+          </button>
           <button type="submit">Modifier</button>
           <button
             type="button"
