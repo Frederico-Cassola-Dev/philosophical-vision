@@ -98,6 +98,7 @@ export default function Phrases() {
         />
         <select
           aria-label="categories"
+          value={state.categoryId}
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
             dispatch({
@@ -106,7 +107,9 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Catégorie</option>
+          <option value="" selected disabled hidden>
+            Catégorie
+          </option>
           {categoriesData.response?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
