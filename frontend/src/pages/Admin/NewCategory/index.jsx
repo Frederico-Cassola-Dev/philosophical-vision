@@ -51,6 +51,8 @@ export default function NewCategory() {
         <label htmlFor="title" className={style.label}>
           Nouvelle catégorie
           <input
+            name="title"
+            id="title"
             type="text"
             className={style.input}
             placeholder="Insérez le titre de la catégorie"

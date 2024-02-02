@@ -14,8 +14,6 @@
   .title {
     text-align: center;
     font-size: $font-size-3xl;
-    // padding-top: $space-l;
-    // padding-bottom: $space-m;
   }
 
   .modifyAuthorForm {
@@ -111,6 +109,7 @@
         }
 
         .selectEra {
+          width: 100%;
           height: $space-m;
           margin-top: $space-2xs;
           padding-left: $space-2xs;
@@ -145,6 +144,7 @@
         }
       }
     }
+
     .buttonsContainer {
       display: flex;
       justify-content: space-around;

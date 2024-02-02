@@ -1,3 +1,4 @@
+import { useState } from "react";
 import propTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
 
@@ -26,6 +27,14 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
     },
     [selectedAuthorId]
   );
+  const [newKnownName, setNewKnownName] = useState("");
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
+  const [newPeriod, setNewPeriod] = useState("");
+  const [newPhiloCurrent, setNewPhiloCurrent] = useState("");
+  const [newBornDate, setNewBornDate] = useState("");
+  const [newDeadDate, setNewDeadDate] = useState("");
+  const [newEra, setNewEra] = useState("");
 
   return (
     <div className={style.modifyAuthor}>
@@ -35,31 +44,45 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
           Nom connu
           <input
             name="knownName"
+            id="knownName"
             type="text"
             placeholder={selectedAuthorData.response?.known_name}
+            defaultValue={newKnownName}
+            onChange={(e) => setNewKnownName(e.target.value)}
           />
         </label>
         <label htmlFor="firstName" className={style.inputLabel}>
           Prénom
           <input
             name="firstName"
+            id="firstName"
             type="text"
             placeholder={selectedAuthorData.response?.first_name}
+            defaultValue={newFirstName}
+            onChange={(e) => setNewFirstName(e.target.value)}
           />
         </label>
         <label htmlFor="lastName" className={style.inputLabel}>
           Nom
           <input
             name="lastName"
+            id="lastName"
             type="text"
             placeholder={selectedAuthorData.response?.last_name}
+            defaultValue={newLastName}
+            onChange={(e) => setNewLastName(e.target.value)}
           />
         </label>
         <label htmlFor="period" className={style.inputLabel}>
           Période
-          <select name="period" id="period">
+          <select
+            name="period"
+            id="period"
+            value={newPeriod}
+            onChange={(e) => setNewPeriod(e.target.value)}
+          >
             {selectedAuthorData.response && (
-              <option defaultChecked>
+              <option defaultChecked hidden>
                 {selectedAuthorData.response?.period_title}
               </option>
             )}
@@ -72,9 +95,14 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
         </label>
         <label htmlFor="philoCurrent" className={style.inputLabel}>
           Courant Philosophique
-          <select name="philoCurrent" id="philoCurrent">
+          <select
+            name="philoCurrent"
+            id="philoCurrent"
+            value={newPhiloCurrent}
+            onChange={(e) => setNewPhiloCurrent(e.target.value)}
+          >
             {selectedAuthorData.response && (
-              <option defaultChecked>
+              <option defaultChecked hidden>
                 {selectedAuthorData.response?.philo_current_title}
               </option>
             )}
@@ -88,20 +116,59 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
         <div className={style.datesContainer}>
           <label htmlFor="bornDate" className={style.inputLabelBorn}>
             Né
-            <input type="date" name="bornDate" className={style.inputDates} />
+            <input
+              type="date"
+              name="bornDate"
+              id="bornDate"
+              className={style.inputDates}
+              defaultValue={
+                newBornDate || selectedAuthorData.response?.born_date
+              }
+              onChange={(e) => setNewBornDate(e.target.value)}
+            />
           </label>
           <label htmlFor="deadDate" className={style.inputLabelDead}>
             Décédé
-            <input type="date" name="deadDate" className={style.inputDates} />
+            <input
+              type="date"
+              name="deadDate"
+              id="deadDate"
+              className={style.inputDates}
+              defaultValue={
+                newDeadDate || selectedAuthorData.response?.dead_date
+              }
+              onChange={(e) => setNewDeadDate(e.target.value)}
+            />
           </label>
           <label htmlFor="era" className={style.inputLabelEra}>
             <span className={style.labelNameEra}>Era</span>
-            <select name="era" id="" className={style.selectEra}>
-              <option value="" disabled hidden>
-                Sélectionne
+            <select
+              name="era"
+              id="era"
+              className={style.selectEra}
+              value={newEra || selectedAuthorData.response?.era}
+              onChange={(e) => setNewEra(e.target.value)}
+            >
+              {selectedAuthorData.response && (
+                <option
+                  defaultChecked
+                  hidden
+                  value={newEra || selectedAuthorData.response?.era}
+                >
+                  {newEra || selectedAuthorData.response?.era}
+                </option>
+              )}
+              <option
+                value={
+                  newEra === "BCE" || selectedAuthorData.response?.era === "BCE"
+                    ? "CE"
+                    : "BCE"
+                }
+              >
+                {newEra === "BCE" || selectedAuthorData.response?.era === "BCE"
+                  ? "CE"
+                  : "BCE"}
               </option>
-              <option value="BCE">BCE</option>
-              <option value="CE">CE</option>
             </select>
           </label>
         </div>
@@ -123,6 +190,6 @@ export default function ModifyAuthor({ selectedAuthorId, setModifyAuthor }) {
 }
 
 ModifyAuthor.propTypes = {
-  selectedAuthorId: propTypes.string.isRequired,
+  selectedAuthorId: propTypes.number.isRequired,
   setModifyAuthor: propTypes.func.isRequired,
 };
