@@ -1,6 +1,6 @@
 @import "../../scss/variables";
 
-.modifyCategory {
+.modifyAuthor {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -11,34 +11,30 @@
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
 
-  h2 {
+  .title {
     text-align: center;
     font-size: $font-size-3xl;
-    padding-top: $space-l;
-    padding-bottom: $space-m;
+    // padding-top: $space-l;
+    // padding-bottom: $space-m;
   }
 
-  .categoryForm {
+  .modifyAuthorForm {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: flex-start;
     flex-direction: column;
-    width: 100%;
+    min-width: 90vw;
+    padding: $space-s;
 
-    label {
+    .inputLabel {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
-      padding-top: $space-m;
       width: 100%;
+      margin-bottom: $space-s;
 
-      .labelTitle {
-        font-size: $font-size-l;
-        padding-bottom: $space-xs;
-      }
-
-      .inputTitle {
+      input {
         width: 93%;
         height: $space-m;
         margin-top: $space-2xs;
@@ -51,16 +47,104 @@
         }
       }
 
-      textarea {
-        width: calc(100% - 10px);
-        height: $space-3xl;
+      select {
+        width: 50%;
+        height: $space-m;
         margin-top: $space-2xs;
-        padding: $space-2xs;
+        padding-left: $space-2xs;
         font-weight: $font-weight-bold;
         border-radius: $border-radius-s;
+
+        &:focus {
+          outline: 2px solid $border-color-active;
+        }
       }
     }
 
+    .datesContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .inputLabelBorn {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 30%;
+        margin-bottom: $space-s;
+      }
+      .inputLabelDead {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 30%;
+        margin-bottom: $space-s;
+      }
+
+      .inputDates {
+        width: 80%;
+        height: $space-m;
+        margin-top: $space-2xs;
+        padding: 0 $space-xs;
+        font-size: $font-size-s;
+        font-weight: $font-weight-bold;
+        border-radius: $border-radius-s;
+
+        &:focus {
+          outline: 2px solid $border-color-active;
+        }
+      }
+
+      .inputLabelEra {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-direction: column;
+        width: 30%;
+        margin-bottom: $space-s;
+
+        .labelNameEra {
+          margin-right: 15%;
+        }
+
+        .selectEra {
+          height: $space-m;
+          margin-top: $space-2xs;
+          padding-left: $space-2xs;
+          font-weight: $font-weight-bold;
+          border-radius: $border-radius-s;
+
+          &:focus {
+            outline: 2px solid $border-color-active;
+          }
+        }
+      }
+    }
+
+    .submitBtnContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: $space-l;
+      gap: $space-m;
+
+      .submitBtn {
+        color: $color-text-primary;
+        border: 1px solid $color-primary-active;
+        border-radius: $border-radius-l;
+        padding: $space-2xs $space-xs;
+        font-size: $font-size-l;
+        font-weight: $font-weight-bold;
+
+        &:hover {
+          background-color: $color-text-hover;
+        }
+      }
+    }
     .buttonsContainer {
       display: flex;
       justify-content: space-around;

@@ -2,28 +2,19 @@ const AbstractManager = require("./AbstractManager");
 
 class UserManager extends AbstractManager {
   constructor() {
-    // Call the constructor of the parent class (AbstractManager)
-    // and pass the table name "users" as configuration
     super({ table: "periods" });
   }
 
-  // The C of CRUD - Create operation
-
   async create(period) {
-    // Execute the SQL INSERT query to add a new period to the "users" table
     const [result] = await this.database.query(
       `insert into ${this.table} (title) values (?)`,
       [period.title]
     );
 
-    // Return the ID of the newly inserted period
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
-
   async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific period by its ID
     const [rows] = await this.database.query(
       `select * from ${this.table} where id = ?`,
       [id]

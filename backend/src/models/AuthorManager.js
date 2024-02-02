@@ -25,7 +25,12 @@ class UserManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `
+      select a.id, known_name, first_name, last_name, p.id period_id, p.title period_title, philo_current_id, pc.title philo_current_title, born_date, dead_date, era from ${this.table} a
+      inner join periods p on p.id = a.period_id
+      inner join philo_currents pc on pc.id = a.philo_current_id 
+      where a.id = ?
+      `,
       [id]
     );
     return rows[0];
@@ -33,7 +38,8 @@ class UserManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select a.id, known_name, first_name, last_name, p.title period_title, philo_current_id, pc.title philo_current_title, born_date, dead_date, era from ${this.table} a
+      `
+      select a.id, known_name, first_name, last_name, p.title period_title, philo_current_id, pc.title philo_current_title, born_date, dead_date, era from ${this.table} a
       inner join periods p on p.id = a.period_id
       inner join philo_currents pc on pc.id = a.philo_current_id
       `
