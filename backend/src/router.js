@@ -38,7 +38,7 @@ router.post(
   userControllers.editUserAfterResetToken
 );
 router.post("/users", checkUserData, hashPassword, userControllers.add);
-router.get("/phrases5", phraseControllers.browse5);
+router.get("/phrases3", phraseControllers.browse3);
 
 //*---------------------------
 //* PROTECTED ROUTES

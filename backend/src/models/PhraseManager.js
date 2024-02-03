@@ -52,9 +52,9 @@ class PhraseManager extends AbstractManager {
     return rows;
   }
 
-  async read5() {
+  async read3() {
     const [rows] = await this.database.query(
-      `select * from ${this.table} order by rand() limit 5`
+      `select * from ${this.table} order by rand() limit 3`
     );
 
     return rows;
