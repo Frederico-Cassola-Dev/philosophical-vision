@@ -45,12 +45,14 @@
 
     .descriptionSection {
       width: 80vw;
-      font-family: $primary-font;
-      margin-bottom: $space-xl;
-
+      margin-bottom: $space-m;
+      
       .descriptionText {
         text-align: center;
+        font-family: $primary-font;
+        font-weight: $font-weight-normal;
         font-size: $font-size-l;
+        letter-spacing: 1px;
       }
     }
 
@@ -61,20 +63,25 @@
       flex-direction: column;
       width: 90vw;
       margin-top: $space-m;
+      padding: 0 $space-xs;
+      text-align: center;
       font-weight: $font-weight-bold;
       font-size: $font-size-xl;
-
-      text-align: center;
-      padding: 0 $space-xs;
     }
 
     @keyframes phrases-animation {
       0% {
-        transform: translateX(-14%);
+        transform: translateY(-14%);
+        text-shadow: 0 0 15px rgba(176, 182, 189, 0.8);
       }
-
+      25% {
+        transform: translateX(-14%);
+        text-shadow: 0 0 15px rgba(176, 182, 189, 0.8);
+      }
+      
       100% {
         transform: translateX(12%);
+        text-shadow: 0 0 15px rgba(176, 182, 189, 0.8);
       }
     }
 
@@ -82,35 +89,35 @@
       max-width: 85%;
       margin-bottom: $space-l;
 
-      animation: phrases-animation 2s linear infinite alternate;
+      animation: phrases-animation 4s linear infinite alternate;
     }
 
     .phrase1 {
       max-width: 85%;
       margin-bottom: $space-l;
 
-      animation: phrases-animation 2s linear infinite alternate-reverse;
+      animation: phrases-animation 4s linear infinite alternate-reverse;
     }
 
     .phrase2 {
       margin-bottom: $space-l;
       max-width: 85%;
 
-      animation: phrases-animation 2s linear infinite alternate;
+      animation: phrases-animation 4s linear infinite alternate;
     }
 
     .phrase3 {
       margin-bottom: $space-l;
       max-width: 85%;
 
-      animation: phrases-animation 2s linear infinite alternate-reverse;
+      animation: phrases-animation 4s linear infinite alternate-reverse;
     }
 
     .phrase4 {
       margin-bottom: $space-l;
       max-width: 85%;
 
-      animation: phrases-animation 2s linear infinite alternate;
+      animation: phrases-animation 4s linear infinite alternate;
     }
   }
 }
