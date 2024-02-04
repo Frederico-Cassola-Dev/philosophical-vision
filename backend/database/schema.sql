@@ -662,58 +662,58 @@ INSERT into
         author_id
     )
 VALUES (
-        "Si vous avez un ennemi, asseyez-vous au bord de la rivière et attendez. Tôt ou tard, vous verrez passer son cadavre.",
+        "“Si vous avez un ennemi, asseyez-vous au bord de la rivière et attendez. Tôt ou tard, vous verrez passer son cadavre.”",
         8
     ), (
-        "Celui qui ne croit pas que l'incroyable peut se produire ne trouvera pas la vérité.",
+        "“Celui qui ne croit pas que l'incroyable peut se produire ne trouvera pas la vérité.”",
         7
     ), (
-        "Tout coule.",
+        "“Tout coule.”",
         7
     ), (
-        "Exigez beaucoup de vous-même et attendez peu des autres. Vous éviterez ainsi bien des tracas.",
+        "“Exigez beaucoup de vous-même et attendez peu des autres. Vous éviterez ainsi bien des tracas.”",
         8
     ), (
-        "Ce que l'homme supérieur cherche, c'est en lui-même. Ce que le petit homme cherche, c'est dans les autres.",
+        "“Ce que l'homme supérieur cherche, c'est en lui-même. Ce que le petit homme cherche, c'est dans les autres.”",
         8
     ), (
-        "Il est inutile d'essayer d'aider ceux qui ne s'aident pas eux-mêmes.",
+        "“Il est inutile d'essayer d'aider ceux qui ne s'aident pas eux-mêmes.”",
         8
     ), (
-        "Pourquoi s'inquiéter de la mort ? La vie a tellement de problèmes que nous devons les résoudre en premier lieu.",
+        "“Pourquoi s'inquiéter de la mort ? La vie a tellement de problèmes que nous devons les résoudre en premier lieu.”",
         8
     ), (
-        "On ne peut pas changer le vent, mais on peut ajuster les voiles du bateau pour aller où l'on veut.",
+        "“On ne peut pas changer le vent, mais on peut ajuster les voiles du bateau pour aller où l'on veut.”",
         8
     ), (
-        "Qui ne se préoccupe pas de l'avenir lointain, se condamne aux soucis immédiats.",
+        "“Qui ne se préoccupe pas de l'avenir lointain, se condamne aux soucis immédiats.”",
         8
     ), (
-        "Il n'existe pas de méthode simple pour résoudre les problèmes difficiles.",
+        "“Il n'existe pas de méthode simple pour résoudre les problèmes difficiles.”",
         2
     ), (
-        "Mon conseil est de se marier. Si vous avez une bonne femme, vous serez heureux ; et si vous avez une mauvaise femme, vous deviendrez philosophe, ce qui est excellent pour l'homme.",
+        "“Mon conseil est de se marier. Si vous avez une bonne femme, vous serez heureux et si vous avez une mauvaise femme, vous deviendrez philosophe, ce qui est excellent pour l'homme.”",
         1
     ), (
-        "La manière d'acquérir une bonne réputation réside dans l'effort d'être ce que vous voulez paraître.",
+        "“La manière d'acquérir une bonne réputation réside dans l'effort d'être ce que vous voulez paraître.”",
         1
     ), (
-        "Il est généralement conseillé de manifester son intelligence par ce que l'on tait plutôt que par ce que l'on dit. La première alternative est la sagesse, la seconde est la vanité.",
+        "“Il est généralement conseillé de manifester son intelligence par ce que l'on tait plutôt que par ce que l'on dit. La première alternative est la sagesse, la seconde est la vanité.”",
         6
     ), (
-        "Il n'y a pas de rose sans épines. Mais il y a beaucoup d'épines sans roses.",
+        "“Il n'y a pas de rose sans épines. Mais il y a beaucoup d'épines sans roses.”",
         6
     ), (
-        "Comment une personne cruelle envers les animaux peut-elle être une bonne personne?",
+        "“Comment une personne cruelle envers les animaux peut-elle être une bonne personne?”",
         6
     ), (
-        "Entre les hommes, il n'y a, par nature, que de l'indifférence; mais entre les femmes, déjà par nature, il y a de l'inimitié.",
+        "“Entre les hommes, il n'y a, par nature, que de l'indifférence; mais entre les femmes, déjà par nature, il y a de l'inimitié.”",
         6
     ), (
-        "Il n'y a qu'une seule erreur innée, celle de croire que nous existons pour être heureux.",
+        "“Il n'y a qu'une seule erreur innée, celle de croire que nous existons pour être heureux.”",
         6
     ), (
-        "Nous ne nous rendons compte des jours heureux de notre vie que lorsqu'ils ont fait place à des jours malheureux.",
+        "“Nous ne nous rendons compte des jours heureux de notre vie que lorsqu'ils ont fait place à des jours malheureux.”",
         6
     );
 
