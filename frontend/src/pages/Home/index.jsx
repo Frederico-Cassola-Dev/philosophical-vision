@@ -6,7 +6,7 @@ import style from "./home.module.scss";
 export default function Home() {
   const phrasesData = useAxios({
     method: "get",
-    endpoint: "phrases5",
+    endpoint: "phrases3",
   });
 
   return (
