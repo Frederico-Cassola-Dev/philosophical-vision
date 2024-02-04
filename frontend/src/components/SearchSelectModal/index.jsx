@@ -45,7 +45,7 @@ export default function SearchSelectModal({ state, dispatch }) {
               state.categoryId === "" && (
                 <li className={style.listItems}>
                   <button type="button" disabled>
-                    "Aucun résulta trouvé"
+                    Aucun résulta trouvé
                   </button>
                 </li>
               )}
