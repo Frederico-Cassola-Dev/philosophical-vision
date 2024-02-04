@@ -668,7 +668,7 @@ VALUES (
         "Celui qui ne croit pas que l'incroyable peut se produire ne trouvera pas la vérité.",
         7
     ), (
-        "Tout coule",
+        "Tout coule.",
         7
     ), (
         "Exigez beaucoup de vous-même et attendez peu des autres. Vous éviterez ainsi bien des tracas.",
@@ -686,7 +686,7 @@ VALUES (
         "On ne peut pas changer le vent, mais on peut ajuster les voiles du bateau pour aller où l'on veut.",
         8
     ), (
-        "Qui ne se préoccupe pas de l'avenir lointain, se condamne aux soucis immédiats. ",
+        "Qui ne se préoccupe pas de l'avenir lointain, se condamne aux soucis immédiats.",
         8
     ), (
         "Il n'existe pas de méthode simple pour résoudre les problèmes difficiles.",
@@ -715,12 +715,6 @@ VALUES (
     ), (
         "Nous ne nous rendons compte des jours heureux de notre vie que lorsqu'ils ont fait place à des jours malheureux.",
         6
-    ), (
-        "11 The unexamined life is not worth living",
-        3
-    ), (
-        "12 The unexamined life is not worth living",
-        3
     );
 
 INSERT INTO
