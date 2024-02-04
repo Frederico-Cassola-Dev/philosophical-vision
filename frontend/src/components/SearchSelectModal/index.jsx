@@ -41,6 +41,13 @@ export default function SearchSelectModal({ state, dispatch }) {
         <h2 className={style.modalTitle}>Events</h2>
         <div className={style.listContainer}>
           <ul className={style.list}>
+            {eventsByTitleData.response?.length === 0 && (
+              <li className={style.listItems}>
+                <button type="button" disabled>
+                  "Aucun résulta trouvé"
+                </button>
+              </li>
+            )}
             {state.categoryId !== "" &&
               eventsByCategoryData?.response?.map((events) => (
                 <li className={style.listItems} key={events.id}>
