@@ -28,7 +28,7 @@ export default function Home() {
         <section className={style.randomPhrasesSection}>
           {phrasesData?.response?.map((item, index) => (
             <p className={style[`phrase${index}`]} key={item.id}>
-              {item.phrase}
+              “{item.phrase}”
             </p>
           ))}
         </section>
