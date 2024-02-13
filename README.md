@@ -14,8 +14,6 @@ git config --global core.eol lf
 git config --global core.autocrlf false
 ```
 
-
-
 ### Project Initialization
 
 - In VSCode, install plugins **Prettier - Code formatter** and **ESLint** and configure them
