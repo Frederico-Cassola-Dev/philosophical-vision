@@ -5,7 +5,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 9.5rem);
+  height: calc(100vh - 11.1rem);
   font-family: $primary-font;
   color: $color-text-primary;
   background-color: $color-background-primary;
@@ -73,6 +73,8 @@
 
 @media (min-width: 1024px) and (min-height: 700px) {
   .aboutMe {
+  height: calc(100vh - 11.6rem);
+
     .titleContainer {
       .title {
         font-size: $font-size-10xl;
@@ -85,6 +87,7 @@
           width: 70%;
           font-size: $font-size-5xl;
         }
+        
         .imgContainer {
           width: 20%;
         }
