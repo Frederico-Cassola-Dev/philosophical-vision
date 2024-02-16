@@ -42,41 +42,36 @@ function App() {
     }
   }, []);
   return (
-    <>
-      <p className="underConstruction">
-        La version desktop est en construction.
-      </p>
-      <div className="app">
-        <Router>
-          <Header />
-          <Routes>
-            {/* public routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="aboutMe" element={<AboutMe />} />
-            <Route path="signIn" element={<SignIn />} />
-            <Route path="signUp" element={<SignUp />} />
-            <Route path="loggedOut" element={<LoggedOut />} />
-            <Route path="forgotPassword" element={<ForgotPassword />} />
-            <Route path="resetPassword" element={<ResetPassword />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-            {/* private routes  */}
-            <Route element={<ProtectedLayout userRole={user?.role_id} />}>
-              <Route path="phrases" element={<Phrases />} />
-              <Route path="myAccount" element={<MyAccount />} />
-              <Route path="favorites" element={<FavoritesPhrases />} />
-            </Route>
-            <Route element={<ProtectedAdminLayout userRole={user?.role_id} />}>
-              <Route path="admin" element={<Admin />} />
-              <Route path="admin/newAuthor" element={<NewAuthor />} />
-              <Route path="admin/newEvent" element={<NewEvent />} />
-              <Route path="admin/newCategory" element={<NewCategory />} />
-              <Route path="admin/tablesDb/:table" element={<TablesDB />} />
-            </Route>
-          </Routes>
-          <Footer />
-        </Router>
-      </div>
-    </>
+    <div className="app">
+      <Router>
+        <Header />
+        <Routes>
+          {/* public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="aboutMe" element={<AboutMe />} />
+          <Route path="signIn" element={<SignIn />} />
+          <Route path="signUp" element={<SignUp />} />
+          <Route path="loggedOut" element={<LoggedOut />} />
+          <Route path="forgotPassword" element={<ForgotPassword />} />
+          <Route path="resetPassword" element={<ResetPassword />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* private routes  */}
+          <Route element={<ProtectedLayout userRole={user?.role_id} />}>
+            <Route path="phrases" element={<Phrases />} />
+            <Route path="myAccount" element={<MyAccount />} />
+            <Route path="favorites" element={<FavoritesPhrases />} />
+          </Route>
+          <Route element={<ProtectedAdminLayout userRole={user?.role_id} />}>
+            <Route path="admin" element={<Admin />} />
+            <Route path="admin/newAuthor" element={<NewAuthor />} />
+            <Route path="admin/newEvent" element={<NewEvent />} />
+            <Route path="admin/newCategory" element={<NewCategory />} />
+            <Route path="admin/tablesDb/:table" element={<TablesDB />} />
+          </Route>
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
   );
 }
 
