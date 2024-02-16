@@ -108,12 +108,12 @@
   }
 }
 
-@media (max-width: 1250px) {
+@media (min-width: 1024px) {
   .home {
     .main {
       .titleContainer {
         .title {
-          font-size: $font-size-5xl;
+          font-size: $font-size-9xl;
           img {
             width: 150px;
             margin-bottom: $space-xs;
@@ -122,10 +122,23 @@
 
           .subTitle {
             font-family: $primary-font;
-            font-size: $font-size-6xl;
+            font-size: $font-size-10xl;
             margin-left: $space-2xs;
           }
         }
+      }
+
+      .descriptionSection {
+        .descriptionText {
+          font-size: $font-size-3xl;
+        }
+      }
+
+      .randomPhrasesSection {
+        justify-content: space-between;
+        height: 50vh;
+        margin-top: $space-xl;
+        font-size: $font-size-5xl;
       }
     }
   }
