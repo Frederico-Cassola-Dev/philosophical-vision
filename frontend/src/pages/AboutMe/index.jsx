@@ -9,7 +9,7 @@ export default function AboutMe() {
       <div className={style.titleContainer}>
         <h1 className={style.title}>
           Frederico
-          <img src={singleLogoLittle} alt="logo" />
+          <img src={singleLogoLittle} width="84" height="48" alt="logo" />
           <span className={style.subTitle}>Cassola</span>
         </h1>
       </div>
