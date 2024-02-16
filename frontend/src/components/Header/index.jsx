@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import userContext from "../../contexts/userContext";
 
-import singleLogo from "../../assets/logo/singleLogoLittle.png";
+import singleLogoLittle from "../../assets/logo/singleLogoLittle.png";
 import style from "./_header.module.scss";
 
 function Header() {
@@ -32,7 +32,7 @@ function Header() {
                 : `${style.logoContainer}`
             }
           >
-            <img src={singleLogo} alt="logo" />
+            <img src={singleLogoLittle} width="84" height="48" alt="logo" />
           </Link>
         </div>
       )}
