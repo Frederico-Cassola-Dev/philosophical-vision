@@ -46,7 +46,7 @@
     .descriptionSection {
       width: 80vw;
       margin-bottom: $space-m;
-      
+
       .descriptionText {
         text-align: center;
         font-family: $primary-font;
@@ -78,7 +78,7 @@
         transform: translateX(-14%);
         text-shadow: 0 0 15px rgba(176, 182, 189, 0.8);
       }
-      
+
       100% {
         transform: translateX(12%);
         text-shadow: 0 0 15px rgba(176, 182, 189, 0.8);
@@ -105,19 +105,28 @@
 
       animation: phrases-animation 4s linear infinite alternate;
     }
+  }
+}
 
-    .phrase3 {
-      margin-bottom: $space-l;
-      max-width: 85%;
+@media (max-width: 1250px) {
+  .home {
+    .main {
+      .titleContainer {
+        .title {
+          font-size: $font-size-5xl;
+          img {
+            width: 150px;
+            margin-bottom: $space-xs;
+            margin-left: $space-2xs;
+          }
 
-      animation: phrases-animation 4s linear infinite alternate-reverse;
-    }
-
-    .phrase4 {
-      margin-bottom: $space-l;
-      max-width: 85%;
-
-      animation: phrases-animation 4s linear infinite alternate;
+          .subTitle {
+            font-family: $primary-font;
+            font-size: $font-size-6xl;
+            margin-left: $space-2xs;
+          }
+        }
+      }
     }
   }
 }

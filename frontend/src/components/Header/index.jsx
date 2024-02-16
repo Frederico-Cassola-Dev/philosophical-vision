@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import userContext from "../../contexts/userContext";
 
-import singleLogo from "../../assets/logo/single_logo_little.png";
+import singleLogo from "../../assets/logo/singleLogoLittle.png";
 import style from "./_header.module.scss";
 
 function Header() {

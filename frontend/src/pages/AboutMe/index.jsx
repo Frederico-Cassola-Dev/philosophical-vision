@@ -1,4 +1,4 @@
-import singleLogoLittle from "../../assets/logo/single_logo_little.png";
+import singleLogoLittle from "../../assets/logo/singleLogoLittle.png";
 import aboutMePhoto from "../../assets/images/photo-frederico_cassola-min.png";
 
 import style from "./_aboutMe.module.scss";
