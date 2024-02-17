@@ -102,3 +102,25 @@
     }
   }
 }
+
+@media (min-width: 1024px) and (min-height: 700px) {
+  .tablesDB {
+    .linkContainer {
+      .linkReturnBtn {
+        font-size: $font-size-l;
+      }
+    }
+    .sectionTable {
+      .table {
+        th{
+          font-size: $font-size-4xl;
+        }
+        tbody {
+          td {
+            font-size: $font-size-3xl;
+          }
+        }
+      }
+    }
+  }
+}

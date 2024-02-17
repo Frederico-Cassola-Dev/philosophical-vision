@@ -1,12 +1,12 @@
 import useAxios from "../../hooks/useAxios";
 
-import singleLogoLittle from "../../assets/logo/single_logo_little.png";
+import singleLogoLittle from "../../assets/logo/singleLogoLittle.png";
 import style from "./home.module.scss";
 
 export default function Home() {
   const phrasesData = useAxios({
     method: "get",
-    endpoint: "phrases5",
+    endpoint: "phrases3",
   });
 
   return (

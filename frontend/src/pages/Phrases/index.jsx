@@ -19,6 +19,7 @@ export default function Phrases() {
   const { user, setUser, setToken } = useContext(userContext);
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
   const navigate = useNavigate();
+
   const usersFavoritePhrases = useAxios(
     {
       method: "get",

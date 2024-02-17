@@ -10,9 +10,9 @@ const browse = async (req, res, next) => {
   }
 };
 
-const browse5 = async (req, res, next) => {
+const browse3 = async (req, res, next) => {
   try {
-    const phrases = await tables.phrases.read5();
+    const phrases = await tables.phrases.read3();
     res.json(phrases);
   } catch (err) {
     next(err);
@@ -105,7 +105,7 @@ const destroy = async (req, res, next) => {
 
 module.exports = {
   browse,
-  browse5,
+  browse3,
   read,
   read4ByRandomEvent,
   read4ByEventId,
