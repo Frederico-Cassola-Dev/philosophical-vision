@@ -85,3 +85,9 @@
     }
   }
 }
+
+@media (min-width: 1024px) and (min-height: 700px) {
+  .signUp {
+    height: calc(100vh - 12.1rem);
+  }
+}

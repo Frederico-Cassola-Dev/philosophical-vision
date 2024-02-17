@@ -13,7 +13,7 @@
   .logoContainer {
     min-width: 6.5rem;
     height: auto;
-    margin-left: $space-xs;
+    padding: $space-xs;
   }
 
   .hiddenLogo {
@@ -41,6 +41,26 @@
       &:hover {
         color: $color-primary-active;
         background-color: $color-text-hover;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 700px) {
+  .header {
+    .logoContainer {
+      // min-width: 6.5rem;
+      // height: auto;
+      // padding-left: $space-xs;
+      // img{
+      //   padding: $space-m;
+      // }
+    }
+  
+    .nav {
+      padding: 20px;
+      .link {
+        font-size: $font-size-xl;
       }
     }
   }
