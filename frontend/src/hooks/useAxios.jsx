@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import getBackendUrl from "../../env"; // Adjust the path as needed
 
 export default function useAxios(request, dependencies = []) {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const apiUrl = getBackendUrl();
     axios({
       method: request.method,
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/${request.endpoint}`,
+      url: `${apiUrl}/api/${request.endpoint}`,
       data: request.data ? request.data : "",
     })
       .then((fetchResponse) => {
