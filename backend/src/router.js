@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const passport = require("passport");
+
 const userControllers = require("./controllers/userControllers");
 const userPhraseControllers = require("./controllers/userPhraseControllers");
 const phraseControllers = require("./controllers/phraseControllers");
@@ -11,6 +13,7 @@ const authorControllers = require("./controllers/authorControllers");
 const eventPhraseControllers = require("./controllers/eventPhraseControllers");
 const periodControllers = require("./controllers/periodControllers");
 const philoCurrentControllers = require("./controllers/philoCurrentControllers");
+const googleAuthControllers = require("./controllers/googleAuthControllers");
 
 const {
   checkUserData,
@@ -40,9 +43,26 @@ router.post(
 router.post("/users", checkUserData, hashPassword, userControllers.add);
 router.get("/phrases3", phraseControllers.browse3);
 
+// GOOGLE OAUTH2   -   This routes don't pass by the models
+// Passing google authenticate method as a middleware
+router.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
+);
+router.get(
+  "/google/callback",
+  passport.authenticate("google"),
+  googleAuthControllers.googleCallback
+);
+router.get("/login/success", googleAuthControllers.loginSuccess);
+router.get("/logout", googleAuthControllers.logout);
+
 //*---------------------------
 //* PROTECTED ROUTES
 //*---------------------------
+
 router.use(verifyToken);
 
 //* Users

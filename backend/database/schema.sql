@@ -3,10 +3,13 @@
 create table
     users (
         id int primary key auto_increment NOT NULL,
-        first_name varchar(100) NOT NULL,
-        last_name varchar(100) NOT NULL,
+        first_name varchar(254),
+        last_name varchar(254),
+        google_name varchar(254),
         email varchar(254) NOT NULL unique,
-        password varchar(254) NOT NULL,
+        password varchar(254),
+        photo varchar(254),
+        google_id varchar(254),
         reset_token varchar(254),
         reset_token_expires_at DATETIME
     );
@@ -419,60 +422,74 @@ INSERT into
     users (
         first_name,
         last_name,
+        google_name,
         email,
         password,
+        photo,
+        google_id,
         reset_token,
         reset_token_expires_at
     )
 VALUES (
         "admin",
         "admin",
+        null,
         "admin@admin.com",
         "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+        null,
+        null,
         null,
         null
     ),(
         "John",
         "Springfield",
+       null,
         "john.springfield@springfield.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null,
        null,
        null
     ), (
         "Anna",
         "Springfield",
+       null,
         "anna.springfield@springfield.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null,
        null,
        null
     ), (
         "Philip",
         "Gotham",
+       null,
         "philip.gotham@gotham.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null,
        null,
        null
     ), (
         "Susan",
         "Gotham",
+       null,
         "susan.gotham@gotham.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
+       null,
+       null,
        null,
        null
     ), (
         "Andrea",
         "Fritz",
+       null,
         "andrea.fritz@fritz.com",
        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
        null,
+       null,
+       null,
        null
-    ), (
-        "carlos",
-        "cassola",
-        "cfcassola@gmail.com",
-        "$argon2id$v=19$m=65536,t=3,p=1$vmZ5cEJ0bV14hWy1OPv5gQ$wjUBwUERQn7MNyqJuUXBkXtNflzRXcxLRwKAE55VGHw",
-        null,
-        null
     );
 
 
@@ -489,8 +506,7 @@ users_roles (
     (3, 2),
     (4, 2),
     (5, 2),
-    (6, 2),
-    (7, 2);
+    (6, 2);
 
 INSERT INTO 
 periods (
