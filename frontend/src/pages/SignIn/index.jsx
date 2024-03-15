@@ -18,6 +18,16 @@ export default function SignIn() {
   const navigate = useNavigate();
   const { setUser, setToken } = useContext(userContext);
 
+  // Requesting on http://localhost:5000/auth/google once user click on sign in with google
+  const signInWithGoogle = () => {
+    // console.log("making the request");
+    window.open(
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/google`,
+      "_self",
+      "toolbar=no, scrollbars=yes, resizable=no, width=1000, height=auto"
+    );
+  };
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -83,6 +93,11 @@ export default function SignIn() {
         </Link>
         <div className={style.submitButtonContainer}>
           <button type="submit">Se connecter</button>
+        </div>
+        <div className={style.submitButtonContainer}>
+          <button type="button" onClick={signInWithGoogle}>
+            Google Sign-In
+          </button>
         </div>
       </form>
     </div>

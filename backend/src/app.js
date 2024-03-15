@@ -6,6 +6,10 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 const cors = require("cors");
+
+const session = require("express-session");
+const passport = require("passport");
+
 const router = require("./router");
 
 // const transporter = nodemailer.createTransport({
@@ -25,8 +29,25 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api", router);
+app.use(express.urlencoded({ extended: true }));
 
+// Adding required middlewares
+app.use(
+  session({
+    secret: "askduhakdnkbiygvhbad7a6s*&^*S^D8asdbk", // You should replace this with a more secure secret
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use("/api", router);
+// app.use("/api/auth", require("./services/passport"));
 /* ************************************************************************* */
 
 // Production-ready setup: What is it for, and when should I enable it?
