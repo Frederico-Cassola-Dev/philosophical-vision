@@ -46,7 +46,7 @@
     .descriptionSection {
       width: 80vw;
       margin-bottom: $space-m;
-      
+
       .descriptionText {
         text-align: center;
         font-family: $primary-font;
@@ -78,7 +78,7 @@
         transform: translateX(-14%);
         text-shadow: 0 0 15px rgba(176, 182, 189, 0.8);
       }
-      
+
       100% {
         transform: translateX(12%);
         text-shadow: 0 0 15px rgba(176, 182, 189, 0.8);
@@ -105,19 +105,43 @@
 
       animation: phrases-animation 4s linear infinite alternate;
     }
+  }
+}
 
-    .phrase3 {
-      margin-bottom: $space-l;
-      max-width: 85%;
+@media (min-width: 1024px) and (min-height: 700px) {
+  .home {
+    height: calc(100vh - 12.1rem);
 
-      animation: phrases-animation 4s linear infinite alternate-reverse;
-    }
+    .main {
+      .titleContainer {
+        .title {
+          font-size: $font-size-9xl;
+          img {
+            width: 150px;
+            margin-bottom: $space-xs;
+            margin-left: $space-2xs;
+          }
 
-    .phrase4 {
-      margin-bottom: $space-l;
-      max-width: 85%;
+          .subTitle {
+            font-family: $primary-font;
+            font-size: $font-size-10xl;
+            margin-left: $space-2xs;
+          }
+        }
+      }
 
-      animation: phrases-animation 4s linear infinite alternate;
+      .descriptionSection {
+        .descriptionText {
+          font-size: $font-size-3xl;
+        }
+      }
+
+      .randomPhrasesSection {
+        justify-content: space-between;
+        height: 50vh;
+        margin-top: $space-xl;
+        font-size: $font-size-5xl;
+      }
     }
   }
 }

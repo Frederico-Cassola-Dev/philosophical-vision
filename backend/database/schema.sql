@@ -131,7 +131,7 @@ VALUES (
         ), 
         (
         "Mariage",
-        " Institution sociale et contractuelle où deux personnes s'engagent à partager leur vie de manière intime et légale."
+        "Institution sociale et contractuelle où deux personnes s'engagent à partager leur vie de manière intime et légale."
         ), 
         (
         "Personnalité",
@@ -147,15 +147,15 @@ VALUES (
         ), 
         (
         "Fortuna",
-        " Le concept de chance ou de hasard, souvent discuté en relation avec le destin et la fortune."
+        "Le concept de chance ou de hasard, souvent discuté en relation avec le destin et la fortune."
         ), 
         (
         "Apprendre",
-        " Processus d'acquisition de connaissances, de compétences et de compréhension."
+        "Processus d'acquisition de connaissances, de compétences et de compréhension."
         ), 
         (
         "Problèmes",
-        " Défis ou difficultés qui nécessitent une résolution ou une réflexion approfondie."
+        "Défis ou difficultés qui nécessitent une résolution ou une réflexion approfondie."
         ), 
         (
         "Attitude",
