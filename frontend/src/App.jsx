@@ -41,6 +41,7 @@ function App() {
       setUser(JSON.parse(localStorage.getItem("user_info")).user);
     }
   }, []);
+
   return (
     <div className="app">
       <Router>

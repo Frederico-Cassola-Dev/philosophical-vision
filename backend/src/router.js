@@ -80,7 +80,7 @@ passport.use(
                 return cb(err, false);
               }
               return db.query(
-                "select * from users where googleId = ?",
+                "select * from users where google_id = ?",
                 [profile.id],
                 (err3, user2) => {
                   console.warn("Login/Sign in successfully");
@@ -111,7 +111,7 @@ router.get(
     // If user exist than ...
     if (req.user) {
       // console.log("the user is", req.user[0]); //Just for debugging
-      // Creating a unique token using sign method which is provided by JWT, remember the 2nd parameter should be a secret key and that should have at least length of 20, i have just passed 'rahulnikam' but you should not do the same and this should be kept in environment variable so that no one can see it
+      // Creating a unique token using sign method which is provided by JWT, rjohn.springfield@springfield.comhould have at least length of 20, i have just passed 'rahulnikam' but you should not do the same and this should be kept in environment variable so that no one can see it
       const googleAuthToken = jwt.sign(
         { user_token: req.user[0].googleId },
         process.env.JWT_SECRET,
@@ -130,16 +130,12 @@ router.get(
 );
 
 //  we are making a request from frontend to localhost:5000/auth/login/success, and we are sending user data (remember that don't pass any confidential data line user password or any other)
-router.get("/login/success", (req, res) => {
+router.get("/auth/login/success", (req, res) => {
   if (req.user) {
     res.status(200).json({
       success: true,
       message: "successful",
-      user: [
-        req.user[0].userName,
-        req.user[0].userEmail,
-        req.user[0].userPhoto,
-      ],
+      user: [req.user[0].google_name, req.user[0].email, req.user[0].photo],
     });
   }
 });
