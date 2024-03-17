@@ -141,16 +141,6 @@ function Header() {
             )}
           </>
         )}
-        {/* {user && user.role_id === 1 && (
-          <>
-            <Link to="/" className={style.link} onClick={logout}>
-              Déconnecter
-            </Link>
-            <Link to="/admin" className={style.link}>
-              Administrateur
-            </Link>
-          </>
-        )} */}
       </nav>
     </header>
   );

@@ -20,7 +20,6 @@ export default function SignIn() {
 
   // Requesting on http://localhost:5000/api/auth/google once user click on sign in with google
   const signInWithGoogle = () => {
-    // console.log("making the request");
     window.open(
       `${import.meta.env.VITE_BACKEND_URL}/api/auth/google`,
       "_self",
@@ -31,26 +30,6 @@ export default function SignIn() {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  // Requesting on http://localhost:5000/auth/login/success and getting users data.
-  useEffect(() => {
-    Axios.defaults.withCredentials = true;
-    Axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login/success`)
-      .then((res) => {
-        if (res.status === 200) {
-          setUser({
-            google_name: res.data.user[0],
-            email: res.data.user[1],
-            photo: res.data.user[2],
-            role_id: 2,
-          });
-          localStorage.setItem("user_info", JSON.stringify(res.data.user));
-        } else {
-          console.warn("No status");
-        }
-      })
-      .catch((err) => console.error(err));
-  }, [navigate]);
 
   const login = (event) => {
     event.preventDefault();

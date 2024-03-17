@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Axios from "axios";
 
 import userContext from "./contexts/userContext";
 import Footer from "./components/Footer";
@@ -40,6 +41,30 @@ function App() {
     } else {
       setUser(JSON.parse(localStorage.getItem("user_info")).user);
     }
+  }, []);
+
+  // Requesting on http://localhost:5000/auth/login/success and getting user data.
+  useEffect(() => {
+    Axios.get("http://localhost:5000/api/auth/login/success", {
+      withCredentials: true,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          const userData = {
+            id: res.data.user[0],
+            google_name: res.data.user[1],
+            email: res.data.user[2],
+            photo: res.data.user[3],
+            role_id: 2,
+          };
+          setUser(userData);
+
+          localStorage.setItem("user_info", JSON.stringify(userData));
+        } else {
+          console.warn("No status");
+        }
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   return (

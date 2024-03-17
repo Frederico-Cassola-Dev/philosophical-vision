@@ -120,11 +120,12 @@ router.get(
       // res.cookie will set a cookie in user's header (i mean in users http header😂)
       // we are saying that create a cookie with a name of googleAuthToken and we are passing the token that we generated on line no 80, and the 3rd parameter is the expire of that cookie.
       res.cookie("user_token", googleAuthToken, {
-        expires: new Date(Date.now() + 86400 * 1000),
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
         httpOnly: true,
       });
+
       // we are now redirecting the user to localhost:3000 which is our frontend
-      res.redirect("http://localhost:3000");
+      res.redirect("http://localhost:3000/phrases");
     }
   }
 );
@@ -135,7 +136,12 @@ router.get("/auth/login/success", (req, res) => {
     res.status(200).json({
       success: true,
       message: "successful",
-      user: [req.user[0].google_name, req.user[0].email, req.user[0].photo],
+      user: [
+        req.user[0].id,
+        req.user[0].google_name,
+        req.user[0].email,
+        req.user[0].photo,
+      ],
     });
   }
 });
@@ -152,23 +158,6 @@ router.get("/logout", (req, res) => {
 });
 
 //* OPEN ROUTES
-// GOOGLE OAUTH2   -   This routes don't pass by the models
-// Passing google authenticate method as a middleware
-// router.use("/api/auth", require("./services/passport"));
-
-// router.get(
-//   "/auth/google",
-//   passport.authenticate("google", {
-//     scope: ["profile", "email"],
-//   })
-// );
-// router.get(
-//   "/auth/google/callback",
-//   passport.authenticate("google"),
-//   googleAuthControllers.googleCallback
-// );
-// router.get("/login/success", googleAuthControllers.loginSuccess);
-// router.get("/logout", googleAuthControllers.logout);
 
 router.post("/login", userControllers.readByEmail, verifyPassword);
 router.post(
