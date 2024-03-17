@@ -123,6 +123,7 @@ export default function TablesDB() {
                     <tr>
                       <th>Prénom</th>
                       <th>Nom</th>
+                      <th>Google name</th>
                       <th>Email</th>
                       <th>Rôle</th>
                     </tr>
@@ -206,6 +207,7 @@ export default function TablesDB() {
                       >
                         <td>{item.first_name}</td>
                         <td>{item.last_name}</td>
+                        <td>{item.google_name}</td>
                         <td>{item.email}</td>
                         <td>{item.role_name}</td>
                       </tr>

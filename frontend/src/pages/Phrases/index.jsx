@@ -1,5 +1,5 @@
 import { useContext, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import userContext from "../../contexts/userContext";
@@ -16,9 +16,9 @@ import PhraseItem from "./PhraseItem";
 import style from "./phrases.module.scss";
 
 export default function Phrases() {
-  const { user, setUser, setToken } = useContext(userContext);
+  const { user } = useContext(userContext);
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const usersFavoritePhrases = useAxios(
     {
@@ -42,14 +42,14 @@ export default function Phrases() {
   });
 
   //! Why this code?????????????
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.clear();
-    document.cookie =
-      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    navigate("/loggedOut");
-  };
+  // const logout = () => {
+  //   setUser(null);
+  //   setToken(null);
+  //   localStorage.clear();
+  //   document.cookie =
+  //     "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  //   navigate("/loggedOut");
+  // };
 
   axios.defaults.withCredentials = true;
 
@@ -70,9 +70,9 @@ export default function Phrases() {
   }, [state.eventId]);
 
   //! Why this code?????????????
-  if (categoriesData?.error?.response.status === 401) {
-    logout();
-  }
+  // if (categoriesData?.error?.response.status === 401) {
+  //   logout();
+  // }
 
   return (
     <div className={style.phrases}>

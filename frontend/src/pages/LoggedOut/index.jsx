@@ -1,3 +1,3 @@
 export default function LoggedOut() {
-  return <div>Logged out</div>;
+  return <div>Vous êtes déconnecté</div>;
 }

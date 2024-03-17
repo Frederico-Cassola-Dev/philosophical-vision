@@ -43,10 +43,15 @@
       }
     }
 
-    .forgotPasswordBtn{
+    .forgotPasswordBtn {
       margin-top: $space-xs;
       color: $color-text-primary;
       border: none;
+
+      &:hover {
+        transform: scale(1.1);
+        font-weight: $font-weight-bold;
+      }
     }
 
     .submitButtonContainer {
@@ -66,6 +71,11 @@
 
         &:hover {
           background-color: $color-text-hover;
+        }
+
+        img {
+          width: 30px;
+          padding-right: $space-2xs;
         }
       }
     }

@@ -1,6 +1,6 @@
 const AbstractManager = require("./AbstractManager");
 
-class UserManager extends AbstractManager {
+class GoogleOAuthManager extends AbstractManager {
   constructor() {
     super({ table: "users" });
   }
@@ -22,9 +22,31 @@ class UserManager extends AbstractManager {
     };
   }
 
+  async createGoogleProfile(profile) {
+    const [result] = await this.database.query(
+      `insert into ${this.table} ( email, google_name, google_id, photo) values (?, ?, ?, ?)`,
+      [
+        profile.emails[0].value,
+        profile.displayName,
+        profile.id,
+        profile.photos[0].value,
+      ]
+    );
+
+    const [resultWithRole] = await this.database.query(
+      `insert into users_roles (user_id) values (?)`,
+      [result.insertId]
+    );
+
+    return {
+      userInsertedId: result.insertId,
+      userRoleInsertedId: resultWithRole.insertId,
+    };
+  }
+
   async read(id) {
     const [rows] = await this.database.query(
-      `select u.id, u.first_name, u.last_name, u.google_name, u.email, u.password, r.role_name from ${this.table} u
+      `select u.id, u.first_name, u.last_name, u.email, u.password, r.role_name from ${this.table} u
       INNER JOIN users_roles ur on ur.user_id = u.id
       INNER JOIN roles r on r.id = ur.role_id 
       where u.id = ?`,
@@ -34,11 +56,23 @@ class UserManager extends AbstractManager {
     return rows[0];
   }
 
+  async readByGoogleId(id) {
+    const [rows] = await this.database.query(
+      `select u.id, u.first_name, u.last_name, u.google_name, u.email, u.password, u.photo, u.google_id, r.role_name from ${this.table} u
+      INNER JOIN users_roles ur on ur.user_id = u.id
+      INNER JOIN roles r on r.id = ur.role_id 
+      where u.google_id = ?`,
+      [id]
+    );
+
+    return rows[0];
+  }
+
   async readByEmail(email) {
     const [rows] = await this.database.query(
       `SELECT u.id, u.first_name, u.last_name, users_roles.role_id, u.email, u.password FROM ${this.table} u
-      INNER JOIN users_roles ON users_roles.user_id = u.id
-      INNER JOIN roles ON roles.id = users_roles.role_id       
+        INNER JOIN users_roles ON users_roles.user_id = u.id
+        INNER JOIN roles ON roles.id = users_roles.role_id       
       where u.email = ?`,
       [email]
     );
@@ -58,9 +92,9 @@ class UserManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select u.id, u.first_name, u.last_name, u.google_name, u.email, r.role_name from ${this.table} u
-      LEFT JOIN users_roles ur on ur.user_id = u.id
-      LEFT JOIN roles r on r.id = ur.role_id`
+      `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
+      INNER JOIN users_roles ur on ur.user_id = u.id
+      INNER JOIN roles r on r.id = ur.role_id`
     );
 
     return rows;
@@ -152,4 +186,4 @@ class UserManager extends AbstractManager {
   }
 }
 
-module.exports = UserManager;
+module.exports = GoogleOAuthManager;
