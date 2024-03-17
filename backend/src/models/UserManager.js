@@ -24,7 +24,7 @@ class UserManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select u.id, u.first_name, u.last_name, u.email, u.password, r.role_name from ${this.table} u
+      `select u.id, u.first_name, u.last_name, u.google_name, u.email, u.password, r.role_name from ${this.table} u
       INNER JOIN users_roles ur on ur.user_id = u.id
       INNER JOIN roles r on r.id = ur.role_id 
       where u.id = ?`,
@@ -37,8 +37,8 @@ class UserManager extends AbstractManager {
   async readByEmail(email) {
     const [rows] = await this.database.query(
       `SELECT u.id, u.first_name, u.last_name, users_roles.role_id, u.email, u.password FROM ${this.table} u
-        INNER JOIN users_roles ON users_roles.user_id = u.id
-        INNER JOIN roles ON roles.id = users_roles.role_id       
+      INNER JOIN users_roles ON users_roles.user_id = u.id
+      INNER JOIN roles ON roles.id = users_roles.role_id       
       where u.email = ?`,
       [email]
     );
@@ -58,9 +58,9 @@ class UserManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `select u.id, u.first_name, u.last_name, u.email, r.role_name from ${this.table} u
-      INNER JOIN users_roles ur on ur.user_id = u.id
-      INNER JOIN roles r on r.id = ur.role_id`
+      `select u.id, u.first_name, u.last_name, u.google_name, u.email, r.role_name from ${this.table} u
+      LEFT JOIN users_roles ur on ur.user_id = u.id
+      LEFT JOIN roles r on r.id = ur.role_id`
     );
 
     return rows;
