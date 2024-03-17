@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import Axios from "axios";
 import userContext from "../../contexts/userContext";
 
 import singleLogoLittle from "../../assets/logo/singleLogoLittle.png";
@@ -7,17 +8,20 @@ import style from "./_header.module.scss";
 
 function Header() {
   const { pathname } = useLocation();
-
-  const { user, setUser, setToken } = useContext(userContext);
   const navigate = useNavigate();
-
+  const { user, setUser, setToken } = useContext(userContext);
+  // Axios.defaults.withCredentials = true;
   const logout = () => {
     setUser(null);
     setToken(null);
     localStorage.clear();
-    document.cookie =
-      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    navigate("/");
+    Axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
+      withCredentials: true,
+    })
+      .then((res) => {
+        if (res.data.success) navigate("/loggedOut");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (

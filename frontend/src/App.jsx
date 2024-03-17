@@ -32,20 +32,18 @@ import "./scss/styles.scss";
 
 function App() {
   const { user, setUser, setToken } = useContext(userContext);
-
   useEffect(() => {
     if (!document.cookie) {
       setUser(null);
       setToken(null);
       localStorage.clear();
     } else {
-      setUser(JSON.parse(localStorage.getItem("user_info")).user);
+      setUser(JSON.parse(localStorage.getItem("user_info"))?.user);
     }
   }, []);
 
-  // Requesting on http://localhost:5000/auth/login/success and getting user data.
   useEffect(() => {
-    Axios.get("http://localhost:5000/api/auth/login/success", {
+    Axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login/success`, {
       withCredentials: true,
     })
       .then((res) => {

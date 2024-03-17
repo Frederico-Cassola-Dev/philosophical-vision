@@ -125,7 +125,8 @@ router.get(
       });
 
       // we are now redirecting the user to localhost:3000 which is our frontend
-      res.redirect("http://localhost:3000/phrases");
+      res.redirect(`${process.env.FRONTEND_URL}/phrases`);
+      // res.redirect(process.env.FRONTEND_URL);
     }
   }
 );
@@ -146,15 +147,10 @@ router.get("/auth/login/success", (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      return res.status(500).json({ error: "Logout failed" });
-    }
-    return res.json({
-      logout: req.user,
-    });
-  });
+router.get("/auth/logout", (req, res) => {
+  res.clearCookie("user_token");
+  res.clearCookie("connect.sid");
+  res.json({ success: true, message: "successful" });
 });
 
 //* OPEN ROUTES
