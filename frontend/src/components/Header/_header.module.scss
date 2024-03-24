@@ -4,7 +4,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
   min-height: 4.7rem;
   font-family: $primary-font;
   color: $color-text-primary;
@@ -48,15 +47,6 @@
 
 @media (min-width: 1024px) and (min-height: 700px) {
   .header {
-    .logoContainer {
-      // min-width: 6.5rem;
-      // height: auto;
-      // padding-left: $space-xs;
-      // img{
-      //   padding: $space-m;
-      // }
-    }
-  
     .nav {
       padding: 20px;
       .link {
