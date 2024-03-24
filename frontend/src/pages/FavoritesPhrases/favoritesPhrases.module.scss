@@ -1,0 +1,63 @@
+@import "../../scss/variables";
+
+.favoritesPhrases {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 9.5rem);
+  font-family: $primary-font;
+  color: $color-text-primary;
+  background-color: $color-background-primary;
+
+  .title {
+    font-family: $secondary-font;
+    font-weight: $font-weight-normal;
+    font-size: $font-size-5xl;
+    padding-top: $space-l;
+    padding-bottom: $space-l;
+  }
+
+  .favoritesPhrasesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: $space-m;
+    overflow-y: auto;
+
+    .singleFavoritePhrase {
+      .phrase {
+        text-align: center;
+        font-family: $primary-font;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-l;
+      }
+
+      .authorContainer {
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 700px) {
+  .favoritesPhrases {
+    height: calc(100vh - 12.1rem);
+
+    .title {
+      font-size: $font-size-7xl;
+    }
+
+    .favoritesPhrasesContainer {
+      gap: $space-l;
+
+      .singleFavoritePhrase {
+        .phrase {
+          font-weight: $font-weight-normal;
+          font-size: $font-size-3xl;
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 9.6rem);
+  height: calc(100vh - 9.5rem);
   font-family: $primary-font;
   font-size: $font-size-l;
 
@@ -92,6 +92,47 @@
       .favoriteButton {
         color: orange;
         border: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 700px) {
+  .phrases {
+    height: calc(100vh - 12.1rem);
+    .inputsContainer {
+      display: flex;
+
+      .inputSearchCategory {
+        width: 65%;
+        height: $space-l;
+        font-size: $space-m;
+      }
+
+      select {
+        width: 65%;
+        height: $space-l + 3px;
+        font-size: $space-m;
+      }
+    }
+
+    .lifeEventContainer {
+      font-size: $font-size-7xl;
+    }
+
+    .visionsContainer {
+      .visionPhrase {
+        font-size: $font-size-5xl;
+      }
+
+      .reactionsAndAuthorContainer {
+        .author {
+          font-size: $font-size-3xl;
+        }
+
+        .totalLikes {
+          font-size: $font-size-4xl;
+        }
       }
     }
   }

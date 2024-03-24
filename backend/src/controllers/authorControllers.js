@@ -36,8 +36,42 @@ const add = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  const author = {
+    ...req.body.newModifiedAuthor,
+    id: parseInt(req.params.id, 10),
+  };
+
+  try {
+    const updatedId = await tables.authors.update(author);
+    if (updatedId == null) {
+      res.status(204);
+    } else {
+      res.json(updatedId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroy = async (req, res, next) => {
+  const id = parseInt(req.params.id, 10);
+  try {
+    const authorId = await tables.authors.delete(id);
+    if (authorId == null) {
+      res.status(204);
+    } else {
+      res.json(authorId);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
   add,
+  edit,
+  destroy,
 };

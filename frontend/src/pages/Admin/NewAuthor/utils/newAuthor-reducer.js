@@ -6,13 +6,14 @@ export const INPUT_PHILO_CURRENT = "inputPhiloCurrent";
 export const INPUT_BORN_DATE = "inputBornDate";
 export const INPUT_DEAD_DATE = "inputDeadDate";
 export const INPUT_ERA = "imputEra";
+export const RESET = "reset";
 
 export const initialState = {
   knownName: "",
   firstName: "",
   lastName: "",
-  periodId: null,
-  philoCurrent: null,
+  periodId: "",
+  philoCurrent: "",
   bornDate: "",
   deadDate: "",
   era: "",
@@ -82,6 +83,10 @@ export default function newAuthorReducer(state, action) {
         ...state,
         era,
       };
+    }
+
+    case RESET: {
+      return initialState;
     }
 
     default:

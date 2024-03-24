@@ -49,7 +49,9 @@ export default function PhraseItem({
     <div key={phraseToShow.phrase_id}>
       <p className={style.visionPhrase}>{phraseToShow.phrase}</p>
       <div className={style.reactionsAndAuthorContainer}>
-        <span className={style.author}>Auteur: {phraseToShow.author}</span>
+        <span className={style.author}>
+          Auteur: <strong>{phraseToShow.author}</strong>
+        </span>
         <span className={style.totalLikes}>{likesToShow || 0}</span>
         <button
           id={`likeButton${phraseToShow.phrase_id}`}
@@ -67,6 +69,7 @@ export default function PhraseItem({
               setLikesToShow(() => likesToShow + 1);
             }
           }}
+          aria-label="Phrase aimée ou non"
         >
           <IconHeart alreadyLiked={isLiked} />
         </button>
@@ -81,6 +84,7 @@ export default function PhraseItem({
               phraseId: phraseToShow.phrase_id,
             });
           }}
+          aria-label="Phrase favorite ou non"
         >
           <IconStar alreadyFavorite={isFavorite} />
         </button>

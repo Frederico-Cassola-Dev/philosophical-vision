@@ -22,36 +22,41 @@
     background-color: $color-primary-active;
     z-index: 10000;
     border-radius: $border-radius-m;
-
+    
     .closeIconModal {
       position: absolute;
       top: $space-xs;
       right: $space-xs;
       border-radius: $border-radius-s;
-
+      
       &:hover {
         color: $color-text-hover;
       }
     }
-
+    
     .modalTitle {
-      margin-top: $space-m;
       font-family: $secondary-font;
       font-size: $font-size-6xl;
       font-weight: $font-weight-normal;
       color: $color-text-primary;
     }
-
+    
     .listContainer {
+      position:relative;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
+      flex-direction: column;
       padding: $space-xs;
       overflow-y: auto;
-      list-style: none;
-
+      flex-grow: 1; 
+      
       .list {
+        list-style: none;
+
         .listItems {
+          list-style: none;
+          
           button {
             width: 95%;
             margin-bottom: $space-s;

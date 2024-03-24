@@ -1,5 +1,5 @@
 import { useContext, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import userContext from "../../contexts/userContext";
@@ -16,9 +16,10 @@ import PhraseItem from "./PhraseItem";
 import style from "./phrases.module.scss";
 
 export default function Phrases() {
-  const { user, setUser, setToken } = useContext(userContext);
+  const { user } = useContext(userContext);
   const [state, dispatch] = useReducer(phrasesReducer, initialState);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
   const usersFavoritePhrases = useAxios(
     {
       method: "get",
@@ -40,14 +41,15 @@ export default function Phrases() {
     endpoint: "categories",
   });
 
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.clear();
-    document.cookie =
-      "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    navigate("/loggedOut");
-  };
+  //! Why this code?????????????
+  // const logout = () => {
+  //   setUser(null);
+  //   setToken(null);
+  //   localStorage.clear();
+  //   document.cookie =
+  //     "user_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  //   navigate("/loggedOut");
+  // };
 
   axios.defaults.withCredentials = true;
 
@@ -67,9 +69,10 @@ export default function Phrases() {
       .catch((err) => console.error(err));
   }, [state.eventId]);
 
-  if (categoriesData?.error?.response.status === 401) {
-    logout();
-  }
+  //! Why this code?????????????
+  // if (categoriesData?.error?.response.status === 401) {
+  //   logout();
+  // }
 
   return (
     <div className={style.phrases}>
@@ -96,6 +99,7 @@ export default function Phrases() {
         />
         <select
           aria-label="categories"
+          value={state.categoryId}
           onChange={(e) => {
             dispatch({ type: OPEN_MODAL });
             dispatch({
@@ -104,7 +108,9 @@ export default function Phrases() {
             });
           }}
         >
-          <option defaultChecked>Catégorie</option>
+          <option value="" disabled hidden>
+            Catégorie
+          </option>
           {categoriesData.response?.map((category) => (
             <option key={category.id} value={category.id}>
               {category.title}
@@ -119,9 +125,11 @@ export default function Phrases() {
       </div>
       <div className={style.visionsContainer}>
         {state.phrasesToShow?.map((item) => {
+          //! Maybe remove this code into a folder
           const foundFavoritePhrases = usersFavoritePhrases.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );
+
           const foundTotalLikes = totalLikes.response?.find(
             (phrase) => item.phrase_id === phrase.phrase_id
           );

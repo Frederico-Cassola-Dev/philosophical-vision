@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 9.6rem);
+  height: calc(100vh - 11.6rem);
   font-family: $primary-font;
   font-size: $font-size-l;
   font-weight: $font-weight-bold;
@@ -43,6 +43,17 @@
       }
     }
 
+    .forgotPasswordBtn {
+      margin-top: $space-xs;
+      color: $color-text-primary;
+      border: none;
+
+      &:hover {
+        transform: scale(1.1);
+        font-weight: $font-weight-bold;
+      }
+    }
+
     .submitButtonContainer {
       display: flex;
       justify-content: center;
@@ -54,14 +65,25 @@
         border: 1px solid $color-primary-active;
         border-radius: $border-radius-l;
         padding: $space-2xs $space-xs;
-        margin-top: $space-l;
+        margin-top: $space-s;
         font-size: $font-size-l;
         font-weight: $font-weight-bold;
 
         &:hover {
           background-color: $color-text-hover;
         }
+
+        img {
+          width: 30px;
+          padding-right: $space-2xs;
+        }
       }
     }
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 700px) {
+  .signIn {
+    height: calc(100vh - 12.1rem);
   }
 }

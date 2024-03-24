@@ -1,4 +1,4 @@
-import singleLogoLittle from "../../assets/logo/single_logo_little.png";
+import singleLogoLittle from "../../assets/logo/singleLogoLittle.png";
 import aboutMePhoto from "../../assets/images/photo-frederico_cassola-min.png";
 
 import style from "./_aboutMe.module.scss";
@@ -9,7 +9,7 @@ export default function AboutMe() {
       <div className={style.titleContainer}>
         <h1 className={style.title}>
           Frederico
-          <img src={singleLogoLittle} alt="logo" />
+          <img src={singleLogoLittle} width="84" height="48" alt="logo" />
           <span className={style.subTitle}>Cassola</span>
         </h1>
       </div>

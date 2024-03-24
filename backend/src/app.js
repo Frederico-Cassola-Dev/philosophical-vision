@@ -2,10 +2,23 @@
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
+// const nodemailer = require("nodemailer");
 
 const app = express();
 const cors = require("cors");
+
+const session = require("express-session");
+const passport = require("passport");
+
 const router = require("./router");
+
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASS,
+//   },
+// });
 
 app.use(
   cors({
@@ -16,8 +29,25 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api", router);
+app.use(express.urlencoded({ extended: true }));
 
+// Adding required middlewares
+app.use(
+  session({
+    secret: "askduhakdnkbiygvhbad7a6s*&^*S^D8asdbk", // You should replace this with a more secure secret
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use("/api", router);
+// app.use("/api/auth", require("./services/passport"));
 /* ************************************************************************* */
 
 // Production-ready setup: What is it for, and when should I enable it?
@@ -35,17 +65,17 @@ app.use("/api", router);
 // 1. Uncomment the lines related to serving static files and redirecting unhandled requests.
 // 2. Ensure that the `reactBuildPath` points to the correct directory where your frontend's build artifacts are located.
 
-const reactBuildPath = `${__dirname}/../../frontend/dist`;
+// const reactBuildPath = `${__dirname}/../../frontend/dist`;
 
 // serve react resources
 
-app.use(express.static(reactBuildPath));
+// app.use(express.static(reactBuildPath));
 
 // redirect unhandled requests to the react index file
 
-app.get("*", (req, res) => {
-  res.sendFile(`${reactBuildPath}/index.html`);
-});
+// app.get("*", (req, res) => {
+// res.sendFile(`${reactBuildPath}/index.html`);
+// });
 
 /* ************************************************************************* */
 
