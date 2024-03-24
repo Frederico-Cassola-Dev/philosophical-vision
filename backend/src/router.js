@@ -114,7 +114,7 @@ router.get(
       // Creating a unique token using sign method which is provided by JWT, rjohn.springfield@springfield.comhould have at least length of 20, i have just passed 'rahulnikam' but you should not do the same and this should be kept in environment variable so that no one can see it
       const googleAuthToken = jwt.sign(
         { user_token: req.user[0].googleId },
-        process.env.JWT_SECRET,
+        process.env.TOKEN_SECRET,
         { expiresIn: 86400000 }
       );
       // res.cookie will set a cookie in user's header (i mean in users http header😂)
