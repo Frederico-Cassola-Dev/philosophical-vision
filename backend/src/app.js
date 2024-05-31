@@ -22,7 +22,7 @@ const router = require("./router");
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, "http://127.0.0.1:3000"],
+    origin: [process.env.FRONTEND_URL, "http://localhost:3000"],
     optionsSuccessStatus: 200,
     credentials: true,
   })
