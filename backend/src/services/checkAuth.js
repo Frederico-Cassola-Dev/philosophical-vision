@@ -97,7 +97,7 @@ const verifyPassword = (req, res) => {
 };
 
 const verifyToken = (req, res, next) => {
-  if (req.cookies) {
+  if (req.cookies.user_token) {
     jwt.verify(
       req.cookies.user_token,
       process.env.TOKEN_SECRET,
